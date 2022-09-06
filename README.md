@@ -1,0 +1,22 @@
+# Dark fantasies [Todo list]
+- Player
+    - Searching for items
+    - Fighting Mobs
+- Traps
+    - Summons Mobs
+    - Spikes from floor (damages player)
+- Mobs
+    - **[Design] Entity**
+    - Drop items
+        - *armor*
+        - *weapons*
+        - *powerups*
+- Powerups
+    - Heal
+    - Speed
+    - Strength
+    - Durability
+- **[Design] Inventory**
+- Dungeon Floor System.
+- Boss
+    - After killing him, game is finished.
