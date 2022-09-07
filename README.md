@@ -45,6 +45,7 @@ There's not a lot documentation about **devkitadv**, and overall looking at new 
 ## Setup
 
 **devkitadv** - Software Development Kit for the Nintendo(tm) Gameboy Advance(tm) based on GCC.
+[Note] devkitadv already contains gcc, if you already have one, try to delete gcc from bin folder of devkitadv package. Or simply temporary remove mingw's gcc from PATH environment variable.  
 Follow these few steps to install development environment on your local machine:
 - Dowloand full packed **devkitadv** package. [link](https://drive.google.com/file/d/1e5EfY6YxEkvzd7Fgp4rJgkPiA7NVlmBN/view?usp=sharing)
 - Unzip archive in preferred place.
