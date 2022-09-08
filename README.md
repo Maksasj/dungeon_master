@@ -1,5 +1,5 @@
-# Dark Fantasies
-Dark Fantasies - Game Boy Advance(GBA) rogue like game written specially for [GBA Jam 2022](https://itch.io/jam/gbajam22)
+# Dungeon Master
+Dungeon Master - Game Boy Advance(GBA) rogue like game written specially for [GBA Jam 2022](https://itch.io/jam/gbajam22)
 
 
 **[Warning]** Recently we changed compiler and overall approach, now we will use devkitadv, look **Setup** section for more information.
