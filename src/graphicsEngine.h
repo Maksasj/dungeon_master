@@ -17,17 +17,18 @@ void flipVBuffers() {
     }
 }
 
-int graphicsEngine() {
-    clearBackground(color(255, 0, 255));
-
-    while(*Scanline<160){}
+void graphicsEngine(gameState* game, buttonState a) {
+    if(game->buttons.SELECT == 1) {
+        clearBackground(color(0, 255, 0));
+    } else {
+        clearBackground(color(255, 0, 0));
+    }
 
     drawPixel(vec2I(15, 15), color(255, 0, 0));
 
-    flipVBuffers();
+    while(*Scanline<160){}
 
-  
-    return 0;
+    flipVBuffers();
 }
 
 int initGraphicsEngine() {
@@ -39,6 +40,8 @@ int initGraphicsEngine() {
     //scale small mode 5 screen to full screen-------------------------------------
     REG_BG2PA=256/2;                                                    //256=normal 128=scale 
     REG_BG2PD=256/2;   
+
+    return 0;
 }
 
 #endif
