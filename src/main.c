@@ -1,12 +1,15 @@
 #include "input.h"
-#include "game_logic.h"
-#include "graphics_engine.h"
+#include "gameLogic.h"
+#include "graphicsEngine.h"
 
 int main() {
+
+    initGraphicsEngine();
+
     while(1) {
         input();
-        game_logic();
-        graphics_engine();
+        gameLogic();
+        graphicsEngine();
     }
 
     return 0;
