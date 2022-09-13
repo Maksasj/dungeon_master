@@ -3,7 +3,7 @@
 
 #include "gbastd/gbastd.h"
 #include "gbastd/graphics.h"
-#include "types/color.h"
+#include "gbastd/types/color.h"
 
 #include "defines.h"
 

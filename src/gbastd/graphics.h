@@ -1,9 +1,9 @@
 #ifndef GBASTD_GRAPHICS_H
 #define GBASTD_GRAPHICS_H
 
-#include "../types/u.h"
-#include "../types/color.h"
-#include "../types/vector.h"
+#include "types/u.h"
+#include "types/color.h"
+#include "types/vector.h"
 
 #include "../defines.h"
 #include "gbastd.h"
