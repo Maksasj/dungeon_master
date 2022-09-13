@@ -1,7 +1,7 @@
 #ifndef GBASTD_H
 #define GBASTD_H
 
-#include "../types/u.h"
+#include "types/u.h"
 
 u16    *VRAM; 
 #define VRAM_F         (u16*)0x6000000 

@@ -1,7 +1,7 @@
 #ifndef BUTTON_STATE_H
 #define BUTTON_STATE_H
 
-#include "../types/u.h"
+#include "../gbastd/types/u.h"
 
 #define FALSE (u8)0
 #define TRUE (u8)1
