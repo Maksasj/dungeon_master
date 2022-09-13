@@ -22,8 +22,8 @@ void clearBackground(rgb color) {
     }
 }
 
-void drawPixel(ivec2 pos, rgb color) {
-    VRAM[pos.y*GBA_SW+pos.x]=rgbToHex(color);
+void drawPixel(u16* VBUFFER, ivec2 pos, rgb color) {
+    VBUFFER[pos.y*GBA_SW+pos.x]=rgbToHex(color);
 }
 
 #endif

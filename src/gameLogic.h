@@ -14,6 +14,8 @@ void gameLogic(gameState* game) {
     } else if (game->activeScene == GAME_SCENE) {
         //game logic as if it a main game
     }
+
+    game->timer++;
 }
 
 #endif

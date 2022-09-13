@@ -7,6 +7,9 @@
 typedef struct {
     scene activeScene;
     buttonState buttons;
+
+    //Variable for testing
+    u64 timer;
 } gameState; 
 
 #endif
