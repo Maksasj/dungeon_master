@@ -17,28 +17,34 @@ void flipVBuffers() {
     }
 }
 
-void graphicsEngine(gameState* game, buttonState a) {
-    if(game->buttons.SELECT == 1) {
+void graphicsEngine(gameState* game) {
+    if(game->activeScene == SPLASH_SCENE) {
+        //TODO design graphics pipeline
         clearBackground(color(0, 255, 0));
-    } else {
+
+        drawPixel(vec2I(15, 15), color(255, 0, 0));
+    } else if(game->activeScene == MAIN_MENU_SCENE) {
+        //TODO design graphics pipeline
         clearBackground(color(255, 0, 0));
+
+        drawPixel(vec2I(15, 15), color(255, 0, 0));
+    } else if(game->activeScene == GAME_SCENE) {
+        //TODO design graphics pipeline
+        clearBackground(color(255, 0, 0));
+
+        drawPixel(vec2I(15, 15), color(255, 0, 0));
     }
 
-    drawPixel(vec2I(15, 15), color(255, 0, 0));
-
     while(*Scanline<160){}
-
     flipVBuffers();
 }
 
 int initGraphicsEngine() {
-    //Init mode 5------------------------------------------------------------------
-    *(u16*)0x4000000 = 0x405;                                           //mode 5 background 2
-    *(u16*)0x400010A = 0x82;                                            //enable timer for fps
-    *(u16*)0x400010E = 0x84;                                            //cnt timer overflow
+    *(u16*)0x4000000 = 0x405;
+    *(u16*)0x400010A = 0x82;
+    *(u16*)0x400010E = 0x84;
 
-    //scale small mode 5 screen to full screen-------------------------------------
-    REG_BG2PA=256/2;                                                    //256=normal 128=scale 
+    REG_BG2PA=256/2;
     REG_BG2PD=256/2;   
 
     return 0;

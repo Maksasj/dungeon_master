@@ -19,4 +19,19 @@ typedef struct {
     u8 L;
 } buttonState; 
 
+u8 ifAnyButtonPressed(buttonState buttons) {
+    if(buttons.A == TRUE) { return TRUE; }
+    if(buttons.B == TRUE) { return TRUE; }
+    if(buttons.SELECT == TRUE) { return TRUE; }
+    if(buttons.START == TRUE) { return TRUE; }
+    if(buttons.RIGHT == TRUE) { return TRUE; }
+    if(buttons.LEFT == TRUE) { return TRUE; }
+    if(buttons.UP == TRUE) { return TRUE; }
+    if(buttons.DOWN == TRUE) { return TRUE; }
+    if(buttons.R == TRUE) { return TRUE; }
+    if(buttons.L == TRUE) { return TRUE; }
+
+    return FALSE;
+}
+
 #endif

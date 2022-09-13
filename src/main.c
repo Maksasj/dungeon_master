@@ -5,20 +5,22 @@
 #include "gameScenes/gameScenes.h"
 #include "gameState/gameState.h"
 
-int main() {
-    gameState *game;
-    game->activeScene = SPLASH_SCENE;
+gameState* initGameState() {
+    gameState game;
+    game.activeScene = SPLASH_SCENE;
+    gameState* gamePtr = &game;
 
+    return gamePtr;
+}
+
+int main() {
+    gameState* game = initGameState();
     initGraphicsEngine();
 
-    int o = 0;
-
     while(1) {
-
-        buttonState state = input(game, &o);
+        input(game);
         gameLogic(game);
-
-        graphicsEngine(game, state);
+        graphicsEngine(game);
     }
 
     return 0;
