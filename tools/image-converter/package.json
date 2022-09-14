@@ -1,0 +1,19 @@
+{
+    "name": "image-converter",
+    "version": "1.0.0",
+    "description": "Image converter from .png to .c image structure.",
+    "bin": {
+        "image-converter": "./src/cli.ts"
+    },
+    "engines": {
+        "node": ">=16"
+    },
+    "dependencies": {
+        "@types/get-pixels": "^3.3.2",
+        "@types/node": "^18.7.18",
+        "get-pixels": "^3.3.3",
+        "typescript": "^4.8.3",
+        "zx": "^7.0.8",
+        "zxpp": "^0.2.1"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "dungeon-master",
+    "private": true,
+    "description": "Root package of monorepo",
+    "scripts": {
+        "convert-images": "image-converter -o ./assets/generated ./assets/raw"
+    },
+    "dependencies": {
+        "image-converter": "workspace:^1.0.0"
+    }
+}
+
