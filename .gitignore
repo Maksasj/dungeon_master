@@ -1,2 +1,9 @@
 dist
 .vscode
+
+target
+*.lock
+
+*.out
+test.c
+test.h
