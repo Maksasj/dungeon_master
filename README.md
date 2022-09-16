@@ -5,18 +5,7 @@ Dungeon Master - Game Boy Advance(GBA) rogue like game written specially for [GB
 **[Warning]** Recently we changed compiler and overall approach, now we will use devkitadv, look **Setup** section for more information.
 There's not a lot documentation about **devkitadv**, and overall looking at new approach it is more low level, but its fine cause we will have more controls on hardware. For more practice I suggest watch this [video](https://www.youtube.com/watch?v=6ecgELrwAnQ&t=387s) , or look on this [repository](https://github.com/3DSage/GBA_Mode_5_Starter) (as I think pretty good example of devkitadv based project)
 
-## Todo list
-- [ ] Graphics
-    - [ ] Create main graphic atlas
-- [ ] Game Logic
-    - [ ] Battle system
-    - [ ] World interaction
-    - [ ] Item logic
-- [ ] Game Environment
-    - [ ] Design game world
-        - [ ] Enemies
-        - [ ] Environment
-    - [ ] Graphic style
+**Todo list: [link](https://github.com/users/Maksasj/projects/1)**
 
 ## Key concepts
 - Player
