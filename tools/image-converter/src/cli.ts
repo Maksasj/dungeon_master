@@ -13,8 +13,6 @@ const inputDir = await fs.promises.readdir(inputPath);
 
 const inputFiles = inputDir.map((filePath) => path.join(process.cwd(), inputPath, filePath));
 
-console.log(inputFiles);
-
 for (const filePath of inputFiles) {
     fs.createReadStream(filePath)
         .pipe(new PNG())
