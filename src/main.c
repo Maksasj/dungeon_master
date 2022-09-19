@@ -4,6 +4,7 @@
 
 #include "gameScenes/gameScenes.h"
 #include "gameState/gameState.h"
+#include "gameState/timer.h"
 
 gameState* initGameState() {
     gameState game;
@@ -15,6 +16,7 @@ gameState* initGameState() {
 
 int main() {
     gameState* game = initGameState();
+    timer* timer = initTimer();
     initGraphicsEngine();
 
     while(1) {
