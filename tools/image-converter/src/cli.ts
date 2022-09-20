@@ -14,11 +14,14 @@ const inputDir = await fs.promises.readdir(inputPath);
 const inputFiles = inputDir.map((filePath) => path.join(process.cwd(), inputPath, filePath));
 
 for (const filePath of inputFiles) {
+    const fileName = path.parse(filePath).name;
+
     fs.createReadStream(filePath)
         .pipe(new PNG())
         .on("parsed", function () {
             const length = this.width * this.height;
-            let output = `const unsigned short image[${length}] = {\n`;
+            // TODO fix image generation
+            let output = `int ${fileName}[${length}] = {\n`;
 
             for (let y = 0; y < this.height; y++) {
                 output += "\t";
@@ -40,7 +43,6 @@ for (const filePath of inputFiles) {
 
             output += "};";
 
-            const fileName = path.parse(filePath).name;
             safeWriteFileSync(path.join(outputPath, `${fileName}.h`), output);
         });
 }
