@@ -5,7 +5,12 @@
 #include "gbastd/graphics.h"
 #include "gbastd/types/color.h"
 
+#include "graphics/texture.h"
+#include "../assets/generated/jotaro.h"
+
 #include "defines.h"
+
+texture* jojo;
 
 void flipVBuffers() {
     if (DISPCNT&BACKB){ 
@@ -22,17 +27,20 @@ void graphicsEngine(gameState* game) {
         //TODO design graphics pipeline
         clearBackground(color(0, 255, 0));
 
-        drawPixel(vec2I(15, 15), color(255, 0, 0));
+        drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
+
+        drawTexture(VRAM, jojo, vec2I((game->timer->tick % 20), 5));
+
     } else if(game->activeScene == MAIN_MENU_SCENE) {
         //TODO design graphics pipeline
         clearBackground(color(255, 0, 0));
 
-        drawPixel(vec2I(15, 15), color(255, 0, 0));
+        drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
     } else if(game->activeScene == GAME_SCENE) {
         //TODO design graphics pipeline
         clearBackground(color(255, 0, 0));
 
-        drawPixel(vec2I(15, 15), color(255, 0, 0));
+        drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
     }
 
     while(*Scanline<160){}
@@ -46,6 +54,8 @@ int initGraphicsEngine() {
 
     REG_BG2PA=256/2;
     REG_BG2PD=256/2;   
+
+    jojo = loadTextureFromArray(jotaro, 80, 80);
 
     return 0;
 }
