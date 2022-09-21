@@ -37,7 +37,7 @@ void drawTexture(u16* VBUFFER, texture* tex, ivec2 pos) {
         if(i + pos.x > SW) { continue; }
         for(j = 0; j < tex->height; j++) {
             if(j + pos.y > SH) { continue; }
-            VBUFFER[(pos.y + j)*GBA_SW + i + pos.x] = tex->data[i*80 + j];
+            VBUFFER[(pos.y + j)*GBA_SW + i + pos.x] = tex->data[i*tex->width + j];
         }
     }
 }
