@@ -7,15 +7,15 @@
 typedef struct {
     u64 tick;
     u8 is_active_flag;
-} timer;
+} Timer;
 
-timer* initTimer() {
-    timer newTimer;
-    timer* timerPtr = &newTimer;
+Timer* initTimer() {
+    Timer newTimer;
+    Timer* timerPtr = &newTimer;
     return timerPtr;
 }
 
-void addTick(timer* timer) {
+void addTick(Timer* timer) {
         timer->tick++;
 }
 

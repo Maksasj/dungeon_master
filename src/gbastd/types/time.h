@@ -8,10 +8,10 @@ typedef struct {
     u8 seconds;
     u8 minutes;
     u8 hours;
-} time;
+} Time;
 
-time getTime(u64 ticks) {
-    time time;
+Time getTime(u64 ticks) {
+    Time time;
     time.seconds = ticks / UPDATES_PER_SECOND;
 
     if (time.seconds > 59) {

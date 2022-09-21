@@ -9,6 +9,7 @@
 gameState* initGameState() {
     gameState game;
     game.activeScene = SPLASH_SCENE;
+    game.timer = initTimer();
     gameState* gamePtr = &game;
 
     return gamePtr;
@@ -16,7 +17,6 @@ gameState* initGameState() {
 
 int main() {
     gameState* game = initGameState();
-    timer* timer = initTimer();
     initGraphicsEngine();
 
     while(1) {
