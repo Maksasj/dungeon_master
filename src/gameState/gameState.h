@@ -3,13 +3,12 @@
 
 #include "../gameScenes/gameScenes.h"
 #include "buttonState.h"
+#include "timer.h"
 
 typedef struct {
     scene activeScene;
     buttonState buttons;
-
-    //Variable for testing
-    u64 timer;
+    Timer* timer;
 } gameState; 
 
 #endif
