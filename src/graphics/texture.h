@@ -6,8 +6,6 @@
 #include "../gbastd/types/u.h"
 #include "../gbastd/types/vector.h"
 
-#include "../../assets/generated/jojo.h"
-
 typedef struct {
     u16 width;
     u16 height;

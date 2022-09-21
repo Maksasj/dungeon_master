@@ -15,7 +15,7 @@ void gameLogic(gameState* game) {
         //game logic as if it a main game
     }
 
-    game->timer++;
+    addTick(game->timer);
 }
 
 #endif

@@ -6,7 +6,7 @@
 #include "gbastd/types/color.h"
 
 #include "graphics/texture.h"
-//#include "../assets/generated/jojo.h"
+#include "../assets/generated/jotaro.h"
 
 #include "defines.h"
 
@@ -29,7 +29,7 @@ void graphicsEngine(gameState* game) {
 
         drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
 
-        drawTexture(VRAM, jojo, vec2I((game->timer % 20), 5));
+        drawTexture(VRAM, jojo, vec2I((game->timer->tick % 20), 5));
 
     } else if(game->activeScene == MAIN_MENU_SCENE) {
         //TODO design graphics pipeline
@@ -55,7 +55,7 @@ int initGraphicsEngine() {
     REG_BG2PA=256/2;
     REG_BG2PD=256/2;   
 
-    jojo = loadTextureFromArray(image, 80, 80);
+    jojo = loadTextureFromArray(jotaro, 80, 80);
 
     return 0;
 }
