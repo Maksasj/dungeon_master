@@ -13,7 +13,6 @@ importers:
       '@types/node': ^18.7.18
       '@types/pngjs': ^6.0.1
       pngjs: ^6.0.0
-      rgb-hex: ^4.0.0
       typescript: ^4.8.3
       zx: ^7.0.8
       zxpp: ^0.2.1
@@ -21,7 +20,6 @@ importers:
       '@types/node': 18.7.18
       '@types/pngjs': 6.0.1
       pngjs: 6.0.0
-      rgb-hex: 4.0.0
       typescript: 4.8.3
       zx: 7.0.8
       zxpp: 0.2.1
@@ -695,11 +693,6 @@ packages:
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
-    dev: false
-
-  /rgb-hex/4.0.0:
-    resolution: {integrity: sha512-Eg2ev5CiMBnQ9Gpflmqbwbso0CCdISqtVIow7OpYSLN1ULUv2jTB9YieS1DSSn/17AD7KkPWDPzSFzI4GSuu/Q==}
-    engines: {node: '>=12'}
     dev: false
 
   /run-parallel/1.2.0:

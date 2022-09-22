@@ -10,12 +10,10 @@
     },
     "dependencies": {
         "@types/node": "^18.7.18",
-        "typescript": "^4.8.3",
-        "zx": "^7.0.8",
-        "zxpp": "^0.2.1",
         "@types/pngjs": "^6.0.1",
         "pngjs": "^6.0.0",
-        "rgb-hex": "^4.0.0"
+        "typescript": "^4.8.3",
+        "zx": "^7.0.8",
+        "zxpp": "^0.2.1"
     }
 }
-
