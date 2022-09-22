@@ -2,10 +2,10 @@
 
 import path from "path";
 import fs from "fs";
-import rgbToHex from "rgb-hex";
 import { processArguments } from "./processArguments";
 import { PNG } from "pngjs";
 import { safeWriteFileSync } from "./safeWriteFileSync";
+import { rgbToHex } from "./rgbToHex";
 
 const { inputPath, outputPath } = processArguments();
 
@@ -21,7 +21,7 @@ for (const filePath of inputFiles) {
         .on("parsed", function () {
             const length = this.width * this.height;
             // TODO fix image generation
-            let output = `int ${fileName}[${length}] = {\n`;
+            let output = `const unsigned short ${fileName}[${length}] = {\n`;
 
             for (let y = 0; y < this.height; y++) {
                 output += "\t";
@@ -41,7 +41,7 @@ for (const filePath of inputFiles) {
                 output += "\n";
             }
 
-            output += "};";
+            output += "};\n";
 
             safeWriteFileSync(path.join(outputPath, `${fileName}.h`), output);
         });
