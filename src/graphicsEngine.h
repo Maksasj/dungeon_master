@@ -4,6 +4,7 @@
 #include "gbastd/gbastd.h"
 #include "gbastd/graphics.h"
 #include "gbastd/types/color.h"
+#include "./texture.h"
 
 #include "defines.h"
 
@@ -19,20 +20,18 @@ void flipVBuffers() {
 
 void graphicsEngine(gameState* game) {
     if(game->activeScene == SPLASH_SCENE) {
-        //TODO design graphics pipeline
-        clearBackground(color(0, 255, 0));
+        // TODO this does not work
+        Texture *testTexture = loadTextureFromArray(image, 80, 80);
 
-        drawPixel(vec2I(15, 15), color(255, 0, 0));
+        drawTexture(VRAM, testTexture, vec2I(0, 0));
+        
+        // drawPixel(vec2I(15, 15), color(255, 0, 0));
     } else if(game->activeScene == MAIN_MENU_SCENE) {
-        //TODO design graphics pipeline
-        clearBackground(color(255, 0, 0));
-
-        drawPixel(vec2I(15, 15), color(255, 0, 0));
+        // clearBackground(color(255, 0, 0));
+        // drawPixel(vec2I(15, 15), color(255, 0, 0));
     } else if(game->activeScene == GAME_SCENE) {
-        //TODO design graphics pipeline
-        clearBackground(color(255, 0, 0));
-
-        drawPixel(vec2I(15, 15), color(255, 0, 0));
+        // clearBackground(color(255, 0, 0));
+        // drawPixel(vec2I(15, 15), color(255, 0, 0));
     }
 
     while(*Scanline<160){}

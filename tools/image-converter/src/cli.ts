@@ -17,10 +17,13 @@ for (const filePath of inputFiles) {
     const fileName = path.parse(filePath).name;
 
     fs.createReadStream(filePath)
-        .pipe(new PNG())
+        .pipe(
+            new PNG({
+                filterType: 4,
+            })
+        )
         .on("parsed", function () {
             const length = this.width * this.height;
-            // TODO fix image generation
             let output = `const unsigned short ${fileName}[${length}] = {\n`;
 
             for (let y = 0; y < this.height; y++) {
@@ -35,7 +38,7 @@ for (const filePath of inputFiles) {
 
                     const hex = rgbToHex(r, g, b);
 
-                    output += `0x${hex},`;
+                    output += `0x${hex.toString(16)},`;
                 }
 
                 output += "\n";
