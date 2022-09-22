@@ -1,7 +1,6 @@
 #ifndef GRAPHICS_ENGINE_H
 #define GRAPHICS_ENGINE_H
 
-#include "./texture.h"
 #include "gbastd/gbastd.h"
 #include "gbastd/graphics.h"
 #include "gbastd/types/color.h"
