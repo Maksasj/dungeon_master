@@ -25,13 +25,20 @@ void flipVBuffers() {
 
 void graphicsEngine(gameState *game) {
   if (game->activeScene == SPLASH_SCENE) {
-    // drawPixel(vec2I(15, 15), color(255, 0, 0));
+    clearBackground(color(0, 255, 0));
+
+    drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
+
+    drawTexture(VRAM, jojo, vec2I((game->timer->tick % 20), 5));
+
   } else if (game->activeScene == MAIN_MENU_SCENE) {
-    // clearBackground(color(255, 0, 0));
-    // drawPixel(vec2I(15, 15), color(255, 0, 0));
+    clearBackground(color(255, 0, 0));
+
+    drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
   } else if (game->activeScene == GAME_SCENE) {
-    // clearBackground(color(255, 0, 0));
-    // drawPixel(vec2I(15, 15), color(255, 0, 0));
+    clearBackground(color(255, 0, 0));
+
+    drawPixel(VRAM, vec2I(15, 15), color(255, 0, 0));
   }
 
   while (*Scanline < 160) {
