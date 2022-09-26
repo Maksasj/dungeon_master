@@ -81,17 +81,16 @@ const float COS[MAX_DEGREES] = {
 0.9877, 0.9903, 0.9925, 0.9945, 0.9962, 0.9976, 0.9986, 0.9994, 0.9998, 1
 };
 
-int tryFixDegrees(int degrees) {
-    if (degrees > MAX_DEGREES) {
-        while (degrees > MAX_DEGREES) {
-            degrees -= MAX_DEGREES;
-        }
+int abs(int num) {
+    if (num < 0) {
+        return -num;
     }
-    else if (degrees < 0) {
-        while (degrees < 0) {
-            degrees += MAX_DEGREES;
-        }
-    }
+
+    return num;
+}
+
+int fixDegrees(int degrees) {
+    return abs(degrees) % MAX_DEGREES;
 }
 
 float sin(int degrees) {
@@ -99,19 +98,23 @@ float sin(int degrees) {
         return 0;
     }
 
-    int fixedDegrees = tryFixDegrees(degrees);
+    if (degrees > MAX_DEGREES || degrees < 0) {
+        degrees = fixDegrees(degrees);
+    }
 
-    return SIN[fixedDegrees - 1];
+    return SIN[degrees - 1];
 }
 
 float cos(int degrees) {
     if (degrees == 0) {
-        return 0;
+        return 1;
     }
 
-    int fixedDegrees = tryFixDegrees(degrees);
+    if (degrees > MAX_DEGREES || degrees < 0) {
+        degrees = fixDegrees(degrees);
+    }
 
-    return COS[fixedDegrees - 1];
+    return COS[degrees - 1];
 }
 
 #endif
