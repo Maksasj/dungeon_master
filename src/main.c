@@ -3,7 +3,6 @@
 #include "include/player.h"
 #include "include/sprite.h"
 #include "include/memory.h"
-#include "include/memory.h"
 
 #include "../assets/generated/pog.h"
 
@@ -75,7 +74,7 @@ int main() {
 
             player.move = 1;
         }
-        
+
         /* wait for vblank before scrolling and moving sprites */
         wait_vblank();
         *bg0_x_scroll = xscroll;
