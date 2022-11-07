@@ -1,26 +1,28 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef _PLAYER_H_
+#define _PLAYER_H_
 
+#include "defines.h"
 #include "sprite.h"
+#include "types.h"
 
-struct Player {
-    struct Sprite* sprite;
+typedef struct Player {
+    Sprite* sprite;
 
-    int x, y;
+    i32 x, y;
 
-    int frame;
+    i32 frame;
 
-    int animation_delay;
+    i32 animation_delay;
 
-    int counter;
+    i32 counter;
 
-    int move;
-};
+    i32 move;
+} Player;
 
-void player_init(struct Sprite sprites[], int* next_sprite_index, struct Player* player);
+void playerInit(Sprite _sprites[], i32* _next_sprite_index, Player* _player);
 
-void player_stop(struct Player* player);
+void playerStop(Player* _player);
 
-void player_update(struct Player* player);
+void playerUpdate(Player* _player);
 
 #endif

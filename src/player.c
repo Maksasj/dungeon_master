@@ -1,30 +1,24 @@
 #include "include/player.h"
-#include "include/defines.h"
 
-void player_init(
-    struct Sprite sprites[],
-    int* next_sprite_index,
-    struct Player* player
-    ) {
-    player->x = SCREEN_WIDTH / 2 - 16;
-    player->y = SCREEN_HEIGHT / 2 - 16;
+void playerInit(Sprite _sprites[], i32* _next_sprite_index, Player* _player) {
+    _player->x = SCREEN_WIDTH / 2 - 16;
+    _player->y = SCREEN_HEIGHT / 2 - 16;
 
-    player->frame = 0;
-    player->move = 0;
+    _player->frame = 0;
+    _player->move = 0;
     
-    player->counter = 0;
-    //koopa->animation_delay = 8;
-    player->sprite = sprite_init(sprites, next_sprite_index, player->x, player->y, SIZE_32_32, 0, 0, player->frame, 0);
+    _player->counter = 0;
+    _player->sprite = spriteInit(_sprites, _next_sprite_index, _player->x, _player->y, SIZE_32_32, 0, 0, _player->frame, 0);
 }
 
-void player_stop(struct Player* player) {
-    player->move = 0;
-    player->frame = 0;
-    player->counter = 7;
-    sprite_set_offset(player->sprite, player->frame);
+void playerStop(Player* _player) {
+    _player->move = 0;
+    _player->frame = 0;
+    _player->counter = 7;
+    spriteSetOffset(_player->sprite, _player->frame);
 }
 
 /* update the koopa */
-void player_update(struct Player* player) {
-    sprite_position(player->sprite, player->x, player->y);
+void playerUpdate(Player* _player) {
+    spritePosition(_player->sprite, _player->x, _player->y);
 }

@@ -1,12 +1,23 @@
-#ifndef MEMORY_H
-#define MEMORY_H
+#ifndef _MEMORY_H_
+#define _MEMORY_H_
 
-#include "defines.h"
+#include "types.h"
 
-void memcpy16_dma(unsigned short* dest, unsigned short* source, int amount) {
-    *dma_source = (unsigned int) source;
-    *dma_destination = (unsigned int) dest;
-    *dma_count = amount | DMA_16 | DMA_ENABLE;
-}
+/* flag for turning on DMA */
+#define _DMA_ENABLE_ 0x80000000
+
+/* flags for the sizes to transfer, 16 or 32 bits */
+#define _DMA_16_ 0x00000000
+#define _DMA_32_ 0x04000000
+
+#define _DMA_SOURCE_ ((vu32*) 0x40000D4)
+
+/* pointer to the DMA destination location */
+#define _DMA_DESTINATION_ ((vu32*) 0x40000D8)
+
+/* pointer to the DMA count/control */
+#define _DMA_COUNT_ ((vu32*) 0x40000DC)
+
+void memcpy16DMA(u16* _dest, u16* _source, i32 _amount);
 
 #endif

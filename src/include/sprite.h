@@ -1,22 +1,23 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#ifndef _SPRITE_H_
+#define _SPRITE_H_
 
 #include "defines.h"
+#include "types.h"
 
 /* palette is always 256 colors */
-#define PALETTE_SIZE 256
+#define _PALETTE_SIZE_ 256
 
 /* there are 128 sprites on the GBA */
-#define NUM_SPRITES 128
+#define _NUM_SPRITES_ 128
 
-struct Sprite {
-    unsigned short attribute0;
-    unsigned short attribute1;
-    unsigned short attribute2;
-    unsigned short attribute3;
-};
+typedef struct Sprite {
+    u16 attribute0;
+    u16 attribute1;
+    u16 attribute2;
+    u16 attribute3;
+} Sprite;
 
-enum SpriteSize {
+typedef enum SpriteSize {
     SIZE_8_8,
     SIZE_16_16,
     SIZE_32_32,
@@ -29,27 +30,22 @@ enum SpriteSize {
     SIZE_8_32,
     SIZE_16_32,
     SIZE_32_64
-};
+} SpriteSize;
 
-struct Sprite* sprite_init(
-    struct Sprite sprites[],
-    int* next_sprite_index,
+Sprite* spriteInit(Sprite _sprites[], i32* _next_sprite_index, i32 _x, i32 _y, SpriteSize _size, i32 _horizontal_flip, i32 _vertical_flip, i32 _tile_index, i32 _priority);
 
-    int x, int y, enum SpriteSize size,
-    int horizontal_flip, int vertical_flip, int tile_index, int priority);
+void spriteSetOffset(Sprite* _sprite, i32 _offset);
 
-void sprite_set_offset(struct Sprite* sprite, int offset);
+void spriteSetHorizontalFlip(Sprite* _sprite, i32 _horizontal_flip);
 
-void sprite_set_horizontal_flip(struct Sprite* sprite, int horizontal_flip);
+void spriteSetVerticalFlip(Sprite* _sprite, i32 _vertical_flip);
 
-void sprite_set_vertical_flip(struct Sprite* sprite, int vertical_flip);
+void spriteMove(Sprite* _sprite, i32 _dx, i32 _dy);
 
-void sprite_move(struct Sprite* sprite, int dx, int dy);
+void spritePosition(Sprite* _sprite, i32 _x, i32 _y);
 
-void sprite_position(struct Sprite* sprite, int x, int y);
+void spriteUpdateAll(Sprite* _sprites);
 
-void sprite_update_all(struct Sprite* sprites);
-
-void sprite_clear(struct Sprite* sprites, int* next_sprite_index);
+void spriteClear(Sprite* _sprites, i32* _next_sprite_index);
 
 #endif
