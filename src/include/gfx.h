@@ -13,7 +13,7 @@
 
 /* the tile mode flags needed for display control register */
 #define _DISPLAY_CONTROL_MODE_0_    0x00
-#define _DISPALY_CONTROL_BG_0_      0x100 
+#define _DISPLAY_CONTROL_BG_0_      0x100 
 
 /* flags to set sprite handling in display control register */
 #define _SPRITE_MAP_2D_ 0x0

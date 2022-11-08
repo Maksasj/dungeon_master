@@ -14,7 +14,7 @@ int main() {
     i32 next_sprite_index = 0;
 
     /* we set the mode to mode 0 with bg0 on */
-    *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPALY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
+    *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
     /* setup the background 0 */
 
