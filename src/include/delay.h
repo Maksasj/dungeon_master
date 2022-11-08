@@ -1,6 +1,8 @@
-#ifndef DELAY_H
-#define DELAY_H
+#ifndef _DELAY_H_
+#define _DELAY_H_
 
-void delay(unsigned int amount);
+#include "types.h"
+
+void delay(u32 _amount);
 
 #endif
