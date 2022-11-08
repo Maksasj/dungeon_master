@@ -42,8 +42,7 @@ int main() {
         /* now the arrow keys move the koopa */
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
-            xscroll++;
-            walk = 1;
+            ++xscroll;
             spriteSetHorizontalFlip(player.sprite, 0);
 
             spriteSetOffset(player.sprite, 64);
@@ -52,27 +51,21 @@ int main() {
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
-            xscroll--;
-            walk = 1;
-
+            --xscroll;
             spriteSetOffset(player.sprite, 96);
 
             player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
-            yscroll++;
-            walk = 1;
-
+            ++yscroll;
             spriteSetOffset(player.sprite, 0);
 
             player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
-            yscroll--;
-            walk = 1;
-            
+            --yscroll;
             spriteSetOffset(player.sprite, 32);
 
             player.move = 1;

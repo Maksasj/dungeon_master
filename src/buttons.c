@@ -1,6 +1,6 @@
 #include "include/buttons.h"
 
-u8 buttonPressed(u16 _button) {
+inline u8 buttonPressed(u16 _button) {
     /* and the button register with the button constant we want */
     u16 pressed = *_BUTTONS_ & _button;
 

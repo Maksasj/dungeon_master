@@ -22,6 +22,6 @@
 #define _BUTTON_R_      (1 << 8)
 #define _BUTTON_L_      (1 << 9)
 
-u8 buttonPressed(u16 _button);
+inline u8 buttonPressed(u16 _button);
 
 #endif
