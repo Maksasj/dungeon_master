@@ -109,7 +109,7 @@ void spritePosition(Sprite* _sprite, i32 _x, i32 _y) {
 
 void spriteUpdateAll(Sprite* _sprites) {
     /* copy them all over */
-    memcpy16DMA(sprite_attribute_memory, (u16*) _sprites, _NUM_SPRITES_ * 4);
+    memcpy16DMA(_SPRITE_ATTRIBUTE_MEMORY_, (u16*) _sprites, _NUM_SPRITES_ * 4);
 }
 
 /* setup all sprites */
@@ -120,7 +120,7 @@ void spriteClear(Sprite* _sprites, i32* _next_sprite_index) {
     /* move all sprites offscreen to hide them */
     i32 i;
     for(i = 0; i < _NUM_SPRITES_; i++) {
-        _sprites[i].attribute0 = SCREEN_HEIGHT;
-        _sprites[i].attribute1 = SCREEN_WIDTH;
+        _sprites[i].attribute0 = _SCREEN_HEIGHT_;
+        _sprites[i].attribute1 = _SCREEN_WIDTH_;
     }
 }

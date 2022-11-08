@@ -1,12 +1,8 @@
 #ifndef _BACKGROUND_H_
 #define _BACKGROUND_H_
 
-#include "defines.h"
 #include "types.h"
 #include "sprite.h"
-
-#include "../assets/background.h"
-#include "../assets/map.h"
 
 #define _TILEMAP_               0x6000000
 #define _CHAR_BLOCK_SIZE_       0x4000  

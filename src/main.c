@@ -1,25 +1,26 @@
-#include "include/defines.h"
+#include "include/types.h"
+#include "include/memory.h"
+#include "include/gfx.h"
 #include "include/background.h"
+#include "include/sprite.h"
+#include "include/buttons.h"
 #include "include/delay.h"
 #include "include/player.h"
-#include "include/sprite.h"
-#include "include/memory.h"
-#include "include/types.h"
 
 #include "../assets/generated/pog.h"
 
 int main() {
-    struct Sprite sprites[_NUM_SPRITES_];
+    Sprite sprites[_NUM_SPRITES_];
     i32 next_sprite_index = 0;
 
     /* we set the mode to mode 0 with bg0 on */
-    *display_control = MODE0 | BG0_ENABLE | SPRITE_ENABLE | SPRITE_MAP_1D;
+    *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPALY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
     /* setup the background 0 */
 
-    memcpy16DMA((u16*) sprite_palette, (u16*) image_palette, _PALETTE_SIZE_); /* load the palette from the image into palette memory*/
+    memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_); /* load the palette from the image into palette memory*/
     
-    memcpy16DMA((u16*) sprite_image_memory, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
+    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
     setupBackground();
     /* clear all the sprites on screen now */
@@ -40,7 +41,7 @@ int main() {
 
         /* now the arrow keys move the koopa */
         i32 walk = 0;
-        if (buttonPressed(BUTTON_RIGHT)) {
+        if (buttonPressed(_BUTTON_RIGHT_)) {
             xscroll++;
             walk = 1;
             spriteSetHorizontalFlip(player.sprite, 0);
@@ -50,7 +51,7 @@ int main() {
             player.move = 1;
         }
 
-        if (buttonPressed(BUTTON_LEFT)) {
+        if (buttonPressed(_BUTTON_LEFT_)) {
             xscroll--;
             walk = 1;
 
@@ -59,7 +60,7 @@ int main() {
             player.move = 1;
         }
 
-        if (buttonPressed(BUTTON_DOWN)) {
+        if (buttonPressed(_BUTTON_DOWN_)) {
             yscroll++;
             walk = 1;
 
@@ -68,7 +69,7 @@ int main() {
             player.move = 1;
         }
 
-        if (buttonPressed(BUTTON_UP)) {
+        if (buttonPressed(_BUTTON_UP_)) {
             yscroll--;
             walk = 1;
             
@@ -78,7 +79,7 @@ int main() {
         }
 
         /* wait for vblank before scrolling and moving sprites */
-        wait_vblank();
+        waitVBlank();
         *_BG0_X_SCROLL_ = xscroll;
         *_BG0_Y_SCROLL_ = yscroll;
         spriteUpdateAll(sprites);

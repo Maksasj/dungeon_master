@@ -1,7 +1,6 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
-#include "defines.h"
 #include "sprite.h"
 #include "types.h"
 

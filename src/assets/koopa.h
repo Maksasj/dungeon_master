@@ -1,7 +1,7 @@
 #include "../include/types.h"
 
-#define KOOPA_WIDTH 16
-#define KOOPA_HEIGHT 64
+#define _KOOPA_WIDTH_ 16
+#define _KOOPA_HEIGHT_ 64
 
 const u8 KOOPA_DATA [] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 

@@ -1,8 +1,8 @@
 #include "include/player.h"
 
 void playerInit(Sprite _sprites[], i32* _next_sprite_index, Player* _player) {
-    _player->x = SCREEN_WIDTH / 2 - 16;
-    _player->y = SCREEN_HEIGHT / 2 - 16;
+    _player->x = _SCREEN_WIDTH_ / 2 - 16;
+    _player->y = _SCREEN_HEIGHT_ / 2 - 16;
 
     _player->frame = 0;
     _player->move = 0;

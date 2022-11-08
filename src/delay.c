@@ -1,4 +1,4 @@
-#include "include\delay.h"
+#include "include/delay.h"
 
 void delay(u32 _amount) {
     int i;

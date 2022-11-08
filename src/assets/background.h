@@ -1,7 +1,7 @@
 #include "../include/types.h"
 
-#define BACKGROUND_WIDTH 88
-#define BACKGROUND_HEIGHT 48
+#define _BACKGROUND_WIDTH_ 88
+#define _BACKGROUND_HEIGHT_ 48
 
 const u8 BACKGROUND_DATA [] = {
     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 

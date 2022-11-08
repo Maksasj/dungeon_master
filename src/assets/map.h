@@ -1,7 +1,7 @@
 #include "../include/types.h"
 
-#define MAP_WIDTH 32
-#define MAP_HEIGHT 32
+#define _MAP_WIDTH_ 32
+#define _MAP_HEIGHT_ 32
 
 const u16 MAP [] = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 

@@ -1,14 +1,17 @@
 #ifndef _SPRITE_H_
 #define _SPRITE_H_
 
-#include "defines.h"
 #include "types.h"
+#include "gfx.h"
 
 /* palette is always 256 colors */
 #define _PALETTE_SIZE_ 256
 
 /* there are 128 sprites on the GBA */
 #define _NUM_SPRITES_ 128
+
+/* the memory location which controls sprite attributes */
+#define _SPRITE_ATTRIBUTE_MEMORY_ ((vu16*) 0x7000000)
 
 typedef struct Sprite {
     u16 attribute0;

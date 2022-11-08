@@ -1,5 +1,8 @@
 #include "include/background.h"
 
+#include "assets/background.h"
+#include "assets/map.h"
+
 /* return a pointer to one of the 4 character blocks (0-3) */
 vu16* charBlock(u32 _block) {
     /* they are each 16K big */
@@ -20,7 +23,7 @@ void setupBackground() {
 
     /* load the image into char block 0 */
     memcpy16DMA((u16*) charBlock(0), (u16*) BACKGROUND_DATA,
-            (BACKGROUND_WIDTH * BACKGROUND_HEIGHT) / 2);
+            (_BACKGROUND_WIDTH_ * _BACKGROUND_HEIGHT_) / 2);
 
     /* set all control the bits in this register */
     *_BG0_CONTROL_ = 0 |    /* priority, 0 is highest, 3 is lowest */
@@ -32,5 +35,5 @@ void setupBackground() {
         (0 << 14);        /* bg size, 0 is 256x256 */
 
     /* load the tile data into screen block 16 */
-    memcpy16DMA((u16*) screenBlock(16), (u16*) MAP, MAP_WIDTH * MAP_HEIGHT);
+    memcpy16DMA((u16*) screenBlock(16), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
 }
