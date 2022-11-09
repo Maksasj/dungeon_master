@@ -1,7 +1,7 @@
 #include "include/types.h"
 #include "include/memory.h"
 #include "include/gfx.h"
-#include "include/background.h"
+#include "include/world.h"
 #include "include/sprite.h"
 #include "include/buttons.h"
 #include "include/delay.h"
@@ -22,7 +22,9 @@ int main() {
     
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
+    generateWorld();
     setupBackground();
+    
     /* clear all the sprites on screen now */
     spriteClear(sprites, &next_sprite_index);
 
@@ -34,6 +36,10 @@ int main() {
     i32 xscroll = 0;
     i32 yscroll = 0;
 
+    *_BG0_X_SCROLL_ = 0;
+    *_BG0_Y_SCROLL_ = 8;
+
+        
     /* loop forever */
     while (1) {
         /* update the koopa */
@@ -71,10 +77,13 @@ int main() {
             player.move = 1;
         }
 
+        player.x = xscroll;
+        player.y = yscroll;
+
         /* wait for vblank before scrolling and moving sprites */
         waitVBlank();
-        *_BG0_X_SCROLL_ = xscroll;
-        *_BG0_Y_SCROLL_ = yscroll;
+        //*_BG0_X_SCROLL_ = xscroll;
+        //*_BG0_Y_SCROLL_ = yscroll;
         spriteUpdateAll(sprites);
 
         delay(100);

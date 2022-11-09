@@ -1,5 +1,5 @@
-#ifndef _BACKGROUND_H_
-#define _BACKGROUND_H_
+#ifndef _WORLD_H_
+#define _WORLD_H_
 
 #include "types.h"
 #include "sprite.h"
@@ -26,5 +26,7 @@ vu16* screenBlock(u32 _block);
 
 /* function to setup background 0 for this program */
 void setupBackground();
+
+void generateWorld();
 
 #endif
