@@ -15,6 +15,15 @@
 /* pointer to the DMA destination location */
 #define _DMA_DESTINATION_ ((vu32*) 0x40000D8)
 
+/* this causes the DMA destination to be the same each time rather than increment */
+#define _DMA_DESTINATION_FIXED_ 0x400000
+
+/* this causes the DMA to repeat the transfer automatically on some interval */
+#define _DMA_REPEAT_ 0x2000000
+
+/* this causes the DMA repeat interval to be synced with timer 0 */
+#define _DMA_SNC_TO_TIMER_ 0x30000000
+
 /* pointer to the DMA count/control */
 #define _DMA_COUNT_ ((vu32*) 0x40000DC)
 
