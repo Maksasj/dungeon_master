@@ -38,8 +38,10 @@
 //Reset sound
 #define _SOUND_FREQ_RESET_  0x8000
 
-//50% duty cycle
-#define _SSQR_DUTY1_2_ 0x0080
+//Duty cycles
+#define _SSQR_DUTY1_8_ 0      //12.5%  
+#define _SSQR_DUTY1_4_ 0x0040 //25%
+#define _SSQR_DUTY1_2_ 0x0080 //50%
 
 /* the location of where sound samples are placed for each channel */
 #define _FIFO_BUFFER_A_ ((vu8 *) 0x400000A0)
@@ -53,7 +55,7 @@
 #define _SDMG_WAVE_    0x04
 #define _SDMG_NOISE_   0x08
 
-#define _SDMG_BUILD_(_lmode, _rmode, _lvol, _rvol) (((_lvol) & 7) | (((_rvol) & 7 ) << 4) | ((_lmode) << 8) | ((_rmode) << 12))
+#define _SDMG_BUILD_(_lmode, _rmode, _lvol, _rvol) (((_lvol) & 7) | (((_rvol) & 7) << 4) | ((_lmode) << 8) | ((_rmode) << 12))
 
 #define _SDMG_BUILD_LR_(_mode, _vol) _SDMG_BUILD_(_mode, _mode, _vol, _vol)
 

@@ -22,15 +22,15 @@ int main() {
     // turn sound on
     *_SOUND_CONTROL_ = _MASTER_SOUND_ENABLE_;
     // snd1 on left/right ; both full volume
-    *_SOUND_DMG_CONTROL_ = _SDMG_BUILD_LR_(_SDMG_SQR1_, 7);
+    *_SOUND_DMG_CONTROL_ = _SDMG_BUILD_LR_(_SDMG_SQR1_, 5);
     // DMG ratio to 100%
     *_DIRECT_SOUND_CONTROL_ = _DIRECT_SOUND_DMG_100_;
 
     // no sweep
     *_SOUND_1_SWEEP_ = _SOUND_SWEEP_OFF_;
 
-    // envelope: vol=12, decay, max step time (7) ; 50% duty
-    *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(12, 0, 7) | _SSQR_DUTY1_2_;
+    // envelope: vol=12, decay, max step time (3) ; 50% duty
+    *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(12, 0, 3) | _SSQR_DUTY1_2_;
     *_SOUND_1_FREQ_ = 0;
 
     /* setup the background 0 */
@@ -66,7 +66,7 @@ int main() {
 
             player.move = 1;
 
-            notePlay(NOTE_A, octave);
+            notePlay(NOTE_BES, octave + 1);
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
