@@ -13,8 +13,4 @@ typedef struct Room {
 
 void renderRoom(Room *room);
 
-vu16* charBlock(u32 _block);
-
-vu16* screenBlock(u32 _block);
-
 #endif
