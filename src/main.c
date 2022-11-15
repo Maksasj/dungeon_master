@@ -17,7 +17,7 @@ int main() {
     /* we set the mode to mode 0 with bg0 on */
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
-    i32 octave= 0;
+    i32 octave = 0;
 
     // turn sound on
     *_SOUND_CONTROL_ = _MASTER_SOUND_ENABLE_;
@@ -93,7 +93,7 @@ int main() {
 
             player.move = 1;
 
-            notePlay(NOTE_D, octave);
+            notePlay(NOTE_D, octave + 1);
         }
 
         /* wait for vblank before scrolling and moving sprites */
