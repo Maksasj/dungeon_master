@@ -2,6 +2,8 @@
 #define _SOUND_H_
 
 #include "types.h"
+#include "memory.h"
+#include "timer.h"
 
 //Master sound enable and Sound 1-4 play status
 #define _SOUND_CONTROL_ ((vu16 *) 0x04000084)
@@ -67,8 +69,10 @@ typedef enum {
     NOTE_GIS,   NOTE_A,     NOTE_BES,   NOTE_B   
 } ESoundNoteId;
 
-u32 getSoundRate(u32 note, u32 octave);
+u32 getSoundRate(u32 _note, u32 _octave);
 
-void notePlay(i32 note, i32 octave);
+void notePlay(i32 _note, i32 _octave);
+
+void playSound(const i8* _sound, i32 _total_samples, i32 _sample_rate, i8 _channel);
 
 #endif
