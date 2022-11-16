@@ -7,7 +7,7 @@
 #include "include/delay.h"
 #include "include/player.h"
 
-#include "../assets/generated/pog.h"
+#include "../assets/generated/player1.h"
 
 #include "include/background.h"
 
@@ -41,30 +41,30 @@ int main() {
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
             ++xscroll;
+            spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 0);
-
-            spriteSetOffset(player.sprite, 64);
 
             player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
             --xscroll;
-            spriteSetOffset(player.sprite, 96);
+            spriteSetOffset(player.sprite, 16);
+            spriteSetHorizontalFlip(player.sprite, 1);
 
             player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
             ++yscroll;
-            spriteSetOffset(player.sprite, 0);
+            spriteSetOffset(player.sprite, 8);
 
             player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
             --yscroll;
-            spriteSetOffset(player.sprite, 32);
+            spriteSetOffset(player.sprite, 0);
 
             player.move = 1;
         }

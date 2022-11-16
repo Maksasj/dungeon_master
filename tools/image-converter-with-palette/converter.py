@@ -111,8 +111,8 @@ class Converter:
 
 convert = Converter()
 if sys.argv:
-    convert.Convert("..\\..\\assets\\raw\\background-floor.png")
-    convert.SaveFile("..\\..\\assets\\generated\\background-floor.h")
+    convert.Convert("..\\..\\assets\\raw\\player1.png")
+    convert.SaveFile("..\\..\\assets\\generated\\player1.h")
 else:
     convert.Convert(sys.argv[0])
     convert.SaveFile(sys.argv[1])
