@@ -29,12 +29,12 @@ typedef struct ivec3 {
     int z;
 } ivec3;
 
-
-
 typedef struct fvec2 {
     float x;
     float y;
 } fvec2;
+
+fvec2 newFVec2(float x, float y);
 
 typedef struct fvec3 {
     float x;

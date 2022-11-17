@@ -13,4 +13,6 @@ typedef struct Room {
 
 void renderRoom(Room *room);
 
+u8 collisionCallBack(Room *room, ivec2 pos);
+
 #endif

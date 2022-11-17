@@ -31,48 +31,52 @@ int main() {
 
     Player player;
     playerInit(sprites, &next_sprite_index, &player);
-    
-    i32 xscroll = 0;
-    i32 yscroll = 0;
         
     while (1) {
+        player.vel.x *= 0.6;
+        player.vel.y *= 0.6;
+
         playerUpdate(&player);
 
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
-            ++xscroll;
+            player.vel.x += 0.5;
+
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 0);
-
-            player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
-            --xscroll;
+            player.vel.x -= 0.5;
+
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 1);
-
-            player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
-            ++yscroll;
+            player.vel.y += 0.5;
             spriteSetOffset(player.sprite, 8);
-
-            player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
-            --yscroll;
+            player.vel.y -= 0.5;
             spriteSetOffset(player.sprite, 0);
-
-            player.move = 1;
         }
 
-        player.x = xscroll;
-        player.y = yscroll;
+        if(!worldCollision(&world, newIVec2(player.x + player.vel.x, player.y + player.vel.y))) {
+            player.x += player.vel.x;
+            player.y += player.vel.y;
+        }
 
-        /* wait for vblank before scrolling and moving sprites */
+
+        if(doorCollision(&world, newIVec2(player.x, player.y))) {
+            player.x = _SCREEN_WIDTH_ / 2 - 8;
+            player.y = _SCREEN_HEIGHT_ / 2 - 8;
+
+            world.activeRoom++;
+            gotoRoom(&world, world.activeRoom);
+        }
+
         waitVBlank();
         spriteUpdateAll(sprites);
 

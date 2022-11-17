@@ -77,4 +77,29 @@ const u16 FLOOR_6[] = {
     0x006b, 0x006c,
 };
 
+const u16 DOOR_UP_CLOSED[] = {
+    0x000d, 0x000e,
+    0x002d, 0x002e,
+};
+
+const u16 DOOR_UP_OPENED[] = {
+    0x004d, 0x004e,
+    0x006d, 0x006e,
+};
+
+const u16 DOOR_RIGHT_CLOSED[] = {
+    0x000f, 0x0010,
+    0x002f, 0x0030,
+};
+
+const u16 DOOR_LEFT_CLOSED[] = {
+    0x0011, 0x0012,
+    0x0031, 0x0032,
+};
+
+const u16 DOOR_BOTTOM_CLOSED[] = {
+    0x0013, 0x0014,
+    0x0033, 0x0034,
+};
+
 #endif

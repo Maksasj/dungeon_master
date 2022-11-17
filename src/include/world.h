@@ -18,6 +18,8 @@ void gotoRoom(World *world, u8 roomId);
 
 void generateWorld(World *world);
 
-void worldCollision();
+void worldUpdate(World *world);
+
+u8 worldCollision(World *world, ivec2 pos);
 
 #endif
