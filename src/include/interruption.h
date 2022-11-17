@@ -21,4 +21,6 @@
 /* the interrupts are identified by number, we only care about this one */
 #define _INTERRUPT_VBLANK_ 0x1
 
+void initInterruption(void (*_ptr)());
+
 #endif

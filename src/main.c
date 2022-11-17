@@ -9,6 +9,8 @@
 #include "include/sound.h"
 #include "include/interruption.h"
 
+#include "assets/zelda_music.h"
+
 #include "../assets/generated/pog.h"
 
 int main() {
@@ -18,9 +20,15 @@ int main() {
     /* we set the mode to mode 0 with bg0 on */
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
-    i32 octave = 0;
+    *_INTERRUPT_ENABLE_ = 0;
+    *_INTERRUPT_CALLBACK_ = (u32)&onVBlank;
+    *_INTERRUPT_SELECTION_ |= _INTERRUPT_VBLANK_;
+    *_DISPLAY_INTERRUPTS_ |= 0x08;
+    *_INTERRUPT_ENABLE_ = 1;
 
-    // turn sound on
+    //i32 octave = 0;
+
+    // // turn sound on
     *_SOUND_CONTROL_ = _MASTER_SOUND_ENABLE_;
     // snd1 on left/right ; both full volume
     *_SOUND_DMG_CONTROL_ = _SDMG_BUILD_LR_(_SDMG_SQR1_, 5);
@@ -34,12 +42,8 @@ int main() {
     *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(12, 0, 3) | _SSQR_DUTY1_2_;
     *_SOUND_1_FREQ_ = 0;
 
-    //Interruptions
-    *_INTERRUPT_ENABLE_ = 0;
-    *_INTERRUPT_CALLBACK_ = ;
-    *_INTERRUPT_SELECTION_ |= _INTERRUPT_VBLANK_;
-    *_DISPLAY_INTERRUPTS_ |= 0x08;
-    *_INTERRUPT_ENABLE_ = 1;
+    *_DIRECT_SOUND_CONTROL_ = 0;
+    playSound(ZELDA_MUSIC_16K_MONO, _ZELDA_MUSIC_16K_MONO_BYTES_, 16000, 'A');
 
     /* setup the background 0 */
 
@@ -74,7 +78,7 @@ int main() {
 
             player.move = 1;
 
-            notePlay(NOTE_BES, octave + 1);
+            //notePlay(NOTE_BES, octave + 1);
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
@@ -83,7 +87,7 @@ int main() {
 
             player.move = 1;
 
-            notePlay(NOTE_B, octave);
+            //notePlay(NOTE_B, octave);
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
@@ -92,7 +96,7 @@ int main() {
 
             player.move = 1;
 
-            notePlay(NOTE_F, octave);
+            //notePlay(NOTE_F, octave);
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
@@ -101,7 +105,7 @@ int main() {
 
             player.move = 1;
 
-            notePlay(NOTE_D, octave + 1);
+            //notePlay(NOTE_D, octave + 1);
         }
 
         /* wait for vblank before scrolling and moving sprites */
