@@ -21,11 +21,15 @@ typedef struct ivec2 {
     int y;
 } ivec2;
 
+ivec2 newIVec2(int x, int y);
+
 typedef struct ivec3 {
     int x;
     int y;
     int z;
 } ivec3;
+
+
 
 typedef struct fvec2 {
     float x;

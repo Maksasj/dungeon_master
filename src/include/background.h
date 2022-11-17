@@ -2,7 +2,6 @@
 #define _BACKGROUND_H_
 
 #include "types.h"
-
 #include "sprite.h"
 
 #define _TILEMAP_               0x6000000
@@ -22,5 +21,7 @@
 vu16* charBlock(u32 _block);
 
 vu16* screenBlock(u32 _block);
+
+void initBackground();
 
 #endif

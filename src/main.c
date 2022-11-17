@@ -6,10 +6,10 @@
 #include "include/buttons.h"
 #include "include/delay.h"
 #include "include/player.h"
+#include "include/background.h"
 
 #include "../assets/generated/player1.h"
 
-#include "include/background.h"
 
 int main() {
     Sprite sprites[_NUM_SPRITES_];
