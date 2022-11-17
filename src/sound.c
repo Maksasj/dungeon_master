@@ -14,7 +14,7 @@ u32 CHANNEL_A_VBLANKS_REMAINING = 0;
 u32 CHANNEL_A_TOTAL_VBLANKS = 0;
 u32 CHANNEL_B_VBLANKS_REMAINING = 0;
 
-i8 *CURRENT_SOUND;
+i32 CURRENT_SOUND;
 
 u32 getSoundRate(u32 _note, u32 _octave) {
     return (2048 - (SOUND_RATES[_note] >> (4 + (_octave))));
@@ -26,7 +26,7 @@ void notePlay(i32 _note, i32 _octave) {
 
 /* play a sound with a number of samples, and sample rate on one channel 'A' or 'B' */
 void playSound(i8 *_sound, i32 _total_samples, i32 _sample_rate, i8 _channel) {
-    CURRENT_SOUND = _sound;
+    CURRENT_SOUND = _total_samples;
 
     /* start by disabling the timer and dma controller (to reset a previous sound) */
     *_TIMER_0_CONTROL_ = 0;
@@ -42,6 +42,8 @@ void playSound(i8 *_sound, i32 _total_samples, i32 _sample_rate, i8 _channel) {
     } else if (_channel == 'B') {
         *_DIRECT_SOUND_CONTROL_ |= _SOUND_B_RIGHT_CHANNEL_ | _SOUND_B_LEFT_CHANNEL_ | _SOUND_B_FIFO_RESET_;
     }
+
+    *_SOUND_CONTROL_ = _MASTER_SOUND_ENABLE_;
 
     /* set the dma channel to transfer from the sound array to the sound buffer */
     if (_channel == 'A') {
@@ -99,7 +101,7 @@ void onVBlank() {
         /* update channel B */
         if (CHANNEL_B_VBLANKS_REMAINING == 0) {
             /* disable the sound and DMA transfer on channel B */
-            *_SOUND_CONTROL_ &= ~(_SOUND_B_RIGHT_CHANNEL_ | _SOUND_B_LEFT_CHANNEL_ | _SOUND_B_FIFO_RESET_);
+            *_DIRECT_SOUND_CONTROL_ &= ~(_SOUND_B_RIGHT_CHANNEL_ | _SOUND_B_LEFT_CHANNEL_ | _SOUND_B_FIFO_RESET_);
             *_DMA_2_CONTROL_ = 0;
         }
         else {

@@ -7,11 +7,11 @@
 #include "interruption.h"
 
 //Master sound enable and Sound 1-4 play status
-#define _SOUND_CONTROL_ ((vu16 *) 0x04000084)
+#define _SOUND_CONTROL_ ((vu16 *) 0x4000084)
 #define _MASTER_SOUND_ENABLE_ 0x80
 
 //Direct Sound control and Sound 1-4 output ratio
-#define _DIRECT_SOUND_CONTROL_ ((vu16 *) 0x04000082)
+#define _DIRECT_SOUND_CONTROL_ ((vu16 *) 0x4000082)
 
 //Tone generators at 25%, 50%, 100% volume.
 #define _DIRECT_SOUND_DMG_25_   0
