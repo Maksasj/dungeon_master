@@ -5,29 +5,31 @@
 
 #include "assets/map.h"
 
-u8 wallCollisionCallBack(Room *room, ivec2 pos) {
+COLLISION_TYPE collisionCallBack(Room *room, ivec2 pos) {
     //Dividing cords by 16
     i32 x = (pos.x + 8) >> 4;
     i32 y = (pos.y + 8) >> 4;
 
     if(room->type == BASIC) {
-        if(BASIC_ROOM_COLLISION_BOX[y][x] == '#') return 1;
+        char tile = BASIC_ROOM_COLLISION_BOX[y][x];
+        
+        switch (tile) {
+            case '#':
+                return WALL;
+            case 'D':
+                return OPENED_DOOR;
+            case 'C':
+                return CLOSED_DOOR;
+            case 'E':
+                return ENEMY;
+            case 'X':
+                return CHEST;
+            default:
+                return NONE;
+        }
     }
 
-    return 0;
-}
-
-
-u8 doorCollisionCallBack(Room *room, ivec2 pos) {
-    //Dividing cords by 16
-    i32 x = (pos.x + 8) >> 4;
-    i32 y = (pos.y + 8) >> 4;
-
-    if(room->type == BASIC) {
-        if(BASIC_ROOM_COLLISION_BOX[y][x] == 'D') return 1;
-    }
-
-    return 0;
+    return NONE;
 }
 
 const u16* getRandomFloorTile() {

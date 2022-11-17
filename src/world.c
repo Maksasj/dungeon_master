@@ -16,10 +16,6 @@ void generateWorld(World *world) {
     world->difficulty = 1;
 }
 
-u8 worldCollision(World *world, ivec2 pos) {
-    return wallCollisionCallBack(&world->rooms[world->activeRoom], pos);
-}
-
-u8 doorCollision(World *world, ivec2 pos) {
-    return doorCollisionCallBack(&world->rooms[world->activeRoom], pos);
+COLLISION_TYPE worldCollision(World *world, ivec2 pos) {
+    return collisionCallBack(&world->rooms[world->activeRoom], pos);
 }

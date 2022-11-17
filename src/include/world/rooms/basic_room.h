@@ -4,7 +4,7 @@
 #include "../../types.h"
 
 static u8 BASIC_ROOM_COLLISION_BOX[10][15] = { 
-    "###############",
+    "#######D#######",
     "#             #",
     "#             #",
     "#             #",

@@ -65,15 +65,14 @@ int main() {
         }
 
         //X
-        if(!worldCollision(&world, newIVec2(player.x + player.vel.x, player.y)))
+        if(worldCollision(&world, newIVec2(player.x + player.vel.x, player.y)) != WALL)
             player.x += player.vel.x;
 
         //Y
-        if(!worldCollision(&world, newIVec2(player.x, player.y + player.vel.y)))
+        if(worldCollision(&world, newIVec2(player.x, player.y + player.vel.y)) != WALL)
             player.y += player.vel.y;
 
-
-        if(doorCollision(&world, newIVec2(player.x, player.y))) {
+        if(worldCollision(&world, newIVec2(player.x, player.y)) == OPENED_DOOR) {
             player.x = _SCREEN_WIDTH_ / 2 - 8;
             player.y = _SCREEN_HEIGHT_ / 2 - 8;
 

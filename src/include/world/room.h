@@ -2,6 +2,7 @@
 #define _ROOM_H_
 
 #include "../types.h"
+#include "../collision.h"
 
 //Include bounding boxes for all rooms
 #include "rooms/basic_room.h"
@@ -25,8 +26,6 @@ typedef struct Room {
 
 void renderRoom(Room *room);
 
-u8 wallCollisionCallBack(Room *room, ivec2 pos);
-
-u8 doorCollisionCallBack(Room *room, ivec2 pos);
+COLLISION_TYPE collisionCallBack(Room *room, ivec2 pos);
 
 #endif

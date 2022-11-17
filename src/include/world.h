@@ -23,6 +23,6 @@ void generateWorld(World *world);
 
 void worldUpdate(World *world);
 
-u8 worldCollision(World *world, ivec2 pos);
+COLLISION_TYPE worldCollision(World *world, ivec2 pos);
 
 #endif
