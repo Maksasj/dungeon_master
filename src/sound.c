@@ -9,6 +9,11 @@ const u32 SOUND_RATES[12] = {
 
 const u8 *NAMES[] = {"C ", "C#", "D ", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B "};
 
+/* global variables to keep track of how much longer the sounds are to play */
+u32 CHANNEL_A_VBLANKS_REMAINING = 0;
+u32 CHANNEL_A_TOTAL_VBLANKS = 0;
+u32 CHANNEL_B_VBLANKS_REMAINING = 0;
+
 u32 getSoundRate(u32 _note, u32 _octave) {
     return (2048 - (SOUND_RATES[_note] >> (4 + (_octave))));
 }
@@ -61,10 +66,10 @@ void playSound(const i8* _sound, i32 _total_samples, i32 _sample_rate, i8 _chann
      * this is the total number of samples, times the number of clock ticks per sample,
      * divided by the number of machine cycles per vblank (a constant) */
     if (_channel == 'A') {
-        channel_a_vblanks_remaining = _total_samples * ticks_per_sample * (1.0 / _CYCLES_PER_BLANK_);
-        channel_a_total_vblanks = channel_a_vblanks_remaining;
+        CHANNEL_A_VBLANKS_REMAINING = _total_samples * ticks_per_sample * (1.0 / _CYCLES_PER_BLANK_);
+        CHANNEL_A_TOTAL_VBLANKS = CHANNEL_A_VBLANKS_REMAINING;
     } else if (_channel == 'B') {
-        channel_b_vblanks_remaining = _total_samples * ticks_per_sample * (1.0 / _CYCLES_PER_BLANK_);
+        CHANNEL_B_VBLANKS_REMAINING = _total_samples * ticks_per_sample * (1.0 / _CYCLES_PER_BLANK_);
     }
 
     /* enable the timer */

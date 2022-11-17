@@ -7,6 +7,7 @@
 #include "include/delay.h"
 #include "include/player.h"
 #include "include/sound.h"
+#include "include/interruption.h"
 
 #include "../assets/generated/pog.h"
 
@@ -32,6 +33,13 @@ int main() {
     // envelope: vol=12, decay, max step time (3) ; 50% duty
     *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(12, 0, 3) | _SSQR_DUTY1_2_;
     *_SOUND_1_FREQ_ = 0;
+
+    //Interruptions
+    *_INTERRUPT_ENABLE_ = 0;
+    *_INTERRUPT_CALLBACK_ = ;
+    *_INTERRUPT_SELECTION_ |= _INTERRUPT_VBLANK_;
+    *_DISPLAY_INTERRUPTS_ |= 0x08;
+    *_INTERRUPT_ENABLE_ = 1;
 
     /* setup the background 0 */
 
