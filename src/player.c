@@ -21,5 +21,5 @@ void playerStop(Player* _player) {
 }
 
 void playerUpdate(Player* _player) {
-    spritePosition(_player->sprite, (int) _player->x, (int) _player->y);
+    spritePosition(_player->sprite, (i32) _player->x, (i32) _player->y);
 }

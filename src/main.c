@@ -12,13 +12,13 @@
 
 
 int main() {
-    Sprite sprites[_NUM_SPRITES_];
-    i32 next_sprite_index = 0;
-
     /* we set the mode to mode 0 with bg0 on */
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
     initBackground();
+
+    Sprite sprites[_NUM_SPRITES_];
+    i32 next_sprite_index = 0;
 
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_); /* load the palette from the image into palette memory*/
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
@@ -33,6 +33,7 @@ int main() {
     playerInit(sprites, &next_sprite_index, &player);
         
     while (1) {
+        //Slow down the player
         player.vel.x *= 0.6;
         player.vel.y *= 0.6;
 
@@ -63,10 +64,13 @@ int main() {
             spriteSetOffset(player.sprite, 0);
         }
 
-        if(!worldCollision(&world, newIVec2(player.x + player.vel.x, player.y + player.vel.y))) {
+        //X
+        if(!worldCollision(&world, newIVec2(player.x + player.vel.x, player.y)))
             player.x += player.vel.x;
+
+        //Y
+        if(!worldCollision(&world, newIVec2(player.x, player.y + player.vel.y)))
             player.y += player.vel.y;
-        }
 
 
         if(doorCollision(&world, newIVec2(player.x, player.y))) {

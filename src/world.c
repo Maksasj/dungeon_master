@@ -6,21 +6,20 @@ void gotoRoom(World *world, u8 roomId) {
 }
 
 void generateWorld(World *world) {
-    int i;
+    u32 i;
     for(i = 0; i < _MAX_ROOM_COUNT_; ++i) {
         Room room;
         room.type = BASIC;
         world->rooms[i] = room;
     }
+
+    world->difficulty = 1;
 }
 
 u8 worldCollision(World *world, ivec2 pos) {
-    return collisionCallBack(&world->rooms[world->activeRoom], pos);
+    return wallCollisionCallBack(&world->rooms[world->activeRoom], pos);
 }
 
 u8 doorCollision(World *world, ivec2 pos) {
-    if(pos.x < 112 || pos.x > 128) return 0;
-    if(pos.y < 0 || pos.y > 16) return 0;
-
-    return 1;
+    return doorCollisionCallBack(&world->rooms[world->activeRoom], pos);
 }

@@ -12,6 +12,9 @@ typedef struct World {
     Room rooms[_MAX_ROOM_COUNT_];
 
     u8 activeRoom;
+    
+    //TODO
+    u8 difficulty;
 } World;
 
 void gotoRoom(World *world, u8 roomId);

@@ -17,16 +17,14 @@ typedef signed long         i32;
 typedef signed long long    i64;
 
 typedef struct ivec2 {
-    int x;
-    int y;
+    i32 x;
+    i32 y;
 } ivec2;
 
-ivec2 newIVec2(int x, int y);
-
 typedef struct ivec3 {
-    int x;
-    int y;
-    int z;
+    i32 x;
+    i32 y;
+    i32 z;
 } ivec3;
 
 typedef struct fvec2 {
@@ -34,12 +32,19 @@ typedef struct fvec2 {
     float y;
 } fvec2;
 
-fvec2 newFVec2(float x, float y);
-
 typedef struct fvec3 {
     float x;
     float y;
     float z;
 } fvec3;
+
+
+inline ivec2 newIVec2(i32 x, i32 y);
+
+inline ivec3 newIVec3(i32 x, i32 y, i32 z);
+
+inline fvec2 newFVec2(float x, float y);
+
+inline fvec3 newFVec3(float x, float y, float z);
 
 #endif

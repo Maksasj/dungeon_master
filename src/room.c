@@ -5,19 +5,26 @@
 
 #include "assets/map.h"
 
-u8 collisionCallBack(Room *room, ivec2 pos) {
+u8 wallCollisionCallBack(Room *room, ivec2 pos) {
+    //Dividing cords by 16
+    i32 x = (pos.x + 8) >> 4;
+    i32 y = (pos.y + 8) >> 4;
+
     if(room->type == BASIC) {
-        // TODO
+        if(BASIC_ROOM_COLLISION_BOX[y][x] == '#') return 1;
+    }
 
-        if(pos.x < 4) return 1;
-        if(pos.y < 4) return 1;
-        if(pos.y > 136) return 1;
-        if(pos.x > 220) return 1;
+    return 0;
+}
 
-        return 0;
-    } else {
-        //For now we have only basic room
-        exit();
+
+u8 doorCollisionCallBack(Room *room, ivec2 pos) {
+    //Dividing cords by 16
+    i32 x = (pos.x + 8) >> 4;
+    i32 y = (pos.y + 8) >> 4;
+
+    if(room->type == BASIC) {
+        if(BASIC_ROOM_COLLISION_BOX[y][x] == 'D') return 1;
     }
 
     return 0;
@@ -54,7 +61,7 @@ void placeTile(u16* target, ivec2 pos, const u16* tile) {
 }
 
 void loadBasicRoom(u16* target) {
-    int i; int j;
+    i32 i; i32 j;
 
     for(i = 0; i < 15; ++i) {
         for(j = 0; j < 10; ++j) {
