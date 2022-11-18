@@ -26,17 +26,10 @@ int main() {
 
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
-    /* create custom interrupt handler for vblank - whole point is to turn off sound at right time
-     * we disable interrupts while changing them, to avoid breaking things */
-    *_INTERRUPT_ENABLE_ = 0;
-    *_INTERRUPT_CALLBACK_ = (u32) &onVBlank;
-    *_INTERRUPT_SELECTION_ |= _INT_VBLANK_;
-    *_DISPLAY_INTERRUPTS_ |= 0x08;
-    *_INTERRUPT_ENABLE_ = 1;
+    interruptionInit(onVBlank);
 
     i32 octave = 0;
-
-    initSound(5, 3, 0, 3);
+    soundInit(5, 3, 0, 3);
     
     /* set the music to play on channel A */
     playSound(_ZELDA_TREASURE_16K_MONO_, _ZELDA_TREASURE_16K_MONO_BYTES_, 16000, 'B');

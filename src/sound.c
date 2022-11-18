@@ -16,7 +16,7 @@ u32 CHANNEL_B_VBLANKS_REMAINING = 0;
 
 i8 *CURRENT_A_SOUND;
 
-void initSound(u32 _output_vol, u32 _sound1_vol, u32 _decay, u32 _max_step_time) {
+void soundInit(u32 _output_vol, u32 _sound1_vol, u32 _decay, u32 _max_step_time) {
     // turn sound on
     *_MASTER_SOUND_ = _SOUND_MASTER_ENABLE_;
     // snd1 on left/right ; both full volume
