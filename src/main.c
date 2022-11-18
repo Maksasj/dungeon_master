@@ -9,7 +9,7 @@
 #include "include/interruption.h"
 #include "include/sound.h"
 
-#include "assets/zelda_music.h"
+#include "assets/zelda_treasure_mono.h"
 
 #include "../assets/generated/pog.h"
 
@@ -26,20 +26,22 @@ int main() {
 
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
+    /* create custom interrupt handler for vblank - whole point is to turn off sound at right time
+     * we disable interrupts while changing them, to avoid breaking things */
     *_INTERRUPT_ENABLE_ = 0;
-    *_INTERRUPT_CALLBACK_ = (u32)&onVBlank;
-    *_INTERRUPT_SELECTION_ |= _INTERRUPT_VBLANK_;
+    *_INTERRUPT_CALLBACK_ = (u32) &onVBlank;
+    *_INTERRUPT_SELECTION_ |= _INT_VBLANK_;
     *_DISPLAY_INTERRUPTS_ |= 0x08;
     *_INTERRUPT_ENABLE_ = 1;
 
     i32 octave = 0;
 
     // turn sound on
-    *_SOUND_CONTROL_ = _MASTER_SOUND_ENABLE_;
+    *_MASTER_SOUND_ = _SOUND_MASTER_ENABLE_;
     // snd1 on left/right ; both full volume
     *_SOUND_DMG_CONTROL_ = _SDMG_BUILD_LR_(_SDMG_SQR1_, 5);
     // DMG ratio to 100%
-    *_DIRECT_SOUND_CONTROL_ = _DIRECT_SOUND_DMG_100_;
+    *_SOUND_CONTROL_ = _DIRECT_SOUND_DMG_100_;
 
     // no sweep
     *_SOUND_1_SWEEP_ = _SOUND_SWEEP_OFF_;
@@ -48,7 +50,11 @@ int main() {
     *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(12, 0, 3) | _SSQR_DUTY1_2_;
     *_SOUND_1_FREQ_ = 0;
 
-    playSound(ZELDA_MUSIC_16K_MONO, _ZELDA_MUSIC_16K_MONO_BYTES_, 16000, 'A');
+    /* clear the sound control initially */
+    *_SOUND_CONTROL_ = 0;
+    
+    /* set the music to play on channel A */
+    playSound(_ZELDA_TREASURE_16K_MONO_, _ZELDA_TREASURE_16K_MONO_BYTES_, 16000, 'B');
 
     setupBackground();
     /* clear all the sprites on screen now */
