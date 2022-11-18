@@ -36,22 +36,7 @@ int main() {
 
     i32 octave = 0;
 
-    // turn sound on
-    *_MASTER_SOUND_ = _SOUND_MASTER_ENABLE_;
-    // snd1 on left/right ; both full volume
-    *_SOUND_DMG_CONTROL_ = _SDMG_BUILD_LR_(_SDMG_SQR1_, 5);
-    // DMG ratio to 100%
-    *_SOUND_CONTROL_ = _DIRECT_SOUND_DMG_100_;
-
-    // no sweep
-    *_SOUND_1_SWEEP_ = _SOUND_SWEEP_OFF_;
-
-    // envelope: vol=12, decay, max step time (3) ; 50% duty
-    *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(12, 0, 3) | _SSQR_DUTY1_2_;
-    *_SOUND_1_FREQ_ = 0;
-
-    /* clear the sound control initially */
-    *_SOUND_CONTROL_ = 0;
+    initSound(5, 3, 0, 3);
     
     /* set the music to play on channel A */
     playSound(_ZELDA_TREASURE_16K_MONO_, _ZELDA_TREASURE_16K_MONO_BYTES_, 16000, 'B');

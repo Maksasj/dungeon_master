@@ -16,6 +16,22 @@ u32 CHANNEL_B_VBLANKS_REMAINING = 0;
 
 i8 *CURRENT_A_SOUND;
 
+void initSound(u32 _output_vol, u32 _sound1_vol, u32 _decay, u32 _max_step_time) {
+    // turn sound on
+    *_MASTER_SOUND_ = _SOUND_MASTER_ENABLE_;
+    // snd1 on left/right ; both full volume
+    *_SOUND_DMG_CONTROL_ = _SDMG_BUILD_LR_(_SDMG_SQR1_, _output_vol);
+    // DMG ratio to 100%
+    *_SOUND_CONTROL_ = _DIRECT_SOUND_DMG_100_;
+
+    // no sweep
+    *_SOUND_1_SWEEP_ = _SOUND_SWEEP_OFF_;
+
+    // envelope: vol=12, decay, max step time (3) ; 50% duty
+    *_SOUND_1_CONTROL_ = _SSQR_ENV_BUILD_(_sound1_vol, _decay, _max_step_time) | _SSQR_DUTY1_2_;
+    *_SOUND_1_FREQ_ = 0;
+}
+
 u32 getSoundRate(u32 _note, u32 _octave) {
     return (2048 - (SOUND_RATES[_note] >> (4 + (_octave))));
 }

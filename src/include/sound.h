@@ -28,7 +28,6 @@
 //Sound 1-4 Output level and Stereo control
 #define _SOUND_DMG_CONTROL_ ((vu16 *) 0x04000080)
 
-///////////////////////////
 #define _SOUND_1_FREQ_  ((vu16 *) 0x04000064)
 #define _SOUND_FREQ_RESET_  0x8000
 
@@ -69,6 +68,8 @@ typedef enum {
     NOTE_E,     NOTE_F,     NOTE_FIS,   NOTE_G,
     NOTE_GIS,   NOTE_A,     NOTE_BES,   NOTE_B   
 } ESoundNoteId;
+
+void initSound(u32 _output_vol, u32 _sound1_vol, u32 _decay, u32 _max_step_time);
 
 u32 getSoundRate(u32 _note, u32 _octave);
 
