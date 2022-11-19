@@ -43,83 +43,62 @@ int main() {
     
     spriteClear(sprites, &next_sprite_index);
 
-    // Player player;
-    // playerInit(sprites, &next_sprite_index, &player);
+    fvec2 start_position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
 
-    Entity entity;
-    entityInit(sprites, &next_sprite_index, &entity);
+    Entity player;
+    entityInit(sprites, &next_sprite_index, &player, start_position);
         
     while (1) {
         //Slow down the player
-        // player.vel.x *= 0.6;
-        // player.vel.y *= 0.6;
+        player.vel.x *= 0.6;
+        player.vel.y *= 0.6;
 
-        // playerUpdate(&player);
-
-        entity.vel.x *= 0.6;
-        entity.vel.y *= 0.6;
-
-        entityUpdate(&entity);
+        entityUpdate(&player);
 
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
-            //player.vel.x += 0.5;
-            entity.vel.x += 0.5;
+            player.vel.x += 0.5;
 
-            // spriteSetOffset(player.sprite, 16);
-            // spriteSetHorizontalFlip(player.sprite, 0);
-
-            spriteSetOffset(entity.sprite, 16);
-            spriteSetHorizontalFlip(entity.sprite, 0);
+            spriteSetOffset(player.sprite, 16);
+            spriteSetHorizontalFlip(player.sprite, 0);
 
             notePlay(NOTE_BES, octave + 1);
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
-            // player.vel.x -= 0.5;
+            player.vel.x -= 0.5;
 
-            // spriteSetOffset(player.sprite, 16);
-            // spriteSetHorizontalFlip(player.sprite, 1);
-
-            entity.vel.x -= 0.5;
-
-            spriteSetOffset(entity.sprite, 16);
-            spriteSetHorizontalFlip(entity.sprite, 1);
+            spriteSetOffset(player.sprite, 16);
+            spriteSetHorizontalFlip(player.sprite, 1);
 
             notePlay(NOTE_B, octave);
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
-            // player.vel.y += 0.5;
-            // spriteSetOffset(player.sprite, 8);
-
-            entity.vel.y += 0.5;
-            spriteSetOffset(entity.sprite, 8);
+            player.vel.y += 0.5;
+            spriteSetOffset(player.sprite, 8);
 
             notePlay(NOTE_F, octave);
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
-            // player.vel.y -= 0.5;
-            // spriteSetOffset(player.sprite, 0);
-
-            entity.vel.y -= 0.5;
-            spriteSetOffset(entity.sprite, 0);
+            player.vel.y -= 0.5;
+            spriteSetOffset(player.sprite, 0);
 
             notePlay(NOTE_A, octave);
         }
 
         //X
-        if(worldCollision(&world, newIVec2(entity.position.x + entity.vel.x, entity.position.y)) != WALL)
-            entity.position.x += entity.vel.x;
+        if(worldCollision(&world, newIVec2(player.position.x + player.vel.x, player.position.y)) != WALL)
+            player.position.x += player.vel.x;
 
         //Y
-        if(worldCollision(&world, newIVec2(entity.position.x, entity.position.y + entity.vel.y)) != WALL)
-            entity.position.y += entity.vel.y;
+        if(worldCollision(&world, newIVec2(player.position.x, player.position.y + player.vel.y)) != WALL)
+            player.position.y += player.vel.y;
 
-        if(worldCollision(&world, newIVec2(entity.position.x, entity.position.y)) == OPENED_DOOR) {
-            entity.position.x = _SCREEN_WIDTH_ / 2 - 8;
-            entity.position.y = _SCREEN_HEIGHT_ / 2 - 8;
+        if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
+            player.position.x = _SCREEN_WIDTH_ / 2 - 8;
+            player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
 
             world.activeRoom++;
             gotoRoom(&world, world.activeRoom);

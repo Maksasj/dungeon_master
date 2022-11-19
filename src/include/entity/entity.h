@@ -22,7 +22,7 @@ typedef struct Entity {
     void (*spawn_callback)();
 } Entity;
 
-void entityInit(Sprite _spites[], i32 *_next_sprite_index, Entity *_entity);
+void entityInit(Sprite _spites[], i32 *_next_sprite_index, Entity *_entity, fvec2 _position);
 
 void entityUpdate(Entity *_entity);
 
