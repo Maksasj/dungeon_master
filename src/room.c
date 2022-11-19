@@ -105,6 +105,7 @@ void renderRoom(Room *room) {
         loadBasicRoom(MAP);
     } else if (room->type == TWO_ENEMIES) {
         loadBasicRoom(MAP);
+        //init_entities
         //TODO load entities
     } else {
         //For now we have only basic room
@@ -112,4 +113,11 @@ void renderRoom(Room *room) {
     }
 
     memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
+}
+
+void tryPushEntityToRoom(Room *room, Entity _entity) {
+    if (room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
+        room->entity_pool[room->current_entity_count] = _entity;
+        ++room->current_entity_count;
+    }
 }
