@@ -28,4 +28,6 @@
 
 void waitVBlank();
 
+void onVBlank();
+
 #endif

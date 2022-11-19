@@ -6,6 +6,10 @@
 #include "include/buttons.h"
 #include "include/delay.h"
 #include "include/player.h"
+#include "include/interruption.h"
+#include "include/sound.h"
+
+#include "assets/test_sound.h"
 #include "include/background.h"
 
 #include "../assets/generated/player1.h"
@@ -27,6 +31,14 @@ int main() {
     generateWorld(&world);
     gotoRoom(&world, 0);
     
+    interruptionInit(onVBlank);
+
+    i32 octave = 0;
+    soundInit(5, 3, 0, 3);
+    
+    //play test sound
+    playSound(TEST, _TEST_BYTES_, 16000, 'B');
+    
     spriteClear(sprites, &next_sprite_index);
 
     Player player;
@@ -45,6 +57,7 @@ int main() {
 
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 0);
+            notePlay(NOTE_BES, octave + 1);
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
@@ -52,16 +65,22 @@ int main() {
 
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 1);
+
+            notePlay(NOTE_B, octave);
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
             player.vel.y += 0.5;
             spriteSetOffset(player.sprite, 8);
+
+            notePlay(NOTE_F, octave);
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
             player.vel.y -= 0.5;
             spriteSetOffset(player.sprite, 0);
+
+            notePlay(NOTE_A, octave);
         }
 
         //X
