@@ -18,13 +18,10 @@
 #define _BG0_X_SCROLL_ ((u16*) 0x4000010)
 #define _BG0_Y_SCROLL_ ((u16*) 0x4000012)
 
-/* return a pointer to one of the 4 character blocks (0-3) */
 vu16* charBlock(u32 _block);
 
-/* return a pointer to one of the 32 screen blocks (0-31) */
 vu16* screenBlock(u32 _block);
 
-/* function to setup background 0 for this program */
-void setupBackground();
+void initBackground();
 
 #endif
