@@ -103,6 +103,9 @@ void loadBasicRoom(u16* target) {
 void renderRoom(Room *room) {
     if(room->type == BASIC) {
         loadBasicRoom(MAP);
+    } else if (room->type == TWO_ENEMIES) {
+        loadBasicRoom(MAP);
+        //TODO load entities
     } else {
         //For now we have only basic room
         exit();

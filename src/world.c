@@ -7,9 +7,12 @@ void gotoRoom(World *world, u8 roomId) {
 
 void generateWorld(World *world) {
     u32 i;
-    for(i = 0; i < _MAX_ROOM_COUNT_; ++i) {
-        Room room;
-        room.type = BASIC;
+    Room room;
+    room.type = BASIC;
+    world->rooms[0] = room;
+
+    for(i = 1; i < _MAX_ROOM_COUNT_; ++i) {
+        room.type = TWO_ENEMIES;
         world->rooms[i] = room;
     }
 

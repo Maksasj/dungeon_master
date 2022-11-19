@@ -9,6 +9,7 @@
 
 typedef enum ROOM_TYPE {
     BASIC,
+    TWO_ENEMIES
 } ROOM_TYPE;
 
 typedef struct Room {
