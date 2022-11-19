@@ -9,6 +9,8 @@
 #include "include/interruption.h"
 #include "include/sound.h"
 
+#include "include/entity/entity.h"
+
 #include "assets/test_sound.h"
 #include "include/background.h"
 
@@ -41,15 +43,17 @@ int main() {
     
     spriteClear(sprites, &next_sprite_index);
 
-    Player player;
-    playerInit(sprites, &next_sprite_index, &player);
+    fvec2 start_position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
+
+    Entity player;
+    entityInit(sprites, &next_sprite_index, &player, start_position);
         
     while (1) {
         //Slow down the player
         player.vel.x *= 0.6;
         player.vel.y *= 0.6;
 
-        playerUpdate(&player);
+        entityUpdate(&player);
 
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
@@ -57,6 +61,7 @@ int main() {
 
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 0);
+
             notePlay(NOTE_BES, octave + 1);
         }
 
@@ -84,16 +89,16 @@ int main() {
         }
 
         //X
-        if(worldCollision(&world, newIVec2(player.x + player.vel.x, player.y)) != WALL)
-            player.x += player.vel.x;
+        if(worldCollision(&world, newIVec2(player.position.x + player.vel.x, player.position.y)) != WALL)
+            player.position.x += player.vel.x;
 
         //Y
-        if(worldCollision(&world, newIVec2(player.x, player.y + player.vel.y)) != WALL)
-            player.y += player.vel.y;
+        if(worldCollision(&world, newIVec2(player.position.x, player.position.y + player.vel.y)) != WALL)
+            player.position.y += player.vel.y;
 
-        if(worldCollision(&world, newIVec2(player.x, player.y)) == OPENED_DOOR) {
-            player.x = _SCREEN_WIDTH_ / 2 - 8;
-            player.y = _SCREEN_HEIGHT_ / 2 - 8;
+        if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
+            player.position.x = _SCREEN_WIDTH_ / 2 - 8;
+            player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
 
             world.activeRoom++;
             gotoRoom(&world, world.activeRoom);
