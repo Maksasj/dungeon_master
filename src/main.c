@@ -9,7 +9,7 @@
 #include "include/interruption.h"
 #include "include/sound.h"
 
-#include "assets/zelda_treasure_mono.h"
+#include "assets/test_sound.h"
 
 #include "../assets/generated/pog.h"
 
@@ -31,8 +31,8 @@ int main() {
     i32 octave = 0;
     soundInit(5, 3, 0, 3);
     
-    /* set the music to play on channel A */
-    playSound(_ZELDA_TREASURE_16K_MONO_, _ZELDA_TREASURE_16K_MONO_BYTES_, 16000, 'B');
+    //play test sound
+    playSound(TEST, _TEST_BYTES_, 16000, 'B');
 
     setupBackground();
     /* clear all the sprites on screen now */
