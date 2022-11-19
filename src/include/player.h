@@ -7,11 +7,13 @@
 typedef struct Player {
     Sprite* sprite;
 
-    i32 x, y;
+    float x, y;
 
     i32 frame;
 
     i32 animation_delay;
+
+    fvec2 vel;
 
     i32 counter;
 

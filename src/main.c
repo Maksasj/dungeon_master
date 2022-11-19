@@ -1,80 +1,86 @@
 #include "include/types.h"
 #include "include/memory.h"
 #include "include/gfx.h"
-#include "include/background.h"
+#include "include/world.h"
 #include "include/sprite.h"
 #include "include/buttons.h"
 #include "include/delay.h"
 #include "include/player.h"
+#include "include/background.h"
 
-#include "../assets/generated/pog.h"
+#include "../assets/generated/player1.h"
+
 
 int main() {
-    Sprite sprites[_NUM_SPRITES_];
-    i32 next_sprite_index = 0;
-
     /* we set the mode to mode 0 with bg0 on */
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
-    /* setup the background 0 */
+    initBackground();
+
+    Sprite sprites[_NUM_SPRITES_];
+    i32 next_sprite_index = 0;
 
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_); /* load the palette from the image into palette memory*/
-    
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
-    setupBackground();
-    /* clear all the sprites on screen now */
+    World world;
+    generateWorld(&world);
+    gotoRoom(&world, 0);
+    
     spriteClear(sprites, &next_sprite_index);
 
-    /* create the koopa */
     Player player;
     playerInit(sprites, &next_sprite_index, &player);
-    
-    /* set initial scroll to 0 */
-    i32 xscroll = 0;
-    i32 yscroll = 0;
-
-    /* loop forever */
+        
     while (1) {
-        /* update the koopa */
+        //Slow down the player
+        player.vel.x *= 0.6;
+        player.vel.y *= 0.6;
+
         playerUpdate(&player);
 
-        /* now the arrow keys move the koopa */
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
-            ++xscroll;
+            player.vel.x += 0.5;
+
+            spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 0);
-
-            spriteSetOffset(player.sprite, 64);
-
-            player.move = 1;
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
-            --xscroll;
-            spriteSetOffset(player.sprite, 96);
+            player.vel.x -= 0.5;
 
-            player.move = 1;
+            spriteSetOffset(player.sprite, 16);
+            spriteSetHorizontalFlip(player.sprite, 1);
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
-            ++yscroll;
-            spriteSetOffset(player.sprite, 0);
-
-            player.move = 1;
+            player.vel.y += 0.5;
+            spriteSetOffset(player.sprite, 8);
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
-            --yscroll;
-            spriteSetOffset(player.sprite, 32);
-
-            player.move = 1;
+            player.vel.y -= 0.5;
+            spriteSetOffset(player.sprite, 0);
         }
 
-        /* wait for vblank before scrolling and moving sprites */
+        //X
+        if(worldCollision(&world, newIVec2(player.x + player.vel.x, player.y)) != WALL)
+            player.x += player.vel.x;
+
+        //Y
+        if(worldCollision(&world, newIVec2(player.x, player.y + player.vel.y)) != WALL)
+            player.y += player.vel.y;
+
+        if(worldCollision(&world, newIVec2(player.x, player.y)) == OPENED_DOOR) {
+            player.x = _SCREEN_WIDTH_ / 2 - 8;
+            player.y = _SCREEN_HEIGHT_ / 2 - 8;
+
+            world.activeRoom++;
+            gotoRoom(&world, world.activeRoom);
+        }
+
         waitVBlank();
-        *_BG0_X_SCROLL_ = xscroll;
-        *_BG0_Y_SCROLL_ = yscroll;
         spriteUpdateAll(sprites);
 
         delay(100);
