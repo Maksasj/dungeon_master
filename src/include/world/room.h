@@ -32,7 +32,7 @@ typedef struct Room {
     */
 } Room;
 
-void renderRoom(Room *room);
+void renderRoom(Room* room, Sprite* _sprites, i32* next_sprite_index);
 
 void tryPushEntityToRoom(Room *room, Entity _entity);
 

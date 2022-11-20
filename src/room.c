@@ -100,13 +100,23 @@ void loadBasicRoom(u16* target) {
     */
 }
 
-void renderRoom(Room *room) {
-    if(room->type == BASIC) {
+void renderRoom(Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
+    if(_room->type == BASIC) {
         loadBasicRoom(MAP);
-    } else if (room->type == TWO_ENEMIES) {
+    } else if (_room->type == TWO_ENEMIES) {
         loadBasicRoom(MAP);
         //init_entities
         //TODO load entities
+
+        placeTile(MAP, newIVec2(14, 0), DOOR_UP_CLOSED);
+        placeTile(MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED);
+
+        int i;
+        for(i = 0; i < _room->current_entity_count; ++i) {
+            Entity* entity = &_room->entity_pool[i];
+            entityInitSprite(entity, _sprites, _next_sprite_index);
+        }
+
     } else {
         //For now we have only basic room
         exit();
