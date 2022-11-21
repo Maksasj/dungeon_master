@@ -103,7 +103,6 @@ int main() {
 
             ++world.activeRoom;
             gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
-
         }
 
         waitVBlank();
