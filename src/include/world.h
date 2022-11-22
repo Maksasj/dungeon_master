@@ -23,6 +23,8 @@ void generateWorld(World *world);
 
 void worldUpdate(World *world);
 
+void updateWorld(World* world, Entity* player);
+
 COLLISION_TYPE worldCollision(World *world, ivec2 pos);
 
 #endif

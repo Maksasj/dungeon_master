@@ -5,6 +5,8 @@
 
 #include "assets/map.h"
 
+#include "include/prototypes/skeleton.h"
+
 COLLISION_TYPE collisionCallBack(Room *room, ivec2 pos) {
     //Dividing cords by 16
     i32 x = (pos.x + 8) >> 4;
@@ -134,6 +136,7 @@ void renderRoom(Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
 void tryPushEntityToRoom(Room *room, Entity _entity) {
     if (room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         room->entity_pool[room->current_entity_count] = _entity;
+        room->entity_pool[room->current_entity_count].update_callback = &skeleton_update;
         ++room->current_entity_count;
     }
 }
