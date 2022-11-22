@@ -1,14 +1,19 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
+#include "statblock.h"
+
 #include "../sprite.h"
 #include "../types.h"
+
+//TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
 typedef struct Entity {
     Sprite *sprite;
 
-    //TODO: add statblock
-
+    //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
+    Statblock base_stats;
+    
     i32 health;
     i32 mana;
 
