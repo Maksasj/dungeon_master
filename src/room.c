@@ -10,25 +10,29 @@ COLLISION_TYPE collisionCallBack(Room *room, ivec2 pos) {
     i32 x = (pos.x + 8) >> 4;
     i32 y = (pos.y + 8) >> 4;
 
+    char tile = ' ';
+
     if(room->type == BASIC) {
-        char tile = BASIC_ROOM_COLLISION_BOX[y][x];
-        
-        switch (tile) {
-            case '#':
-                return WALL;
-            case 'D':
-                return OPENED_DOOR;
-            case 'C':
-                return CLOSED_DOOR;
-            case 'E':
-                return ENEMY;
-            case 'X':
-                return CHEST;
-            default:
-                return NONE;
-        }
+        tile = BASIC_ROOM_COLLISION_BOX[y][x];
+    } else if(room->type == TWO_ENEMIES) {
+        tile = BASIC_ROOM_COLLISION_BOX[y][x];
     }
 
+    switch (tile) {
+        case '#':
+            return WALL;
+        case 'D':
+            return OPENED_DOOR;
+        case 'C':
+            return CLOSED_DOOR;
+        case 'E':
+            return ENEMY;
+        case 'X':
+            return CHEST;
+        default:
+            return NONE;
+    }
+    
     return NONE;
 }
 
@@ -100,13 +104,36 @@ void loadBasicRoom(u16* target) {
     */
 }
 
-void renderRoom(Room *room) {
-    if(room->type == BASIC) {
-        loadBasicRoom(MAP);
+void renderRoom(Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
+    loadBasicRoom(MAP);
+
+    if(_room->type == BASIC) {
+    
+    } else if (_room->type == TWO_ENEMIES) {
+        //init_entities
+        //TODO load entities
+
+        placeTile(MAP, newIVec2(14, 0), DOOR_UP_CLOSED);
+        placeTile(MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED);
+        
+        int i;
+        for(i = 0; i < _room->current_entity_count; ++i) {
+            Entity* entity = &_room->entity_pool[i];
+            entityInitSprite(entity, _sprites, _next_sprite_index);
+            spriteSetOffset(entity->sprite, 32);
+        }
+
     } else {
         //For now we have only basic room
         exit();
     }
 
     memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
+}
+
+void tryPushEntityToRoom(Room *room, Entity _entity) {
+    if (room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
+        room->entity_pool[room->current_entity_count] = _entity;
+        ++room->current_entity_count;
+    }
 }

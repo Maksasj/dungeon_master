@@ -15,8 +15,7 @@
 
 #include "include/background.h"
 
-#include "../assets/generated/player1.h"
-
+#include "../assets/generated/sprites.h"
 
 int main() {
     /* we set the mode to mode 0 with bg0 on */
@@ -32,23 +31,23 @@ int main() {
 
     World world;
     generateWorld(&world);
-    gotoRoom(&world, 0);
+    gotoRoom(&world, 0, sprites, &next_sprite_index);
     
     interruptionInit(onVBlank);
 
     i32 octave = 0;
     soundInit(5, 3, 0, 3);
     
-    //play test sound
     playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
     
     spriteClear(sprites, &next_sprite_index);
 
-    fvec2 start_position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
-
-    Entity player;
-    entityInit(sprites, &next_sprite_index, &player, start_position);
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
+    entityInitSprite(&player, sprites, &next_sprite_index);
         
+    //Entity enemy;
+    //entityInit(sprites, &next_sprite_index, &enemy, newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
+
     while (1) {
         //Slow down the player
         player.vel.x *= 0.6;
@@ -63,7 +62,7 @@ int main() {
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 0);
 
-            notePlay(NOTE_BES, octave + 1);
+            //notePlay(NOTE_BES, octave + 1);
         }
 
         if (buttonPressed(_BUTTON_LEFT_)) {
@@ -72,21 +71,21 @@ int main() {
             spriteSetOffset(player.sprite, 16);
             spriteSetHorizontalFlip(player.sprite, 1);
 
-            notePlay(NOTE_B, octave);
+            //notePlay(NOTE_B, octave);
         }
 
         if (buttonPressed(_BUTTON_DOWN_)) {
             player.vel.y += 0.5;
             spriteSetOffset(player.sprite, 8);
 
-            notePlay(NOTE_F, octave);
+            //notePlay(NOTE_F, octave);
         }
 
         if (buttonPressed(_BUTTON_UP_)) {
             player.vel.y -= 0.5;
             spriteSetOffset(player.sprite, 0);
 
-            notePlay(NOTE_A, octave);
+            //notePlay(NOTE_A, octave);
         }
 
         //X
@@ -98,11 +97,21 @@ int main() {
             player.position.y += player.vel.y;
 
         if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
-            player.position.x = _SCREEN_WIDTH_ / 2 - 8;
-            player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
 
-            world.activeRoom++;
-            gotoRoom(&world, world.activeRoom);
+            //Мега костыль, но потом переделаем
+            if(player.position.y < 70) {
+                player.position.x = _SCREEN_WIDTH_ / 2 - 8;
+                player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
+
+                ++world.activeRoom;
+                gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+            } else {
+                player.position.x = _SCREEN_WIDTH_ / 2 - 8;
+                player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
+            
+                --world.activeRoom;
+                gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+            }
         }
 
         waitVBlank();
