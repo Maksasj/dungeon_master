@@ -14,8 +14,7 @@
 #include "assets/test_sound.h"
 #include "include/background.h"
 
-#include "../assets/generated/player1.h"
-
+#include "../assets/generated/sprites.h"
 
 int main() {
     /* we set the mode to mode 0 with bg0 on */
@@ -98,11 +97,21 @@ int main() {
             player.position.y += player.vel.y;
 
         if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
-            player.position.x = _SCREEN_WIDTH_ / 2 - 8;
-            player.position.y = _SCREEN_HEIGHT_ - 24;
 
-            ++world.activeRoom;
-            gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+            //Мега костыль, но потом переделаем
+            if(player.position.y < 70) {
+                player.position.x = _SCREEN_WIDTH_ / 2 - 8;
+                player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
+
+                ++world.activeRoom;
+                gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+            } else {
+                player.position.x = _SCREEN_WIDTH_ / 2 - 8;
+                player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
+            
+                --world.activeRoom;
+                gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+            }
         }
 
         waitVBlank();
