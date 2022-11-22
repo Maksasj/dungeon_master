@@ -5,8 +5,10 @@ Entity entityInit(fvec2 _position) {
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
 
-    _entity.health = 0;
-    _entity.mana = 0;
+    _entity->base_stats = stats(1, 1, 1, 1, 1);
+
+    _entity->health = 0;
+    _entity->mana = 0;
     return _entity;
 }
 
