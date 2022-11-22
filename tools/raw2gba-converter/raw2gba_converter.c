@@ -65,7 +65,7 @@ void convert(FILE *source, char *file_name) {
     FILE *header_file;
     size_t file_name_length = strlen(file_name);
 
-    char *base = (char *)malloc((file_name_length + 1) * sizeof(char));
+    char *base = (char *) malloc((file_name_length + 1) * sizeof(char));
     strcpy(base, file_name);
     base[file_name_length - RAW_TYPE_NAME_SIZE] = '\0';
 
