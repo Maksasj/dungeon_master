@@ -11,8 +11,7 @@
 
 #include "include/entity/entity.h"
 
-//#include "assets/test_sound.h"
-#include "assets/test_sound2.h"
+#include "../assets/generated/music/game_soundtrack_long.h"
 
 #include "include/background.h"
 
@@ -41,7 +40,7 @@ int main() {
     soundInit(5, 3, 0, 3);
     
     //play test sound
-    playSound(TEST, _TEST_BYTES_, 8000, 'A');
+    playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
     
     spriteClear(sprites, &next_sprite_index);
 
