@@ -4,6 +4,7 @@
 #include "../types.h"
 #include "../collision.h"
 #include "../entity/entity.h"
+#include "path_graph.h"
 
 #define _MAX_ENTITY_PER_ROOM_ 5
 
@@ -14,6 +15,8 @@ typedef enum RoomType {
 
 typedef struct Room {
     RoomType type;
+
+    Graph path_graph;
 
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];
 
