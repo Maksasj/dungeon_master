@@ -17,12 +17,12 @@ typedef struct World {
     u8 difficulty;
 } World;
 
-void gotoRoom(World *world, u8 roomId, Sprite* _sprites, i32* _next_sprite_index);
+void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index);
 
-void generateWorld(World *world);
+void generateWorld(World* _world);
 
-void worldUpdate(World *world);
+void worldUpdate(World* _world);
 
-COLLISION_TYPE worldCollision(World *world, ivec2 pos);
+CollisionType worldCollision(World* _world, ivec2 _pos);
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-typedef enum COLLISION_TYPE {
+typedef enum CollisionType {
     WALL,
     
     OPENED_DOOR,
@@ -14,6 +14,6 @@ typedef enum COLLISION_TYPE {
     ENEMY,
 
     NONE
-} COLLISION_TYPE;
+} CollisionType;
 
 #endif

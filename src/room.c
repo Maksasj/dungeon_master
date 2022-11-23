@@ -5,16 +5,16 @@
 
 #include "assets/map.h"
 
-COLLISION_TYPE collisionCallBack(Room *room, ivec2 pos) {
+CollisionType collisionCallBack(Room* _room, ivec2 _pos) {
     //Dividing cords by 16
-    i32 x = (pos.x + 8) >> 4;
-    i32 y = (pos.y + 8) >> 4;
+    i32 x = (_pos.x + 8) >> 4;
+    i32 y = (_pos.y + 8) >> 4;
 
     char tile = ' ';
 
-    if(room->type == BASIC) {
+    if(_room->type == BASIC) {
         tile = BASIC_ROOM_COLLISION_BOX[y][x];
-    } else if(room->type == TWO_ENEMIES) {
+    } else if(_room->type == TWO_ENEMIES) {
         tile = BASIC_ROOM_COLLISION_BOX[y][x];
     }
 
@@ -59,14 +59,14 @@ const u16* getRandomFloorTile() {
     return FLOOR_3;
 }
 
-void placeTile(u16* target, ivec2 pos, const u16* tile) {
-    target[pos.x + pos.y * 32] = tile[0];
-    target[pos.x + pos.y * 32 + 1] = tile[1];
-    target[pos.x + pos.y * 32 + 32] = tile[2];
-    target[pos.x + pos.y * 32 + 33] = tile[3];
+void placeTile(u16* _target, ivec2 _pos, const u16* _tile) {
+    _target[_pos.x + _pos.y * 32] = _tile[0];
+    _target[_pos.x + _pos.y * 32 + 1] = _tile[1];
+    _target[_pos.x + _pos.y * 32 + 32] = _tile[2];
+    _target[_pos.x + _pos.y * 32 + 33] = _tile[3];
 }
 
-void loadBasicRoom(u16* target) {
+void loadBasicRoom(u16* _target) {
     i32 i; i32 j;
 
     for(i = 0; i < 15; ++i) {
@@ -131,9 +131,9 @@ void renderRoom(Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
     memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
 }
 
-void tryPushEntityToRoom(Room *room, Entity _entity) {
-    if (room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
-        room->entity_pool[room->current_entity_count] = _entity;
-        ++room->current_entity_count;
+void tryPushEntityToRoom(Room* _room, Entity _entity) {
+    if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
+        _room->entity_pool[_room->current_entity_count] = _entity;
+        ++_room->current_entity_count;
     }
 }

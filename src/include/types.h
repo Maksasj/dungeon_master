@@ -39,12 +39,12 @@ typedef struct fvec3 {
 } fvec3;
 
 
-inline ivec2 newIVec2(i32 x, i32 y);
+inline ivec2 newIVec2(i32 _x, i32 _y);
 
-inline ivec3 newIVec3(i32 x, i32 y, i32 z);
+inline ivec3 newIVec3(i32 _x, i32 _y, i32 _z);
 
-inline fvec2 newFVec2(float x, float y);
+inline fvec2 newFVec2(float _x, float _y);
 
-inline fvec3 newFVec3(float x, float y, float z);
+inline fvec3 newFVec3(float _x, float _y, float _z);
 
 #endif
