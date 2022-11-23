@@ -53,6 +53,8 @@ int main() {
         player.vel.x *= 0.6;
         player.vel.y *= 0.6;
 
+
+        updateWorld(&world, &player);
         entityUpdate(&player);
 
         i32 walk = 0;
@@ -97,20 +99,15 @@ int main() {
             player.position.y += player.vel.y;
 
         if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
+            next_sprite_index = 1;
 
             //Мега костыль, но потом переделаем
             if(player.position.y < 70) {
-                player.position.x = _SCREEN_WIDTH_ / 2 - 8;
-                player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
-
-                ++world.activeRoom;
-                gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
+                nextRoom(&world, sprites, &next_sprite_index);
             } else {
-                player.position.x = _SCREEN_WIDTH_ / 2 - 8;
-                player.position.y = _SCREEN_HEIGHT_ / 2 - 8;
-            
-                --world.activeRoom;
-                gotoRoom(&world, world.activeRoom, sprites, &next_sprite_index);
+                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
+                backRoom(&world, sprites, &next_sprite_index);
             }
         }
 
