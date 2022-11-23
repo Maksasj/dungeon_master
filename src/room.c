@@ -3,9 +3,9 @@
 
 #include "include/world/tile.h"
 
-#include "assets/map.h"
-
 #include "include/prototypes/skeleton.h"
+
+#include "assets/map.h"
 
 const u16* getRandomFloorTile() {
     u16 value = rand() % 6;
@@ -30,48 +30,48 @@ const u16* getRandomFloorTile() {
     return FLOOR_3;
 }
 
-void placeTile(World* world, u16* target, ivec2 pos, const u16* tile, COLLISION_TYPE collision_type) {
-    target[pos.x + pos.y * 32] = tile[0];
-    target[pos.x + pos.y * 32 + 1] = tile[1];
-    target[pos.x + pos.y * 32 + 32] = tile[2];
-    target[pos.x + pos.y * 32 + 33] = tile[3];
+void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type) {
+    _target[_pos.x + _pos.y * 32] = _tile[0];
+    _target[_pos.x + _pos.y * 32 + 1] = _tile[1];
+    _target[_pos.x + _pos.y * 32 + 32] = _tile[2];
+    _target[_pos.x + _pos.y * 32 + 33] = _tile[3];
 
-    if(collision_type == WALL) {
-        world->collision_box[pos.y / 2][pos.x / 2] = '#';
-    } else if(collision_type == OPENED_DOOR) {
-        world->collision_box[pos.y / 2][pos.x / 2] = 'D';
+    if(_collision_type == WALL) {
+        _world->collision_box[_pos.y / 2][_pos.x / 2] = '#';
+    } else if(_collision_type == OPENED_DOOR) {
+        _world->collision_box[_pos.y / 2][_pos.x / 2] = 'D';
     } else {
-        world->collision_box[pos.y / 2][pos.x / 2] = ' ';
+        _world->collision_box[_pos.y / 2][_pos.x / 2] = ' ';
     }
 }
 
-void loadBasicRoom(World* world, u16* target) {
+void loadBasicRoom(World* _world, u16* _target) {
     i32 i; i32 j;
 
     for(i = 0; i < 15; ++i) {
         for(j = 0; j < 10; ++j) {
-            placeTile(world, MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
+            placeTile(_world, MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
         }
     }
 
     for(i = 0; i < 15; ++i) {
-        placeTile(world, MAP, newIVec2(i*2, 18), BORDER_BOTTOM, WALL);
-        placeTile(world, MAP, newIVec2(i*2, 0), BORDER_UP, WALL);
+        placeTile(_world, MAP, newIVec2(i*2, 18), BORDER_BOTTOM, WALL);
+        placeTile(_world, MAP, newIVec2(i*2, 0), BORDER_UP, WALL);
     }
 
     for(i = 0; i < 9; ++i) {
-        placeTile(world, MAP, newIVec2(28, i*2), BORDER_RIGHT, WALL);
-        placeTile(world, MAP, newIVec2(0, i*2), BORDER_LEFT, WALL);
+        placeTile(_world, MAP, newIVec2(28, i*2), BORDER_RIGHT, WALL);
+        placeTile(_world, MAP, newIVec2(0, i*2), BORDER_LEFT, WALL);
     }
 
    
-    placeTile(world, MAP, newIVec2(0, 0), CORNER_LEFT_UP, WALL);
-    placeTile(world, MAP, newIVec2(28, 0), CORNER_RIGHT_UP, WALL);
-    placeTile(world, MAP, newIVec2(0, 18), CORNER_LEFT_BOTTOM, WALL);
-    placeTile(world, MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
+    placeTile(_world, MAP, newIVec2(0, 0), CORNER_LEFT_UP, WALL);
+    placeTile(_world, MAP, newIVec2(28, 0), CORNER_RIGHT_UP, WALL);
+    placeTile(_world, MAP, newIVec2(0, 18), CORNER_LEFT_BOTTOM, WALL);
+    placeTile(_world, MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
 
 
-    placeTile(world, MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+    placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
     //placeTile(MAP, newIVec2(14, 18), DOO);
 
     /*
@@ -83,8 +83,8 @@ void loadBasicRoom(World* world, u16* target) {
     */
 }
 
-void renderRoom(void* world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
-    loadBasicRoom(world, MAP);
+void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
+    loadBasicRoom(_world, MAP);
 
     if(_room->type == BASIC) {
     
@@ -92,8 +92,8 @@ void renderRoom(void* world, Room* _room, Sprite* _sprites, i32* _next_sprite_in
         //init_entities
         //TODO load entities
 
-        placeTile(world, MAP, newIVec2(14, 0), DOOR_UP_CLOSED, OPENED_DOOR);
-        placeTile(world, MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, OPENED_DOOR);
+        placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_CLOSED, OPENED_DOOR);
+        placeTile(_world, MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, OPENED_DOOR);
         
         int i;
         for(i = 0; i < _room->current_entity_count; ++i) {
@@ -110,10 +110,10 @@ void renderRoom(void* world, Room* _room, Sprite* _sprites, i32* _next_sprite_in
     memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
 }
 
-void tryPushEntityToRoom(Room *room, Entity _entity) {
-    if (room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
-        room->entity_pool[room->current_entity_count] = _entity;
-        room->entity_pool[room->current_entity_count].update_callback = &skeleton_update;
-        ++room->current_entity_count;
+void tryPushEntityToRoom(Room* _room, Entity _entity) {
+    if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
+        _room->entity_pool[_room->current_entity_count] = _entity;
+        _room->entity_pool[_room->current_entity_count].update_callback = &skeleton_update;
+        ++_room->current_entity_count;
     }
 }

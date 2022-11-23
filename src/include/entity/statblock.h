@@ -16,8 +16,8 @@ typedef struct Statblock {
 
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
-Statblock stats(stattype stamina, stattype agility, stattype intellect, stattype strength, stattype armor);
+Statblock stats(stattype _stamina, stattype _agility, stattype _intellect, stattype _strength, stattype _armor);
 
-Statblock sumStatblock(Statblock a, Statblock b);
+Statblock sumStatblock(Statblock _a, Statblock _b);
 
 #endif

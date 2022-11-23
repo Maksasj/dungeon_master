@@ -27,18 +27,18 @@ typedef struct World {
     u8 collision_box[10][15];
 } World;
 
-void gotoRoom(World *world, u8 roomId, Sprite* _sprites, i32* _next_sprite_index);
+void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index);
 
-void generateWorld(World *world);
+void generateWorld(World* _world);
 
-void worldUpdate(World *world);
+void worldUpdate(World* _world);
 
-void updateWorld(World* world, Entity* player);
+void updateWorld(World* _world, Entity* _player);
 
-void nextRoom(World *world, Sprite* _sprites, i32* _next_sprite_index);
+void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 
-void backRoom(World *world, Sprite* _sprites, i32* _next_sprite_index);
+void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 
-COLLISION_TYPE worldCollision(World *world, ivec2 pos);
+CollisionType worldCollision(World* _world, ivec2 _pos);
 
 #endif
