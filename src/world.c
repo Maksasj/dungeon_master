@@ -24,7 +24,7 @@ void backRoom(World *world, Sprite* _sprites, i32* _next_sprite_index) {
 
 void gotoRoom(World *world, u8 roomId, Sprite* _sprites, i32* _next_sprite_index) {
     world->activeRoom = roomId;
-    renderRoom(&world->rooms[roomId], _sprites, _next_sprite_index);
+    renderRoom(world, &world->rooms[roomId], _sprites, _next_sprite_index);
 }
 
 void updateWorld(World* world, Entity* player) {
@@ -57,5 +57,26 @@ void generateWorld(World *world) {
 }
 
 COLLISION_TYPE worldCollision(World *world, ivec2 pos) {
-    return collisionCallBack(&world->rooms[world->activeRoom], pos);
+    //Dividing cords by 16
+    i32 x = (pos.x + 8) >> 4;
+    i32 y = (pos.y + 8) >> 4;
+
+    char tile = world->collision_box[y][x];
+
+    switch (tile) {
+        case '#':
+            return WALL;
+        case 'D':
+            return OPENED_DOOR;
+        case 'C':
+            return CLOSED_DOOR;
+        case 'E':
+            return ENEMY;
+        case 'X':
+            return CHEST;
+        default:
+            return NONE;
+    }
+    
+    return NONE;
 }

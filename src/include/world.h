@@ -15,6 +15,16 @@ typedef struct World {
     
     //TODO
     u8 difficulty;
+
+    /*
+        '#' - Wall
+        'D' - Opened Door
+        'C' - Closed Door
+        'E' - Enemy
+        'X' - Chest
+        ' ' - None
+    */
+    u8 collision_box[10][15];
 } World;
 
 void gotoRoom(World *world, u8 roomId, Sprite* _sprites, i32* _next_sprite_index);
