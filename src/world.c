@@ -1,34 +1,34 @@
 #include "include/world.h"
 
-void nextRoom(World *world, Sprite* _sprites, i32* _next_sprite_index) {
+void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int i;
-    for(i = 0; i < world->rooms[world->activeRoom].current_entity_count; ++i) {
-        Entity *entity = &world->rooms[world->activeRoom].entity_pool[i];
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
+        Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
     }
 
-    ++world->activeRoom;
-    gotoRoom(world, world->activeRoom, _sprites, _next_sprite_index);
+    ++_world->activeRoom;
+    gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
 }
 
-void backRoom(World *world, Sprite* _sprites, i32* _next_sprite_index) {
+void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int i;
-    for(i = 0; i < world->rooms[world->activeRoom].current_entity_count; ++i) {
-        Entity *entity = &world->rooms[world->activeRoom].entity_pool[i];
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
+        Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
     }
 
-    --world->activeRoom;
-    gotoRoom(world, world->activeRoom, _sprites, _next_sprite_index);
+    --_world->activeRoom;
+    gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
 }
 
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
-    world->activeRoom = roomId;
+    _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
 
-void updateWorld(World* world, Entity* player) {
-    Room *room = &world->rooms[world->activeRoom];
+void updateWorld(World* _world, Entity* _player) {
+    Room *room = &_world->rooms[_world->activeRoom];
     
     i32 i;
     for(i = 0; i < room->current_entity_count; ++i) {

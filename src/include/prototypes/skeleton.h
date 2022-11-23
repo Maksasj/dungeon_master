@@ -4,6 +4,6 @@
 #include "../world/room.h"
 #include "../entity/entity.h"
 
-void skeleton_update(Entity* self, Room* room);
+void skeleton_update(Entity* _self, Room* _room);
 
 #endif

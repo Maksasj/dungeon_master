@@ -33,11 +33,11 @@ void generateWorld(World* _world);
 
 void worldUpdate(World* _world);
 
-void updateWorld(World* world, Entity* player);
+void updateWorld(World* _world, Entity* _player);
 
-void nextRoom(World *world, Sprite* _sprites, i32* _next_sprite_index);
+void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 
-void backRoom(World *world, Sprite* _sprites, i32* _next_sprite_index);
+void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 
 CollisionType worldCollision(World* _world, ivec2 _pos);
 
