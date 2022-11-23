@@ -1,5 +1,27 @@
 #include "include/world.h"
 
+void nextRoom(World *world, Sprite* _sprites, i32* _next_sprite_index) {
+    int i;
+    for(i = 0; i < world->rooms[world->activeRoom].current_entity_count; ++i) {
+        Entity *entity = &world->rooms[world->activeRoom].entity_pool[i];
+        entityUnloadSprite(entity);
+    }
+
+    ++world->activeRoom;
+    gotoRoom(world, world->activeRoom, _sprites, _next_sprite_index);
+}
+
+void backRoom(World *world, Sprite* _sprites, i32* _next_sprite_index) {
+    int i;
+    for(i = 0; i < world->rooms[world->activeRoom].current_entity_count; ++i) {
+        Entity *entity = &world->rooms[world->activeRoom].entity_pool[i];
+        entityUnloadSprite(entity);
+    }
+
+    --world->activeRoom;
+    gotoRoom(world, world->activeRoom, _sprites, _next_sprite_index);
+}
+
 void gotoRoom(World *world, u8 roomId, Sprite* _sprites, i32* _next_sprite_index) {
     world->activeRoom = roomId;
     renderRoom(&world->rooms[roomId], _sprites, _next_sprite_index);
