@@ -1,15 +1,15 @@
 #include "include/queue.h"
 #include <stdlib.h>
 
-i8Queue* createQueue() {
-    i8Queue* queue = malloc(sizeof(i8Queue));
+ivec2Queue* createQueue() {
+    ivec2Queue* queue = malloc(sizeof(ivec2Queue));
     queue->front = -1;
     queue->rear = -1;
 
     return queue; 
 }
 
-void enqueue(i8Queue* _queue, i8 _value) {
+void push(ivec2Queue* _queue, ivec2 _value) {
     if (_queue->rear == _INITIAL_QUEUE_SIZE_ - 1) {
         return;
     }
@@ -22,7 +22,7 @@ void enqueue(i8Queue* _queue, i8 _value) {
     _queue->items[_queue->rear] = _value;
 }
 
-i32 empty(i8Queue* _queue) {
+i32 empty(ivec2Queue* _queue) {
     if (_queue->rear == -1) {
         return 1;
     }
@@ -30,13 +30,13 @@ i32 empty(i8Queue* _queue) {
     return 0;
 }
 
-void reset(i8Queue* _queue) {
+void reset(ivec2Queue* _queue) {
     _queue->front = -1;
     _queue->rear = -1;
 }
 
-i8 dequeue(i8Queue* _queue) {
-    i8 item;
+ivec2 pop(ivec2Queue* _queue) {
+    ivec2 item;
     
     if (empty(_queue)) {
         item = -1;
@@ -48,4 +48,6 @@ i8 dequeue(i8Queue* _queue) {
             reset(_queue);
         }
     }
+
+    return item;
 }

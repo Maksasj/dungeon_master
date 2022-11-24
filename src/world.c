@@ -29,7 +29,8 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
-    //breadthFirstSearch(_world->path_graph, );
+    
+    //breadthFirstSearch(_world->path_graph, newIVec2((i32)_player->position.x, (i32)_player->position.y));
 
     i32 i;
     for(i = 0; i < room->current_entity_count; ++i) {

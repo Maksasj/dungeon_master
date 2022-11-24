@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "sprite.h"
+#include "queue.h"
 
 #include "world/room.h"
 
