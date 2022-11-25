@@ -8,20 +8,21 @@
 #define _AMOUNT_OF_NEIGHBORS_ 4
 #define _MAX_AMOUNT_OF_OBSTACLES_ 30
 
-typedef struct SquareGrid {
-    i32 width;
-    i32 height;
+#define _ROOM_LENGTH_ 14
+#define _ROOM_WIDTH_ 9
 
-    i8 vertices**;
+typedef struct SquareGrid {
+    i8 vertices[_ROOM_LENGTH_][_ROOM_WIDTH_];
+    ivec2 came_from[_ROOM_LENGTH_][_ROOM_WIDTH_];
 } SquareGrid;
 
-SquareGrid* gridInit(i32 _width, i32 _height);
+SquareGrid* gridInit();
 
-i32 inBounds(SquareGrid* _grid, ivec2 _coordinates);
+i32 inBounds(ivec2 _coordinates);
 
 i32 passable(SquareGrid* _grid, ivec2 _coordinates);
 
-ivec2* getNeighbors(SquareGrid* _grid, ivec2 _coordinates);
+void getNeighbors(SquareGrid* _grid, ivec2** neighbors, ivec2 _coordinates);
 
 void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position);
 

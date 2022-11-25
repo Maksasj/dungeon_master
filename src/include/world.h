@@ -4,6 +4,7 @@
 #include "types.h"
 #include "sprite.h"
 #include "queue.h"
+#include "grid.h"
 
 #include "world/room.h"
 
@@ -11,6 +12,8 @@
 
 typedef struct World {
     Room rooms[_MAX_ROOM_COUNT_];
+
+    SquareGrid grid;
 
     u8 activeRoom;
     

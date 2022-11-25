@@ -104,7 +104,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
     } else {
         //For now we have only basic room
-        exit();
+        //exit();
     }
 
     memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);

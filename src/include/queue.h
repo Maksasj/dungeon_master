@@ -7,8 +7,8 @@
 
 typedef struct ivec2Queue {
     ivec2 items[_INITIAL_QUEUE_SIZE_];
-    ivec2 front;
-    ivec2 rear;
+    i32 front;
+    i32 rear;
 } ivec2Queue;
 
 ivec2Queue* createQueue();

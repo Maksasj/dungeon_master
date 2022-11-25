@@ -39,7 +39,8 @@ ivec2 pop(ivec2Queue* _queue) {
     ivec2 item;
     
     if (empty(_queue)) {
-        item = -1;
+        item.x = -1;
+        item.y = -1;
     } else {
         item = _queue->items[_queue->front];
         ++_queue->front;

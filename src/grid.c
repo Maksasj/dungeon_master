@@ -7,27 +7,30 @@ const i32 DIRECTION_VECTORS[4][2] = {
     {-1, 0}  //Left
 };
 
-const char DIRECTION[4] {
+const i8 DIRECTION[4] = {
     'u', //Up
     'r', //Right
     'd', //Down
     'l'  //Left
 };
 
-SquareGrid* gridInit(i32 _width, i32 _height) {
+SquareGrid* gridInit() {
     SquareGrid* grid;
-    grid->width = _width;
-    grid->height = _height;
 
-    grid->vertices* = malloc(_width * sizeof(i8));
-    grid->vertices** = malloc(_height * sizeof(i8));
+    i32 i;
+    i32 j;
+    for (i = 0; i < _ROOM_LENGTH_; ++i) {
+        for (j = 0; j < _ROOM_WIDTH_; ++j) {
+            grid->came_from[i][j] = newIVec2(-1, -1);
+        }
+    }
 
     return grid;
 }
 
-i32 inBounds(SquareGrid* _grid, ivec2 _coordinates) {
-    return 0 <= _coordinates.x && _coordinates.x < _grid->width
-        && 0 <= _coordinates.y && _coordinates.y < _grid->height;
+i32 inBounds(ivec2 _coordinates) {
+    return 0 <= _coordinates.x && _coordinates.x < _ROOM_WIDTH_
+        && 0 <= _coordinates.y && _coordinates.y < _ROOM_LENGTH_;
 }
 
 i32 passable(SquareGrid* _grid, ivec2 _coordinates) {
@@ -35,8 +38,8 @@ i32 passable(SquareGrid* _grid, ivec2 _coordinates) {
     return 1;
 }
 
-ivec2* getNeighbors(SquareGrid* _grid, ivec2 _coordinates) {
-    ivec2 neighbors[_AMOUNT_OF_NEIGHBORS_];
+void getNeighbors(SquareGrid* _grid, ivec2** neighbors, ivec2 _coordinates) {
+    neighbors = (ivec2**)malloc(_AMOUNT_OF_NEIGHBORS_ * sizeof(ivec2));
 
     ivec2 next;
 
@@ -44,12 +47,10 @@ ivec2* getNeighbors(SquareGrid* _grid, ivec2 _coordinates) {
     for (i = 0; i < _AMOUNT_OF_NEIGHBORS_; ++i) {
         next = newIVec2(_coordinates.x + DIRECTION_VECTORS[i][0], _coordinates.y + DIRECTION_VECTORS[i][1]);
         
-        if (inBounds(_grid, next) && passable(_grid, next)) {
-            neighbors[i] = next;
+        if (inBounds(next) && passable(_grid, next)) {
+            (*neighbors)[i] = next;
         }
     }
-
-    return neighbors;
 }
 
 void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
@@ -59,10 +60,19 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
     while (!empty(queue)) {
         ivec2 current = pop(queue);
 
-        ivec2* neighbors = getNeighbors(_grid, current);
+        ivec2** neighbors;
+        getNeighbors(_grid, neighbors, current);
+
         i32 index;
         for (index = 0; index < _AMOUNT_OF_NEIGHBORS_; ++index) {
-            
+            ivec2 next = (*neighbors)[index];
+
+            if (_grid->came_from[next.x][next.y].x == -1 &&
+                _grid->came_from[next.x][next.y].y == -1) {
+                    
+                push(queue, next);
+                _grid->came_from[next.x][next.y] = current;
+            }
         }
     }
 }
