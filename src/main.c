@@ -17,6 +17,8 @@
 
 #include "../assets/generated/sprites.h"
 
+#include "include/logger.h"
+
 int main() {
     /* we set the mode to mode 0 with bg0 on */
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
@@ -54,6 +56,8 @@ int main() {
         player.vel.y *= 0.6;
 
         entityUpdate(&player);
+
+        log(LOG_INFO, "poggers");
 
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
