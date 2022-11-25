@@ -4,6 +4,7 @@
 #include "types.h"
 #include "queue.h"
 #include <stdlib.h>
+#include "logger.h"
 
 #define _AMOUNT_OF_NEIGHBORS_ 4
 #define _MAX_AMOUNT_OF_OBSTACLES_ 30

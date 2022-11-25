@@ -58,8 +58,6 @@ int main() {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
-        log(LOG_INFO, "poggers");
-
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
             player.vel.x += 0.5;
