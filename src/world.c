@@ -1,5 +1,7 @@
 #include "include/world.h"
 
+static u32 WORLD_TICK = 0;
+
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int i;
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
@@ -30,22 +32,34 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
     
-    //breadthFirstSearch(_world->path_graph, newIVec2((i32)_player->position.x, (i32)_player->position.y));
+    if (room->current_entity_count > 0) {
+        if (WORLD_TICK % _BFS_TICK_RATE_ == 0) {
+            clearGrid(_world->grid);
+
+            ivec2 world_position = screenToGridPosition(_player->position);
+            breadthFirstSearch(_world->grid, world_position);
+        }
+    }
 
     i32 i;
     for(i = 0; i < room->current_entity_count; ++i) {
         Entity *entity = &room->entity_pool[i];
-        (*entity->update_callback)(entity, room);
+        (*entity->update_callback)(entity, _world, room);
 
         entityUpdate(entity);
     }
+
+    ++WORLD_TICK;
 }
 
 void generateWorld(World* _world) {
     u32 i;
     Room first_room;
+
     first_room.type = BASIC;
     _world->rooms[0] = first_room;
+
+    _world->grid = gridInit();
 
     for(i = 1; i < _MAX_ROOM_COUNT_; ++i) {
         Room room;
@@ -81,4 +95,17 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
     }
     
     return NONE;
+}
+
+ivec2 screenToGridPosition(fvec2 _screen_position) {
+    ivec2 fixed_screen_position;
+    ivec2 grid_position;
+
+    fixed_screen_position.x = (i32)_screen_position.x;
+    fixed_screen_position.y = (i32)_screen_position.y;
+
+    grid_position.x = (fixed_screen_position.x >> 4) - 1;
+    grid_position.y = (fixed_screen_position.y >> 4) - 1;
+
+    return grid_position;
 }

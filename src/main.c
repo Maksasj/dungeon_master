@@ -53,7 +53,6 @@ int main() {
         player.vel.x *= 0.6;
         player.vel.y *= 0.6;
 
-
         updateWorld(&world, &player);
         entityUpdate(&player);
 

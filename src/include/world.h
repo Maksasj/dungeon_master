@@ -9,11 +9,12 @@
 #include "world/room.h"
 
 #define _MAX_ROOM_COUNT_ 5
+#define _BFS_TICK_RATE_ 25
 
 typedef struct World {
     Room rooms[_MAX_ROOM_COUNT_];
 
-    SquareGrid grid;
+    SquareGrid* grid;
 
     u8 activeRoom;
     
@@ -44,5 +45,7 @@ void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 
 CollisionType worldCollision(World* _world, ivec2 _pos);
+
+ivec2 screenToGridPosition(fvec2 _screen_position);
 
 #endif

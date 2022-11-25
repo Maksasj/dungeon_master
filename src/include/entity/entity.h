@@ -22,19 +22,19 @@ typedef struct Entity {
     fvec2 position;
     fvec2 vel;
 
-    //void (*update_callback)(Entity* self, Room* room);
-    void (*update_callback)(void*, void*);
+    //void (*update_callback)(Entity* _self, World* _world, Room* _room);
+    void (*update_callback)(void*, void*, void*);
     
-    //void (*attack_callback)(Entity* self, Entity* target);
+    //void (*attack_callback)(Entity* _self, Entity* _target);
     void (*attack_callback)(void*, void*);
 
-    //void (*takeDamage_callback)(Entity* self, i32 damage);
+    //void (*takeDamage_callback)(Entity* _self, i32 _damage);
     void (*takeDamage_callback)(void*, i32);
 
-    //void (*die_callback)(Entity* self, Room* room);
+    //void (*die_callback)(Entity* _self, Room* _room);
     void (*die_callback)(void*, void*);
 
-    //void (*spawn_callback)(Entity* self, Room* room);
+    //void (*spawn_callback)(Entity* _self, Room* _room);
     void (*spawn_callback)(void*, void*);
 } Entity;
 
