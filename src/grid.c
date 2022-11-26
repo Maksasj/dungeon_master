@@ -14,14 +14,14 @@ const i8 DIRECTION[4] = {
     'r'  //Right
 };
 
-SquareGrid* gridInit() {
-    SquareGrid* grid;
+SquareGrid gridInit() {
+    SquareGrid grid;
 
     i32 i;
     i32 j;
     for (i = 0; i < _ROOM_LENGTH_; ++i) {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
-            grid->came_from[i][j] = newIVec2(-1, -1);
+            grid.came_from[i][j] = newIVec2(-1, -1);
         }
     }
 
@@ -29,8 +29,8 @@ SquareGrid* gridInit() {
 }
 
 i32 inBounds(ivec2 _coordinates) {
-    return 0 <= _coordinates.x && _coordinates.x < _ROOM_WIDTH_
-        && 0 <= _coordinates.y && _coordinates.y < _ROOM_LENGTH_;
+    return 0 <= _coordinates.x && _coordinates.x < _ROOM_LENGTH_
+        && 0 <= _coordinates.y && _coordinates.y < _ROOM_WIDTH_;
 }
 
 i32 passable(SquareGrid* _grid, ivec2 _coordinates) {
@@ -47,6 +47,8 @@ ivec2* getNeighbors(SquareGrid* _grid, ivec2* neighbors, ivec2 _coordinates) {
         
         if (inBounds(next) && passable(_grid, next)) {
             neighbors[i] = next;
+        } else {
+            neighbors[i] = newIVec2(-1, -1);
         }
     }
 
@@ -58,6 +60,7 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
     ivec2* neighbors = (ivec2*)malloc(_AMOUNT_OF_NEIGHBORS_ * sizeof(ivec2));
 
     push(queue, _start_position);
+    _grid->vertices[_start_position.x][_start_position.y] = ' ';
 
     while (!empty(queue)) {
         ivec2 current = pop(queue);
@@ -66,11 +69,14 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
 
         i32 index;
         for (index = 0; index < _AMOUNT_OF_NEIGHBORS_; ++index) {
+            if(neighbors[index].x == -1 || neighbors[index].y == -1) {
+                continue;
+            }
+
             ivec2 next = neighbors[index];
 
             if (_grid->came_from[next.x][next.y].x == -1 ||
                 _grid->came_from[next.x][next.y].y == -1) {
-                    
                 push(queue, next);
                 _grid->came_from[next.x][next.y] = current;
 

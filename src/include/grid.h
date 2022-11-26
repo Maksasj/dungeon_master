@@ -4,7 +4,6 @@
 #include "types.h"
 #include "queue.h"
 #include <stdlib.h>
-#include "logger.h"
 
 #define _AMOUNT_OF_NEIGHBORS_ 4
 #define _MAX_AMOUNT_OF_OBSTACLES_ 30
@@ -17,7 +16,7 @@ typedef struct SquareGrid {
     ivec2 came_from[_ROOM_LENGTH_][_ROOM_WIDTH_];
 } SquareGrid;
 
-SquareGrid* gridInit();
+SquareGrid gridInit();
 
 i32 inBounds(ivec2 _coordinates);
 

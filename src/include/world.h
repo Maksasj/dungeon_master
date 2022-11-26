@@ -9,12 +9,12 @@
 #include "world/room.h"
 
 #define _MAX_ROOM_COUNT_ 5
-#define _BFS_TICK_RATE_ 25
+#define _BFS_TICK_RATE_ 75
 
 typedef struct World {
     Room rooms[_MAX_ROOM_COUNT_];
 
-    SquareGrid* grid;
+    SquareGrid grid;
 
     u8 activeRoom;
     

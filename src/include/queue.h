@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-#define _INITIAL_QUEUE_SIZE_ 70
+#define _INITIAL_QUEUE_SIZE_ 150
 
 typedef struct ivec2Queue {
     ivec2 items[_INITIAL_QUEUE_SIZE_];
