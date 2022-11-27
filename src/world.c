@@ -31,26 +31,27 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 }
 
 void updateWorld(World* _world, Entity* _player) {
-    if (WORLD_TICK % 100 == 0) {
+    Room *room = &_world->rooms[_world->activeRoom];
 
-        Room *room = &_world->rooms[_world->activeRoom];
+    if (WORLD_TICK % 20 == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToGridPosition(_player->position);
 
             clearGrid(&_world->grid);
             breadthFirstSearch(&_world->grid, world_position);
         }
+    }
 
-        i32 i;
-        for(i = 0; i < room->current_entity_count; ++i) {
-            Entity *entity = &room->entity_pool[i];
-            (*entity->update_callback)(entity, _world, room);
+    i32 i;
+    for(i = 0; i < room->current_entity_count; ++i) {
+        Entity *entity = &room->entity_pool[i];
+        (*entity->update_callback)(entity, _world, room);
 
-            entityUpdate(entity);
-        }
+        entityUpdate(entity);
     }
 
     ++WORLD_TICK;
+
 }
 
 void generateWorld(World* _world) {
@@ -67,7 +68,8 @@ void generateWorld(World* _world) {
 
         room.type = TWO_ENEMIES;
         _world->rooms[i] = room;
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(50.0, 50)));
+        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
+        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0)));
     }   
 
     _world->difficulty = 1;
@@ -98,15 +100,12 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
     return NONE;
 }
 
-ivec2 screenToGridPosition(fvec2 _screen_position) {
+inline ivec2 screenToGridPosition(fvec2 _screen_position) {
     ivec2 fixed_screen_position;
     ivec2 grid_position;
 
-    fixed_screen_position.x = (i32)_screen_position.x + 8;
-    fixed_screen_position.y = (i32)_screen_position.y + 8;
-
-    grid_position.x = (fixed_screen_position.x >> 4) - 1;
-    grid_position.y = (fixed_screen_position.y >> 4) - 1;
+    grid_position.x = ((i32)_screen_position.x >> 4) - 1;
+    grid_position.y = ((i32)_screen_position.y >> 4) - 1;
 
     return grid_position;
 }
