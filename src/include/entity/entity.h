@@ -6,8 +6,6 @@
 #include "../sprite.h"
 #include "../types.h"
 
-#include <stdio.h>
-
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
 typedef struct Entity {
@@ -36,6 +34,9 @@ typedef struct Entity {
 
     //void (*spawn_callback)(Entity* _self, Room* _room);
     void (*spawn_callback)(void*, void*);
+
+    //i32 (*on_collision_enter)(Entity* _self, Entity* target);
+    i32 (*on_collision_enter)(void*, void*);
 } Entity;
 
 Entity entityInit(fvec2 _position);
@@ -45,5 +46,7 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
 void entityUnloadSprite(Entity *_entity);
 
 void entityUpdate(Entity* _entity);
+
+i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 
 #endif

@@ -24,3 +24,17 @@ void entityUnloadSprite(Entity *_entity) {
 void entityUpdate(Entity* _entity) {
     spritePosition(_entity->sprite, (i32) _entity->position.x, (i32)_entity->position.y);
 }
+
+i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
+    ivec2 first_entity_sprite_size = getSpriteWidthAndLength(_first_entity->sprite);
+    ivec2 second_entity_sprite_size = getSpriteWidthAndLength(_second_entity->sprite);
+
+    if (_first_entity->position.x < _second_entity->position.x + second_entity_sprite_size.x &&
+        _first_entity->position.x + first_entity_sprite_size.x > _second_entity->position.x &&
+        _first_entity->position.y < _second_entity->position.y + second_entity_sprite_size.y &&
+        _first_entity->position.y + first_entity_sprite_size.y > _second_entity->position.y) {
+            return 1;
+        }
+    
+    return 0;
+}
