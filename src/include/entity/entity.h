@@ -5,7 +5,6 @@
 
 #include "../sprite.h"
 #include "../types.h"
-#include "../logger.h"
 
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
