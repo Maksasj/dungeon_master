@@ -10,6 +10,7 @@
 
 typedef struct Entity {
     Sprite* sprite;
+    SpriteSize sprite_size_in_pixels;
 
     //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
     Statblock base_stats;
