@@ -47,11 +47,14 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *entity = &room->entity_pool[i];
         (*entity->update_callback)(entity, _world, room);
 
+        if ((*entity->on_collision_enter)(entity, _player)) {
+            notePlay(NOTE_BES, 1);
+        }
+
         entityUpdate(entity);
     }
 
     ++WORLD_TICK;
-
 }
 
 void generateWorld(World* _world) {

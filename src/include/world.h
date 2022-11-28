@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "queue.h"
 #include "grid.h"
+#include "sound.h"
 
 #include "world/room.h"
 

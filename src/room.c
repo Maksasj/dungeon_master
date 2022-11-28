@@ -114,6 +114,7 @@ void tryPushEntityToRoom(Room* _room, Entity _entity) {
     if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         _room->entity_pool[_room->current_entity_count] = _entity;
         _room->entity_pool[_room->current_entity_count].update_callback = &skeleton_update;
+        _room->entity_pool[_room->current_entity_count].on_collision_enter = &checkCollision;
         ++_room->current_entity_count;
     }
 }

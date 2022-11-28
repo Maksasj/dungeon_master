@@ -34,6 +34,9 @@ typedef struct Entity {
 
     //void (*spawn_callback)(Entity* _self, Room* _room);
     void (*spawn_callback)(void*, void*);
+
+    //i32 (*on_collision_enter)(Entity* _self, Entity* target);
+    i32 (*on_collision_enter)(void*, void*);
 } Entity;
 
 Entity entityInit(fvec2 _position);
