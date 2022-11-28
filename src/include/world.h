@@ -6,7 +6,6 @@
 #include "queue.h"
 #include "grid.h"
 #include "sound.h"
-#include "logger.h"
 
 #include "world/room.h"
 
