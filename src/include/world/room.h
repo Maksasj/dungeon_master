@@ -5,18 +5,15 @@
 #include "../collision.h"
 #include "../entity/entity.h"
 
-//Include bounding boxes for all rooms
-#include "rooms/basic_room.h"
-
 #define _MAX_ENTITY_PER_ROOM_ 5
 
-typedef enum ROOM_TYPE {
+typedef enum RoomType {
     BASIC,
     TWO_ENEMIES
-} ROOM_TYPE;
+} RoomType;
 
 typedef struct Room {
-    ROOM_TYPE type;
+    RoomType type;
 
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];
 
@@ -32,10 +29,8 @@ typedef struct Room {
     */
 } Room;
 
-void renderRoom(Room* room, Sprite* _sprites, i32* next_sprite_index);
+void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index);
 
-void tryPushEntityToRoom(Room *room, Entity _entity);
-
-COLLISION_TYPE collisionCallBack(Room *room, ivec2 pos);
+void tryPushEntityToRoom(Room* _room, Entity _entity);
 
 #endif

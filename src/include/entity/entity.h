@@ -6,10 +6,12 @@
 #include "../sprite.h"
 #include "../types.h"
 
+#include <stdio.h>
+
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
 typedef struct Entity {
-    Sprite *sprite;
+    Sprite* sprite;
 
     //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
     Statblock base_stats;
@@ -20,17 +22,28 @@ typedef struct Entity {
     fvec2 position;
     fvec2 vel;
 
-    void (*update_callback)();
-    void (*attack_callback)();
-    void (*takeDamage_callback)();
-    void (*die_callback)();
-    void (*spawn_callback)();
+    //void (*update_callback)(Entity* _self, World* _world, Room* _room);
+    void (*update_callback)(void*, void*, void*);
+    
+    //void (*attack_callback)(Entity* _self, Entity* _target);
+    void (*attack_callback)(void*, void*);
+
+    //void (*takeDamage_callback)(Entity* _self, i32 _damage);
+    void (*takeDamage_callback)(void*, i32);
+
+    //void (*die_callback)(Entity* _self, Room* _room);
+    void (*die_callback)(void*, void*);
+
+    //void (*spawn_callback)(Entity* _self, Room* _room);
+    void (*spawn_callback)(void*, void*);
 } Entity;
 
 Entity entityInit(fvec2 _position);
 
-void entityInitSprite(Entity *_entity, Sprite _sprites[], i32 *_next_sprite_index);
+void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_index);
 
-void entityUpdate(Entity *_entity);
+void entityUnloadSprite(Entity *_entity);
+
+void entityUpdate(Entity* _entity);
 
 #endif

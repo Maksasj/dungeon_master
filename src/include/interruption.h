@@ -33,6 +33,6 @@
 #define _INT_BUTTON_    0x1000
 #define _INT_CART_      0x2000
 
-void interruptionInit(void (*ptr)());
+void interruptionInit(void (*_ptr)());
 
 #endif
