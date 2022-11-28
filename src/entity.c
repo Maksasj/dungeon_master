@@ -38,3 +38,8 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
     
     return 0;
 }
+
+void killEntity(Entity* _entity) {
+    (*_entity->die_callback)(_entity);
+    entityUnloadSprite(_entity);
+}

@@ -49,11 +49,13 @@ void updateWorld(World* _world, Entity* _player) {
 
         if ((*entity->on_collision_enter)(entity, _player)) {
             notePlay(NOTE_BES, 1);
+            killEntity(entity);
+            deleteEntityFromRoom(entity, room);
         }
 
         entityUpdate(entity);
     }
-
+    
     ++WORLD_TICK;
 }
 
