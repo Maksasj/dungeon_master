@@ -5,8 +5,7 @@
 
 #include "../sprite.h"
 #include "../types.h"
-
-#include <stdio.h>
+#include "../logger.h"
 
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
@@ -45,5 +44,7 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
 void entityUnloadSprite(Entity *_entity);
 
 void entityUpdate(Entity* _entity);
+
+i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 
 #endif

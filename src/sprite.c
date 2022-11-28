@@ -3,7 +3,8 @@
 Sprite* spriteInit(Sprite _sprites[], i32* _next_sprite_index, i32 _x, i32 _y, SpriteSize _size, i32 _horizontal_flip, i32 _vertical_flip, i32 _tile_index, i32 _priority) {
 
     /* grab the next index */
-    i32 index = (*_next_sprite_index)++;
+    i32 index = *_next_sprite_index;
+    ++(*_next_sprite_index);
 
     /* setup the bits used for each shape/size possible */
     i32 size_bits, shape_bits;
@@ -45,6 +46,8 @@ Sprite* spriteInit(Sprite _sprites[], i32* _next_sprite_index, i32 _x, i32 _y, S
                             (_priority << 10) | // priority */
                             (0 << 12);         // palette bank (only 16 color)*/
 
+    _sprites[index].sprite_size = _size;
+    
     /* return pointer to this sprite */
     return &_sprites[index];
 }
@@ -123,4 +126,26 @@ void spriteClear(Sprite* _sprites, i32* _next_sprite_index) {
         _sprites[i].attribute0 = _SCREEN_HEIGHT_;
         _sprites[i].attribute1 = _SCREEN_WIDTH_;
     }
+}
+
+ivec2 getSpriteWidthAndLength(Sprite* _sprite) {
+    ivec2 size = newIVec2(2, 2);
+
+    switch (_sprite->sprite_size)
+    {
+        case SIZE_8_8:   size.x <<= 2; size.y <<= 2; break;
+        case SIZE_16_16: size.x <<= 3; size.y <<= 3; break;
+        case SIZE_32_32: size.x <<= 4; size.y <<= 4; break;
+        case SIZE_64_64: size.x <<= 5; size.y <<= 5; break;
+        case SIZE_16_8:  size.x <<= 3; size.y <<= 2; break;
+        case SIZE_32_8:  size.x <<= 4; size.y <<= 2; break;
+        case SIZE_32_16: size.x <<= 4; size.y <<= 3; break;
+        case SIZE_64_32: size.x <<= 5; size.y <<= 4; break;
+        case SIZE_8_16:  size.x <<= 2; size.y <<= 3; break;
+        case SIZE_8_32:  size.x <<= 2; size.y <<= 4; break;
+        case SIZE_16_32: size.x <<= 3; size.y <<= 4; break;
+        case SIZE_32_64: size.x <<= 4; size.y <<= 5; break;
+    }
+
+    return size;
 }
