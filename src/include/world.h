@@ -9,7 +9,7 @@
 #include "world/room.h"
 
 #define _MAX_ROOM_COUNT_ 5
-#define _BFS_TICK_RATE_ 75
+#define _BFS_TICK_RATE_ 20
 
 typedef struct World {
     Room rooms[_MAX_ROOM_COUNT_];
