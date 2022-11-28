@@ -33,7 +33,7 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
-    if (WORLD_TICK % 20 == 0) {
+    if (WORLD_TICK % _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToGridPosition(_player->position);
 

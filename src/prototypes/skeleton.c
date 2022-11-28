@@ -3,9 +3,9 @@
 void skeleton_update(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
 
-    i8 DIRECTION = _world->grid.vertices[world_position.x][world_position.y];
+    i8 direction = _world->grid.vertices[world_position.x][world_position.y];
 
-    switch (DIRECTION)
+    switch (direction)
     {
         case 'u': //Up
             _self->position.y += 1;
