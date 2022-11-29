@@ -115,6 +115,25 @@ void tryPushEntityToRoom(Room* _room, Entity _entity) {
         _room->entity_pool[_room->current_entity_count] = _entity;
         _room->entity_pool[_room->current_entity_count].update_callback = &skeleton_update;
         _room->entity_pool[_room->current_entity_count].on_collision_enter = &checkCollision;
+        _room->entity_pool[_room->current_entity_count].die_callback = &skeleton_kill;
         ++_room->current_entity_count;
     }
+}
+
+void deleteEntityFromRoom(Entity* _entity, Room* _room) {
+    i32 i;
+    i32 j;
+
+    for (i = 0; i < _room->current_entity_count; ++i) {
+        if (_entity == &_room->entity_pool[i]) {
+            for (j = i + 1; j < _room->current_entity_count; ++j) {
+                _room->entity_pool[i] = _room->entity_pool[j];
+                ++i;
+            }
+
+            break;
+        }
+    }
+
+    --_room->current_entity_count;
 }

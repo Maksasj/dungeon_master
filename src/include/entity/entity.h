@@ -10,6 +10,7 @@
 
 typedef struct Entity {
     Sprite* sprite;
+    SpriteSize sprite_size_in_pixels;
 
     //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
     Statblock base_stats;
@@ -29,8 +30,8 @@ typedef struct Entity {
     //void (*takeDamage_callback)(Entity* _self, i32 _damage);
     void (*takeDamage_callback)(void*, i32);
 
-    //void (*die_callback)(Entity* _self, Room* _room);
-    void (*die_callback)(void*, void*);
+    //void (*die_callback)(Entity* _self);
+    void (*die_callback)(void*);
 
     //void (*spawn_callback)(Entity* _self, Room* _room);
     void (*spawn_callback)(void*, void*);
@@ -48,5 +49,7 @@ void entityUnloadSprite(Entity *_entity);
 void entityUpdate(Entity* _entity);
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
+
+void killEntity(Entity* _entity);
 
 #endif

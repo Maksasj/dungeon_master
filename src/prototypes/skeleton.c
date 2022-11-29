@@ -31,3 +31,7 @@ void skeleton_update(Entity* _self, World* _world, Room* _room) {
     _self->vel.y = 0;
     */
 }
+
+void skeleton_kill(Entity* _self) {
+    notePlay(NOTE_C, 1);
+}
