@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "include/types.h"
 #include "include/memory.h"
 #include "include/gfx.h"
@@ -47,6 +49,9 @@ int main() {
     Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
     entityInitSprite(&player, sprites, &next_sprite_index);
         
+    player.spec = malloc(sizeof(PlayerSpecData));
+    initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
+
     //Entity enemy;
     //entityInit(sprites, &next_sprite_index, &enemy, newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
 
@@ -57,7 +62,8 @@ int main() {
 
         updateWorld(&world, &player);
         entityUpdate(&player);
-
+        updatePlayerSpec(player.spec, &player);
+        
         i32 walk = 0;
         if (buttonPressed(_BUTTON_RIGHT_)) {
             player.vel.x += 0.5;
@@ -100,7 +106,14 @@ int main() {
             player.position.y += player.vel.y;
 
         if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
-            next_sprite_index = 1;
+            
+            /*
+            ===========================================
+            */
+            next_sprite_index = 3;
+            /*
+            ===========================================
+            */
 
             //Мега костыль, но потом переделаем
             if(player.position.y < 70) {

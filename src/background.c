@@ -19,7 +19,7 @@ void initBackground() {
     memcpy16DMA((u16*) charBlock(0), (u16*) BACKGROUND_DATA,
             (_BACKGROUND_WIDTH_ * _BACKGROUND_HEIGHT_) / 2);
 
-    *_BG0_CONTROL_ = 0 |    /* priority, 0 is highest, 3 is lowest */
+    *_BG0_CONTROL_ = 3 |    /* priority, 0 is highest, 3 is lowest */
         (0 << 2)  |       /* the char block the image data is stored in */
         (0 << 6)  |       /* the mosaic flag */
         (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */

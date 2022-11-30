@@ -3,27 +3,15 @@
 
 #include "sprite.h"
 #include "types.h"
+#include "entity/entity.h"
 
-typedef struct Player {
-    Sprite* sprite;
+typedef struct PlayerSpecData {
+    Sprite* armor;
+    Sprite* weapon;
+} PlayerSpecData;
 
-    float x, y;
+void initPlayerSpec(Sprite _sprites[], i32* _next_sprite_index, Entity* _entity, PlayerSpecData* pspec);
 
-    i32 frame;
-
-    i32 animation_delay;
-
-    fvec2 vel;
-
-    i32 counter;
-
-    i32 move;
-} Player;
-
-void playerInit(Sprite _sprites[], i32* _next_sprite_index, Player* _player);
-
-void playerStop(Player* _player);
-
-void playerUpdate(Player* _player);
+void updatePlayerSpec(PlayerSpecData* pspec, Entity *_entity);
 
 #endif
