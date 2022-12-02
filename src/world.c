@@ -50,6 +50,7 @@ void updateWorld(World* _world, Entity* _player) {
             if (entity->attack_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
                 entityAttack(entity, _player);
+                (*entity->cooldown_callback)(entity);
             }
         }
 

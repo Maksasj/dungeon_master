@@ -102,6 +102,13 @@ int main() {
             //notePlay(NOTE_A, octave);
         }
 
+        if (buttonPressed(_BUTTON_A_)) {
+            if (player.attack_cooldown == 0) {
+                playerAttack(&player, &world.rooms[world.activeRoom]);
+                (player.cooldown_callback)(&player);
+            }
+        }
+
         //X
         CollisionType xCol = worldCollision(&world, newIVec2(player.position.x + player.vel.x, player.position.y));
         if(xCol == NONE || xCol == OPENED_DOOR)

@@ -32,8 +32,6 @@ void entityAttack(Entity* _entity, Entity* _target) {
     i32 calculated_damage = (*_entity->attack_callback)();
 
     entityTakeDamage(_target, calculated_damage);
-
-    (*_entity->cooldown_callback)(_entity);
 }
 
 void entityTakeDamage(Entity* _entity, i32 _damage) {

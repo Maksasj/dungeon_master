@@ -25,6 +25,18 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
 }
 
+void playerAttack(Entity* _player, Room* _active_room) {
+    i32 i;
+
+    for(i = 0; i < _active_room->current_entity_count; ++i) {
+        Entity *entity = &_active_room->entity_pool[i];
+
+        if ((*entity->on_collision_enter)(entity, _player)) {
+            entityAttack(_player, entity);
+        }
+    }
+}
+
 i32 playerCalculateDamage() {
     return 1;
 }
