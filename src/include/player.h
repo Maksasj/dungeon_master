@@ -10,8 +10,8 @@ typedef struct PlayerSpecData {
     Sprite* weapon;
 } PlayerSpecData;
 
-void initPlayerSpec(Sprite _sprites[], i32* _next_sprite_index, Entity* _entity, PlayerSpecData* pspec);
+void initPlayerSpec(Sprite _sprites[], i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec);
 
-void updatePlayerSpec(PlayerSpecData* pspec, Entity *_entity);
+void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);
 
 #endif
