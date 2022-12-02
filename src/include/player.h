@@ -13,6 +13,9 @@ typedef struct PlayerSpecData {
 
     Sprite* sprites;
     i32* next_sprite_index;
+
+    Item hand_slot;
+    Item armor_slot;
 } PlayerSpecData;
 
 typedef struct PlayerUI {

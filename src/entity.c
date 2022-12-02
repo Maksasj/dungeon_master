@@ -27,8 +27,11 @@ void entityUpdate(Entity* _entity) {
 }
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
-    ivec2 first_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_first_entity->sprite_size_in_pixels);
-    ivec2 second_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_second_entity->sprite_size_in_pixels);
+    //ivec2 first_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_first_entity->sprite_size_in_pixels);
+    //ivec2 second_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_second_entity->sprite_size_in_pixels);
+
+    ivec2 first_entity_sprite_size_in_pixels = newIVec2(16, 16);
+    ivec2 second_entity_sprite_size_in_pixels = newIVec2(16, 16);
 
     if (_first_entity->position.x < _second_entity->position.x + second_entity_sprite_size_in_pixels.x &&
         _first_entity->position.x + first_entity_sprite_size_in_pixels.x > _second_entity->position.x &&

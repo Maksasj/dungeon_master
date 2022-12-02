@@ -57,10 +57,7 @@ int main() {
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
-        updatePlayerSpec(player.spec, &player);
-        
             (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
-
         spriteUpdateAll(sprites);
 
         #ifndef EXTREME_MODE

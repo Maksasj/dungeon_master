@@ -1,15 +1,5 @@
 #include "include/player.h"
-
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec) {
-    _pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
-    _pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
-
-    _pspec->sprites = _sprites;
-    _pspec->next_sprite_index = _next_sprite_index;
-
-    spriteSetOffset(_pspec->armor, 144);
-    spriteSetOffset(_pspec->weapon, 200);
-}
+#include "include/logger.h"
 
 void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index) {
     _playerUI->health[0] = spriteInit(_sprites, _next_sprite_index, 4, 3, SIZE_16_16, 0, 0, 0, 0);
@@ -23,9 +13,51 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
     spriteSetOffset(_playerUI->manaBar, 288);
 }
 
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec) {
+    _pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
+    _pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
+
+    spritePosition(_pspec->armor, -64, -64);
+    spritePosition(_pspec->weapon, -64, -64);
+
+    _pspec->sprites = _sprites;
+    _pspec->next_sprite_index = _next_sprite_index;
+    
+    _pspec->hand_slot.count = 0;
+    _pspec->armor_slot.count = 0;
+
+    //spriteSetOffset(_pspec->armor, 144);
+    //spriteSetOffset(_pspec->weapon, 200);
+}
+
+void putOnItem(Entity *player, Item item) {
+    PlayerSpecData* pspec = (PlayerSpecData*) player->spec;
+
+    if(item.type == ARMOR) {
+        pspec->armor_slot = item;
+        pspec->armor_slot.count = 1;
+        spriteSetOffset(pspec->armor, 128);
+        log(LOG_INFO, "Pog!");
+    } else if(item.type == WEAPON) {
+        pspec->hand_slot = item;
+        pspec->hand_slot.count = 1;
+
+        log(LOG_INFO, "Pog!");
+
+        spriteSetOffset(pspec->weapon, 128);
+    }
+}
+
 void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
-    spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
-    spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
+    if(_pspec->hand_slot.count != 0) {
+        spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
+        spriteSetOffset(_pspec->armor, _pspec->hand_slot.sprite_offset);
+    }
+
+    if(_pspec->armor_slot.count != 0) {
+        spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
+        spriteSetOffset(_pspec->weapon, _pspec->armor_slot.sprite_offset);
+    }
 }
 
 void player_update(Entity* _self, World* _world, Room* _room) {
@@ -33,14 +65,13 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     _self->vel.y *= 0.6;
 
     PlayerSpecData* pspec = (PlayerSpecData*) _self->spec;
+    updatePlayerSpec(pspec, _self);
 
     if (buttonPressed(_BUTTON_RIGHT_)) {
         _self->vel.x += 0.5;
 
         spriteSetOffset(_self->sprite, 16);
         spriteSetHorizontalFlip(_self->sprite, 0);
-
-        //notePlay(NOTE_BES, octave + 1);
     }
 
     if (buttonPressed(_BUTTON_LEFT_)) {
@@ -48,22 +79,16 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
         spriteSetOffset(_self->sprite, 16);
         spriteSetHorizontalFlip(_self->sprite, 1);
-
-        //notePlay(NOTE_B, octave);
     }
 
     if (buttonPressed(_BUTTON_DOWN_)) {
         _self->vel.y += 0.5;
         spriteSetOffset(_self->sprite, 8);
-
-        //notePlay(NOTE_F, octave);
     }
 
     if (buttonPressed(_BUTTON_UP_)) {
         _self->vel.y -= 0.5;
         spriteSetOffset(_self->sprite, 0);
-
-        //notePlay(NOTE_A, octave);
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2(_self->position.x + _self->vel.x, _self->position.y));

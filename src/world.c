@@ -55,6 +55,16 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(entity);
     }
 
+    for(i = 0; i < room->current_itemdrop_count; ++i) {
+        ItemDrop *itemdrop = &room->itemdrop_pool[i];
+        if (checkCollision(_player, (Entity*) itemdrop)) {
+
+            itemDropUnloadSprite(itemdrop);
+            
+            putOnItem(_player, itemdrop->item);
+        }
+    }
+
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
         if (room->type == TWO_ENEMIES) {
@@ -76,11 +86,18 @@ void generateWorld(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_; ++i) {
         Room room;
+
         room.type = TWO_ENEMIES;
+        room.current_entity_count = 0;
+        room.current_itemdrop_count = 0;
+
         _world->rooms[i] = room;
+
         tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
         tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0)));
-    }   
+
+        tryPushItemDropToRoom(&_world->rooms[i], itemDropInit(newFVec2(32.0, 32.0), itemInit(stats(0, 0, 0, 0, 0), 128, ARMOR)));
+    }
 
     _world->difficulty = 1;
 }

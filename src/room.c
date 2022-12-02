@@ -105,6 +105,20 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             spriteSetOffset(entity->sprite, 40); //96 - necromncer
         }
 
+        for(i = 0; i < _room->current_itemdrop_count; ++i) {
+            ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+            itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+            spriteSetOffset(_itemdrop->sprite, 256); //96 - necromncer
+
+
+            /*
+            
+            256 - Iron armor icon
+            
+            */
+        }
+
     } else {
         //For now we have only basic room
         //exit();
@@ -120,6 +134,13 @@ void tryPushEntityToRoom(Room* _room, Entity _entity) {
         _room->entity_pool[_room->current_entity_count].on_collision_enter = &checkCollision;
         _room->entity_pool[_room->current_entity_count].die_callback = &skeleton_kill;
         ++_room->current_entity_count;
+    }
+}
+
+void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
+    if (_room->current_itemdrop_count < _MAX_ITEM_DROP_PER_ROOM_) {
+        _room->itemdrop_pool[_room->current_itemdrop_count] = _itemdrop;
+        ++_room->current_itemdrop_count;
     }
 }
 
