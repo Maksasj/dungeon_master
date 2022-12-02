@@ -58,10 +58,9 @@ void updateWorld(World* _world, Entity* _player) {
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
         if (checkCollision(_player, (Entity*) itemdrop)) {
-
-            itemDropUnloadSprite(itemdrop);
-            
             putOnItem(_player, itemdrop->item);
+            itemDropUnloadSprite(itemdrop);
+            deleteItemDropFromRoom(itemdrop, room);
         }
     }
 
@@ -96,7 +95,13 @@ void generateWorld(World* _world) {
         tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
         tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0)));
 
-        tryPushItemDropToRoom(&_world->rooms[i], itemDropInit(newFVec2(32.0, 32.0), itemInit(stats(0, 0, 0, 0, 0), 128, ARMOR)));
+        tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(140.0, 64.0));
+
+        tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(96.0, 32.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
     }
 
     _world->difficulty = 1;

@@ -3,6 +3,7 @@
 
 #include "statblock.h"
 
+#include "../rotation.h"
 #include "../sprite.h"
 #include "../types.h"
 
@@ -21,6 +22,7 @@ typedef struct Entity {
     i32 health;
     i32 mana;
 
+    Facing facing;
 
     void* spec;
 

@@ -8,7 +8,7 @@
 #include "../item.h"
 
 #define _MAX_ENTITY_PER_ROOM_ 5
-#define _MAX_ITEM_DROP_PER_ROOM_ 5
+#define _MAX_ITEM_DROP_PER_ROOM_ 10
 
 typedef enum RoomType {
     BASIC,

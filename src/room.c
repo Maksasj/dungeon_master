@@ -109,12 +109,47 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
 
             itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-            spriteSetOffset(_itemdrop->sprite, 256); //96 - necromncer
+            spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset); //96 - necromncer
 
 
             /*
-            
-            256 - Iron armor icon
+    
+            96 - Necromncer
+
+            112 - Iron armor front
+            120 - Iron armor back
+            128 - Iron armor side
+
+            136 - Golden armor front
+            144 - Golden armor back
+            152 - Golden armor side
+
+            160 - Diamoand armor front
+            168 - Diamoand armor back
+            176 - Diamoand armor side
+
+            256 - Short sword icon
+            264 - Dark claymore icon
+            272 - Ice sword icon
+
+            280 - Iron armor icon
+            288 - Golden armor icon
+            296 - DIamond armor icon
+
+            184 - Short sword front
+            192 - Short sword back
+            208 - Short sword side
+        
+            208 - Claymore front
+            216 - Claymore back
+            224 - Claymore side
+
+            232 - Ice sword front
+            240 - Ice sword back
+            248 - Ice sword side
+
+            304 - Heart gem icon
+            312 - Mana bar
             
             */
         }
@@ -167,4 +202,23 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room) {
     }
 
     --_room->current_entity_count;
+}
+
+
+void deleteItemDropFromRoom(ItemDrop* _entity, Room* _room) {
+    i32 i;
+    i32 j;
+
+    for (i = 0; i < _room->current_itemdrop_count; ++i) {
+        if (_entity == &_room->itemdrop_pool[i]) {
+            for (j = i + 1; j < _room->current_itemdrop_count; ++j) {
+                _room->itemdrop_pool[i] = _room->itemdrop_pool[j];
+                ++i;
+            }
+
+            break;
+        }
+    }
+
+    --_room->current_itemdrop_count;
 }

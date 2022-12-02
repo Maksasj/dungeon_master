@@ -5,12 +5,12 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
     _playerUI->health[0] = spriteInit(_sprites, _next_sprite_index, 4, 3, SIZE_16_16, 0, 0, 0, 0);
     _playerUI->health[1] = spriteInit(_sprites, _next_sprite_index, 20, 3, SIZE_16_16, 0, 0, 0, 0);
     _playerUI->health[2] = spriteInit(_sprites, _next_sprite_index, 36, 3, SIZE_16_16, 0, 0, 0, 0);
-    spriteSetOffset(_playerUI->health[0], 280);
-    spriteSetOffset(_playerUI->health[1], 280);
-    spriteSetOffset(_playerUI->health[2], 280);
+    spriteSetOffset(_playerUI->health[0], 304);
+    spriteSetOffset(_playerUI->health[1], 304);
+    spriteSetOffset(_playerUI->health[2], 304);
 
     _playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
-    spriteSetOffset(_playerUI->manaBar, 288);
+    spriteSetOffset(_playerUI->manaBar, 312);
 }
 
 void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec) {
@@ -36,27 +36,39 @@ void putOnItem(Entity *player, Item item) {
     if(item.type == ARMOR) {
         pspec->armor_slot = item;
         pspec->armor_slot.count = 1;
-        spriteSetOffset(pspec->armor, 128);
-        log(LOG_INFO, "Pog!");
-    } else if(item.type == WEAPON) {
+        spriteSetOffset(pspec->armor, pspec->armor_slot.sprite_offset);
+    }
+
+    if(item.type == WEAPON) {
         pspec->hand_slot = item;
         pspec->hand_slot.count = 1;
-
-        log(LOG_INFO, "Pog!");
-
-        spriteSetOffset(pspec->weapon, 128);
+        spriteSetOffset(pspec->weapon, pspec->hand_slot.sprite_offset);
     }
 }
 
 void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
+    i32 offset_x = 0;
+    i8 flip = 0;
+
+    if(_entity->facing == RIGHT) {
+        offset_x = 16;
+    } else if(_entity->facing == LEFT) {
+        offset_x = 16;
+        flip = 1;
+    } else if(_entity->facing == DOWN) {
+        offset_x = 8;
+    }
+
     if(_pspec->hand_slot.count != 0) {
-        spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
-        spriteSetOffset(_pspec->armor, _pspec->hand_slot.sprite_offset);
+        spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
+        spriteSetOffset(_pspec->weapon, _pspec->hand_slot.sprite_offset + offset_x);
+        spriteSetHorizontalFlip(_pspec->weapon, flip);
     }
 
     if(_pspec->armor_slot.count != 0) {
-        spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
-        spriteSetOffset(_pspec->weapon, _pspec->armor_slot.sprite_offset);
+        spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
+        spriteSetOffset(_pspec->armor, _pspec->armor_slot.sprite_offset + offset_x);
+        spriteSetHorizontalFlip(_pspec->armor, flip);
     }
 }
 
@@ -69,7 +81,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
     if (buttonPressed(_BUTTON_RIGHT_)) {
         _self->vel.x += 0.5;
-
+        _self->facing = RIGHT;
         spriteSetOffset(_self->sprite, 16);
         spriteSetHorizontalFlip(_self->sprite, 0);
     }
@@ -77,17 +89,22 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     if (buttonPressed(_BUTTON_LEFT_)) {
         _self->vel.x -= 0.5;
 
+        _self->facing = LEFT;
         spriteSetOffset(_self->sprite, 16);
         spriteSetHorizontalFlip(_self->sprite, 1);
     }
 
     if (buttonPressed(_BUTTON_DOWN_)) {
         _self->vel.y += 0.5;
+
+        _self->facing = DOWN;
         spriteSetOffset(_self->sprite, 8);
     }
 
     if (buttonPressed(_BUTTON_UP_)) {
         _self->vel.y -= 0.5;
+
+        _self->facing = UP;
         spriteSetOffset(_self->sprite, 0);
     }
 
