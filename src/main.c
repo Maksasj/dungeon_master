@@ -52,6 +52,9 @@ int main() {
     player.spec = malloc(sizeof(PlayerSpecData));
     initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
+    PlayerUI playerUI;
+    initPlayerUI(&playerUI, sprites, &next_sprite_index);
+
     //Entity enemy;
     //entityInit(sprites, &next_sprite_index, &enemy, newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
 
@@ -98,29 +101,22 @@ int main() {
         }
 
         //X
-        if(worldCollision(&world, newIVec2(player.position.x + player.vel.x, player.position.y)) != WALL)
+        CollisionType xCol = worldCollision(&world, newIVec2(player.position.x + player.vel.x, player.position.y));
+        if(xCol == NONE || xCol == OPENED_DOOR)
             player.position.x += player.vel.x;
 
-        //Y
-        if(worldCollision(&world, newIVec2(player.position.x, player.position.y + player.vel.y)) != WALL)
+        CollisionType yCol = worldCollision(&world, newIVec2(player.position.x, player.position.y + player.vel.y));
+        if(yCol == NONE || yCol == OPENED_DOOR)
             player.position.y += player.vel.y;
 
-        if(worldCollision(&world, newIVec2(player.position.x, player.position.y)) == OPENED_DOOR) {
-            
-            /*
-            ===========================================
-            */
-            next_sprite_index = 3;
-            /*
-            ===========================================
-            */
+        if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
+            next_sprite_index = 7;
 
-            //Мега костыль, но потом переделаем
             if(player.position.y < 70) {
-                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
+                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 128);
                 nextRoom(&world, sprites, &next_sprite_index);
             } else {
-                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
+                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
                 backRoom(&world, sprites, &next_sprite_index);
             }
         }

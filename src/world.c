@@ -2,7 +2,6 @@
 
 static u32 WORLD_TICK = 0;
 
-
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int i;
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
@@ -55,6 +54,13 @@ void updateWorld(World* _world, Entity* _player) {
 
         entityUpdate(entity);
     }
+
+    //Lets open room if entity count == 0
+    if(room->current_entity_count == 0) {
+        if (room->type == TWO_ENEMIES) {
+            unLockRoom(_world, room);
+        }
+    }
     
     ++WORLD_TICK;
 }
@@ -70,7 +76,6 @@ void generateWorld(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_; ++i) {
         Room room;
-
         room.type = TWO_ENEMIES;
         _world->rooms[i] = room;
         tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
