@@ -10,4 +10,6 @@ void skeleton_update(Entity* _self, World* _world, Room* _room);
 
 void skeleton_kill(Entity* _self);
 
+i32 skeletonCalculateDamage();
+
 #endif

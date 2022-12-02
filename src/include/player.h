@@ -21,4 +21,6 @@ void initPlayerSpec(Sprite _sprites[], i32* _next_sprite_index, Entity* _entity,
 
 void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);
 
+i32 playerCalculateDamage();
+
 #endif

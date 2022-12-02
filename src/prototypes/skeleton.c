@@ -35,3 +35,7 @@ void skeleton_update(Entity* _self, World* _world, Room* _room) {
 void skeleton_kill(Entity* _self) {
     notePlay(NOTE_C, 1);
 }
+
+i32 skeletonCalculateDamage() {
+    return 1;
+}

@@ -24,3 +24,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
     spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
 }
+
+i32 playerCalculateDamage() {
+    return 1;
+}
