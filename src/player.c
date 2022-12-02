@@ -4,8 +4,8 @@ void initPlayerSpec(Sprite _sprites[], i32* _next_sprite_index, Entity* _entity,
     pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
     pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
 
-    spriteSetOffset(pspec->armor, 32);
-    spriteSetOffset(pspec->weapon, 32);
+    spriteSetOffset(pspec->armor, 144);
+    spriteSetOffset(pspec->weapon, 200);
 }
 
 void updatePlayerSpec(PlayerSpecData* pspec, Entity *_entity) {
