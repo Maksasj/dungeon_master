@@ -50,7 +50,8 @@ int main() {
     entityInitSprite(&player, sprites, &next_sprite_index);
 
     player.attack_callback = &playerCalculateDamage;
-    player.cooldown_callback = &playerSetAttackCooldown; 
+    player.cooldown_callback = &playerSetAttackCooldown;
+    player.die_callback = &killPlayer;
     player.spec = malloc(sizeof(PlayerSpecData));
     initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
@@ -106,6 +107,8 @@ int main() {
             if (player.attack_cooldown == 0) {
                 playerAttack(&player, &world.rooms[world.activeRoom]);
                 (player.cooldown_callback)(&player);
+
+                log(LOG_INFO, "Player attacked");
             }
         }
 

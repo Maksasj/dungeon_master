@@ -12,6 +12,7 @@
 
 #define _MAX_ROOM_COUNT_ 5
 #define _BFS_TICK_RATE_ 50
+#define _COOLDOWN_UPDATE_TICK_RATE_ 100
 
 typedef struct World {
     Room rooms[_MAX_ROOM_COUNT_];

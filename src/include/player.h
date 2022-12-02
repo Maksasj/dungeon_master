@@ -28,4 +28,6 @@ i32 playerCalculateDamage();
 
 void playerSetAttackCooldown(Entity* _self);
 
+void killPlayer(Entity* _self);
+
 #endif

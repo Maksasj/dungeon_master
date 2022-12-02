@@ -45,3 +45,8 @@ void playerSetAttackCooldown(Entity* _self) {
     //TODO: calculate cooldown
     _self->attack_cooldown = 1;
 }
+
+void killPlayer(Entity* _self) {
+    //TODO: restart the game
+    return;
+}

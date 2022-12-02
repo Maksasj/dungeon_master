@@ -54,6 +54,12 @@ void updateWorld(World* _world, Entity* _player) {
             }
         }
 
+        if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
+            if (entity->attack_cooldown > 0) {
+                --entity->attack_cooldown;
+            }
+        }
+
         entityUpdate(entity);
     }
 
@@ -61,6 +67,12 @@ void updateWorld(World* _world, Entity* _player) {
     if(room->current_entity_count == 0) {
         if (room->type == TWO_ENEMIES) {
             unLockRoom(_world, room);
+        }
+    }
+
+    if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
+        if (_player->attack_cooldown > 0) {
+            --_player->attack_cooldown;
         }
     }
     
