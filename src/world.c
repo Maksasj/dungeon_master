@@ -1,5 +1,7 @@
 #include "include/world.h"
 
+#define _GOD_MODE_
+
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
@@ -49,7 +51,11 @@ void updateWorld(World* _world, Entity* _player) {
         if ((*entity->on_collision_enter)(entity, _player)) {
             if (entity->attack_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
+
+                #ifndef _GOD_MODE_ 
                 entityAttack(entity, _player);
+                #endif
+
                 (*entity->cooldown_callback)(entity);
             }
         }
