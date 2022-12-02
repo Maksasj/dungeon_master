@@ -1,6 +1,6 @@
+#include "include/types.h"
 #include <stdlib.h>
 
-#include "include/types.h"
 #include "include/memory.h"
 #include "include/gfx.h"
 #include "include/world.h"
