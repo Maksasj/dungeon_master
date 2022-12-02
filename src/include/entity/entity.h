@@ -5,7 +5,6 @@
 
 #include "../sprite.h"
 #include "../types.h"
-#include "../logger.h"
 
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
@@ -32,8 +31,8 @@ typedef struct Entity {
     //i32 (*attack_callback)();
     i32 (*attack_callback)();
 
-    //void (*takeDamage_callback)(Entity* _self, i32 _damage);
-    void (*takeDamage_callback)(void*, i32);
+    //void (*cooldown_callback)(Entity* _self)
+    void (*cooldown_callback)(void*);
 
     //void (*die_callback)(Entity* _self);
     void (*die_callback)(void*);

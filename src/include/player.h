@@ -23,4 +23,6 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);
 
 i32 playerCalculateDamage();
 
+void playerSetAttackCooldown(Entity* _self);
+
 #endif

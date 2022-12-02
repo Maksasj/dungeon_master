@@ -28,3 +28,8 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
 i32 playerCalculateDamage() {
     return 1;
 }
+
+void playerSetAttackCooldown(Entity* _self) {
+    //TODO: calculate cooldown
+    _self->attack_cooldown = 1;
+}
