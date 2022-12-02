@@ -119,6 +119,7 @@ void tryPushEntityToRoom(Room* _room, Entity _entity) {
         _room->entity_pool[_room->current_entity_count].update_callback = &skeleton_update;
         _room->entity_pool[_room->current_entity_count].on_collision_enter = &checkCollision;
         _room->entity_pool[_room->current_entity_count].die_callback = &skeleton_kill;
+        _room->entity_pool[_room->current_entity_count].attack_callback = &skeletonCalculateDamage;
         ++_room->current_entity_count;
     }
 }

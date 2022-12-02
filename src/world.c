@@ -47,9 +47,10 @@ void updateWorld(World* _world, Entity* _player) {
         (*entity->update_callback)(entity, _world, room);
 
         if ((*entity->on_collision_enter)(entity, _player)) {
-            notePlay(NOTE_BES, 1);
-            killEntity(entity);
-            deleteEntityFromRoom(entity, room);
+            if (entity->attack_cooldown == 0) {
+                notePlay(NOTE_BES, 1);
+                entityAttack(entity, _player);
+            }
         }
 
         entityUpdate(entity);

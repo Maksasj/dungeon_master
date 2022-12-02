@@ -48,7 +48,8 @@ int main() {
 
     Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), 3);
     entityInitSprite(&player, sprites, &next_sprite_index);
-        
+
+    player.attack_callback = &playerCalculateDamage;       
     player.spec = malloc(sizeof(PlayerSpecData));
     initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
