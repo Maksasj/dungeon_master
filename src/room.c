@@ -99,7 +99,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         for(i = 0; i < _room->current_entity_count; ++i) {
             Entity* entity = &_room->entity_pool[i];
             entityInitSprite(entity, _sprites, _next_sprite_index);
-            spriteSetOffset(entity->sprite, 32);
+            spriteSetOffset(entity->sprite, 40); //96 - necromncer
         }
 
     } else {

@@ -21,6 +21,8 @@ typedef struct Entity {
     fvec2 position;
     fvec2 vel;
 
+    void* spec;
+
     //void (*update_callback)(Entity* _self, World* _world, Room* _room);
     void (*update_callback)(void*, void*, void*);
     

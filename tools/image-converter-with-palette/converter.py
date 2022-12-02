@@ -54,7 +54,7 @@ class Converter:
 
         for i in range(img.size[1]):
             for j in range(img.size[0]):
-                r, g, b, a = pixels[j,i]
+                r, g, b = pixels[j,i]
 
                 index = (j // 8) + (i // 8)*p1
 
