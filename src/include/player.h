@@ -10,6 +10,13 @@ typedef struct PlayerSpecData {
     Sprite* weapon;
 } PlayerSpecData;
 
+typedef struct PlayerUI {
+    Sprite* health[3];
+    Sprite* manaBar;
+} PlayerUI;
+
+void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index);
+
 void initPlayerSpec(Sprite _sprites[], i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec);
 
 void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);

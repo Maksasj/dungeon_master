@@ -40,7 +40,11 @@ void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, Collis
         _world->collision_box[_pos.y / 2][_pos.x / 2] = '#';
     } else if(_collision_type == OPENED_DOOR) {
         _world->collision_box[_pos.y / 2][_pos.x / 2] = 'D';
-    } else {
+    } else if(_collision_type == CLOSED_DOOR) {
+        _world->collision_box[_pos.y / 2][_pos.x / 2] = 'C';
+    } else if(_collision_type == CHEST) {
+        _world->collision_box[_pos.y / 2][_pos.x / 2] = 'X';
+    }  else {
         _world->collision_box[_pos.y / 2][_pos.x / 2] = ' ';
     }
 }
@@ -72,7 +76,6 @@ void loadBasicRoom(World* _world, u16* _target) {
 
 
     placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
-    //placeTile(MAP, newIVec2(14, 18), DOO);
 
     /*
     placeTile(MAP, newIVec2(2, 8), DOOR_UP_CLOSED);
@@ -92,8 +95,8 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         //init_entities
         //TODO load entities
 
-        placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_CLOSED, OPENED_DOOR);
-        placeTile(_world, MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, OPENED_DOOR);
+        placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+        placeTile(_world, MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
         
         int i;
         for(i = 0; i < _room->current_entity_count; ++i) {
@@ -118,6 +121,13 @@ void tryPushEntityToRoom(Room* _room, Entity _entity) {
         _room->entity_pool[_room->current_entity_count].die_callback = &skeleton_kill;
         ++_room->current_entity_count;
     }
+}
+
+void unLockRoom(void* _world, Room* _room) {
+    placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+    placeTile(_world, MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
+
+    memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
 }
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room) {

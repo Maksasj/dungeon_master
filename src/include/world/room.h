@@ -18,7 +18,7 @@ typedef struct Room {
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];
 
     i32 current_entity_count;
-
+    
     /* TODO
     Entity pool
     Projectile pool
@@ -34,5 +34,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 void tryPushEntityToRoom(Room* _room, Entity _entity);
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room);
+
+void unLockRoom(void* _world, Room* _room);
 
 #endif

@@ -104,6 +104,11 @@ const u16 DOOR_BOTTOM_CLOSED[] = {
     0x0013, 0x0014,
     0x0033, 0x0034,
 };
+
+const u16 DOOR_BOTTOM_OPENED[] = {
+    0x0053, 0x0054,
+    0x0073, 0x0074,
+};
 /*=============================*/
 
 #endif
