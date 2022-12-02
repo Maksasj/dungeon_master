@@ -78,8 +78,8 @@ void generateWorld(World* _world) {
         Room room;
         room.type = TWO_ENEMIES;
         _world->rooms[i] = room;
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0)));
+        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0), 1));
+        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0), 1));
     }   
 
     _world->difficulty = 1;

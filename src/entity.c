@@ -1,13 +1,13 @@
 #include "include/entity/entity.h"
 
-Entity entityInit(fvec2 _position) {
+Entity entityInit(fvec2 _position, u32 _health) {
     Entity _entity;
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
 
     _entity.base_stats = stats(1, 1, 1, 1, 1);
 
-    _entity.health = 0;
+    _entity.health = _health;
     _entity.mana = 0;
     return _entity;
 }

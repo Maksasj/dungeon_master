@@ -42,7 +42,7 @@ typedef struct Entity {
     i32 (*on_collision_enter)(void*, void*);
 } Entity;
 
-Entity entityInit(fvec2 _position);
+Entity entityInit(fvec2 _position, u32 _health);
 
 void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_index);
 
