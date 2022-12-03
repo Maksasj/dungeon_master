@@ -23,6 +23,8 @@ typedef struct World {
     //TODO
     u8 difficulty;
 
+    u16 MAP[1024];
+
     /*
         '#' - Wall
         'D' - Opened Door
