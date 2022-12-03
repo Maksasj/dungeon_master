@@ -2,6 +2,8 @@
 
 #include "include/entity/entity_macros.h"
 
+
+
 #define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
@@ -69,14 +71,12 @@ void updateWorld(World* _world, Entity* _player) {
                 entityAttack(entity, _player);
                 #endif
 
-                (*entity->cooldown_callback)(entity);
+                entity->attack_cooldown = 100;
             }
         }
 
-        if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
-            if (entity->attack_cooldown > 0) {
-                --entity->attack_cooldown;
-            }
+        if (entity->attack_cooldown > 0) {
+            --entity->attack_cooldown;
         }
 
         if (entity->health <= 0) {
@@ -102,10 +102,8 @@ void updateWorld(World* _world, Entity* _player) {
         }
     }
 
-    if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
-        if (_player->attack_cooldown > 0) {
-            --_player->attack_cooldown;
-        }
+    if (_player->attack_cooldown > 0) {
+        --_player->attack_cooldown;
     }
     
     ++WORLD_TICK;

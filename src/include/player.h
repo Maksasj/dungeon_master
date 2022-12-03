@@ -34,8 +34,6 @@ void playerAttack(Entity* _self, Room* _active_room);
 
 i32 playerCalculateDamage();
 
-void playerSetAttackCooldown(Entity* _self);
-
 void killPlayer(Entity* _self);
 
 void player_update(Entity* _self, World* _world, Room* _room);

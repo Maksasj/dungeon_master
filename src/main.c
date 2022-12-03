@@ -50,7 +50,6 @@ int main() {
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
         player.attack_callback = &playerCalculateDamage;
-        player.cooldown_callback = &playerSetAttackCooldown;
         player.die_callback = &killPlayer;
         
         player.spec = malloc(sizeof(PlayerSpecData));

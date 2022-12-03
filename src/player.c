@@ -89,11 +89,6 @@ i32 playerCalculateDamage() {
     return 1;
 }
 
-void playerSetAttackCooldown(Entity* _self) {
-    //TODO: calculate cooldown
-    _self->attack_cooldown = 1;
-}
-
 void killPlayer(Entity* _self) {
     //TODO: restart the game
     return;
@@ -138,7 +133,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     if (buttonPressed(_BUTTON_A_)) {
         if (_self->attack_cooldown == 0) {
             playerAttack(_self, _room);
-            (*_self->cooldown_callback)(_self);
+            _self->attack_cooldown = 50;
         }
     }
 

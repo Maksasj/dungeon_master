@@ -72,13 +72,8 @@ Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _
     return _entity;
 }
 
-Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity) {
+Entity addAttack_CallBack(i32 (*attack_callback)(), Entity _entity) {
     _entity.attack_callback = attack_callback;
-    return _entity;
-}
-
-Entity addCooldown_CallBack(void (*cooldown_callback)(void*), Entity _entity) {
-    _entity.cooldown_callback = cooldown_callback;
     return _entity;
 }
 

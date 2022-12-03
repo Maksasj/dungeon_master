@@ -35,9 +35,6 @@ typedef struct Entity {
     //i32 (*attack_callback)();
     i32 (*attack_callback)();
 
-    //void (*cooldown_callback)(Entity* _self)
-    void (*cooldown_callback)(void*);
-
     //void (*die_callback)(Entity* _self);
     void (*die_callback)(void*);
 
@@ -66,8 +63,7 @@ void killEntity(Entity* _entity);
 
 //Pseudo monad lol
 Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _entity);
-Entity addCooldown_CallBack(void (*cooldown_callback)(void*), Entity _entity);
-Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity);
+Entity addAttack_CallBack(i32 (*attack_callback)(), Entity _entity);
 Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity);
 Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity);
 Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity);
