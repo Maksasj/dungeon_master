@@ -77,6 +77,11 @@ Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity)
     return _entity;
 }
 
+Entity addCooldown_CallBack(void (*cooldown_callback)(void*), Entity _entity) {
+    _entity.cooldown_callback = cooldown_callback;
+    return _entity;
+}
+
 Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity) {
     _entity.die_callback = die_callback;
     return _entity;
