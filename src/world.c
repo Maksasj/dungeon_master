@@ -9,15 +9,26 @@ void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
         entityUnloadSprite(entity);
     }
 
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
+        ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
+        itemDropUnloadSprite(itemDrop);
+    }
+
     ++_world->activeRoom;
     gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
 }
 
 void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int i;
+    
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
+    }
+
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
+        ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
+        itemDropUnloadSprite(itemDrop);
     }
 
     --_world->activeRoom;
