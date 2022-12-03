@@ -39,3 +39,12 @@ void skeleton_update(Entity* _self, World* _world, Room* _room) {
 void skeleton_kill(Entity* _self) {
     notePlay(NOTE_C, 1);
 }
+
+i32 skeletonCalculateDamage() {
+    //TODO: calculate damage
+    return 1;
+}
+
+void skeletonSetAttackCooldown(Entity* _self) {
+    _self->attack_cooldown = _ATTACK_COOLDOWN_;
+}

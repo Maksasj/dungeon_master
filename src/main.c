@@ -49,6 +49,9 @@ int main() {
     Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
+        player.attack_callback = &playerCalculateDamage;
+        player.cooldown_callback = &playerSetAttackCooldown;
+        player.die_callback = &killPlayer;
         
         player.spec = malloc(sizeof(PlayerSpecData));
         initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
@@ -62,7 +65,10 @@ int main() {
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
-            (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
+        
+        updatePlayerSpec(player.spec, &player);
+        (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
+
         spriteUpdateAll(sprites);
 
         #ifndef EXTREME_MODE

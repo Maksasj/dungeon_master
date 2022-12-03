@@ -25,17 +25,18 @@ typedef struct Entity {
     Facing facing;
     
     u32 sprite_offset;
+    i32 attack_cooldown;
 
     void* spec;
 
     //void (*update_callback)(Entity* _self, World* _world, Room* _room);
     void (*update_callback)(void*, void*, void*);
     
-    //void (*attack_callback)(Entity* _self, Entity* _target);
-    void (*attack_callback)(void*, void*);
+    //i32 (*attack_callback)();
+    i32 (*attack_callback)();
 
-    //void (*takeDamage_callback)(Entity* _self, i32 _damage);
-    void (*takeDamage_callback)(void*, i32);
+    //void (*cooldown_callback)(Entity* _self)
+    void (*cooldown_callback)(void*);
 
     //void (*die_callback)(Entity* _self);
     void (*die_callback)(void*);
@@ -54,6 +55,10 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
 void entityUnloadSprite(Entity *_entity);
 
 void entityUpdate(Entity* _entity);
+
+void entityAttack(Entity* _entity, Entity* _target);
+
+void entityTakeDamage(Entity* _entity, i32 _damage);
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 

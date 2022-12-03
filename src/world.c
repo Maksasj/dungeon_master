@@ -2,6 +2,8 @@
 
 #include "include/entity/entity_macros.h"
 
+#define _GOD_MODE_
+
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
@@ -60,8 +62,24 @@ void updateWorld(World* _world, Entity* _player) {
         (*entity->update_callback)(entity, _world, room);
 
         if ((*entity->on_collision_enter)(entity, _player)) {
-            notePlay(NOTE_BES, 1);
-            killEntity(entity);
+            if (entity->attack_cooldown == 0) {
+                notePlay(NOTE_BES, 1);
+
+                #ifndef _GOD_MODE_ 
+                entityAttack(entity, _player);
+                #endif
+
+                (*entity->cooldown_callback)(entity);
+            }
+        }
+
+        if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
+            if (entity->attack_cooldown > 0) {
+                --entity->attack_cooldown;
+            }
+        }
+
+        if (entity->health <= 0) {
             deleteEntityFromRoom(entity, room);
         }
 
@@ -81,6 +99,12 @@ void updateWorld(World* _world, Entity* _player) {
     if(room->current_entity_count == 0) {
         if (room->type == TWO_ENEMIES) {
             unLockRoom(_world, room);
+        }
+    }
+
+    if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
+        if (_player->attack_cooldown > 0) {
+            --_player->attack_cooldown;
         }
     }
     
@@ -118,7 +142,7 @@ void generateWorld(World* _world) {
         tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
         tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
     }
-
+    
     _world->difficulty = 1;
 }
 

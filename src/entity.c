@@ -8,8 +8,9 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.base_stats = _stat;
 
     _entity.sprite_offset = _sprite_offset;
+    _entity.attack_cooldown = 0;
 
-    _entity.health = 0;
+    _entity.health = 3;
     _entity.mana = 0;
 
     return _entity;
@@ -27,6 +28,20 @@ void entityUnloadSprite(Entity *_entity) {
 
 void entityUpdate(Entity* _entity) {
     spritePosition(_entity->sprite, (i32) _entity->position.x, (i32)_entity->position.y);
+}
+
+void entityAttack(Entity* _entity, Entity* _target) {
+    i32 calculated_damage = (*_entity->attack_callback)();
+
+    entityTakeDamage(_target, calculated_damage);
+}
+
+void entityTakeDamage(Entity* _entity, i32 _damage) {
+    _entity->health -= _damage;
+
+    if (_entity->health <= 0) {
+        killEntity(_entity);
+    }
 }
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
