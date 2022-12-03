@@ -3,8 +3,6 @@
 
 #include "include/world/tile.h"
 
-#include "include/prototypes/skeleton.h"
-
 #include "assets/map.h"
 
 const u16* getRandomFloorTile() {
@@ -102,7 +100,56 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         for(i = 0; i < _room->current_entity_count; ++i) {
             Entity* entity = &_room->entity_pool[i];
             entityInitSprite(entity, _sprites, _next_sprite_index);
-            spriteSetOffset(entity->sprite, 40); //96 - necromncer
+            spriteSetOffset(entity->sprite, entity->sprite_offset); //96 - necromncer
+        }
+
+        for(i = 0; i < _room->current_itemdrop_count; ++i) {
+            ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+            itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+            spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset); //96 - necromncer
+
+
+            /*
+    
+            96 - Necromncer
+
+            112 - Iron armor front
+            120 - Iron armor back
+            128 - Iron armor side
+
+            136 - Golden armor front
+            144 - Golden armor back
+            152 - Golden armor side
+
+            160 - Diamoand armor front
+            168 - Diamoand armor back
+            176 - Diamoand armor side
+
+            256 - Short sword icon
+            264 - Dark claymore icon
+            272 - Ice sword icon
+
+            280 - Iron armor icon
+            288 - Golden armor icon
+            296 - DIamond armor icon
+
+            184 - Short sword front
+            192 - Short sword back
+            208 - Short sword side
+        
+            208 - Claymore front
+            216 - Claymore back
+            224 - Claymore side
+
+            232 - Ice sword front
+            240 - Ice sword back
+            248 - Ice sword side
+
+            304 - Heart gem icon
+            312 - Mana bar
+            
+            */
         }
 
     } else {
@@ -116,12 +163,14 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 void tryPushEntityToRoom(Room* _room, Entity _entity) {
     if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         _room->entity_pool[_room->current_entity_count] = _entity;
-        _room->entity_pool[_room->current_entity_count].update_callback = &skeleton_update;
-        _room->entity_pool[_room->current_entity_count].on_collision_enter = &checkCollision;
-        _room->entity_pool[_room->current_entity_count].die_callback = &skeleton_kill;
-        _room->entity_pool[_room->current_entity_count].attack_callback = &skeletonCalculateDamage;
-        _room->entity_pool[_room->current_entity_count].cooldown_callback = &skeletonSetAttackCooldown;
         ++_room->current_entity_count;
+    }
+}
+
+void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
+    if (_room->current_itemdrop_count < _MAX_ITEM_DROP_PER_ROOM_) {
+        _room->itemdrop_pool[_room->current_itemdrop_count] = _itemdrop;
+        ++_room->current_itemdrop_count;
     }
 }
 
@@ -148,4 +197,23 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room) {
     }
 
     --_room->current_entity_count;
+}
+
+
+void deleteItemDropFromRoom(ItemDrop* _entity, Room* _room) {
+    i32 i;
+    i32 j;
+
+    for (i = 0; i < _room->current_itemdrop_count; ++i) {
+        if (_entity == &_room->itemdrop_pool[i]) {
+            for (j = i + 1; j < _room->current_itemdrop_count; ++j) {
+                _room->itemdrop_pool[i] = _room->itemdrop_pool[j];
+                ++i;
+            }
+
+            break;
+        }
+    }
+
+    --_room->current_itemdrop_count;
 }

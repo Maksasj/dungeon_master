@@ -1,4 +1,5 @@
 #include "include/types.h"
+#include "include/text/text.h"
 
 #include "include/memory.h"
 #include "include/gfx.h"
@@ -9,6 +10,7 @@
 #include "include/player.h"
 #include "include/interruption.h"
 #include "include/sound.h"
+
 
 #include "include/entity/entity.h"
 
@@ -44,25 +46,27 @@ int main() {
     
     spriteClear(sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), 3);
-    entityInitSprite(&player, sprites, &next_sprite_index);
-    
-    player.update_callback = &player_update;
-    player.attack_callback = &playerCalculateDamage;
-    player.cooldown_callback = &playerSetAttackCooldown;
-    player.die_callback = &killPlayer;
-    
-    player.spec = malloc(sizeof(PlayerSpecData));
-    initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
+        entityInitSprite(&player, sprites, &next_sprite_index);
+        player.update_callback = &player_update;
+        player.attack_callback = &playerCalculateDamage;
+        player.cooldown_callback = &playerSetAttackCooldown;
+        player.die_callback = &killPlayer;
+        
+        player.spec = malloc(sizeof(PlayerSpecData));
+        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
     PlayerUI playerUI;
     initPlayerUI(&playerUI, sprites, &next_sprite_index);
 
+    Text text;
+    loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
+
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
+        
         updatePlayerSpec(player.spec, &player);
-
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
 
         spriteUpdateAll(sprites);

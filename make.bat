@@ -1,12 +1,17 @@
 
 @ECHO OFF
 
-del dist\*.o
+del dist\tmp\*.o
 del dist\main.gba
 del dist\main.sav
 
 for %%f in (src\prototypes\*.c) do (
     gcc -c -O3 src\prototypes\%%~nf.c -o dist\tmp\%%~nf.o
+    echo Successfully compiled: %%~nf.c
+)
+
+for %%f in (src\text\*.c) do (
+    gcc -c -O3 src\text\%%~nf.c -o dist\tmp\%%~nf.o
     echo Successfully compiled: %%~nf.c
 )
 

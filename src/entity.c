@@ -1,16 +1,18 @@
 #include "include/entity/entity.h"
 
-Entity entityInit(fvec2 _position, u32 _health) {
+Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     Entity _entity;
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
 
-    _entity.base_stats = stats(1, 1, 1, 1, 1);
-    
+    _entity.base_stats = _stat;
+
+    _entity.sprite_offset = _sprite_offset;
     _entity.attack_cooldown = 0;
 
-    _entity.health = _health;
+    _entity.health = 3;
     _entity.mana = 0;
+
     return _entity;
 }
 
@@ -43,8 +45,11 @@ void entityTakeDamage(Entity* _entity, i32 _damage) {
 }
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
-    ivec2 first_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_first_entity->sprite_size_in_pixels);
-    ivec2 second_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_second_entity->sprite_size_in_pixels);
+    //ivec2 first_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_first_entity->sprite_size_in_pixels);
+    //ivec2 second_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_second_entity->sprite_size_in_pixels);
+
+    ivec2 first_entity_sprite_size_in_pixels = newIVec2(16, 16);
+    ivec2 second_entity_sprite_size_in_pixels = newIVec2(16, 16);
 
     if (_first_entity->position.x < _second_entity->position.x + second_entity_sprite_size_in_pixels.x &&
         _first_entity->position.x + first_entity_sprite_size_in_pixels.x > _second_entity->position.x &&
@@ -59,4 +64,35 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
 void killEntity(Entity* _entity) {
     (*_entity->die_callback)(_entity);
     entityUnloadSprite(_entity);
+}
+
+//Pseudo monad lol
+Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _entity) {
+    _entity.update_callback = update_callback;
+    return _entity;
+}
+
+Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity) {
+    _entity.attack_callback = attack_callback;
+    return _entity;
+}
+
+Entity addCooldown_CallBack(void (*cooldown_callback)(void*), Entity _entity) {
+    _entity.cooldown_callback = cooldown_callback;
+    return _entity;
+}
+
+Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity) {
+    _entity.die_callback = die_callback;
+    return _entity;
+}
+
+Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity) {
+    _entity.spawn_callback = spawn_callback;
+    return _entity;
+}
+
+Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity) {
+    _entity.on_collision_enter = on_collision_enter;
+    return _entity;
 }

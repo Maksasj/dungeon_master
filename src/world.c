@@ -1,5 +1,7 @@
 #include "include/world.h"
 
+#include "include/entity/entity_macros.h"
+
 #define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
@@ -11,15 +13,26 @@ void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
         entityUnloadSprite(entity);
     }
 
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
+        ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
+        itemDropUnloadSprite(itemDrop);
+    }
+
     ++_world->activeRoom;
     gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
 }
 
 void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int i;
+    
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
+    }
+
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
+        ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
+        itemDropUnloadSprite(itemDrop);
     }
 
     --_world->activeRoom;
@@ -73,6 +86,15 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(entity);
     }
 
+    for(i = 0; i < room->current_itemdrop_count; ++i) {
+        ItemDrop *itemdrop = &room->itemdrop_pool[i];
+        if (checkCollision(_player, (Entity*) itemdrop)) {
+            putOnItem(_player, itemdrop->item);
+            itemDropUnloadSprite(itemdrop);
+            deleteItemDropFromRoom(itemdrop, room);
+        }
+    }
+
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
         if (room->type == TWO_ENEMIES) {
@@ -100,12 +122,27 @@ void generateWorld(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_; ++i) {
         Room room;
-        room.type = TWO_ENEMIES;
-        _world->rooms[i] = room;
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0), 1));
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0), 1));
-    }   
 
+        room.type = TWO_ENEMIES;
+        room.current_entity_count = 0;
+        room.current_itemdrop_count = 0;
+
+        _world->rooms[i] = room;
+
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(98.0, 32.0));
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(32.0, 98.0));
+        tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(98.0, 98.0));
+
+        tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(140.0, 64.0));
+
+        tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(96.0, 32.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
+        tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
+    }
+    
     _world->difficulty = 1;
 }
 
