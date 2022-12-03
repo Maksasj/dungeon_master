@@ -1,4 +1,5 @@
 #include "include/types.h"
+#include "include/text/text.h"
 
 #include "include/memory.h"
 #include "include/gfx.h"
@@ -9,6 +10,7 @@
 #include "include/player.h"
 #include "include/interruption.h"
 #include "include/sound.h"
+
 
 #include "include/entity/entity.h"
 
@@ -53,6 +55,9 @@ int main() {
 
     PlayerUI playerUI;
     initPlayerUI(&playerUI, sprites, &next_sprite_index);
+
+    Text text;
+    loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
 
     while (1) {
         updateWorld(&world, &player);

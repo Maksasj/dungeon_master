@@ -10,6 +10,11 @@ for %%f in (src\prototypes\*.c) do (
     echo Successfully compiled: %%~nf.c
 )
 
+for %%f in (src\text\*.c) do (
+    gcc -c -O3 src\text\%%~nf.c -o dist\tmp\%%~nf.o
+    echo Successfully compiled: %%~nf.c
+)
+
 for %%f in (src\*.c) do (
     gcc -c -O3 src\%%~nf.c -o dist\tmp\%%~nf.o
     echo Successfully compiled: %%~nf.c
