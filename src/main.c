@@ -1,5 +1,4 @@
 #include "include/types.h"
-#include <stdlib.h>
 
 #include "include/memory.h"
 #include "include/gfx.h"
@@ -21,8 +20,9 @@
 
 #include "include/logger.h"
 
+#define EXTREME_MODE
+
 int main() {
-    /* we set the mode to mode 0 with bg0 on */
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
     initBackground();
@@ -34,108 +34,43 @@ int main() {
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
     World world;
-    generateWorld(&world);
-    gotoRoom(&world, 0, sprites, &next_sprite_index);
+        generateWorld(&world);
+        gotoRoom(&world, 0, sprites, &next_sprite_index);
     
     interruptionInit(onVBlank);
 
-    i32 octave = 0;
     soundInit(5, 3, 0, 3);
-    
     playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
     
     spriteClear(sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), 3);
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
     entityInitSprite(&player, sprites, &next_sprite_index);
-
+    
+    player.update_callback = &player_update;
     player.attack_callback = &playerCalculateDamage;
     player.cooldown_callback = &playerSetAttackCooldown;
     player.die_callback = &killPlayer;
+    
     player.spec = malloc(sizeof(PlayerSpecData));
     initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
     PlayerUI playerUI;
     initPlayerUI(&playerUI, sprites, &next_sprite_index);
 
-    //Entity enemy;
-    //entityInit(sprites, &next_sprite_index, &enemy, newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
-
     while (1) {
-        //Slow down the player
-        player.vel.x *= 0.6;
-        player.vel.y *= 0.6;
-
         updateWorld(&world, &player);
         entityUpdate(&player);
         updatePlayerSpec(player.spec, &player);
-        
-        i32 walk = 0;
-        if (buttonPressed(_BUTTON_RIGHT_)) {
-            player.vel.x += 0.5;
 
-            spriteSetOffset(player.sprite, 16);
-            spriteSetHorizontalFlip(player.sprite, 0);
+        (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
 
-            //notePlay(NOTE_BES, octave + 1);
-        }
-
-        if (buttonPressed(_BUTTON_LEFT_)) {
-            player.vel.x -= 0.5;
-
-            spriteSetOffset(player.sprite, 16);
-            spriteSetHorizontalFlip(player.sprite, 1);
-
-            //notePlay(NOTE_B, octave);
-        }
-
-        if (buttonPressed(_BUTTON_DOWN_)) {
-            player.vel.y += 0.5;
-            spriteSetOffset(player.sprite, 8);
-
-            //notePlay(NOTE_F, octave);
-        }
-
-        if (buttonPressed(_BUTTON_UP_)) {
-            player.vel.y -= 0.5;
-            spriteSetOffset(player.sprite, 0);
-
-            //notePlay(NOTE_A, octave);
-        }
-
-        if (buttonPressed(_BUTTON_A_)) {
-            if (player.attack_cooldown == 0) {
-                playerAttack(&player, &world.rooms[world.activeRoom]);
-                (player.cooldown_callback)(&player);
-
-                log(LOG_INFO, "Player attacked");
-            }
-        }
-
-        //X
-        CollisionType xCol = worldCollision(&world, newIVec2(player.position.x + player.vel.x, player.position.y));
-        if(xCol == NONE || xCol == OPENED_DOOR)
-            player.position.x += player.vel.x;
-
-        CollisionType yCol = worldCollision(&world, newIVec2(player.position.x, player.position.y + player.vel.y));
-        if(yCol == NONE || yCol == OPENED_DOOR)
-            player.position.y += player.vel.y;
-
-        if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
-            next_sprite_index = 7;
-
-            if(player.position.y < 70) {
-                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 128);
-                nextRoom(&world, sprites, &next_sprite_index);
-            } else {
-                player.position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
-                backRoom(&world, sprites, &next_sprite_index);
-            }
-        }
-
-        waitVBlank();
         spriteUpdateAll(sprites);
 
-        delay(100);
+        #ifndef EXTREME_MODE
+            waitVBlank();
+        #else
+            delay(300);
+        #endif
     }
 }
