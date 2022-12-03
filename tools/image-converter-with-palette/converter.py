@@ -111,8 +111,8 @@ class Converter:
 
 convert = Converter()
 if sys.argv:
-    convert.Convert("..\\..\\assets\\raw\\tile-map.png")
-    convert.SaveFile("..\\..\\assets\\generated\\tile-map.h")
+    convert.Convert("..\\..\\assets\\raw\\menu.png")
+    convert.SaveFile("..\\..\\assets\\generated\\menu.h")
 else:
     convert.Convert(sys.argv[0])
     convert.SaveFile(sys.argv[1])
