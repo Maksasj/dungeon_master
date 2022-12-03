@@ -8,10 +8,11 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.base_stats = _stat;
 
     _entity.sprite_offset = _sprite_offset;
-    _entity.attack_cooldown = 0;
 
-    _entity.health = 3;
-    _entity.mana = 0;
+    _entity.health = _stat.stamina;
+    _entity.mana = _stat.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
+    _entity.attack_cooldown = 0;
+    _entity.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _stat.agility;
 
     return _entity;
 }
@@ -31,8 +32,7 @@ void entityUpdate(Entity* _entity) {
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {
-    i32 calculated_damage = (*_entity->attack_callback)();
-
+    i32 calculated_damage = (*_entity->attack_callback)(_entity);
     entityTakeDamage(_target, calculated_damage);
 }
 
@@ -92,7 +92,7 @@ Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _
     return _entity;
 }
 
-Entity addAttack_CallBack(i32 (*attack_callback)(), Entity _entity) {
+Entity addAttack_CallBack(i32 (*attack_callback)(void*), Entity _entity) {
     _entity.attack_callback = attack_callback;
     return _entity;
 }

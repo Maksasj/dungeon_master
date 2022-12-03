@@ -6,6 +6,11 @@
 
 typedef i32 stattype;
 
+#define _DEFAULT_ATTACK_COOLDOWN_ 70
+
+#define _MANA_MODIFIER_FROM_INTELLECT_ 10
+#define _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ 10
+
 typedef struct Statblock {
     stattype stamina;
     stattype agility;

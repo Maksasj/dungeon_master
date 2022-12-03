@@ -40,7 +40,7 @@ int main() {
     soundInit(5, 3, 0, 3);
     playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
         player.attack_callback = &playerCalculateDamage;

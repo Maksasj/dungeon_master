@@ -7,6 +7,7 @@
 #include "entity/entity.h"
 #include "world/room.h"
 #include "world.h"
+#include "logger.h"
 
 #define _ATTACK_OFFSET_ 8
 
@@ -34,7 +35,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);
 
 void playerAttack(Entity* _self, Room* _active_room);
 
-i32 playerCalculateDamage();
+i32 playerCalculateDamage(Entity* _self);
 
 void killPlayer(Entity* _self);
 

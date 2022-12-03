@@ -105,9 +105,8 @@ void playerAttack(Entity* _player, Room* _active_room) {
     }
 }
 
-i32 playerCalculateDamage() {
-    //TODO: calculate damage
-    return 1;
+i32 playerCalculateDamage(Entity* _self) {
+    return 1 + _self->base_stats.strength;
 }
 
 void killPlayer(Entity* _self) {

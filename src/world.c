@@ -71,7 +71,7 @@ void updateWorld(World* _world, Entity* _player) {
                 entityAttack(entity, _player);
                 #endif
 
-                entity->attack_cooldown = 100;
+                entity->attack_cooldown = entity->max_attack_cooldown;
             }
         }
 

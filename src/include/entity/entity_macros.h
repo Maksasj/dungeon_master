@@ -13,7 +13,7 @@
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
-        stats(1, 1, 1, 1, 1),                               \
+        stats(1, 3, 0, 0, 0),                               \
         24)))))                                             \
 
 #define _SKELETON_KING_ENTITY_(X, Y)                        \
@@ -24,7 +24,7 @@
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
-        stats(1, 1, 1, 1, 1),                               \
+        stats(3, 1, 0, 1, 0),                               \
         48)))))                                             \
 
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                     \
@@ -35,7 +35,7 @@
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
-        stats(1, 1, 1, 1, 1),                               \
+        stats(1, 0, 0, 1, 0),                               \
         72)))))                                             \
 
 #define _NECROMANCER_ENTITY_(X, Y)                          \
@@ -46,7 +46,7 @@
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
-        stats(1, 1, 1, 1, 1),                               \
+        stats(2, 2, 1, 0, 0),                               \
         96)))))                                             \
 
 #endif

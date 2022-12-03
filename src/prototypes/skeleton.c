@@ -52,7 +52,6 @@ void skeleton_kill(Entity* _self) {
     notePlay(NOTE_C, 1);
 }
 
-i32 skeletonCalculateDamage() {
-    //TODO: calculate damage
-    return 1;
+i32 skeletonCalculateDamage(Entity* _self) {
+    return 1 + _self->base_stats.strength;
 }
