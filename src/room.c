@@ -3,8 +3,6 @@
 
 #include "include/world/tile.h"
 
-#include "include/prototypes/skeleton.h"
-
 #include "assets/map.h"
 
 const u16* getRandomFloorTile() {
@@ -102,7 +100,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         for(i = 0; i < _room->current_entity_count; ++i) {
             Entity* entity = &_room->entity_pool[i];
             entityInitSprite(entity, _sprites, _next_sprite_index);
-            spriteSetOffset(entity->sprite, 40); //96 - necromncer
+            spriteSetOffset(entity->sprite, entity->sprite_offset); //96 - necromncer
         }
 
         for(i = 0; i < _room->current_itemdrop_count; ++i) {
@@ -165,9 +163,13 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 void tryPushEntityToRoom(Room* _room, Entity _entity) {
     if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         _room->entity_pool[_room->current_entity_count] = _entity;
+        
+        /*
         _room->entity_pool[_room->current_entity_count].update_callback = &skeleton_update;
         _room->entity_pool[_room->current_entity_count].on_collision_enter = &checkCollision;
         _room->entity_pool[_room->current_entity_count].die_callback = &skeleton_kill;
+        */
+
         ++_room->current_entity_count;
     }
 }

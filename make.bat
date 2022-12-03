@@ -1,7 +1,7 @@
 
 @ECHO OFF
 
-del dist\*.o
+del dist\tmp\*.o
 del dist\main.gba
 del dist\main.sav
 

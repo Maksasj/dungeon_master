@@ -46,7 +46,7 @@ int main() {
     
     spriteClear(sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8));
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
         

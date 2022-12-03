@@ -1,7 +1,6 @@
 #ifndef _SKELETON_H_
 #define _SKELETON_H_
 
-#include "../world/room.h"
 #include "../world.h"
 #include "../entity/entity.h"
 #include "../sound.h"

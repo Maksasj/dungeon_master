@@ -1,5 +1,7 @@
 #include "include/world.h"
 
+#include "include/entity/entity_macros.h"
+
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
@@ -103,8 +105,10 @@ void generateWorld(World* _world) {
 
         _world->rooms[i] = room;
 
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0)));
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(98.0, 32.0));
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(32.0, 98.0));
+        tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(98.0, 98.0));
 
         tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
         tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));

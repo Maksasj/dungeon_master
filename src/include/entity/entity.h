@@ -23,6 +23,8 @@ typedef struct Entity {
     i32 mana;
 
     Facing facing;
+    
+    u32 sprite_offset;
 
     void* spec;
 
@@ -45,7 +47,7 @@ typedef struct Entity {
     i32 (*on_collision_enter)(void*, void*);
 } Entity;
 
-Entity entityInit(fvec2 _position);
+Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset);
 
 void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_index);
 
@@ -56,5 +58,13 @@ void entityUpdate(Entity* _entity);
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 
 void killEntity(Entity* _entity);
+
+//Pseudo monad lol
+Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _entity);
+Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity);
+Entity addTakeDamage_CallBack(void (*takeDamage_callback)(void*, i32), Entity _entity);
+Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity);
+Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity);
+Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity);
 
 #endif

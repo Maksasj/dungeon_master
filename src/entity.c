@@ -1,14 +1,17 @@
 #include "include/entity/entity.h"
 
-Entity entityInit(fvec2 _position) {
+Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     Entity _entity;
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
 
-    _entity.base_stats = stats(1, 1, 1, 1, 1);
+    _entity.base_stats = _stat;
+
+    _entity.sprite_offset = _sprite_offset;
 
     _entity.health = 0;
     _entity.mana = 0;
+
     return _entity;
 }
 
@@ -46,4 +49,35 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
 void killEntity(Entity* _entity) {
     (*_entity->die_callback)(_entity);
     entityUnloadSprite(_entity);
+}
+
+//Pseudo monad lol
+Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _entity) {
+    _entity.update_callback = update_callback;
+    return _entity;
+}
+
+Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity) {
+    _entity.attack_callback = attack_callback;
+    return _entity;
+}
+
+Entity addTakeDamage_CallBack(void (*takeDamage_callback)(void*, i32), Entity _entity) {
+    _entity.takeDamage_callback = takeDamage_callback;
+    return _entity;
+}
+
+Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity) {
+    _entity.die_callback = die_callback;
+    return _entity;
+}
+
+Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity) {
+    _entity.spawn_callback = spawn_callback;
+    return _entity;
+}
+
+Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity) {
+    _entity.on_collision_enter = on_collision_enter;
+    return _entity;
 }
