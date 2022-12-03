@@ -77,11 +77,6 @@ Entity addAttack_CallBack(void (*attack_callback)(void*, void*), Entity _entity)
     return _entity;
 }
 
-Entity addTakeDamage_CallBack(void (*takeDamage_callback)(void*, i32), Entity _entity) {
-    _entity.takeDamage_callback = takeDamage_callback;
-    return _entity;
-}
-
 Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity) {
     _entity.die_callback = die_callback;
     return _entity;
