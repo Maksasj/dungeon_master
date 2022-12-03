@@ -44,7 +44,3 @@ i32 skeletonCalculateDamage() {
     //TODO: calculate damage
     return 1;
 }
-
-void skeletonSetAttackCooldown(Entity* _self) {
-    _self->attack_cooldown = _ATTACK_COOLDOWN_;
-}
