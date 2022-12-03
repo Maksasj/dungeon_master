@@ -30,6 +30,20 @@ void skeleton_update(Entity* _self, World* _world, Room* _room) {
             break;
     }
 
+    if (world_position.x < 0) {
+        _self->vel.x = 0;
+        ++_self->vel.x;
+    } else if (world_position.x > _GRID_LENGTH_) {
+        _self->vel.x = 0;
+        --_self->vel.x;
+    } else if (world_position.y < 0) {
+        _self->vel.y = 0;
+        ++_self->vel.y;
+    } else if (world_position.y > _GRID_HEIGHT_) {
+        _self->vel.y = 0;
+        --_self->vel.y;
+    }
+
     _self->position.x += _self->vel.x;
     _self->position.y += _self->vel.y;
 }
