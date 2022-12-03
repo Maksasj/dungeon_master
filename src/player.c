@@ -42,6 +42,7 @@ void playerAttack(Entity* _player, Room* _active_room) {
 }
 
 i32 playerCalculateDamage() {
+    //TODO: calculate damage
     return 1;
 }
 
@@ -53,6 +54,7 @@ void playerSetAttackCooldown(Entity* _self) {
 void killPlayer(Entity* _self) {
     //TODO: restart the game
     return;
+}
 
 void player_update(Entity* _self, World* _world, Room* _room) {
     _self->vel.x *= 0.6;
@@ -97,15 +99,17 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             playerAttack(_self, _room);
             (*_self->cooldown_callback)(_self);
         }
-      }
+    }
 
     CollisionType xCol = worldCollision(_world, newIVec2(_self->position.x + _self->vel.x, _self->position.y));
-    if(xCol == NONE || xCol == OPENED_DOOR)
+    if(xCol == NONE || xCol == OPENED_DOOR) {
         _self->position.x += _self->vel.x;
+    }
 
     CollisionType yCol = worldCollision(_world, newIVec2(_self->position.x, _self->position.y + _self->vel.y));
-    if(yCol == NONE || yCol == OPENED_DOOR)
+    if(yCol == NONE || yCol == OPENED_DOOR) {
         _self->position.y += _self->vel.y;
+    }
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 7;

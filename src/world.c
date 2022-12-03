@@ -66,6 +66,10 @@ void updateWorld(World* _world, Entity* _player) {
             }
         }
 
+        if (entity->health <= 0) {
+            deleteEntityFromRoom(entity, room);
+        }
+
         entityUpdate(entity);
     }
 
