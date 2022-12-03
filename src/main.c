@@ -32,6 +32,13 @@ int main() {
     Sprite sprites[_NUM_SPRITES_];
     i32 next_sprite_index = 0;
 
+    memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
+    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
+
+    while(1) {
+        if(buttonPressed(_BUTTON_START_)) { break; }
+    }
+
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_); /* load the palette from the image into palette memory*/
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2); /* load the image into sprite image memory */
 
