@@ -73,12 +73,32 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
 
 
 void playerAttack(Entity* _player, Room* _active_room) {
+    Entity temp = *_player;
+
+    switch (_player->facing)
+    {
+        case RIGHT:
+            temp.position.x += _ATTACK_OFFSET_;
+            break;
+        case LEFT:
+            temp.position.x -= _ATTACK_OFFSET_;
+            break;
+        case DOWN:
+            temp.position.y += _ATTACK_OFFSET_;
+            break;
+        case UP:
+            temp.position.y -= _ATTACK_OFFSET_;
+            break;
+        default:
+            break;
+    }
+
     i32 i;
 
     for(i = 0; i < _active_room->current_entity_count; ++i) {
         Entity *entity = &_active_room->entity_pool[i];
 
-        if ((*entity->on_collision_enter)(entity, _player)) {
+        if ((*entity->on_collision_enter)(entity, &temp)) {
             entityKnockback(entity, _player->facing, 20);
             entityAttack(_player, entity);
         }
