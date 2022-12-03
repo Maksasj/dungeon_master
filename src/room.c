@@ -3,8 +3,6 @@
 
 #include "include/world/tile.h"
 
-#include "assets/map.h"
-
 const u16* getRandomFloorTile() {
     u16 value = rand() % 6;
 
@@ -52,28 +50,28 @@ void loadBasicRoom(World* _world, u16* _target) {
 
     for(i = 0; i < 15; ++i) {
         for(j = 0; j < 10; ++j) {
-            placeTile(_world, MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
+            placeTile(_world, _world->MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
         }
     }
 
     for(i = 0; i < 15; ++i) {
-        placeTile(_world, MAP, newIVec2(i*2, 18), BORDER_BOTTOM, WALL);
-        placeTile(_world, MAP, newIVec2(i*2, 0), BORDER_UP, WALL);
+        placeTile(_world, _world->MAP, newIVec2(i*2, 18), BORDER_BOTTOM, WALL);
+        placeTile(_world, _world->MAP, newIVec2(i*2, 0), BORDER_UP, WALL);
     }
 
     for(i = 0; i < 9; ++i) {
-        placeTile(_world, MAP, newIVec2(28, i*2), BORDER_RIGHT, WALL);
-        placeTile(_world, MAP, newIVec2(0, i*2), BORDER_LEFT, WALL);
+        placeTile(_world, _world->MAP, newIVec2(28, i*2), BORDER_RIGHT, WALL);
+        placeTile(_world, _world->MAP, newIVec2(0, i*2), BORDER_LEFT, WALL);
     }
 
    
-    placeTile(_world, MAP, newIVec2(0, 0), CORNER_LEFT_UP, WALL);
-    placeTile(_world, MAP, newIVec2(28, 0), CORNER_RIGHT_UP, WALL);
-    placeTile(_world, MAP, newIVec2(0, 18), CORNER_LEFT_BOTTOM, WALL);
-    placeTile(_world, MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
+    placeTile(_world, _world->MAP, newIVec2(0, 0), CORNER_LEFT_UP, WALL);
+    placeTile(_world, _world->MAP, newIVec2(28, 0), CORNER_RIGHT_UP, WALL);
+    placeTile(_world, _world->MAP, newIVec2(0, 18), CORNER_LEFT_BOTTOM, WALL);
+    placeTile(_world, _world->MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
 
 
-    placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+    placeTile(_world, _world->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
 
     /*
     placeTile(MAP, newIVec2(2, 8), DOOR_UP_CLOSED);
@@ -85,7 +83,7 @@ void loadBasicRoom(World* _world, u16* _target) {
 }
 
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
-    loadBasicRoom(_world, MAP);
+    loadBasicRoom(_world, (u16*) (((World*) _world)->MAP));
 
     if(_room->type == BASIC) {
     
@@ -93,8 +91,8 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         //init_entities
         //TODO load entities
 
-        placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-        placeTile(_world, MAP, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+        placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+        placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
         
         int i;
         for(i = 0; i < _room->current_entity_count; ++i) {
@@ -157,7 +155,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         //exit();
     }
 
-    memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
+    memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
 }
 
 void tryPushEntityToRoom(Room* _room, Entity _entity) {
@@ -175,10 +173,10 @@ void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
 }
 
 void unLockRoom(void* _world, Room* _room) {
-    placeTile(_world, MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
-    placeTile(_world, MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
+    placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+    placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 
-    memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, _MAP_WIDTH_ * _MAP_HEIGHT_);
+    memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
 }
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room) {
