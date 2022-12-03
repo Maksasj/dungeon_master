@@ -28,6 +28,34 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
 }
 
+
+void playerAttack(Entity* _player, Room* _active_room) {
+    i32 i;
+
+    for(i = 0; i < _active_room->current_entity_count; ++i) {
+        Entity *entity = &_active_room->entity_pool[i];
+
+        if ((*entity->on_collision_enter)(entity, _player)) {
+            entityAttack(_player, entity);
+        }
+    }
+}
+
+i32 playerCalculateDamage() {
+    //TODO: calculate damage
+    return 1;
+}
+
+void playerSetAttackCooldown(Entity* _self) {
+    //TODO: calculate cooldown
+    _self->attack_cooldown = 1;
+}
+
+void killPlayer(Entity* _self) {
+    //TODO: restart the game
+    return;
+}
+
 void player_update(Entity* _self, World* _world, Room* _room) {
     _self->vel.x *= 0.6;
     _self->vel.y *= 0.6;
@@ -65,14 +93,23 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
         //notePlay(NOTE_A, octave);
     }
+    
+    if (buttonPressed(_BUTTON_A_)) {
+        if (_self->attack_cooldown == 0) {
+            playerAttack(_self, _room);
+            (*_self->cooldown_callback)(_self);
+        }
+    }
 
     CollisionType xCol = worldCollision(_world, newIVec2(_self->position.x + _self->vel.x, _self->position.y));
-    if(xCol == NONE || xCol == OPENED_DOOR)
+    if(xCol == NONE || xCol == OPENED_DOOR) {
         _self->position.x += _self->vel.x;
+    }
 
     CollisionType yCol = worldCollision(_world, newIVec2(_self->position.x, _self->position.y + _self->vel.y));
-    if(yCol == NONE || yCol == OPENED_DOOR)
+    if(yCol == NONE || yCol == OPENED_DOOR) {
         _self->position.y += _self->vel.y;
+    }
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 7;

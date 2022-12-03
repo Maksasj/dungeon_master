@@ -1,13 +1,15 @@
 #include "include/entity/entity.h"
 
-Entity entityInit(fvec2 _position) {
+Entity entityInit(fvec2 _position, u32 _health) {
     Entity _entity;
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
 
     _entity.base_stats = stats(1, 1, 1, 1, 1);
+    
+    _entity.attack_cooldown = 0;
 
-    _entity.health = 0;
+    _entity.health = _health;
     _entity.mana = 0;
     return _entity;
 }
@@ -24,6 +26,20 @@ void entityUnloadSprite(Entity *_entity) {
 
 void entityUpdate(Entity* _entity) {
     spritePosition(_entity->sprite, (i32) _entity->position.x, (i32)_entity->position.y);
+}
+
+void entityAttack(Entity* _entity, Entity* _target) {
+    i32 calculated_damage = (*_entity->attack_callback)();
+
+    entityTakeDamage(_target, calculated_damage);
+}
+
+void entityTakeDamage(Entity* _entity, i32 _damage) {
+    _entity->health -= _damage;
+
+    if (_entity->health <= 0) {
+        killEntity(_entity);
+    }
 }
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {

@@ -1,5 +1,7 @@
 #include "include/world.h"
 
+#define _GOD_MODE_
+
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
@@ -47,8 +49,24 @@ void updateWorld(World* _world, Entity* _player) {
         (*entity->update_callback)(entity, _world, room);
 
         if ((*entity->on_collision_enter)(entity, _player)) {
-            notePlay(NOTE_BES, 1);
-            killEntity(entity);
+            if (entity->attack_cooldown == 0) {
+                notePlay(NOTE_BES, 1);
+
+                #ifndef _GOD_MODE_ 
+                entityAttack(entity, _player);
+                #endif
+
+                (*entity->cooldown_callback)(entity);
+            }
+        }
+
+        if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
+            if (entity->attack_cooldown > 0) {
+                --entity->attack_cooldown;
+            }
+        }
+
+        if (entity->health <= 0) {
             deleteEntityFromRoom(entity, room);
         }
 
@@ -59,6 +77,12 @@ void updateWorld(World* _world, Entity* _player) {
     if(room->current_entity_count == 0) {
         if (room->type == TWO_ENEMIES) {
             unLockRoom(_world, room);
+        }
+    }
+
+    if (WORLD_TICK % _COOLDOWN_UPDATE_TICK_RATE_ == 0) {
+        if (_player->attack_cooldown > 0) {
+            --_player->attack_cooldown;
         }
     }
     
@@ -78,8 +102,8 @@ void generateWorld(World* _world) {
         Room room;
         room.type = TWO_ENEMIES;
         _world->rooms[i] = room;
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0)));
-        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0)));
+        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(32.0, 32.0), 1));
+        tryPushEntityToRoom(&_world->rooms[i], entityInit(newFVec2(96.0, 32.0), 1));
     }   
 
     _world->difficulty = 1;
