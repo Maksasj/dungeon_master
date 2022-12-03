@@ -173,8 +173,8 @@ inline ivec2 screenToGridPosition(fvec2 _screen_position) {
     ivec2 fixed_screen_position;
     ivec2 grid_position;
 
-    grid_position.x = ((i32)_screen_position.x >> 4) - 1;
-    grid_position.y = ((i32)_screen_position.y >> 4) - 1;
+    grid_position.x = ((i32)_screen_position.x >> 4);
+    grid_position.y = ((i32)_screen_position.y >> 4);
 
     return grid_position;
 }
