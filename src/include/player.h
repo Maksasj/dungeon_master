@@ -8,6 +8,8 @@
 #include "world/room.h"
 #include "world.h"
 
+#define _ATTACK_OFFSET_ 8
+
 typedef struct PlayerSpecData {
     Sprite* armor;
     Sprite* weapon;
