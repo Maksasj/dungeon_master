@@ -44,6 +44,26 @@ void entityTakeDamage(Entity* _entity, i32 _damage) {
     }
 }
 
+void entityKnockback(Entity* _entity, Facing _facing, float _power) {
+    switch (_facing)
+    {
+        case UP:
+            _entity->vel.y -= _power;
+            break;
+        case RIGHT:
+            _entity->vel.x += _power;
+            break;
+        case DOWN:
+            _entity->vel.y += _power;
+            break;
+        case LEFT:
+            _entity->vel.x -= _power;
+            break;
+        default:
+            break;
+    }
+}
+
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
     //ivec2 first_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_first_entity->sprite_size_in_pixels);
     //ivec2 second_entity_sprite_size_in_pixels = getSpriteWidthAndLength(_second_entity->sprite_size_in_pixels);

@@ -79,6 +79,7 @@ void playerAttack(Entity* _player, Room* _active_room) {
         Entity *entity = &_active_room->entity_pool[i];
 
         if ((*entity->on_collision_enter)(entity, _player)) {
+            entityKnockback(entity, _player->facing, 20);
             entityAttack(_player, entity);
         }
     }

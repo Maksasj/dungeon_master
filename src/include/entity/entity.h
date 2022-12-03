@@ -57,6 +57,8 @@ void entityAttack(Entity* _entity, Entity* _target);
 
 void entityTakeDamage(Entity* _entity, i32 _damage);
 
+void entityKnockback(Entity* _entity, Facing _facing, float _power);
+
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 
 void killEntity(Entity* _entity);
