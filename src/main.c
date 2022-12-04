@@ -16,6 +16,13 @@ int main() {
 
     World world;
         generateWorld(&world);
+    
+    i8 down_pressed = 0;
+    i8 up_pressed = 0;
+    i32 selection = 0;
+
+    interruptionInit(onVBlank);
+    soundInit(5, 3, 0, 3);
 
     i32 i; i32 j;
 
@@ -24,7 +31,46 @@ int main() {
     
     memcpy16DMA((u16*) screenBlock(13), (u16*) world.MAP, 32 * 32);
 
-    while(!buttonPressed(_BUTTON_START_)) {
+    while(1) {
+        if(buttonPressed(_BUTTON_DOWN_) && down_pressed == 0) {
+            selection = selection == 0 ? MAIN_MENU_OPTION_COUNT - 1 : selection - 1;
+            down_pressed = 1;
+            notePlay(NOTE_B, 0);
+        }
+
+        if(buttonPressed(_BUTTON_UP_) && up_pressed == 0) {
+            selection = selection == MAIN_MENU_OPTION_COUNT - 1 ? 0 : selection + 1;
+            up_pressed = 1;
+            notePlay(NOTE_B, 0);
+        }
+
+        if(!buttonPressed(_BUTTON_DOWN_))
+            down_pressed = 0;
+
+        if(!buttonPressed(_BUTTON_UP_))
+            up_pressed = 0;
+
+        switch (selection) {
+            case 0:
+                spritePosition(selectionArrow, 130, 59);
+                spriteSetOffset(buttonPlay, 0); 
+                spriteSetOffset(buttonAbout, 960); 
+                break;
+            case 1:
+                spritePosition(selectionArrow, 130, 100);
+                spriteSetOffset(buttonPlay, 896);
+                spriteSetOffset(buttonAbout, 64);
+                break;
+        }
+
+        if(buttonPressed(_BUTTON_SELECT_)) {
+            if(selection == 0) {
+                break;
+            } else if(selection == 1) {
+                notePlay(NOTE_GIS, 0);
+            }
+        }
+
         spriteUpdateAll(sprites);
     }
 
@@ -32,13 +78,9 @@ int main() {
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
 
-    
-    gotoRoom(&world, 0, sprites, &next_sprite_index);
-
-    interruptionInit(onVBlank);
-
-    soundInit(5, 3, 0, 3);
     playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
+
+    gotoRoom(&world, 0, sprites, &next_sprite_index);
 
     Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
@@ -53,8 +95,8 @@ int main() {
     PlayerUI playerUI;
     initPlayerUI(&playerUI, sprites, &next_sprite_index);
 
-    Text text;
-    loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
+    //Text text;
+    //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
 
     while (1) {
         updateWorld(&world, &player);
