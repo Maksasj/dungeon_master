@@ -53,7 +53,13 @@ void skeleton_kill(Entity* _self) {
 }
 
 i32 skeletonCalculateDamage(Entity* _self) {
-    return 1 + _self->base_stats.strength;
+    i32 strenght = _self->base_stats.strength;
+    
+    if (strenght < 0) {
+        strenght = 0;
+    }
+    
+    return 1 + strenght;
 }
 
 i32 skeleton_try_dodge(Entity* _self) {

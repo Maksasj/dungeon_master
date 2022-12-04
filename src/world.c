@@ -68,7 +68,6 @@ void updateWorld(World* _world, Entity* _player) {
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(entity, _player);
-                    log(LOG_INFO, "Attacked");
                 }
                 #endif
 
