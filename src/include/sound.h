@@ -6,14 +6,11 @@
 #include "timer.h"
 #include "interruption.h"
 
-/* allows turning on and off sound for the GBA altogether */
 #define _MASTER_SOUND_ ((vu16*) 0x4000084)
 #define _SOUND_MASTER_ENABLE_ 0x80
 
-/* has various bits for controlling the direct sound channels */
 #define _SOUND_CONTROL_ ((vu16*) 0x4000082)
 
-/* bit patterns for the sound control register */
 #define _SOUND_A_RIGHT_CHANNEL_     0x100
 #define _SOUND_A_LEFT_CHANNEL_      0x200
 #define _SOUND_A_FIFO_RESET_        0x800
@@ -21,11 +18,9 @@
 #define _SOUND_B_LEFT_CHANNEL_      0x2000
 #define _SOUND_B_FIFO_RESET_        0x8000
 
-/* the location of where sound samples are placed for each channel */
 #define _FIFO_BUFFER_A_ ((vu8*) 0x40000A0)
 #define _FIFO_BUFFER_B_ ((vu8*) 0x40000A4)
 
-//Sound 1-4 Output level and Stereo control
 #define _SOUND_DMG_CONTROL_ ((vu16 *) 0x04000080)
 
 #define _SOUND_1_FREQ_  ((vu16 *) 0x04000064)
@@ -36,21 +31,16 @@
 #define _SDMG_WAVE_    0x04
 #define _SDMG_NOISE_   0x08
 
-//Tone generators at 25%, 50%, 100% volume.
 #define _DIRECT_SOUND_DMG_25_   0
 #define _DIRECT_SOUND_DMG_50_   0x0001
 #define _DIRECT_SOUND_DMG_100_  0x0002
 
-//Sound 1 Sweep control
 #define _SOUND_1_SWEEP_ ((vu16 *) 0x04000060)
 
-//Disable sweep altogether.
 #define _SOUND_SWEEP_OFF_ 0x0008
 
-//Sound 1 Lenght, wave duty and envelope control
 #define _SOUND_1_CONTROL_ ((vu16 *) 0x04000062)
 
-//Duty cycles
 #define _SSQR_DUTY1_8_ 0      //12.5%  
 #define _SSQR_DUTY1_4_ 0x0040 //25%
 #define _SSQR_DUTY1_2_ 0x0080 //50%
