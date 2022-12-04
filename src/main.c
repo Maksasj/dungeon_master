@@ -88,9 +88,6 @@ int main() {
         player.attack_callback = &playerCalculateDamage;
         player.die_callback = &killPlayer;
         player.dodge_callback = &playerTryDodge;
-        
-        player.spec = malloc(sizeof(PlayerSpecData));
-        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
         PlayerUI playerUI;
         initPlayerUI(&playerUI, sprites, &next_sprite_index);

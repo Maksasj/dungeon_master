@@ -4,7 +4,7 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
     int i = 0;
     for(i = 0; i < HEALTH_CAP; ++i) {
         _playerUI->health[i] = spriteInit(_sprites, _next_sprite_index, 4 + i*16, 3, SIZE_16_16, 0, 0, 0, 0);
-        spriteSetOffset(_playerUI->health[i], 312);
+        spriteSetOffset(_playerUI->health[i], 312 + 8);
     }
 
     //_playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
@@ -71,16 +71,27 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         spriteSetHorizontalFlip(_pspec->armor, flip);
     }
 
-    int i;
+
+    i32 player_max_health =  
+        _entity->base_stats.stamina + 
+        _pspec->armor_slot.base_stats.stamina + 
+        _pspec->hand_slot.base_stats.stamina;
+
+    player_max_health = player_max_health > 6 ? 6 : player_max_health;        
+
+    i32 i;
     for(i = 0; i < HEALTH_CAP; ++i) {
-        if(i < _entity->health) {
-            spriteSetOffset(_pspec->ui->health[i], 304);
+        if(i < player_max_health) {
+            if(i < _entity->health) {
+                spriteSetOffset(_pspec->ui->health[i], 304);
+            } else {
+                spriteSetOffset(_pspec->ui->health[i], 312 + 16);
+            } 
         } else {
-            spriteSetOffset(_pspec->ui->health[i], 312 + 16);
-        }   
+            spriteSetOffset(_pspec->ui->health[i], 312 + 8);
+        }
     }
 }
-
 
 void playerAttack(Entity* _player, Room* _active_room) {
     Entity temp = *_player;
@@ -219,5 +230,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
             backRoom(_world, pspec->sprites, pspec->next_sprite_index);
         }
+
+        _self->health =  
+            _self->base_stats.stamina + 
+            pspec->armor_slot.base_stats.stamina + 
+            pspec->hand_slot.base_stats.stamina;
     }
 }

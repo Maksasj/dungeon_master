@@ -41,8 +41,8 @@ void itemDropUnloadSprite(ItemDrop *_itemDrop);
 Item itemInit(Statblock _stat, u32 _sprite_offset, ItemType type);
 
 #define _IRON_CHESTPLATE_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 112, ARMOR)
-#define _GOLDEN_CHESTPLATE_ITEM_ itemInit(stats(0, 0, 0, 0, 2), 136, ARMOR)
-#define _DIAMOND_CHESTPLATE_ITEM_ itemInit(stats(0, 0, 0, 0, 3), 160, ARMOR)
+#define _GOLDEN_CHESTPLATE_ITEM_ itemInit(stats(1, 0, 0, 0, 2), 136, ARMOR)
+#define _DIAMOND_CHESTPLATE_ITEM_ itemInit(stats(2, 0, 0, 0, 3), 160, ARMOR)
 
 #define _SHORT_SWORD_ITEM_ itemInit(stats(0, 0, 0, 1, 0), 184, WEAPON)
 #define _DARK_CLAYMORE_ITEM_ itemInit(stats(0, 0, 0, 2, 0), 208, WEAPON)
