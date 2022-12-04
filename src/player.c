@@ -206,7 +206,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     if (buttonPressed(_BUTTON_A_)) {
         if (_self->attack_cooldown == 0) {
             playerAttack(_self, _room);
-            _self->attack_cooldown = 50;
+            _self->attack_cooldown = 10;
         }
     }
 
