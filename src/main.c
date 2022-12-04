@@ -84,14 +84,6 @@ int main() {
     World world;
         generateWorld(&world, _seed);
 
-    //log(LOG_INFO, "seed: %d", _seed);
-    //log(LOG_INFO, "random value: %d", rand());
-    //log(LOG_INFO, "random value: %d", rand());
-    //log(LOG_INFO, "random value: %d", rand());
-    //log(LOG_INFO, "random value: %d", rand());
-
-
-
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
