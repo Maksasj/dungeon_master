@@ -112,9 +112,10 @@ i32 playerCalculateDamage(Entity* _self) {
 }
 
 i32 playerTryDodge(Entity* _self) {
-    Item hand = *((Item*)(_self->spec + sizeof(Sprite) * 3 + sizeof(i32)));
+    PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
+    Item *hand = &pspec->hand_slot;
 
-    log(LOG_INFO, "strenght = %d", hand.base_stats.strength);
+    log(LOG_INFO, "strenght = %d", hand->base_stats.strength);
 }
 
 void killPlayer(Entity* _self) {
