@@ -144,19 +144,24 @@ void generateWorld(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80.0, 48.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144.0, 48.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176.0, 64.0));
-                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(112.0, 48.0));
                 break;
             case ONE_NINJA_THREE_ANCIENT:
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112.0, 64.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 16.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208.0, 32.0));
+                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(208.0, 16.0));
                 break;
-            case KING_TWO_NINJA_TWO_ANCIENT:
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+            case THREE_KINGS:
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(48.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112.0, 64.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(176.0, 96.0));
                 break;
             case NECROMANCER_TWO_KINGS:
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(80.0, 64.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144.0, 64.0));
+                tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160.0, 112.0));
+                tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112.0, 48.0));
                 break;
             
             default:
