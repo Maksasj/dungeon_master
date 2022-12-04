@@ -1,5 +1,7 @@
 #define EXTREME_MODE
 
+#define MAIN_MENU_OPTION_COUNT 2
+
 #include "include/main.h"
 
 int main() {
@@ -14,8 +16,17 @@ int main() {
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) menu_image_data, (menu_image_width * menu_image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
 
+    interruptionInit(onVBlank);
+
+    soundInit(5, 3, 0, 3);
+    playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
+
     World world;
         generateWorld(&world);
+    
+    i8 _down_pressed = 0;
+    i8 _up_pressed = 0;
+    i32 selection = 0;
 
     i32 i; i32 j;
 
@@ -24,21 +35,47 @@ int main() {
     
     memcpy16DMA((u16*) screenBlock(13), (u16*) world.MAP, 32 * 32);
 
+    /*
     while(!buttonPressed(_BUTTON_START_)) {
+        if(buttonPressed(_BUTTON_DOWN_) && _down_pressed == 0) {
+            selection = selection == 0 ? MAIN_MENU_OPTION_COUNT - 1 : selection - 1;
+            _down_pressed = 1;
+        }
+
+        if(buttonPressed(_BUTTON_UP_) && _up_pressed == 0) {
+            selection = selection == MAIN_MENU_OPTION_COUNT - 1 ? 0 : selection + 1;
+            _up_pressed = 1;
+        }
+
+        if(!buttonPressed(_BUTTON_DOWN_))
+            _down_pressed = 0;
+
+        if(!buttonPressed(_BUTTON_UP_))
+            _up_pressed = 0;
+
+        switch (selection) {
+            case 0:
+                spritePosition(selectionArrow, 130, 59);
+                spriteSetOffset(buttonPlay, 0); 
+                spriteSetOffset(buttonAbout, 960); 
+                break;
+            case 1:
+                spritePosition(selectionArrow, 130, 100);
+                spriteSetOffset(buttonPlay, 896);
+                spriteSetOffset(buttonAbout, 64);
+                break;
+        }
+
         spriteUpdateAll(sprites);
+        //delay(2000);
     }
+    */
 
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
 
-    
     gotoRoom(&world, 0, sprites, &next_sprite_index);
-
-    interruptionInit(onVBlank);
-
-    soundInit(5, 3, 0, 3);
-    playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
 
     Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
