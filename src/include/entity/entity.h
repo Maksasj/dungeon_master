@@ -6,6 +6,7 @@
 #include "../rotation.h"
 #include "../sprite.h"
 #include "../types.h"
+#include "../math.h"
 
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
@@ -59,6 +60,8 @@ void entityAttack(Entity* _entity, Entity* _target);
 void entityTakeDamage(Entity* _entity, i32 _damage);
 
 void entityKnockback(Entity* _entity, Facing _facing, float _power);
+
+i32 tryDodge(Entity* _entity);
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 

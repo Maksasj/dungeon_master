@@ -10,6 +10,7 @@ typedef i32 stattype;
 
 #define _MANA_MODIFIER_FROM_INTELLECT_ 10
 #define _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ 10
+#define _DODGE_CHANCE_FROM_AGILITY_ 10
 
 typedef struct Statblock {
     stattype stamina;
