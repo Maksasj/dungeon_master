@@ -14,4 +14,6 @@ void skeleton_kill(Entity* _self);
 
 i32 skeletonCalculateDamage(Entity* _self);
 
+i32 skeleton_try_dodge(Entity* _self);
+
 #endif

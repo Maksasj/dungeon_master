@@ -99,14 +99,22 @@ void playerAttack(Entity* _player, Room* _active_room) {
         Entity *entity = &_active_room->entity_pool[i];
 
         if ((*entity->on_collision_enter)(entity, &temp)) {
-            entityKnockback(entity, _player->facing, 20);
-            entityAttack(_player, entity);
+            if (!(*entity->dodge_callback)(entity)) {
+                entityKnockback(entity, _player->facing, 20);
+                entityAttack(_player, entity);
+            }
         }
     }
 }
 
 i32 playerCalculateDamage(Entity* _self) {
     return 1 + _self->base_stats.strength;
+}
+
+i32 playerTryDodge(Entity* _self) {
+    Item hand = *((Item*)(_self->spec + sizeof(Sprite) * 3 + sizeof(i32)));
+
+    log(LOG_INFO, "strenght = %d", hand.base_stats.strength);
 }
 
 void killPlayer(Entity* _self) {

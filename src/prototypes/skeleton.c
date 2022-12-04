@@ -55,3 +55,13 @@ void skeleton_kill(Entity* _self) {
 i32 skeletonCalculateDamage(Entity* _self) {
     return 1 + _self->base_stats.strength;
 }
+
+i32 skeleton_try_dodge(Entity* _self) {
+    u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
+
+    if (random_number < _DODGE_CHANCE_FROM_AGILITY_ * _self->base_stats.agility) {
+        return 1;
+    }
+
+    return 0;
+}

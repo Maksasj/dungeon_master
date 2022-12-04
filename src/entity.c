@@ -32,10 +32,6 @@ void entityUpdate(Entity* _entity) {
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {
-    if (tryDodge(_entity)) {
-        return;
-    }
-    
     i32 calculated_damage = (*_entity->attack_callback)(_entity);
     entityTakeDamage(_target, calculated_damage);
 }
@@ -52,16 +48,6 @@ void entityTakeDamage(Entity* _entity, i32 _damage) {
     if (_entity->health <= 0) {
         killEntity(_entity);
     }
-}
-
-i32 tryDodge(Entity* _entity) {
-    u32 random_number = random((u32)_entity->position.x * (u32)_entity->position.y) % 101;
-
-    if (random_number < _DODGE_CHANCE_FROM_AGILITY_ * _entity->base_stats.agility) {
-        return 1;
-    }
-
-    return 0;
 }
 
 void entityKnockback(Entity* _entity, Facing _facing, float _power) {
@@ -129,5 +115,10 @@ Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity) {
 
 Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity) {
     _entity.on_collision_enter = on_collision_enter;
+    return _entity;
+}
+
+Entity addDodgeCallback(i32 (*dodge_callback)(void*), Entity _entity) {
+    _entity.dodge_callback = dodge_callback;
     return _entity;
 }
