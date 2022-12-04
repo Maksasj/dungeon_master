@@ -1,5 +1,5 @@
-#ifndef _SKELETON_H_
-#define _SKELETON_H_
+#ifndef _SKELETON_NINJA_H_
+#define _SKELETON_NINJA_H_
 
 #include "../world.h"
 #include "../entity/entity.h"
@@ -8,9 +8,9 @@
 #define _GRID_LENGTH_ 12
 #define _GRID_HEIGHT_ 7
 
-void skeleton_update(Entity* _self, World* _world, Room* _room);
+void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room);
 
-void skeleton_kill(Entity* _self);
+void skeletonNinjaKill(Entity* _self);
 
 i32 skeletonCalculateDamage();
 

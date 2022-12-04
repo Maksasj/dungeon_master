@@ -3,12 +3,12 @@
 
 #include "entity.h"
 
-#include "../prototypes/skeleton.h"
+#include "../prototypes/skeleton_ninja.h"
 
 #define _SKELETON_NINJA_ENTITY_(X, Y)                       \
-    addUpdate_CallBack(&skeleton_update,                    \
+    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
-    addDie_CallBack(&skeleton_kill,                         \
+    addDie_CallBack(&skeletonNinjaKill,                         \
     addAttack_CallBack(&skeletonCalculateDamage,            \
                                                             \
     entityInit(                                             \
@@ -17,9 +17,9 @@
         24)))))                                             \
 
 #define _SKELETON_KING_ENTITY_(X, Y)                        \
-    addUpdate_CallBack(&skeleton_update,                    \
+    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
-    addDie_CallBack(&skeleton_kill,                         \
+    addDie_CallBack(&skeletonNinjaKill,                         \
     addAttack_CallBack(&skeletonCalculateDamage,            \
                                                             \
     entityInit(                                             \
@@ -28,9 +28,9 @@
         48)))))                                             \
 
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                     \
-    addUpdate_CallBack(&skeleton_update,                    \
+    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
-    addDie_CallBack(&skeleton_kill,                         \
+    addDie_CallBack(&skeletonNinjaKill,                         \
     addAttack_CallBack(&skeletonCalculateDamage,            \
                                                             \
     entityInit(                                             \
@@ -39,9 +39,9 @@
         72)))))                                             \
 
 #define _NECROMANCER_ENTITY_(X, Y)                          \
-    addUpdate_CallBack(&skeleton_update,                    \
+    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
-    addDie_CallBack(&skeleton_kill,                         \
+    addDie_CallBack(&skeletonNinjaKill,                         \
     addAttack_CallBack(&skeletonCalculateDamage,            \
                                                             \
     entityInit(                                             \

@@ -1,6 +1,6 @@
-#include "../include/prototypes/skeleton.h"
+#include "../include/prototypes/skeleton_ninja.h"
 
-void skeleton_update(Entity* _self, World* _world, Room* _room) {
+void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
@@ -48,7 +48,7 @@ void skeleton_update(Entity* _self, World* _world, Room* _room) {
     _self->position.y += _self->vel.y;
 }
 
-void skeleton_kill(Entity* _self) {
+void skeletonNinjaKill(Entity* _self) {
     notePlay(NOTE_C, 1);
 }
 
