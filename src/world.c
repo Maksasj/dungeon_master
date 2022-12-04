@@ -2,7 +2,7 @@
 
 #include "include/entity/entity_macros.h"
 
-#define _GOD_MODE_
+//#define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
 
@@ -70,6 +70,7 @@ void updateWorld(World* _world, Entity* _player) {
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(entity, _player);
+                    entityKnockback(_player, entity->facing, 10);
                 }
                 #endif
 

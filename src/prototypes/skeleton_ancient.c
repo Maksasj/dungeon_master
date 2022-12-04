@@ -20,7 +20,7 @@ void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
     {
         case 'u': //Up
             _self->vel.y += 0.5;
-            _self->facing = UP;
+            _self->facing = DOWN;
             break;
         case 'r': //Right
             _self->vel.x += 0.5;
@@ -28,7 +28,7 @@ void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
             break;
         case 'd': //Down
             _self->vel.y -= 0.5;
-            _self->facing = DOWN;
+            _self->facing = UP;
             break;
         case 'l': //Left
             _self->vel.x -= 0.5;
