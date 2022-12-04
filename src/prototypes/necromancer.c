@@ -19,20 +19,40 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     switch (direction)
     {
         case 'u': //Up
-            _self->vel.y += 0.5;
-            _self->facing = DOWN;
+            if (world_position.y - 1 >= 0) {
+                _self->vel.y -= 0.5;
+                _self->facing = UP;
+            } else if (world_position.x + 1 <= _GRID_LENGTH_){
+                _self->vel.x += 0.5;
+                _self->facing = RIGHT;
+            }
             break;
         case 'r': //Right
-            _self->vel.x += 0.5;
-            _self->facing = RIGHT;
+            if (world_position.x - 1 >= 0) {
+                _self->vel.x -= 0.5;
+                _self->facing = LEFT;
+            } else if (world_position.y - 1 >= 0) {
+                _self->vel.y -= 0.5;
+                _self->facing = UP;
+            }
             break;
         case 'd': //Down
-            _self->vel.y -= 0.5;
-            _self->facing = UP;
+            if (world_position.y + 1 <= _GRID_HEIGHT_) {
+                _self->vel.y += 0.5;
+                _self->facing = DOWN;
+            } else if (world_position.x - 1 >= 0){
+                _self->vel.x -= 0.5;
+                _self->facing = LEFT;
+            }
             break;
         case 'l': //Left
-            _self->vel.x -= 0.5;
-            _self->facing = LEFT;
+            if (world_position.x + 1 <= _GRID_LENGTH_) {
+                _self->vel.x += 0.5;
+                _self->facing = RIGHT;
+            } else if (world_position.y + 1 <= _GRID_HEIGHT_) {
+                _self->vel.y += 0.5;   
+                _self->facing = DOWN;
+            }
             break;
         default:
             break;
