@@ -2,8 +2,6 @@
 
 #include "include/entity/entity_macros.h"
 
-
-
 #define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;

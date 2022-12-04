@@ -87,12 +87,12 @@ int main() {
         player.update_callback = &player_update;
         player.attack_callback = &playerCalculateDamage;
         player.die_callback = &killPlayer;
-        
-        player.spec = malloc(sizeof(PlayerSpecData));
-        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
-    PlayerUI playerUI;
-    initPlayerUI(&playerUI, sprites, &next_sprite_index);
+        PlayerUI playerUI;
+        initPlayerUI(&playerUI, sprites, &next_sprite_index);
+
+        player.spec = malloc(sizeof(PlayerSpecData));
+        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, &playerUI);
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
@@ -109,7 +109,7 @@ int main() {
         #ifndef EXTREME_MODE
             waitVBlank();
         #else
-            delay(300);
+            delay(200);
         #endif
     }
 }
