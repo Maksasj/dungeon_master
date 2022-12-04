@@ -12,6 +12,6 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room);
 
 void skeletonNinjaKill(Entity* _self);
 
-i32 skeletonNinjaCalculateDamate();
+i32 skeletonNinjaCalculateDamage();
 
 #endif

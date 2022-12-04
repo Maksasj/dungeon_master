@@ -5,12 +5,13 @@
 
 #include "../prototypes/skeleton_ninja.h"
 #include "../prototypes/skeleton_king.h"
+#include "../prototypes/skeleton_ancient.h"
 
 #define _SKELETON_NINJA_ENTITY_(X, Y)                       \
     addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
     addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonNinjaCalculateDamate,            \
+    addAttack_CallBack(&skeletonNinjaCalculateDamage,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
@@ -29,10 +30,10 @@
         48)))))                                             \
 
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                     \
-    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
+    addUpdate_CallBack(&skeletonAncientUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
-    addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonNinjaCalculateDamate,            \
+    addDie_CallBack(&skeletonAncientKill,                         \
+    addAttack_CallBack(&skeletonAncientCalculateDamage,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
@@ -43,7 +44,7 @@
     addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
     addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonNinjaCalculateDamate,            \
+    addAttack_CallBack(&skeletonNinjaCalculateDamage,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \

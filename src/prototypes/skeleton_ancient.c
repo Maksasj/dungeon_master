@@ -1,6 +1,6 @@
-#include "../include/prototypes/skeleton_ninja.h"
+#include "../include/prototypes/skeleton_ancient.h"
 
-void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
+void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
@@ -48,11 +48,11 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     _self->position.y += _self->vel.y;
 }
 
-void skeletonNinjaKill(Entity* _self) {
+void skeletonAncientKill(Entity* _self) {
     notePlay(NOTE_C, 1);
 }
 
-i32 skeletonNinjaCalculateDamage() {
+i32 skeletonAncientCalculateDamage() {
     //TODO: calculate damage
     return 1;
 }
