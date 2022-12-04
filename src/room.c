@@ -72,14 +72,6 @@ void loadBasicRoom(World* _world, u16* _target) {
 
 
     placeTile(_world, _world->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
-
-    /*
-    placeTile(MAP, newIVec2(2, 8), DOOR_UP_CLOSED);
-    placeTile(MAP, newIVec2(4, 8), DOOR_UP_OPENED);
-    placeTile(MAP, newIVec2(6, 8), DOOR_RIGHT_CLOSED);
-    placeTile(MAP, newIVec2(8, 8), DOOR_LEFT_CLOSED);
-    placeTile(MAP, newIVec2(10, 8), DOOR_BOTTOM_CLOSED);
-    */
 }
 
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
@@ -88,9 +80,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
     if(_room->type == BASIC) {
     
     } else if (_room->type == TWO_ENEMIES) {
-        //init_entities
-        //TODO load entities
-
         placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
         placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
         
@@ -150,9 +139,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             */
         }
 
-    } else {
-        //For now we have only basic room
-        //exit();
     }
 
     memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
