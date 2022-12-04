@@ -111,8 +111,8 @@ class Converter:
 
 convert = Converter()
 if sys.argv:
-    convert.Convert("..\\..\\assets\\raw\\menu.png")
-    convert.SaveFile("..\\..\\assets\\generated\\menu.h")
+    convert.Convert("..\\..\\assets\\raw\\sprites.png")
+    convert.SaveFile("..\\..\\assets\\generated\\sprites.h")
 else:
     convert.Convert(sys.argv[0])
     convert.SaveFile(sys.argv[1])

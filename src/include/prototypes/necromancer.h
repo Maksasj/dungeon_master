@@ -13,6 +13,8 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room);
 
 void necromancerKill(Entity* _self);
 
-i32 necromancerCalculateDamage();
+i32 necromancerCalculateDamage(Entity* _self);
+
+i32 necromancerTryDodge(Entity* _self);
 
 #endif

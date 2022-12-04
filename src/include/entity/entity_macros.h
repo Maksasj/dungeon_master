@@ -13,43 +13,47 @@
     addOnCollisionEnter_CallBack(&checkCollision,               \
     addDie_CallBack(&skeletonNinjaKill,                         \
     addAttack_CallBack(&skeletonNinjaCalculateDamage,           \
+    addDodgeCallback(&skeletonNinjaTryDodge,                    \
                                                                 \
     entityInit(                                                 \
         newFVec2(X, Y),                                         \
-        stats(1, 1, 1, 1, 1),                                   \
-        24)))))                                                 \
+        stats(1, 3, 0, 0, 0),                                   \
+        24))))))                                                \
 
 #define _SKELETON_KING_ENTITY_(X, Y)                            \
     addUpdate_CallBack(&skeletonKingUpdate,                     \
     addOnCollisionEnter_CallBack(&checkCollision,               \
     addDie_CallBack(&skeletonKingKill,                          \
     addAttack_CallBack(&skeletonKingCalculateDamage,            \
+    addDodgeCallback(&skeletonKingTryDodge,                     \
                                                                 \
     entityInit(                                                 \
         newFVec2(X, Y),                                         \
-        stats(1, 1, 1, 1, 1),                                   \
-        48)))))                                                 \
+        stats(3, 0, 0, 1, 0),                                   \
+        48))))))                                                \
 
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                         \
     addUpdate_CallBack(&skeletonAncientUpdate,                  \
     addOnCollisionEnter_CallBack(&checkCollision,               \
     addDie_CallBack(&skeletonAncientKill,                       \
     addAttack_CallBack(&skeletonAncientCalculateDamage,         \
+    addDodgeCallback(&skeletonAncientTryDodge,                  \
                                                                 \
     entityInit(                                                 \
         newFVec2(X, Y),                                         \
-        stats(1, 1, 1, 1, 1),                                   \
-        72)))))                                                 \
+        stats(1, 1, 0, 0, 0),                                   \
+        72))))))                                                \
 
 #define _NECROMANCER_ENTITY_(X, Y)                              \
     addUpdate_CallBack(&necromancerUpdate,                      \
     addOnCollisionEnter_CallBack(&checkCollision,               \
     addDie_CallBack(&necromancerKill,                           \
     addAttack_CallBack(&necromancerCalculateDamage,             \
+    addDodgeCallback(&necromancerTryDodge,                      \
                                                                 \
     entityInit(                                                 \
         newFVec2(X, Y),                                         \
-        stats(1, 1, 1, 1, 1),                                   \
-        96)))))                                                 \
+        stats(2, 1, 1, 0, 0),                                   \
+        96))))))                                                \
 
 #endif

@@ -13,6 +13,8 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room);
 
 void skeletonNinjaKill(Entity* _self);
 
-i32 skeletonNinjaCalculateDamage();
+i32 skeletonNinjaCalculateDamage(Entity* _self);
+
+i32 skeletonNinjaTryDodge(Entity* _self);
 
 #endif

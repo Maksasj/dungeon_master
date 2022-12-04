@@ -82,17 +82,18 @@ int main() {
 
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
         player.attack_callback = &playerCalculateDamage;
         player.die_callback = &killPlayer;
-        
-        player.spec = malloc(sizeof(PlayerSpecData));
-        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
+        player.dodge_callback = &playerTryDodge;
 
-    PlayerUI playerUI;
-    initPlayerUI(&playerUI, sprites, &next_sprite_index);
+        PlayerUI playerUI;
+        initPlayerUI(&playerUI, sprites, &next_sprite_index);
+
+        player.spec = malloc(sizeof(PlayerSpecData));
+        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, &playerUI);
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
@@ -109,7 +110,7 @@ int main() {
         #ifndef EXTREME_MODE
             waitVBlank();
         #else
-            delay(300);
+            delay(200);
         #endif
     }
 }

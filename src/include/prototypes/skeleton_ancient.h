@@ -13,6 +13,8 @@ void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room);
 
 void skeletonAncientKill(Entity* _self);
 
-i32 skeletonAncientCalculateDamage();
+i32 skeletonAncientCalculateDamage(Entity* _self);
+
+i32 skeletonAncientTryDodge(Entity* _self);
 
 #endif

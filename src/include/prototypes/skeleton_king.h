@@ -13,6 +13,8 @@ void skeletonKingUpdate(Entity* _self, World* _world, Room* _room);
 
 void skeletonKingKill(Entity* _self);
 
-i32 skeletonKingCalculateDamage();
+i32 skeletonKingCalculateDamage(Entity* _self);
+
+i32 skeletonKingTryDodge(Entity* _self);
 
 #endif

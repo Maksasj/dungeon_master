@@ -1,18 +1,17 @@
 #include "include/player.h"
 
 void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index) {
-    _playerUI->health[0] = spriteInit(_sprites, _next_sprite_index, 4, 3, SIZE_16_16, 0, 0, 0, 0);
-    _playerUI->health[1] = spriteInit(_sprites, _next_sprite_index, 20, 3, SIZE_16_16, 0, 0, 0, 0);
-    _playerUI->health[2] = spriteInit(_sprites, _next_sprite_index, 36, 3, SIZE_16_16, 0, 0, 0, 0);
-    spriteSetOffset(_playerUI->health[0], 304);
-    spriteSetOffset(_playerUI->health[1], 304);
-    spriteSetOffset(_playerUI->health[2], 304);
+    int i = 0;
+    for(i = 0; i < HEALTH_CAP; ++i) {
+        _playerUI->health[i] = spriteInit(_sprites, _next_sprite_index, 4 + i*16, 3, SIZE_16_16, 0, 0, 0, 0);
+        spriteSetOffset(_playerUI->health[i], 312 + 8);
+    }
 
-    _playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
-    spriteSetOffset(_playerUI->manaBar, 312);
+    //_playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
+    //spriteSetOffset(_playerUI->manaBar, 312);
 }
 
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec) {
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui) {
     _pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
     _pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
 
@@ -24,6 +23,8 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     
     _pspec->hand_slot.count = 0;
     _pspec->armor_slot.count = 0;
+
+    _pspec->ui = _ui;
 
     //spriteSetOffset(_pspec->armor, 144);
     //spriteSetOffset(_pspec->weapon, 200);
@@ -69,8 +70,28 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         spriteSetOffset(_pspec->armor, _pspec->armor_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->armor, flip);
     }
-}
 
+
+    i32 player_max_health =  
+        _entity->base_stats.stamina + 
+        _pspec->armor_slot.base_stats.stamina + 
+        _pspec->hand_slot.base_stats.stamina;
+
+    player_max_health = player_max_health > 6 ? 6 : player_max_health;        
+
+    i32 i;
+    for(i = 0; i < HEALTH_CAP; ++i) {
+        if(i < player_max_health) {
+            if(i < _entity->health) {
+                spriteSetOffset(_pspec->ui->health[i], 304);
+            } else {
+                spriteSetOffset(_pspec->ui->health[i], 312 + 16);
+            } 
+        } else {
+            spriteSetOffset(_pspec->ui->health[i], 312 + 8);
+        }
+    }
+}
 
 void playerAttack(Entity* _player, Room* _active_room) {
     Entity temp = *_player;
@@ -99,15 +120,46 @@ void playerAttack(Entity* _player, Room* _active_room) {
         Entity *entity = &_active_room->entity_pool[i];
 
         if ((*entity->on_collision_enter)(entity, &temp)) {
-            entityKnockback(entity, _player->facing, 20);
-            entityAttack(_player, entity);
+            if (!(*entity->dodge_callback)(entity)) {
+                entityKnockback(entity, _player->facing, 20);
+                entityAttack(_player, entity);
+            }
         }
     }
 }
 
-i32 playerCalculateDamage() {
-    //TODO: calculate damage
-    return 1;
+i32 playerCalculateDamage(Entity* _self) {
+    PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
+    Item *hand = &pspec->hand_slot;
+    Item *armor = &pspec->armor_slot;
+
+    i32 strenght = _self->base_stats.strength + hand->base_stats.strength + armor->base_stats.strength;
+
+    if (strenght < 0) {
+        strenght = 0;
+    }
+
+    return 1 + strenght;
+}
+
+i32 playerTryDodge(Entity* _self) {
+    PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
+    Item *hand = &pspec->hand_slot;
+    Item *armor = &pspec->armor_slot;
+    
+    i32 agility = _self->base_stats.agility + hand->base_stats.agility + armor->base_stats.agility;
+    
+    if (agility < 0) {
+        agility = 0;
+    }
+    
+    u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
+
+    if (random_number < _DODGE_CHANCE_FROM_AGILITY_ * agility) {
+        return 1;
+    }
+
+    return 0;
 }
 
 void killPlayer(Entity* _self) {
@@ -169,7 +221,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
-        (*pspec->next_sprite_index) = 7;
+        (*pspec->next_sprite_index) = 10;
 
         if(_self->position.y < 70) {
             _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 128);
@@ -178,5 +230,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
             backRoom(_world, pspec->sprites, pspec->next_sprite_index);
         }
+
+        _self->health =  
+            _self->base_stats.stamina + 
+            pspec->armor_slot.base_stats.stamina + 
+            pspec->hand_slot.base_stats.stamina;
     }
 }
