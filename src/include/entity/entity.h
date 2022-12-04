@@ -1,6 +1,8 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
+#define HEALTH_CAP 6
+
 #include "statblock.h"
 
 #include "../rotation.h"

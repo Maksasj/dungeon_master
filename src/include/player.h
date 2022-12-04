@@ -11,6 +11,11 @@
 
 #define _ATTACK_OFFSET_ 8
 
+typedef struct PlayerUI {
+    Sprite* health[HEALTH_CAP];
+    Sprite* manaBar;
+} PlayerUI;
+
 typedef struct PlayerSpecData {
     Sprite* armor;
     Sprite* weapon;
@@ -20,16 +25,13 @@ typedef struct PlayerSpecData {
 
     Item hand_slot;
     Item armor_slot;
-} PlayerSpecData;
 
-typedef struct PlayerUI {
-    Sprite* health[3];
-    Sprite* manaBar;
-} PlayerUI;
+    PlayerUI* ui;
+} PlayerSpecData;
 
 void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index);
 
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec);
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui);
 
 void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);
 

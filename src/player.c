@@ -1,18 +1,17 @@
 #include "include/player.h"
 
 void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index) {
-    _playerUI->health[0] = spriteInit(_sprites, _next_sprite_index, 4, 3, SIZE_16_16, 0, 0, 0, 0);
-    _playerUI->health[1] = spriteInit(_sprites, _next_sprite_index, 20, 3, SIZE_16_16, 0, 0, 0, 0);
-    _playerUI->health[2] = spriteInit(_sprites, _next_sprite_index, 36, 3, SIZE_16_16, 0, 0, 0, 0);
-    spriteSetOffset(_playerUI->health[0], 304);
-    spriteSetOffset(_playerUI->health[1], 304);
-    spriteSetOffset(_playerUI->health[2], 304);
+    int i = 0;
+    for(i = 0; i < HEALTH_CAP; ++i) {
+        _playerUI->health[i] = spriteInit(_sprites, _next_sprite_index, 4 + i*16, 3, SIZE_16_16, 0, 0, 0, 0);
+        spriteSetOffset(_playerUI->health[i], 312);
+    }
 
-    _playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
-    spriteSetOffset(_playerUI->manaBar, 312);
+    //_playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
+    //spriteSetOffset(_playerUI->manaBar, 312);
 }
 
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec) {
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui) {
     _pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
     _pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
 
@@ -24,6 +23,8 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     
     _pspec->hand_slot.count = 0;
     _pspec->armor_slot.count = 0;
+
+    _pspec->ui = _ui;
 
     //spriteSetOffset(_pspec->armor, 144);
     //spriteSetOffset(_pspec->weapon, 200);
@@ -68,6 +69,15 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
         spriteSetOffset(_pspec->armor, _pspec->armor_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->armor, flip);
+    }
+
+    int i;
+    for(i = 0; i < HEALTH_CAP; ++i) {
+        if(i < _entity->health) {
+            spriteSetOffset(_pspec->ui->health[i], 304);
+        } else {
+            spriteSetOffset(_pspec->ui->health[i], 312 + 16);
+        }   
     }
 }
 
@@ -200,7 +210,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
-        (*pspec->next_sprite_index) = 7;
+        (*pspec->next_sprite_index) = 10;
 
         if(_self->position.y < 70) {
             _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 128);
