@@ -12,7 +12,12 @@
 
 typedef enum RoomType {
     BASIC,
-    TWO_ENEMIES
+    TWO_NINJA_SKELETONS_ENEMIES,
+    FOUR_ANCIENT_SKELETONS,
+    ONE_NINJA_THREE_ANCIENT,
+    THREE_KINGS,
+    NECROMANCER_TWO_KINGS,
+    END,
 } RoomType;
 
 typedef struct Room {
