@@ -1,15 +1,13 @@
 #include "../include/prototypes/necromancer.h"
 
-i32 NECROMANCER_SAW_THE_TARGET = 0;
-
 void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
 
-    if (!NECROMANCER_SAW_THE_TARGET) {
+    if (!_self->saw_the_target) {
         if (_world->grid.distance_to_player[world_position.x][world_position.y] > _FIELD_OF_VIEW_RANGE_) {
             return;
         } else if (_world->grid.distance_to_player[world_position.x][world_position.y] <= _FIELD_OF_VIEW_RANGE_ && _world->grid.distance_to_player[world_position.x][world_position.y] != 0){
-            NECROMANCER_SAW_THE_TARGET = 1;
+            _self->saw_the_target = 1;
         }
     }
 

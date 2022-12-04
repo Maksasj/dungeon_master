@@ -31,6 +31,8 @@ typedef struct Entity {
     i32 attack_cooldown;
     i32 max_attack_cooldown;
 
+    i32 saw_the_target;
+
     void* spec;
 
     //void (*update_callback)(Entity* _self, World* _world, Room* _room);
