@@ -109,15 +109,46 @@ void playerAttack(Entity* _player, Room* _active_room) {
         Entity *entity = &_active_room->entity_pool[i];
 
         if ((*entity->on_collision_enter)(entity, &temp)) {
-            entityKnockback(entity, _player->facing, 20);
-            entityAttack(_player, entity);
+            if (!(*entity->dodge_callback)(entity)) {
+                entityKnockback(entity, _player->facing, 20);
+                entityAttack(_player, entity);
+            }
         }
     }
 }
 
-i32 playerCalculateDamage() {
-    //TODO: calculate damage
-    return 1;
+i32 playerCalculateDamage(Entity* _self) {
+    PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
+    Item *hand = &pspec->hand_slot;
+    Item *armor = &pspec->armor_slot;
+
+    i32 strenght = _self->base_stats.strength + hand->base_stats.strength + armor->base_stats.strength;
+
+    if (strenght < 0) {
+        strenght = 0;
+    }
+
+    return 1 + strenght;
+}
+
+i32 playerTryDodge(Entity* _self) {
+    PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
+    Item *hand = &pspec->hand_slot;
+    Item *armor = &pspec->armor_slot;
+    
+    i32 agility = _self->base_stats.agility + hand->base_stats.agility + armor->base_stats.agility;
+    
+    if (agility < 0) {
+        agility = 0;
+    }
+    
+    u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
+
+    if (random_number < _DODGE_CHANCE_FROM_AGILITY_ * agility) {
+        return 1;
+    }
+
+    return 0;
 }
 
 void killPlayer(Entity* _self) {

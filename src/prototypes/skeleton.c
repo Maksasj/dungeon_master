@@ -52,7 +52,22 @@ void skeleton_kill(Entity* _self) {
     notePlay(NOTE_C, 1);
 }
 
-i32 skeletonCalculateDamage() {
-    //TODO: calculate damage
-    return 1;
+i32 skeletonCalculateDamage(Entity* _self) {
+    i32 strenght = _self->base_stats.strength;
+    
+    if (strenght < 0) {
+        strenght = 0;
+    }
+    
+    return 1 + strenght;
+}
+
+i32 skeleton_try_dodge(Entity* _self) {
+    u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
+
+    if (random_number < _DODGE_CHANCE_FROM_AGILITY_ * _self->base_stats.agility) {
+        return 1;
+    }
+
+    return 0;
 }

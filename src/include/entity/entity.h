@@ -8,6 +8,7 @@
 #include "../rotation.h"
 #include "../sprite.h"
 #include "../types.h"
+#include "../math.h"
 
 //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
@@ -28,14 +29,15 @@ typedef struct Entity {
     
     u32 sprite_offset;
     i32 attack_cooldown;
+    i32 max_attack_cooldown;
 
     void* spec;
 
     //void (*update_callback)(Entity* _self, World* _world, Room* _room);
     void (*update_callback)(void*, void*, void*);
     
-    //i32 (*attack_callback)();
-    i32 (*attack_callback)();
+    //i32 (*attack_callback)(Entity* _self);
+    i32 (*attack_callback)(void*);
 
     //void (*die_callback)(Entity* _self);
     void (*die_callback)(void*);
@@ -45,6 +47,9 @@ typedef struct Entity {
 
     //i32 (*on_collision_enter)(Entity* _self, Entity* target);
     i32 (*on_collision_enter)(void*, void*);
+
+    //i32 (*dodge_callback)(Entity* _self)
+    i32 (*dodge_callback)(void*);
 } Entity;
 
 Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset);
@@ -61,15 +66,18 @@ void entityTakeDamage(Entity* _entity, i32 _damage);
 
 void entityKnockback(Entity* _entity, Facing _facing, float _power);
 
+i32 tryDodge(Entity* _entity);
+
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 
 void killEntity(Entity* _entity);
 
 //Pseudo monad lol
 Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _entity);
-Entity addAttack_CallBack(i32 (*attack_callback)(), Entity _entity);
+Entity addAttack_CallBack(i32 (*attack_callback)(void*), Entity _entity);
 Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity);
 Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity);
 Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity);
+Entity addDodgeCallback(i32 (*dodge_callback)(void*), Entity _entity);
 
 #endif

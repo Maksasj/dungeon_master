@@ -8,10 +8,11 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.base_stats = _stat;
 
     _entity.sprite_offset = _sprite_offset;
-    _entity.attack_cooldown = 0;
 
-    _entity.health = 3;
-    _entity.mana = 0;
+    _entity.health = _stat.stamina;
+    _entity.mana = _stat.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
+    _entity.attack_cooldown = 0;
+    _entity.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _stat.agility;
 
     return _entity;
 }
@@ -31,12 +32,17 @@ void entityUpdate(Entity* _entity) {
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {
-    i32 calculated_damage = (*_entity->attack_callback)();
-
+    i32 calculated_damage = (*_entity->attack_callback)(_entity);
     entityTakeDamage(_target, calculated_damage);
 }
 
 void entityTakeDamage(Entity* _entity, i32 _damage) {
+    _damage -= _entity->base_stats.armor;
+
+    if (_damage < 0) {
+        _damage = 0;
+    }
+
     _entity->health -= _damage;
 
     if (_entity->health <= 0) {
@@ -92,7 +98,7 @@ Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _
     return _entity;
 }
 
-Entity addAttack_CallBack(i32 (*attack_callback)(), Entity _entity) {
+Entity addAttack_CallBack(i32 (*attack_callback)(void*), Entity _entity) {
     _entity.attack_callback = attack_callback;
     return _entity;
 }
@@ -109,5 +115,10 @@ Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity) {
 
 Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity) {
     _entity.on_collision_enter = on_collision_enter;
+    return _entity;
+}
+
+Entity addDodgeCallback(i32 (*dodge_callback)(void*), Entity _entity) {
+    _entity.dodge_callback = dodge_callback;
     return _entity;
 }

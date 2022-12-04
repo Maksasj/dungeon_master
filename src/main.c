@@ -82,11 +82,15 @@ int main() {
 
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(1, 1, 1, 1, 1), 0);
+    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
         player.attack_callback = &playerCalculateDamage;
         player.die_callback = &killPlayer;
+        player.dodge_callback = &playerTryDodge;
+        
+        player.spec = malloc(sizeof(PlayerSpecData));
+        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec);
 
         PlayerUI playerUI;
         initPlayerUI(&playerUI, sprites, &next_sprite_index);

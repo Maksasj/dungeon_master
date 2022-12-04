@@ -64,12 +64,14 @@ void updateWorld(World* _world, Entity* _player) {
         if ((*entity->on_collision_enter)(entity, _player)) {
             if (entity->attack_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
-
+                
                 #ifndef _GOD_MODE_ 
-                entityAttack(entity, _player);
+                if (!(*_player->dodge_callback)(_player)) {
+                    entityAttack(entity, _player);
+                }
                 #endif
 
-                entity->attack_cooldown = 100;
+                entity->attack_cooldown = entity->max_attack_cooldown;
             }
         }
 
