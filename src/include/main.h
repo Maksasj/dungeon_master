@@ -25,6 +25,45 @@
 #include "../../assets/generated/menu.h"
 #include "../../assets/generated/sprites.h"
 
+/*
+96 - Necromncer
+
+112 - Iron armor front
+120 - Iron armor back
+128 - Iron armor side
+
+136 - Golden armor front
+144 - Golden armor back
+152 - Golden armor side
+
+160 - Diamoand armor front
+168 - Diamoand armor back
+176 - Diamoand armor side
+
+256 - Short sword icon
+264 - Dark claymore icon
+272 - Ice sword icon
+
+280 - Iron armor icon
+288 - Golden armor icon
+296 - DIamond armor icon
+
+184 - Short sword front
+192 - Short sword back
+208 - Short sword side
+
+208 - Claymore front
+216 - Claymore back
+224 - Claymore side
+
+232 - Ice sword front
+240 - Ice sword back
+248 - Ice sword side
+
+304 - Heart gem icon
+312 - Mana bar
+*/
+
 #define _INIT_MAIN_MENU_SPRITES_                                                                        \
     Sprite* q1 = spriteInit(sprites, &next_sprite_index, 0, 0, SIZE_64_64, 0, 0, 128, 0);               \
     Sprite* q2 = spriteInit(sprites, &next_sprite_index, 64, 0, SIZE_64_64, 0, 0, 256, 0);              \

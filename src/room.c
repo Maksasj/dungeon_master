@@ -71,74 +71,125 @@ void loadBasicRoom(World* _world, u16* _target) {
     placeTile(_world, _world->MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
 
 
-    placeTile(_world, _world->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+    //placeTile(_world, _world->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
 }
 
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
     loadBasicRoom(_world, (u16*) (((World*) _world)->MAP));
 
-    if(_room->type == BASIC) {
-    
-    } else if (_room->type == TWO_ENEMIES) {
-        placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-        placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+    i32 i;
+
+    switch (_room->type) {
+    case BASIC:
+        placeTile(_world, ((World*) _world)->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+        break;
+
+    case TWO_NINJA_SKELETONS_ENEMIES: 
+        {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
         
-        int i;
-        for(i = 0; i < _room->current_entity_count; ++i) {
-            Entity* entity = &_room->entity_pool[i];
-            entityInitSprite(entity, _sprites, _next_sprite_index);
-            spriteSetOffset(entity->sprite, entity->sprite_offset); //96 - necromncer
+            for(i = 0; i < _room->current_entity_count; ++i) {
+                Entity* entity = &_room->entity_pool[i];
+                entityInitSprite(entity, _sprites, _next_sprite_index);
+                spriteSetOffset(entity->sprite, entity->sprite_offset);
+            }
+
+            for(i = 0; i < _room->current_itemdrop_count; ++i) {
+                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
+            }
+        }
+        
+        break;
+    case TWO_NINJA_SKELETONS_ENEMIES1:
+        {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+        
+            for(i = 0; i < _room->current_entity_count; ++i) {
+                Entity* entity = &_room->entity_pool[i];
+                entityInitSprite(entity, _sprites, _next_sprite_index);
+                spriteSetOffset(entity->sprite, entity->sprite_offset);
+            }
+
+            for(i = 0; i < _room->current_itemdrop_count; ++i) {
+                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
+            }
         }
 
-        for(i = 0; i < _room->current_itemdrop_count; ++i) {
-            ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
 
-            itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-            spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset); //96 - necromncer
-
-
-            /*
-    
-            96 - Necromncer
-
-            112 - Iron armor front
-            120 - Iron armor back
-            128 - Iron armor side
-
-            136 - Golden armor front
-            144 - Golden armor back
-            152 - Golden armor side
-
-            160 - Diamoand armor front
-            168 - Diamoand armor back
-            176 - Diamoand armor side
-
-            256 - Short sword icon
-            264 - Dark claymore icon
-            272 - Ice sword icon
-
-            280 - Iron armor icon
-            288 - Golden armor icon
-            296 - DIamond armor icon
-
-            184 - Short sword front
-            192 - Short sword back
-            208 - Short sword side
+        break;
+    case TWO_NINJA_SKELETONS_ENEMIES2:
+        {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
         
-            208 - Claymore front
-            216 - Claymore back
-            224 - Claymore side
+            for(i = 0; i < _room->current_entity_count; ++i) {
+                Entity* entity = &_room->entity_pool[i];
+                entityInitSprite(entity, _sprites, _next_sprite_index);
+                spriteSetOffset(entity->sprite, entity->sprite_offset);
+            }
 
-            232 - Ice sword front
-            240 - Ice sword back
-            248 - Ice sword side
+            for(i = 0; i < _room->current_itemdrop_count; ++i) {
+                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
 
-            304 - Heart gem icon
-            312 - Mana bar
-            
-            */
+                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
+            }
         }
 
+        break;
+    case TWO_NINJA_SKELETONS_ENEMIES3:
+        {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+        
+            for(i = 0; i < _room->current_entity_count; ++i) {
+                Entity* entity = &_room->entity_pool[i];
+                entityInitSprite(entity, _sprites, _next_sprite_index);
+                spriteSetOffset(entity->sprite, entity->sprite_offset);
+            }
+
+            for(i = 0; i < _room->current_itemdrop_count; ++i) {
+                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
+            }
+        }
+
+
+        break;
+    case TWO_NINJA_SKELETONS_ENEMIES4:
+        {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+        
+            for(i = 0; i < _room->current_entity_count; ++i) {
+                Entity* entity = &_room->entity_pool[i];
+                entityInitSprite(entity, _sprites, _next_sprite_index);
+                spriteSetOffset(entity->sprite, entity->sprite_offset);
+            }
+
+            for(i = 0; i < _room->current_itemdrop_count; ++i) {
+                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
+            }
+        }
+
+
+        break;
+    case END:
+        placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
+        break;
     }
 
     memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);

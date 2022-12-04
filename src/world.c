@@ -2,7 +2,7 @@
 
 #include "include/entity/entity_macros.h"
 
-//#define _GOD_MODE_
+#define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
 
@@ -100,7 +100,7 @@ void updateWorld(World* _world, Entity* _player) {
 
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
-        if (room->type == TWO_ENEMIES) {
+        if (room->type != BASIC && room->type != END) {
             unLockRoom(_world, room);
         }
     }
@@ -121,29 +121,64 @@ void generateWorld(World* _world) {
 
     _world->grid = gridInit();
 
-    for(i = 1; i < _MAX_ROOM_COUNT_; ++i) {
-        Room room;
+    for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
+        i32 roomId = rand() % 4 + 1;
+        
+        //roomId = TWO_NINJA_SKELETONS_ENEMIES;
 
-        room.type = TWO_ENEMIES;
+        Room room;
+        
+        room.type = roomId;
         room.current_entity_count = 0;
         room.current_itemdrop_count = 0;
 
         _world->rooms[i] = room;
 
-        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
-        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(98.0, 32.0));
-        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(32.0, 98.0));
-        tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(98.0, 98.0));
+        switch (roomId) {
+            case TWO_NINJA_SKELETONS_ENEMIES:
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                break;
+            case TWO_NINJA_SKELETONS_ENEMIES1:
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                break;
+            case TWO_NINJA_SKELETONS_ENEMIES2:
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                break;
+            case TWO_NINJA_SKELETONS_ENEMIES3:
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                break;
+            case TWO_NINJA_SKELETONS_ENEMIES4:
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                break;
+            
+            default:
+                break;
+        }
 
-        tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
-        tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));
-        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(140.0, 64.0));
 
-        tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(96.0, 32.0));
-        tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
-        tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
+        //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+        //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(98.0, 32.0));
+        //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(32.0, 98.0));
+        //tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(98.0, 98.0));
+//
+        //tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
+        //tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));
+        //tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(140.0, 64.0));
+//
+        //tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(96.0, 32.0));
+        //tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
+        //tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
     }
     
+    Room last_room;
+    last_room.type = END;
+    _world->rooms[_MAX_ROOM_COUNT_ - 1] = last_room;
+
     _world->difficulty = 1;
 }
 
