@@ -4,12 +4,13 @@
 #include "entity.h"
 
 #include "../prototypes/skeleton_ninja.h"
+#include "../prototypes/skeleton_king.h"
 
 #define _SKELETON_NINJA_ENTITY_(X, Y)                       \
     addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
     addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonCalculateDamage,            \
+    addAttack_CallBack(&skeletonNinjaCalculateDamate,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
@@ -17,10 +18,10 @@
         24)))))                                             \
 
 #define _SKELETON_KING_ENTITY_(X, Y)                        \
-    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
+    addUpdate_CallBack(&skeletonKingUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
-    addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonCalculateDamage,            \
+    addDie_CallBack(&skeletonKingKill,                         \
+    addAttack_CallBack(&skeletonKingCalculateDamage,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
@@ -31,7 +32,7 @@
     addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
     addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonCalculateDamage,            \
+    addAttack_CallBack(&skeletonNinjaCalculateDamate,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
@@ -42,7 +43,7 @@
     addUpdate_CallBack(&skeletonNinjaUpdate,                    \
     addOnCollisionEnter_CallBack(&checkCollision,           \
     addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonCalculateDamage,            \
+    addAttack_CallBack(&skeletonNinjaCalculateDamate,            \
                                                             \
     entityInit(                                             \
         newFVec2(X, Y),                                     \
