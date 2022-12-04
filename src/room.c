@@ -88,19 +88,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-        
-            for(i = 0; i < _room->current_entity_count; ++i) {
-                Entity* entity = &_room->entity_pool[i];
-                entityInitSprite(entity, _sprites, _next_sprite_index);
-                spriteSetOffset(entity->sprite, entity->sprite_offset);
-            }
-
-            for(i = 0; i < _room->current_itemdrop_count; ++i) {
-                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
-
-                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
-            }
         }
         
         break;
@@ -108,19 +95,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-        
-            for(i = 0; i < _room->current_entity_count; ++i) {
-                Entity* entity = &_room->entity_pool[i];
-                entityInitSprite(entity, _sprites, _next_sprite_index);
-                spriteSetOffset(entity->sprite, entity->sprite_offset);
-            }
-
-            for(i = 0; i < _room->current_itemdrop_count; ++i) {
-                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
-
-                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
-            }
         }
 
 
@@ -129,19 +103,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-        
-            for(i = 0; i < _room->current_entity_count; ++i) {
-                Entity* entity = &_room->entity_pool[i];
-                entityInitSprite(entity, _sprites, _next_sprite_index);
-                spriteSetOffset(entity->sprite, entity->sprite_offset);
-            }
-
-            for(i = 0; i < _room->current_itemdrop_count; ++i) {
-                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
-
-                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
-            }
         }
 
         break;
@@ -149,19 +110,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-        
-            for(i = 0; i < _room->current_entity_count; ++i) {
-                Entity* entity = &_room->entity_pool[i];
-                entityInitSprite(entity, _sprites, _next_sprite_index);
-                spriteSetOffset(entity->sprite, entity->sprite_offset);
-            }
-
-            for(i = 0; i < _room->current_itemdrop_count; ++i) {
-                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
-
-                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
-            }
         }
 
 
@@ -170,19 +118,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-        
-            for(i = 0; i < _room->current_entity_count; ++i) {
-                Entity* entity = &_room->entity_pool[i];
-                entityInitSprite(entity, _sprites, _next_sprite_index);
-                spriteSetOffset(entity->sprite, entity->sprite_offset);
-            }
-
-            for(i = 0; i < _room->current_itemdrop_count; ++i) {
-                ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
-
-                itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
-                spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
-            }
         }
 
 
@@ -190,6 +125,19 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
     case END:
         placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
         break;
+    }
+
+    for(i = 0; i < _room->current_entity_count; ++i) {
+        Entity* entity = &_room->entity_pool[i];
+        entityInitSprite(entity, _sprites, _next_sprite_index);
+        spriteSetOffset(entity->sprite, entity->sprite_offset);
+    }
+
+    for(i = 0; i < _room->current_itemdrop_count; ++i) {
+        ItemDrop* _itemdrop = &_room->itemdrop_pool[i];
+
+        itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
+        spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
     }
 
     memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
