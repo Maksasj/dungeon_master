@@ -10,7 +10,6 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.sprite_offset = _sprite_offset;
 
     _entity.health = _stat.stamina;
-    _entity.health = 2;
     _entity.mana = _stat.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
     _entity.attack_cooldown = 0;
     _entity.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _stat.agility;
