@@ -5,6 +5,8 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
 
+    _entity.saw_the_target = 0;
+
     _entity.base_stats = _stat;
 
     _entity.sprite_offset = _sprite_offset;
@@ -90,6 +92,7 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
 void killEntity(Entity* _entity) {
     (*_entity->die_callback)(_entity);
     entityUnloadSprite(_entity);
+    _entity->saw_the_target = 0;
 }
 
 //Pseudo monad lol

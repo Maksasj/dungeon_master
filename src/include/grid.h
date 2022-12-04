@@ -13,6 +13,7 @@
 
 typedef struct SquareGrid {
     i8 vertices[_ROOM_LENGTH_][_ROOM_WIDTH_];
+    i32 distance_to_player[_ROOM_LENGTH_][_ROOM_WIDTH_];
     ivec2 came_from[_ROOM_LENGTH_][_ROOM_WIDTH_];
 } SquareGrid;
 

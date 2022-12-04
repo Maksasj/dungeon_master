@@ -2,11 +2,13 @@
 
 #include "include/entity/entity_macros.h"
 
-#define _GOD_MODE_
+//#define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
+    clearGrid(&_world->grid);
+
     int i;
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
@@ -68,6 +70,7 @@ void updateWorld(World* _world, Entity* _player) {
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(entity, _player);
+                    entityKnockback(_player, entity->facing, 10);
                 }
                 #endif
 
