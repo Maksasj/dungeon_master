@@ -3,14 +3,8 @@
 
 #include "types.h"
 
-/* the button register holds the bits which indicate whether each button has
- * been pressed - this has got to be volatile as well
- */
 #define _BUTTONS_ ((vu16*) 0x04000130)
 
-/* the bit positions indicate each button - the first bit is for A, second for
- * B, and so on, each constant below can be ANDED into the register to get the
- * status of any one button */
 #define _BUTTON_A_      (1 << 0)
 #define _BUTTON_B_      (1 << 1)
 #define _BUTTON_SELECT_ (1 << 2)
