@@ -1,6 +1,8 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+#define MAIN_MENU_OPTION_COUNT 2
+
 #include "types.h"
 #include "text/text.h"
 
@@ -37,7 +39,7 @@
     Sprite* buttonPlay = spriteInit(sprites, &next_sprite_index, 148, 59, SIZE_64_32, 0, 0, 0, 0);      \
     Sprite* buttonAbout = spriteInit(sprites, &next_sprite_index, 148, 100, SIZE_64_32, 0, 0, 64, 0);   \
                                                                                                         \
-    Sprite* selectionArrow = spriteInit(sprites, &next_sprite_index, 130, 59, SIZE_32_32, 0, 0, 480, 0); \
+    Sprite* selectionArrow = spriteInit(sprites, &next_sprite_index, 130, 59, SIZE_32_32, 0, 0, 480, 0);\
 
 
 #define _INIT_MAIN_MENU_BACKGROUND_ for(i = 0; i < 15; ++i) { for(j = 0; j < 10; ++j) { world.MAP[i*2 + j*2 * 32] = 0x0015; world.MAP[i*2 + j*2 * 32 + 1] = 0x0016; world.MAP[i*2 + j*2 * 32 + 32] = 0x0035; world.MAP[i*2 + j*2 * 32 + 33] = 0x0036; } }
