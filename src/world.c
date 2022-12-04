@@ -112,19 +112,18 @@ void updateWorld(World* _world, Entity* _player) {
     ++WORLD_TICK;
 }
 
-void generateWorld(World* _world) {
+void generateWorld(World* _world, u32 _seed) {
     u32 i;
     Room first_room;
 
     first_room.type = BASIC;
     _world->rooms[0] = first_room;
 
-    tryPushEntityToRoom(&_world->rooms[0], _NECROMANCER_ENTITY_(160.0, 112.0));
-
     _world->grid = gridInit();
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        i32 roomId = rand() % 4 + 1;
+        i32 roomId = random(_seed) % 4 + 1;
+        _seed %= 15;
 
         Room room;
         

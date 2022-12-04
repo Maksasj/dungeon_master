@@ -74,6 +74,25 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
     _self->position.x += _self->vel.x;
     _self->position.y += _self->vel.y;
+
+    /*
+    if(_self->spec == NULL) {
+        _self->spec = malloc(sizeof(NecromancerSpec));
+        ((NecromancerSpec*) _self->spec)->summonCooldown = 0;
+    } else {
+        i32 summonCooldown = ((NecromancerSpec*) _self->spec)->summonCooldown;
+        if (summonCooldown < 400) {
+            ++summonCooldown;
+        } else
+            summonCooldown = 0;
+
+        ((NecromancerSpec*) _self->spec)->summonCooldown = summonCooldown;
+
+        if(summonCooldown == 0) {
+            tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x, _self->position.y));
+        }
+    }
+    */
 }
 
 void necromancerKill(Entity* _self) {

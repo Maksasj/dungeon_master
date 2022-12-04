@@ -38,7 +38,7 @@ typedef struct World {
 
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index);
 
-void generateWorld(World* _world);
+void generateWorld(World* _world, u32 _seed);
 
 void worldUpdate(World* _world);
 

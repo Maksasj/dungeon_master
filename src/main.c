@@ -14,8 +14,7 @@ int main() {
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) menu_image_data, (menu_image_width * menu_image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
 
-    World world;
-        generateWorld(&world);
+    u16 MAP[1024];
     
     i8 down_pressed = 0;
     i8 up_pressed = 0;
@@ -29,9 +28,12 @@ int main() {
     _INIT_MAIN_MENU_SPRITES_
     _INIT_MAIN_MENU_BACKGROUND_
     
-    memcpy16DMA((u16*) screenBlock(13), (u16*) world.MAP, 32 * 32);
+    memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, 32 * 32);
 
+    u32 _seed = 0;
     while(1) {
+        ++_seed;
+
         if(buttonPressed(_BUTTON_DOWN_) && down_pressed == 0) {
             selection = selection == 0 ? MAIN_MENU_OPTION_COUNT - 1 : selection - 1;
             down_pressed = 1;
@@ -73,6 +75,22 @@ int main() {
 
         spriteUpdateAll(sprites);
     }
+
+    int ppp;
+    for(ppp = 0; ppp < _seed % 256; ++ppp) {
+        random(ppp);
+    }
+
+    World world;
+        generateWorld(&world, _seed);
+
+    //log(LOG_INFO, "seed: %d", _seed);
+    //log(LOG_INFO, "random value: %d", rand());
+    //log(LOG_INFO, "random value: %d", rand());
+    //log(LOG_INFO, "random value: %d", rand());
+    //log(LOG_INFO, "random value: %d", rand());
+
+
 
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
