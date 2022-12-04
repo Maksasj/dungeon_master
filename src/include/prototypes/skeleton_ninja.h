@@ -5,6 +5,7 @@
 #include "../entity/entity.h"
 #include "../sound.h"
 
+#define _FIELD_OF_VIEW_RANGE_ 3
 #define _GRID_LENGTH_ 12
 #define _GRID_HEIGHT_ 7
 

@@ -22,6 +22,7 @@ SquareGrid gridInit() {
     for (i = 0; i < _ROOM_LENGTH_; ++i) {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             grid.came_from[i][j] = newIVec2(-1, -1);
+            grid.distance_to_player[i][j] = 0;
         }
     }
 
@@ -61,6 +62,7 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
 
     push(queue, _start_position);
     _grid->vertices[_start_position.x][_start_position.y] = ' ';
+    _grid->distance_to_player[_start_position.x][_start_position.y] = 0;
 
     while (!empty(queue)) {
         ivec2 current = pop(queue);
@@ -78,9 +80,10 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
             if (_grid->came_from[next.x][next.y].x == -1 ||
                 _grid->came_from[next.x][next.y].y == -1) {
                 push(queue, next);
-                _grid->came_from[next.x][next.y] = current;
 
+                _grid->came_from[next.x][next.y] = current;
                 _grid->vertices[next.x][next.y] = DIRECTION[index];
+                _grid->distance_to_player[next.x][next.y] = _grid->distance_to_player[current.x][current.y] + 1;
             }
         }
     }
@@ -96,6 +99,7 @@ void clearGrid(SquareGrid* _grid) {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             _grid->came_from[i][j] = newIVec2(-1, -1);
             _grid->vertices[i][j] = ' ';
+            _grid->distance_to_player[i][j] = 0;
         }
     }
 }

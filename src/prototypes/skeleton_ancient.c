@@ -1,7 +1,17 @@
 #include "../include/prototypes/skeleton_ancient.h"
 
+i32 SKELETON_ANCIENT_SAW_THE_TARGET = 0;
+
 void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
+
+    if (!SKELETON_ANCIENT_SAW_THE_TARGET) {
+        if (_world->grid.distance_to_player[world_position.x][world_position.y] > _FIELD_OF_VIEW_RANGE_) {
+            return;
+        } else if (_world->grid.distance_to_player[world_position.x][world_position.y] <= _FIELD_OF_VIEW_RANGE_ && _world->grid.distance_to_player[world_position.x][world_position.y] != 0){
+            SKELETON_ANCIENT_SAW_THE_TARGET = 1;
+        }
+    }
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
 
