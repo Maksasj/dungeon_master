@@ -38,6 +38,25 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
             break;
     }
 
+    switch (_self->facing) {
+        case DOWN:
+            spriteSetOffset(_self->sprite, 40);
+            break;
+        case RIGHT:
+            spriteSetOffset(_self->sprite, 24);
+            spriteSetHorizontalFlip(_self->sprite, 1);
+            break;
+        case UP:
+            spriteSetOffset(_self->sprite, 32);
+            break;
+        case LEFT:
+            spriteSetOffset(_self->sprite, 24);
+            spriteSetHorizontalFlip(_self->sprite, 0);
+            break;
+        default:
+            break;
+    }
+
     if (world_position.x < 0) {
         _self->vel.x = 0;
         ++_self->vel.x;

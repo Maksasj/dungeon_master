@@ -38,6 +38,25 @@ void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
             break;
     }
 
+    switch (_self->facing) {
+        case DOWN:
+            spriteSetOffset(_self->sprite, 88);
+            break;
+        case RIGHT:
+            spriteSetOffset(_self->sprite, 72);
+            spriteSetHorizontalFlip(_self->sprite, 1);
+            break;
+        case UP:
+            spriteSetOffset(_self->sprite, 80);
+            break;
+        case LEFT:
+            spriteSetOffset(_self->sprite, 72);
+            spriteSetHorizontalFlip(_self->sprite, 0);
+            break;
+        default:
+            break;
+    }
+
     if (world_position.x < 0) {
         _self->vel.x = 0;
         ++_self->vel.x;
