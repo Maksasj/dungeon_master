@@ -1,4 +1,4 @@
-#include "../include/utils/logger.h"
+#include "../../include/utils/logger.h"
 
 inline void log(LogLevel _lvl, const char* _fmt, ...) {
     _REG_LOG_ENABLE_ = 0xC0DE;

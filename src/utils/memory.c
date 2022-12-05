@@ -1,4 +1,4 @@
-#include "../include/utils/memory.h"
+#include "../../include/utils/memory.h"
 
 void memcpy16DMA(u16* _dest, u16* _source, i32 _amount) {
     *_DMA_3_SOURCE_ = (u32) _source;

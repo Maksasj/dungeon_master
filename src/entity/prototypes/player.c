@@ -1,4 +1,4 @@
-#include "../../include/entity/prototypes/player.h"
+#include "../../../include/entity/prototypes/player.h"
 
 void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index) {
     int i = 0;

@@ -17,12 +17,12 @@
 
 #include "entity/entity.h"
 
-#include "../../assets/generated/music/game_soundtrack_long.h"
+#include "../assets/generated/music/game_soundtrack_long.h"
 
 #include "background.h"
 
-#include "../../assets/generated/menu.h"
-#include "../../assets/generated/sprites.h"
+#include "../assets/generated/menu.h"
+#include "../assets/generated/sprites.h"
 
 /*
 96 - Necromncer

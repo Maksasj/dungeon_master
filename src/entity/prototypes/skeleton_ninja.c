@@ -1,4 +1,4 @@
-#include "../../include/entity/prototypes/skeleton_ninja.h"
+#include "../../../include/entity/prototypes/skeleton_ninja.h"
 
 void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);

@@ -1,6 +1,6 @@
 #define EXTREME_MODE
 
-#include "include/main.h"
+#include "../include/main.h"
 
 int main() {
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;

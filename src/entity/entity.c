@@ -1,5 +1,5 @@
-#include "../include/entity/entity.h"
-#include "../include/world/world.h"
+#include "../../include/entity/entity.h"
+#include "../../include/world/world.h"
 
 Entity entityReload(Entity _self) {
     _self.vel = newFVec2(0, 0);
@@ -102,34 +102,4 @@ void killEntity(Entity* _entity) {
     (*_entity->die_callback)(_entity);
     entityUnloadSprite(_entity);
     _entity->saw_the_target = 0;
-}
-
-Entity addUpdate_CallBack(void (*update_callback)(void*, void*, void*), Entity _entity) {
-    _entity.update_callback = update_callback;
-    return _entity;
-}
-
-Entity addAttack_CallBack(i32 (*attack_callback)(void*), Entity _entity) {
-    _entity.attack_callback = attack_callback;
-    return _entity;
-}
-
-Entity addDie_CallBack(void (*die_callback)(void*), Entity _entity) {
-    _entity.die_callback = die_callback;
-    return _entity;
-}
-
-Entity addSpawn_CallBack(void (*spawn_callback)(void*, void*), Entity _entity) {
-    _entity.spawn_callback = spawn_callback;
-    return _entity;
-}
-
-Entity addOnCollisionEnter_CallBack(i32 (*on_collision_enter)(void*, void*), Entity _entity) {
-    _entity.on_collision_enter = on_collision_enter;
-    return _entity;
-}
-
-Entity addDodgeCallback(i32 (*dodge_callback)(void*), Entity _entity) {
-    _entity.dodge_callback = dodge_callback;
-    return _entity;
 }

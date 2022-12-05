@@ -1,4 +1,4 @@
-#include "../include/text/text.h"
+#include "../../include/text/text.h"
 
 int str_length(const char* source) {
     int count; 

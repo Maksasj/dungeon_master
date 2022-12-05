@@ -1,7 +1,7 @@
-#include "../include/world/room.h"
-#include "../include/world/world.h"
+#include "../../include/world/room.h"
+#include "../../include/world/world.h"
 
-#include "../include/world/tile.h"
+#include "../../include/world/tile.h"
 
 const u16* getRandomFloorTile() {
     u16 value = rand() % 6;

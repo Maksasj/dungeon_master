@@ -1,4 +1,4 @@
-#include "../include/utils/grid.h"
+#include "../../include/utils/grid.h"
 
 const i32 DIRECTION_VECTORS[4][2] = {
     {0, 1},  //Up

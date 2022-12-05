@@ -1,4 +1,4 @@
-#include "../include/sound/sound.h"
+#include "../../include/sound/sound.h"
 
 // Rates for traditional notes in octave +5
 const u32 SOUND_RATES[12] = {

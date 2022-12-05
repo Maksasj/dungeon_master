@@ -1,4 +1,4 @@
-#include "../include/sound/interruption.h"
+#include "../../include/sound/interruption.h"
 
 void interruptionInit(void (*_ptr)()) {
     *_INTERRUPT_ENABLE_ = 0;

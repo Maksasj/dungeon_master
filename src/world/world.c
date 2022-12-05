@@ -1,6 +1,6 @@
-#include "../include/world/world.h"
+#include "../../include/world/world.h"
 
-#include "../include/entity/entity_macros.h"
+#include "../../include/entity/entity_macros.h"
 
 //#define _GOD_MODE_
 

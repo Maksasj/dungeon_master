@@ -1,4 +1,4 @@
-#include "../../include/entity/prototypes/necromancer.h"
+#include "../../../include/entity/prototypes/necromancer.h"
 
 void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);

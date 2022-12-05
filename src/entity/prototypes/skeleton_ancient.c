@@ -1,4 +1,4 @@
-#include "../../include/entity/prototypes/skeleton_ancient.h"
+#include "../../../include/entity/prototypes/skeleton_ancient.h"
 
 void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);

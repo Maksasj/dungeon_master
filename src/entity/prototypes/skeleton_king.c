@@ -1,4 +1,4 @@
-#include "../../include/entity/prototypes/skeleton_king.h"
+#include "../../../include/entity/prototypes/skeleton_king.h"
 
 void skeletonKingUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);

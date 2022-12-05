@@ -1,4 +1,4 @@
-#include "../include/utils/types.h"
+#include "../../include/utils/types.h"
 
 inline ivec2 newIVec2(i32 _x, i32 _y) {
     return (ivec2){_x, _y};

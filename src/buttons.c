@@ -1,4 +1,4 @@
-#include "include/buttons.h"
+#include "../include/buttons.h"
 
 inline u8 buttonPressed(u16 _button) {
     u16 pressed = *_BUTTONS_ & _button;

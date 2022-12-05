@@ -1,4 +1,4 @@
-#include "../include/entity/statblock.h"
+#include "../../include/entity/statblock.h"
 
 Statblock stats(stattype _stamina, stattype _agility, stattype _intellect, stattype _strength, stattype _armor) {
     return (Statblock){_stamina, _agility, _intellect, _strength, _armor};

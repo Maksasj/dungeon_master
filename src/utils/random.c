@@ -1,4 +1,4 @@
-#include "../include/utils/random.h"
+#include "../../include/utils/random.h"
 
 u32 SEED = 15485863;
 
