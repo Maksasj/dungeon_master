@@ -1,7 +1,7 @@
 #ifndef _BUTTONS_H_
 #define _BUTTONS_H_
 
-#include "types.h"
+#include "utils/types.h"
 
 #define _BUTTONS_ ((vu16*) 0x04000130)
 

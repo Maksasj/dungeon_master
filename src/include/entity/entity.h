@@ -5,12 +5,13 @@
 
 #include "statblock.h"
 
-#include "../rotation.h"
+#include "rotation.h"
 #include "../sprite.h"
-#include "../types.h"
-#include "../math.h"
+#include "../utils/types.h"
+#include "../utils/random.h"
 
-//TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
+struct Room;
+struct World;
 
 typedef struct Entity {
     Sprite* sprite;
@@ -55,6 +56,8 @@ typedef struct Entity {
 } Entity;
 
 Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset);
+
+Entity entityReload(Entity _self);
 
 void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_index);
 

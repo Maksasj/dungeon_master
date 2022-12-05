@@ -1,8 +1,8 @@
 #ifndef _SPRITE_H_
 #define _SPRITE_H_
 
-#include "types.h"
-#include "gfx.h"
+#include "utils/types.h"
+#include "utils/gfx.h"
 
 #define _PALETTE_SIZE_ 256
 

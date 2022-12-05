@@ -1,8 +1,7 @@
 #ifndef _STATBLOCK_H_
 #define _STATBLOCK_H_
 
-#include "../sprite.h"
-#include "../types.h"
+#include "../utils/types.h"
 
 typedef i32 stattype;
 

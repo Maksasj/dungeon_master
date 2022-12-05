@@ -3,9 +3,9 @@
 
 #include <stdlib.h>
 
-#include "../logger.h"
+#include "../utils/logger.h"
 
-#include "../types.h"
+#include "../utils/types.h"
 #include "../sprite.h"
 
 typedef struct Text {

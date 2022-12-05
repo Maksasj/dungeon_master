@@ -1,6 +1,6 @@
 #include "include/background.h"
 
-#include "assets/background.h"
+#include "../assets/generated/tile-map.h"
 
 vu16* charBlock(u32 _block) {
     return (vu16*) (_TILEMAP_ + (_block * _CHAR_BLOCK_SIZE_));

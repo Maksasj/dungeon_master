@@ -3,18 +3,17 @@
 
 #define MAIN_MENU_OPTION_COUNT 2
 
-#include "types.h"
+#include "utils/types.h"
 #include "text/text.h"
 
-#include "memory.h"
-#include "gfx.h"
-#include "world.h"
+#include "utils/memory.h"
+#include "utils/gfx.h"
+#include "world/world.h"
 #include "sprite.h"
 #include "buttons.h"
-#include "delay.h"
-#include "player.h"
-#include "interruption.h"
-#include "sound.h"
+#include "utils/delay.h"
+#include "entity/prototypes/player.h"
+#include "sound/sound.h"
 
 #include "entity/entity.h"
 

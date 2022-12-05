@@ -3,57 +3,61 @@
 
 #include "entity.h"
 
-#include "../prototypes/skeleton_ninja.h"
-#include "../prototypes/skeleton_king.h"
-#include "../prototypes/skeleton_ancient.h"
-#include "../prototypes/necromancer.h"
+#include "prototypes/skeleton_ninja.h"
+#include "prototypes/skeleton_king.h"
+#include "prototypes/skeleton_ancient.h"
+#include "prototypes/necromancer.h"
 
 #define _SKELETON_NINJA_ENTITY_(X, Y)                           \
-    addUpdate_CallBack(&skeletonNinjaUpdate,                    \
-    addOnCollisionEnter_CallBack(&checkCollision,               \
-    addDie_CallBack(&skeletonNinjaKill,                         \
-    addAttack_CallBack(&skeletonNinjaCalculateDamage,           \
-    addDodgeCallback(&skeletonNinjaTryDodge,                    \
+    entityReload((Entity){                                      \
+        .position = newFVec2(X, Y),                             \
                                                                 \
-    entityInit(                                                 \
-        newFVec2(X, Y),                                         \
-        stats(1, 3, 0, 0, 0),                                   \
-        24))))))                                                \
+        .base_stats = stats(1, 3, 0, 0, 0),                     \
+        .sprite_offset = 24,                                    \
+        .update_callback = &skeletonNinjaUpdate,                \
+        .on_collision_enter = &checkCollision,                  \
+        .die_callback = &skeletonNinjaKill,                     \
+        .attack_callback = &skeletonNinjaCalculateDamage,       \
+        .dodge_callback = &skeletonNinjaTryDodge                \
+    })                                                          \
 
 #define _SKELETON_KING_ENTITY_(X, Y)                            \
-    addUpdate_CallBack(&skeletonKingUpdate,                     \
-    addOnCollisionEnter_CallBack(&checkCollision,               \
-    addDie_CallBack(&skeletonKingKill,                          \
-    addAttack_CallBack(&skeletonKingCalculateDamage,            \
-    addDodgeCallback(&skeletonKingTryDodge,                     \
+    entityReload((Entity){                                      \
+        .position = newFVec2(X, Y),                             \
                                                                 \
-    entityInit(                                                 \
-        newFVec2(X, Y),                                         \
-        stats(3, 0, 0, 1, 0),                                   \
-        48))))))                                                \
+        .base_stats = stats(3, 0, 0, 1, 0),                     \
+        .sprite_offset = 48,                                    \
+        .update_callback = &skeletonKingUpdate,                 \
+        .on_collision_enter = &checkCollision,                  \
+        .die_callback = &skeletonKingKill,                      \
+        .attack_callback = &skeletonKingCalculateDamage,        \
+        .dodge_callback = &skeletonKingTryDodge                 \
+    })                                                          \
 
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                         \
-    addUpdate_CallBack(&skeletonAncientUpdate,                  \
-    addOnCollisionEnter_CallBack(&checkCollision,               \
-    addDie_CallBack(&skeletonAncientKill,                       \
-    addAttack_CallBack(&skeletonAncientCalculateDamage,         \
-    addDodgeCallback(&skeletonAncientTryDodge,                  \
+    entityReload((Entity){                                      \
+        .position = newFVec2(X, Y),                             \
                                                                 \
-    entityInit(                                                 \
-        newFVec2(X, Y),                                         \
-        stats(1, 1, 0, 0, 0),                                   \
-        72))))))                                                \
+        .base_stats = stats(1, 1, 0, 0, 0),                     \
+        .sprite_offset = 72,                                    \
+        .update_callback = &skeletonAncientUpdate,              \
+        .on_collision_enter = &checkCollision,                  \
+        .die_callback = &skeletonAncientKill,                   \
+        .attack_callback = &skeletonAncientCalculateDamage,     \
+        .dodge_callback = &skeletonAncientTryDodge              \
+    })                                                          \
 
 #define _NECROMANCER_ENTITY_(X, Y)                              \
-    addUpdate_CallBack(&necromancerUpdate,                      \
-    addOnCollisionEnter_CallBack(&checkCollision,               \
-    addDie_CallBack(&necromancerKill,                           \
-    addAttack_CallBack(&necromancerCalculateDamage,             \
-    addDodgeCallback(&necromancerTryDodge,                      \
+    entityReload((Entity){                                      \
+        .position = newFVec2(X, Y),                             \
                                                                 \
-    entityInit(                                                 \
-        newFVec2(X, Y),                                         \
-        stats(2, 1, 1, 0, 0),                                   \
-        96))))))                                                \
+        .base_stats = stats(2, 1, 1, 0, 0),                     \
+        .sprite_offset = 96,                                    \
+        .update_callback = &necromancerUpdate,                  \
+        .on_collision_enter = &checkCollision,                  \
+        .die_callback = &necromancerKill,                       \
+        .attack_callback = &necromancerCalculateDamage,         \
+        .dodge_callback = &necromancerTryDodge                  \
+    })                                                          \
 
 #endif

@@ -4,7 +4,7 @@
 #include "entity/statblock.h"
 
 #include "sprite.h"
-#include "types.h"
+#include "utils/types.h"
 
 typedef enum ItemType {
     ARMOR,

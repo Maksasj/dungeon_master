@@ -1,7 +1,7 @@
 #ifndef _ROOM_H_
 #define _ROOM_H_
 
-#include "../types.h"
+#include "../utils/types.h"
 #include "../collision.h"
 #include "../entity/entity.h"
 
@@ -28,12 +28,6 @@ typedef struct Room {
 
     ItemDrop itemdrop_pool[_MAX_ITEM_DROP_PER_ROOM_];
     i32 current_itemdrop_count;
-    
-    /* TODO
-    Projectile pool
-
-    Update callback
-    */
 } Room;
 
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index);

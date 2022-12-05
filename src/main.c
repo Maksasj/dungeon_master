@@ -9,7 +9,7 @@ int main() {
     i32 next_sprite_index = 0;
 
     initBackground();
-
+    
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) menu_image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) menu_image_data, (menu_image_width * menu_image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
@@ -76,13 +76,8 @@ int main() {
         spriteUpdateAll(sprites);
     }
 
-    int ppp;
-    for(ppp = 0; ppp < _seed % 256; ++ppp) {
-        random(ppp);
-    }
-
     World world;
-        generateWorld(&world, _seed);
+        generateWorld(&world);
 
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);

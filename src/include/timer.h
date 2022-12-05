@@ -1,7 +1,7 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-#include "types.h"
+#include "utils/types.h"
 
 #define _TIMER_0_DATA_      ((vu16*) 0x4000100)
 #define _TIMER_0_CONTROL_   ((vu16*) 0x4000102)

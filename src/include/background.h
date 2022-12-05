@@ -1,7 +1,7 @@
 #ifndef _BACKGROUND_H_
 #define _BACKGROUND_H_
 
-#include "types.h"
+#include "utils/types.h"
 #include "sprite.h"
 
 #define _TILEMAP_               0x6000000

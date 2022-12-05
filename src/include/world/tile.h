@@ -1,7 +1,7 @@
 #ifndef _TILE_H_
 #define _TILE_H_
 
-#include "../types.h"
+#include "../utils/types.h"
 
 /*===========CORNERS===========*/
 const u16 CORNER_LEFT_UP[] = {
