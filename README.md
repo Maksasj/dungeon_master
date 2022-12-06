@@ -1,5 +1,7 @@
 # Dungeon Master
-Dungeon Master - Game Boy Advance(GBA) rogue like game written specially for [GBA Jam 2022](https://itch.io/jam/gbajam22)
+
+Dungeon Master - Game Boy Advance(GBA) rogue like game written specially for [GBA Jam 2022](https://itch.io/jam/gbajam22) (P.S actually we missed due to some university work 🙃)
+![Dungeon Master logo](docs/images/dungeon-master-logo.png)<br/>
 
 ## Setup
 
