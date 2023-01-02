@@ -58,6 +58,30 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
                 _self->facing = DOWN;
             }
             break;
+        case '#':
+            switch (_self->facing) {
+                case UP:
+                    _self->vel.y = 0;
+                    --_self->vel.y;
+                    break;
+                case RIGHT:
+                    _self->vel.x = 0;
+                    ++_self->vel.x;
+                    break;
+                case DOWN:
+                    _self->vel.y = 0;
+                    ++_self->vel.y;
+                    break;
+                case LEFT:
+                    _self->vel.x = 0;
+                    --_self->vel.x;
+                    break;
+
+                default:
+                    break;
+            }
+            
+            break;
         default:
             break;
     }
