@@ -66,7 +66,7 @@ void updateWorld(World* _world, Entity* _player) {
         if ((*entity->on_collision_enter)(entity, _player)) {
             if (entity->attack_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
-                
+
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(entity, _player);
@@ -137,7 +137,7 @@ void generateWorld(World* _world) {
             case TWO_NINJA_SKELETONS_ENEMIES:
                 //tryPushEntityToRoom(&_world->rooms[i], TEST(32.0, 96.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
-                //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
                 break;
             case FOUR_ANCIENT_SKELETONS:
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48.0, 64.0));
@@ -216,11 +216,10 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
 }
 
 inline ivec2 screenToGridPosition(fvec2 _screen_position) {
-    ivec2 fixed_screen_position;
     ivec2 grid_position;
 
-    grid_position.x = ((i32)_screen_position.x >> 4);
-    grid_position.y = ((i32)_screen_position.y >> 4);
+    grid_position.x = (((i32)_screen_position.x - 8) >> 4);
+    grid_position.y = (((i32)_screen_position.y - 8) >> 4);
 
     return grid_position;
 }
