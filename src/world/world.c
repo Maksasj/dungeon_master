@@ -2,7 +2,7 @@
 
 #include "../../include/entity/entity_macros.h"
 
-//#define _GOD_MODE_
+#define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
 
@@ -53,16 +53,8 @@ void updateWorld(World* _world, Entity* _player) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToGridPosition(_player->position);
 
-            // i32 j;
-            // i32 k;
-            // for (j = 0; j < 15; ++j) {
-            //     for (k = 0; k < 10; ++k) {
-            //         log(LOG_INFO, "%d, %d = %c", j, k, _world->collision_box[k][j]);
-            //     }
-            // }
-
             clearGrid(&_world->grid);
-            breadthFirstSearch(&_world->grid, world_position);
+            breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
     }
 
@@ -145,7 +137,7 @@ void generateWorld(World* _world) {
             case TWO_NINJA_SKELETONS_ENEMIES:
                 //tryPushEntityToRoom(&_world->rooms[i], TEST(32.0, 96.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
                 break;
             case FOUR_ANCIENT_SKELETONS:
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48.0, 64.0));

@@ -22,11 +22,11 @@ SquareGrid gridInit();
 
 i32 inBounds(ivec2 _coordinates);
 
-i32 passable(SquareGrid* _grid, ivec2 _coordinates);
+i32 passable(ivec2 _coordinates, u8 _collision_box[10][15]);
 
-ivec2* getNeighbors(SquareGrid* _grid, ivec2* neighbors, ivec2 _coordinates);
+ivec2* getNeighbors(SquareGrid* _grid, ivec2* neighbors, ivec2 _coordinates, u8 _collision_box[10][15]);
 
-void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position);
+void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position, u8 _collision_box[10][15]);
 
 void clearGrid(SquareGrid* _grid);
 
