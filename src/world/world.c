@@ -7,7 +7,7 @@
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    clearGrid(&_world->grid, &_world->collision_box);
+    clearGrid(&_world->grid);
 
     int i;
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
@@ -53,15 +53,15 @@ void updateWorld(World* _world, Entity* _player) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToGridPosition(_player->position);
 
-            i32 j;
-            i32 k;
-            for (j = 0; j < 15; ++j) {
-                for (k = 0; k < 10; ++k) {
-                    log(LOG_INFO, "%d, %d = %c", j, k, _world->collision_box[k][j]);
-                }
-            }
+            // i32 j;
+            // i32 k;
+            // for (j = 0; j < 15; ++j) {
+            //     for (k = 0; k < 10; ++k) {
+            //         log(LOG_INFO, "%d, %d = %c", j, k, _world->collision_box[k][j]);
+            //     }
+            // }
 
-            clearGrid(&_world->grid, &_world->collision_box);
+            clearGrid(&_world->grid);
             breadthFirstSearch(&_world->grid, world_position);
         }
     }
