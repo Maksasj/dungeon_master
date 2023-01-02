@@ -23,6 +23,7 @@ SquareGrid gridInit() {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             grid.came_from[i][j] = newIVec2(-1, -1);
             grid.distance_to_player[i][j] = 0;
+            grid.vertices[i][j] = ' ';
         }
     }
 
@@ -35,7 +36,10 @@ i32 inBounds(ivec2 _coordinates) {
 }
 
 i32 passable(SquareGrid* _grid, ivec2 _coordinates) {
-    //TODO: Detect obstacles
+    if (_grid->vertices[_coordinates.x][_coordinates.y] == '#') {
+        return 0;
+    }
+
     return 1;
 }
 
@@ -61,8 +65,6 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
     ivec2* neighbors = (ivec2*)malloc(_AMOUNT_OF_NEIGHBORS_ * sizeof(ivec2));
 
     push(queue, _start_position);
-    _grid->vertices[_start_position.x][_start_position.y] = ' ';
-    _grid->distance_to_player[_start_position.x][_start_position.y] = 0;
 
     while (!empty(queue)) {
         ivec2 current = pop(queue);
@@ -92,14 +94,16 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position) {
     free(neighbors);
 }
 
-void clearGrid(SquareGrid* _grid) {
+void clearGrid(SquareGrid* _grid, u8*** _collision_box) {
     i32 i;
     i32 j;
     for (i = 0; i < _ROOM_LENGTH_; ++i) {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             _grid->came_from[i][j] = newIVec2(-1, -1);
-            _grid->vertices[i][j] = ' ';
             _grid->distance_to_player[i][j] = 0;
+            _grid->vertices[i][j] = ' ';
+
+            log(LOG_INFO, "%d, %d = %c", i + 1, j + 1, (*_collision_box)[j + 1][i + 1]);
         }
     }
 }

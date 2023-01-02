@@ -4,6 +4,7 @@
 #include "types.h"
 #include "queue.h"
 #include <stdlib.h>
+#include "logger.h"
 
 #define _AMOUNT_OF_NEIGHBORS_ 4
 #define _MAX_AMOUNT_OF_OBSTACLES_ 30
@@ -27,6 +28,6 @@ ivec2* getNeighbors(SquareGrid* _grid, ivec2* neighbors, ivec2 _coordinates);
 
 void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position);
 
-void clearGrid(SquareGrid* _grid);
+void clearGrid(SquareGrid* _grid, u8*** _collision_box);
 
 #endif
