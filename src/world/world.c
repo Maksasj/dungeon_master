@@ -54,7 +54,7 @@ void updateWorld(World* _world, Entity* _player) {
             ivec2 world_position = screenToGridPosition(_player->position);
 
             clearGrid(&_world->grid);
-            breadthFirstSearch(&_world->grid, world_position);
+            breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
     }
 
@@ -66,7 +66,7 @@ void updateWorld(World* _world, Entity* _player) {
         if ((*entity->on_collision_enter)(entity, _player)) {
             if (entity->attack_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
-                
+
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(entity, _player);
@@ -216,11 +216,10 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
 }
 
 inline ivec2 screenToGridPosition(fvec2 _screen_position) {
-    ivec2 fixed_screen_position;
     ivec2 grid_position;
 
-    grid_position.x = ((i32)_screen_position.x >> 4);
-    grid_position.y = ((i32)_screen_position.y >> 4);
+    grid_position.x = (((i32)_screen_position.x - 8) >> 4);
+    grid_position.y = (((i32)_screen_position.y - 8) >> 4);
 
     return grid_position;
 }
