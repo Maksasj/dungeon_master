@@ -100,7 +100,7 @@ void updateWorld(World* _world, Entity* _player) {
 
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
-        if (room->type != BASIC && room->type != END) {
+        if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
             unLockRoom(_world, room);
         }
     }
@@ -112,7 +112,7 @@ void updateWorld(World* _world, Entity* _player) {
     ++WORLD_TICK;
 }
 
-void generateWorld(World* _world) {
+void generateFloor(World* _world) {
     u32 i;
     Room first_room;
 
@@ -120,6 +120,8 @@ void generateWorld(World* _world) {
     _world->rooms[0] = first_room;
 
     _world->grid = gridInit();
+
+    ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random(_seed) % 4 + 1;
@@ -184,7 +186,13 @@ void generateWorld(World* _world) {
     }
     
     Room last_room;
-    last_room.type = END;
+
+    if (_world->currentFloor != _world->floorCount) {
+        last_room.type = FLOOR_END;
+    } else {
+        last_room.type = END_GAME;
+    }
+    
     _world->rooms[_MAX_ROOM_COUNT_ - 1] = last_room;
 
     _world->difficulty = 1;
@@ -205,7 +213,7 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
         case 'C':
             return CLOSED_DOOR;
         case 'E':
-            return ENEMY;
+            return NEXT_FLOOR_ENTRANCE;
         case 'X':
             return CHEST;
         default:

@@ -32,16 +32,31 @@ void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, Collis
     _target[_pos.x + _pos.y * 32 + 32] = _tile[2];
     _target[_pos.x + _pos.y * 32 + 33] = _tile[3];
 
-    if(_collision_type == WALL) {
-        _world->collision_box[_pos.y / 2][_pos.x / 2] = '#';
-    } else if(_collision_type == OPENED_DOOR) {
-        _world->collision_box[_pos.y / 2][_pos.x / 2] = 'D';
-    } else if(_collision_type == CLOSED_DOOR) {
-        _world->collision_box[_pos.y / 2][_pos.x / 2] = 'C';
-    } else if(_collision_type == CHEST) {
-        _world->collision_box[_pos.y / 2][_pos.x / 2] = 'X';
-    }  else {
-        _world->collision_box[_pos.y / 2][_pos.x / 2] = ' ';
+    switch(_collision_type) {
+        case WALL: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = '#';
+            break;
+        }
+        case OPENED_DOOR: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'D';
+            break;
+        }
+        case CLOSED_DOOR: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'C';
+            break;
+        }
+        case CHEST: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'X';
+            break;
+        }
+        case NEXT_FLOOR_ENTRANCE: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'E';
+            break;
+        }
+        default: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = ' ';
+            break;
+        }
     }
 }
 
@@ -129,9 +144,17 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         }
 
         break;
-    case END:
-        placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
-        break;
+    case FLOOR_END:
+        {
+            placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
+            placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);
+            break;  
+        }
+    case END_GAME:
+        {
+            placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
+            break;
+        }
     }
 
     for(i = 0; i < _room->current_entity_count; ++i) {

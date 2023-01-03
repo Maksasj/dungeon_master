@@ -18,6 +18,9 @@ typedef struct World {
     SquareGrid grid;
 
     u8 activeRoom;
+
+    u8 floorCount;
+    u8 currentFloor;
     
     //TODO
     u8 difficulty;
@@ -28,7 +31,7 @@ typedef struct World {
         '#' - Wall
         'D' - Opened Door
         'C' - Closed Door
-        'E' - Enemy
+        'E' - Next Floor Entrance
         'X' - Chest
         ' ' - None
     */
@@ -37,7 +40,7 @@ typedef struct World {
 
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index);
 
-void generateWorld(World* _world);
+void generateFloor(World* _world);
 
 void worldUpdate(World* _world);
 
