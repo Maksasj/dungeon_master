@@ -99,43 +99,85 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             break;
         }
         case TWO_NINJA_SKELETONS_ENEMIES: {
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 8), BORDER_UP, WALL);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 10), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 8), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 10), BORDER_UP, WALL);
 
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 8), BORDER_UP, WALL);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 10), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 8), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 10), BORDER_UP, WALL);
 
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 8), BORDER_UP, WALL);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 10), BORDER_UP, WALL);
-                break;
-            }
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 8), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 10), BORDER_UP, WALL);
+            break;
+        }
         case FOUR_ANCIENT_SKELETONS: {
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
-                break;
-            }
+            break;
+        }
         case ONE_NINJA_THREE_ANCIENT: {
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
-                break;
-            }
+            break;
+        }
         case THREE_KINGS: {
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
-                break;
-            }
+            break;
+        }
         case NECROMANCER_TWO_KINGS: {
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-                placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
-                break;
-            }
+            break;
+        }
+        case LABYRINTH1: {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 2), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 2), BORDER_UP, WALL);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 4), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 4), BORDER_UP, WALL);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 6), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 6), BORDER_UP, WALL);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 12), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 12), BORDER_UP, WALL);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 14), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 14), BORDER_UP, WALL);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 16), BORDER_UP, WALL);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 16), BORDER_UP, WALL);
+
+            break;
+        }
         case FLOOR_END: {
                 placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
                 placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);

@@ -17,6 +17,7 @@ typedef enum RoomType {
     ONE_NINJA_THREE_ANCIENT,
     THREE_KINGS,
     NECROMANCER_TWO_KINGS,
+    LABYRINTH1,
     FLOOR_END,
     END_GAME
 } RoomType;

@@ -2,7 +2,7 @@
 
 #include "../../include/entity/entity_macros.h"
 
-//#define _GOD_MODE_
+#define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
 
@@ -167,6 +167,17 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160.0, 112.0));
                 tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112.0, 48.0));
+                break;
+            }
+            case LABYRINTH1: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(96.0, 16.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(112.0, 64.0));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208.0, 48.0));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(32.0, 128.0));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(48.0, 128.0));
                 break;
             }
             default:
