@@ -105,6 +105,9 @@ int main() {
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
+    
+    counterInit();
+    counterStart();
 
     while (1) {
         updateWorld(&world, &player);
