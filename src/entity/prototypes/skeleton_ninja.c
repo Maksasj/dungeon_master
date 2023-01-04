@@ -22,64 +22,76 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
 
     switch (direction)
     {
-        case 'u': //Up
+        case 'u': { //Up
             _self->vel.y += 0.5;
             _self->facing = DOWN;
             break;
-        case 'r': //Right
+        }
+        case 'r': { //Right
             _self->vel.x += 0.5;
             _self->facing = RIGHT;
             break;
-        case 'd': //Down
+        }
+        case 'd': { //Down
             _self->vel.y -= 0.5;
             _self->facing = UP;
             break;
-        case 'l': //Left
+        }
+        case 'l': { //Left
             _self->vel.x -= 0.5;
             _self->facing = LEFT;
             break;
-        case '#':
+        }
+        case '#': {
             switch (_self->facing) {
-                case UP:
+                case UP: {
                     _self->vel.y = 0;
                     --_self->vel.y;
                     break;
-                case RIGHT:
+                }
+                case RIGHT: {
                     _self->vel.x = 0;
                     ++_self->vel.x;
                     break;
-                case DOWN:
+                }
+                case DOWN: {
                     _self->vel.y = 0;
                     ++_self->vel.y;
                     break;
-                case LEFT:
+                }
+                case LEFT: {
                     _self->vel.x = 0;
                     --_self->vel.x;
                     break;
-
+                }
                 default:
                     break;
             }
             break;
+        }
         default:
             break;
     }
 
     switch (_self->facing) {
-        case DOWN:
+        case DOWN: {
             spriteSetOffset(_self->sprite, 40);
             break;
-        case RIGHT:
+        }
+        case RIGHT: {
             spriteSetOffset(_self->sprite, 24);
             spriteSetHorizontalFlip(_self->sprite, 1);
             break;
-        case UP:
+        }
+        case UP: {
             spriteSetOffset(_self->sprite, 32);
             break;
-        case LEFT:
+        }
+        case LEFT: {
             spriteSetOffset(_self->sprite, 24);
             spriteSetHorizontalFlip(_self->sprite, 0);
             break;
+        }
         default:
             break;
     }

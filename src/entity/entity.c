@@ -67,18 +67,22 @@ void entityTakeDamage(Entity* _entity, i32 _damage) {
 void entityKnockback(Entity* _entity, Facing _facing, float _power) {
     switch (_facing)
     {
-        case UP:
+        case UP: {
             _entity->vel.y -= _power;
             break;
-        case RIGHT:
+        }
+        case RIGHT: {
             _entity->vel.x += _power;
             break;
-        case DOWN:
+        }
+        case DOWN: {
             _entity->vel.y += _power;
             break;
-        case LEFT:
+        }
+        case LEFT: {
             _entity->vel.x -= _power;
             break;
+        }
         default:
             break;
     }

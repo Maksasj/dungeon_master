@@ -97,8 +97,7 @@ void spriteClear(Sprite* _sprites, i32* _next_sprite_index) {
 ivec2 getSpriteWidthAndLength(SpriteSize _sprite_size_in_pixels) {
     ivec2 size = newIVec2(2, 2);
 
-    switch (_sprite_size_in_pixels)
-    {
+    switch (_sprite_size_in_pixels) {
         case SIZE_8_8:   size.x <<= 2; size.y <<= 2; break;
         case SIZE_16_16: size.x <<= 3; size.y <<= 3; break;
         case SIZE_32_32: size.x <<= 4; size.y <<= 4; break;

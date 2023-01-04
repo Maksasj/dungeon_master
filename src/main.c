@@ -53,16 +53,18 @@ int main() {
             up_pressed = 0;
 
         switch (selection) {
-            case 0:
+            case 0: {
                 spritePosition(selectionArrow, 130, 59);
                 spriteSetOffset(buttonPlay, 0); 
                 spriteSetOffset(buttonAbout, 960); 
                 break;
-            case 1:
+            }
+            case 1: {
                 spritePosition(selectionArrow, 130, 100);
                 spriteSetOffset(buttonPlay, 896);
                 spriteSetOffset(buttonAbout, 64);
                 break;
+            }
         }
 
         if(buttonPressed(_BUTTON_SELECT_)) {
