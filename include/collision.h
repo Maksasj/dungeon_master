@@ -11,7 +11,7 @@ typedef enum CollisionType {
     
     CHEST,
     
-    ENEMY,
+    NEXT_FLOOR_ENTRANCE,
 
     NONE
 } CollisionType;

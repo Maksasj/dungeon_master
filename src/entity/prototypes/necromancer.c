@@ -22,7 +22,7 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
     switch (direction)
     {
-        case 'u': //Up
+        case 'u': { //Up
             if (world_position.y - 1 >= 0) {
                 _self->vel.y -= 0.5;
                 _self->facing = UP;
@@ -31,7 +31,8 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
                 _self->facing = RIGHT;
             }
             break;
-        case 'r': //Right
+        }
+        case 'r': { //Right
             if (world_position.x - 1 >= 0) {
                 _self->vel.x -= 0.5;
                 _self->facing = LEFT;
@@ -40,7 +41,8 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
                 _self->facing = UP;
             }
             break;
-        case 'd': //Down
+        }
+        case 'd': { //Down
             if (world_position.y + 1 <= GRID_HEIGHT) {
                 _self->vel.y += 0.5;
                 _self->facing = DOWN;
@@ -49,7 +51,8 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
                 _self->facing = LEFT;
             }
             break;
-        case 'l': //Left
+        }
+        case 'l': { //Left
             if (world_position.x + 1 <= GRID_LENGTH) {
                 _self->vel.x += 0.5;
                 _self->facing = RIGHT;
@@ -58,30 +61,34 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
                 _self->facing = DOWN;
             }
             break;
-        case '#':
+        }
+        case '#': {
             switch (_self->facing) {
-                case UP:
+                case UP: {
                     _self->vel.y = 0;
                     --_self->vel.y;
                     break;
-                case RIGHT:
+                }
+                case RIGHT: {
                     _self->vel.x = 0;
                     ++_self->vel.x;
                     break;
-                case DOWN:
+                }
+                case DOWN: {
                     _self->vel.y = 0;
                     ++_self->vel.y;
                     break;
-                case LEFT:
+                }
+                case LEFT: {
                     _self->vel.x = 0;
                     --_self->vel.x;
                     break;
-
+                }
                 default:
                     break;
             }
-            
             break;
+        }
         default:
             break;
     }

@@ -100,7 +100,7 @@ void updateWorld(World* _world, Entity* _player) {
 
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
-        if (room->type != BASIC && room->type != END) {
+        if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
             unLockRoom(_world, room);
         }
     }
@@ -112,7 +112,7 @@ void updateWorld(World* _world, Entity* _player) {
     ++WORLD_TICK;
 }
 
-void generateWorld(World* _world) {
+void generateFloor(World* _world) {
     u32 i;
     Room first_room;
 
@@ -120,6 +120,8 @@ void generateWorld(World* _world) {
     _world->rooms[0] = first_room;
 
     _world->grid = gridInit();
+
+    ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random(_seed) % 4 + 1;
@@ -134,57 +136,65 @@ void generateWorld(World* _world) {
         _world->rooms[i] = room;
 
         switch (roomId) {
-            case TWO_NINJA_SKELETONS_ENEMIES:
-                //tryPushEntityToRoom(&_world->rooms[i], TEST(32.0, 96.0));
+            case TWO_NINJA_SKELETONS_ENEMIES: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
                 break;
-            case FOUR_ANCIENT_SKELETONS:
+            }
+            case FOUR_ANCIENT_SKELETONS: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80.0, 48.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144.0, 48.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176.0, 64.0));
                 break;
-            case ONE_NINJA_THREE_ANCIENT:
+            }
+            case ONE_NINJA_THREE_ANCIENT: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 16.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 32.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208.0, 32.0));
                 tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(208.0, 16.0));
                 break;
-            case THREE_KINGS:
+            }
+            case THREE_KINGS: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(48.0, 96.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(176.0, 96.0));
                 break;
-            case NECROMANCER_TWO_KINGS:
+            }
+            case NECROMANCER_TWO_KINGS: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(80.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160.0, 112.0));
                 tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112.0, 48.0));
                 break;
-            
+            }
             default:
                 break;
         }
-
 
         //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
         //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(98.0, 32.0));
         //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(32.0, 98.0));
         //tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(98.0, 98.0));
-//
+
         //tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
         //tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));
         //tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(140.0, 64.0));
-//
+
         //tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(96.0, 32.0));
         //tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
         //tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
     }
     
     Room last_room;
-    last_room.type = END;
+
+    if (_world->currentFloor != _world->floorCount) {
+        last_room.type = FLOOR_END;
+    } else {
+        last_room.type = END_GAME;
+    }
+    
     _world->rooms[_MAX_ROOM_COUNT_ - 1] = last_room;
 
     _world->difficulty = 1;
@@ -205,7 +215,7 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
         case 'C':
             return CLOSED_DOOR;
         case 'E':
-            return ENEMY;
+            return NEXT_FLOOR_ENTRANCE;
         case 'X':
             return CHEST;
         default:

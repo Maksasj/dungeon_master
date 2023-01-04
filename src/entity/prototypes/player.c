@@ -211,12 +211,12 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2(_self->position.x + _self->vel.x, _self->position.y));
-    if(xCol == NONE || xCol == OPENED_DOOR) {
+    if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE) {
         _self->position.x += _self->vel.x;
     }
 
     CollisionType yCol = worldCollision(_world, newIVec2(_self->position.x, _self->position.y + _self->vel.y));
-    if(yCol == NONE || yCol == OPENED_DOOR) {
+    if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE) {
         _self->position.y += _self->vel.y;
     }
 
@@ -235,5 +235,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             _self->base_stats.stamina + 
             pspec->armor_slot.base_stats.stamina + 
             pspec->hand_slot.base_stats.stamina;
+    } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
+        (*pspec->next_sprite_index) = 10;
+
+        generateFloor(_world);
+        gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
     }
 }

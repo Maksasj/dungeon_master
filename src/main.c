@@ -53,16 +53,18 @@ int main() {
             up_pressed = 0;
 
         switch (selection) {
-            case 0:
+            case 0: {
                 spritePosition(selectionArrow, 130, 59);
                 spriteSetOffset(buttonPlay, 0); 
                 spriteSetOffset(buttonAbout, 960); 
                 break;
-            case 1:
+            }
+            case 1: {
                 spritePosition(selectionArrow, 130, 100);
                 spriteSetOffset(buttonPlay, 896);
                 spriteSetOffset(buttonAbout, 64);
                 break;
+            }
         }
 
         if(buttonPressed(_BUTTON_SELECT_)) {
@@ -77,7 +79,8 @@ int main() {
     }
 
     World world;
-        generateWorld(&world);
+    world.floorCount = 3;
+    generateFloor(&world);
 
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
