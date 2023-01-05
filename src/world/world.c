@@ -116,7 +116,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random(_seed) % 4 + 1;
-        i32 roomId = KING_IN_CORRIDOR;
+        i32 roomId = PAC_MAN;
 
         Room room;
         
@@ -241,6 +241,15 @@ void generateFloor(World* _world) {
                 tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(48.0, 16.0));
                 tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(176.0, 16.0));
 
+                break;
+            }
+            case PAC_MAN: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16.0, 80.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208.0, 80.0));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(96.0, 80.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112.0, 80.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(128.0, 80.0));
                 break;
             }
             default:

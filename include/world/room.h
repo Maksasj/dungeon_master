@@ -25,6 +25,7 @@ typedef enum RoomType {
     SYMMETRIC,
     CORRIDORS,
     KING_IN_CORRIDOR,
+    PAC_MAN,
     FLOOR_END,
     END_GAME
 } RoomType;
