@@ -93,18 +93,43 @@ int main() {
 
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
-        entityInitSprite(&player, sprites, &next_sprite_index);
-        player.update_callback = &player_update;
-        player.attack_callback = &playerCalculateDamage;
-        player.die_callback = &killPlayer;
-        player.dodge_callback = &playerTryDodge;
+    //TODO: add choice of classes
+    Entity player;
+    Class chosen_class = WARRIOR;
 
-        PlayerUI playerUI;
-        initPlayerUI(&playerUI, sprites, &next_sprite_index);
+    switch (chosen_class)
+    {
+        case WARRIOR: {
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 0, 1, 0), 0);
+            //TODO: Warrior attack
+            break;
+        }
+        case WIZARD: {
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 1, 0, 0), 0);
+            //TODO: Wizard attack
+            break;
+        }
+        case ARCHER: {
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
+            //TODO: Archer attack
+            break;
+        }
+        default:
+            break;
+    }
 
-        player.spec = malloc(sizeof(PlayerSpecData));
-        initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, &playerUI);
+    entityInitSprite(&player, sprites, &next_sprite_index);
+    player.update_callback = &playerUpdate;
+    player.attack_callback = &playerAttack;
+    player.calculate_damage_callback = &playerCalculateDamage;
+    player.die_callback = &killPlayer;
+    player.dodge_callback = &playerTryDodge;
+
+    PlayerUI playerUI;
+    initPlayerUI(&playerUI, sprites, &next_sprite_index);
+
+    player.spec = malloc(sizeof(PlayerSpecData));
+    initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, &playerUI, chosen_class);
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");

@@ -39,8 +39,11 @@ typedef struct Entity {
     //void (*update_callback)(Entity* _self, World* _world, Room* _room);
     void (*update_callback)(void*, void*, void*);
     
-    //i32 (*attack_callback)(Entity* _self);
-    i32 (*attack_callback)(void*);
+    //void (*attack_callback)(Entity* _self);
+    void (*attack_callback)(void *);
+
+    //i32 (*calculate_damage_callback)(Entity* _self);
+    i32 (*calculate_damage_callback)(void*);
 
     //void (*die_callback)(Entity* _self);
     void (*die_callback)(void*);

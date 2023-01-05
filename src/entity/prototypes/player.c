@@ -11,7 +11,7 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
     //spriteSetOffset(_playerUI->manaBar, 312);
 }
 
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui) {
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui, Class _class) {
     _pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
     _pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
 
@@ -25,6 +25,8 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     _pspec->armor_slot.count = 0;
 
     _pspec->ui = _ui;
+
+    _pspec->class = _class;
 
     //spriteSetOffset(_pspec->armor, 144);
     //spriteSetOffset(_pspec->weapon, 200);
@@ -167,7 +169,7 @@ void killPlayer(Entity* _self) {
     return;
 }
 
-void player_update(Entity* _self, World* _world, Room* _room) {
+void playerUpdate(Entity* _self, World* _world, Room* _room) {
     _self->vel.x *= 0.6;
     _self->vel.y *= 0.6;
 
