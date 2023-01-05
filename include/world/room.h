@@ -21,6 +21,7 @@ typedef enum RoomType {
     LABYRINTH2,
     ANCIENT,
     DUMBBELL,
+    SYMMETRIC,
     FLOOR_END,
     END_GAME
 } RoomType;

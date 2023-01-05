@@ -116,7 +116,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random(_seed) % 4 + 1;
-        i32 roomId = DUMBBELL;
+        i32 roomId = SYMMETRIC;
 
         Room room;
         
@@ -200,6 +200,15 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208.0, 64.0));
 
                 tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(112.0, 48.0));
+
+                break;
+            }
+            case SYMMETRIC: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144.0, 48.0));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16.0, 64.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208.0, 64.0));
 
                 break;
             }
