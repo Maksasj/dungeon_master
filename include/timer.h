@@ -31,4 +31,17 @@ inline void counterInit();
 inline void counterStart();
 inline void counterStop();
 
+typedef struct Timer {
+    i32 startTimestamp;
+    i32 stopTimestamp;
+} Timer;
+
+void initTimer(Timer *timer);
+
+void startTimer(Timer *timer);
+
+void stopTimer(Timer *timer);
+
+ivec3 formatTime(Timer *timer);
+
 #endif
