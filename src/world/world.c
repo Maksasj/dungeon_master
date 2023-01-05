@@ -7,26 +7,19 @@
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    clearGrid(&_world->grid);
-
-    int i;
-    for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
-        Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
-        entityUnloadSprite(entity);
-    }
-
-    for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
-        ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
-        itemDropUnloadSprite(itemDrop);
-    }
-
-    ++_world->activeRoom;
-    gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
+    int new_room = _world->activeRoom + 1;
+    gotoRoom(_world, new_room, _sprites, _next_sprite_index);
 }
 
 void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    int i;
-    
+    int new_room = _world->activeRoom - 1;
+    gotoRoom(_world, new_room, _sprites, _next_sprite_index);
+}
+
+void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
+    clearGrid(&_world->grid);
+
+    int i;    
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
@@ -36,12 +29,7 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
         ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
         itemDropUnloadSprite(itemDrop);
     }
-
-    --_world->activeRoom;
-    gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
-}
-
-void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
+    
     _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
@@ -117,6 +105,9 @@ void generateFloor(World* _world) {
     Room first_room;
 
     first_room.type = BASIC;
+    first_room.current_entity_count = 0;
+    first_room.current_itemdrop_count = 0;
+
     _world->rooms[0] = first_room;
 
     _world->grid = gridInit();
@@ -125,7 +116,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random(_seed) % 4 + 1;
-        i32 roomId = TWO_NINJA_SKELETONS_ENEMIES;
+        i32 roomId = LABYRINTH1;
 
         Room room;
         

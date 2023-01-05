@@ -235,8 +235,11 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             _self->base_stats.stamina + 
             pspec->armor_slot.base_stats.stamina + 
             pspec->hand_slot.base_stats.stamina;
+
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
+        
+        _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
 
         generateFloor(_world);
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
