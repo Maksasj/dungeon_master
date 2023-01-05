@@ -239,7 +239,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
         
-        _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
+        _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
 
         generateFloor(_world);
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);

@@ -18,6 +18,8 @@ typedef enum RoomType {
     THREE_KINGS,
     NECROMANCER_TWO_KINGS,
     LABYRINTH1,
+    LABYRINTH2,
+    ANCIENT,
     FLOOR_END,
     END_GAME
 } RoomType;
