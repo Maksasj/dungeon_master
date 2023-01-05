@@ -116,7 +116,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random(_seed) % 4 + 1;
-        i32 roomId = CORRIDORS;
+        i32 roomId = LABYRINTH3;
 
         Room room;
         
@@ -181,7 +181,19 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112.0, 64.0));
 
                 tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(16.0, 32.0));
+                break;
+            }
+            case LABYRINTH3: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80.0, 64.0));
 
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(48.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(160.0, 64.0));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(16.0, 80.0));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(80.0, 16.0));
+                tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(160.0, 16.0));
                 break;
             }
             case ANCIENT: {
@@ -189,7 +201,6 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208.0, 32.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144.0, 48.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16.0, 64.0));
-
                 break;
             }
             case DUMBBELL: {
@@ -200,7 +211,6 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208.0, 64.0));
 
                 tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(112.0, 48.0));
-
                 break;
             }
             case SYMMETRIC: {
@@ -209,7 +219,6 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208.0, 64.0));
-
                 break;
             }
             case CORRIDORS: {
@@ -218,7 +227,6 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 64.0));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(192.0, 64.0));
-
                 break;
             }
             default:

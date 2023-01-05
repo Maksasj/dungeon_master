@@ -19,6 +19,7 @@ typedef enum RoomType {
     NECROMANCER_TWO_KINGS,
     LABYRINTH1,
     LABYRINTH2,
+    LABYRINTH3,
     ANCIENT,
     DUMBBELL,
     SYMMETRIC,
