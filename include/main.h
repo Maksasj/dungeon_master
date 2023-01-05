@@ -14,6 +14,7 @@
 #include "utils/delay.h"
 #include "entity/prototypes/player.h"
 #include "sound/sound.h"
+#include "timer.h"
 
 #include "entity/entity.h"
 

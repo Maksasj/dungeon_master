@@ -5,6 +5,9 @@
 int main() {
     *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
 
+    counterInit();
+    counterStart();
+
     Sprite sprites[_NUM_SPRITES_];
     i32 next_sprite_index = 0;
 
@@ -105,10 +108,18 @@ int main() {
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
+    
+    Timer timer;
+    initTimer(&timer);
+    startTimer(&timer);
 
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
+
+        ivec3 time = formatTime(&timer);
+        //log(LOG_INFO, "%d", *_TIMER_3_DATA_);
+        log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
         
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
