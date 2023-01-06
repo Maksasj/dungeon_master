@@ -1,5 +1,4 @@
 #include "../../include/world/world.h"
-
 #include "../../include/entity/entity_macros.h"
 
 #define _GOD_MODE_
@@ -118,6 +117,8 @@ void generateFloor(World* _world) {
 
     first_room.type = BASIC;
     _world->rooms[0] = first_room;
+
+    tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
 
     _world->grid = gridInit();
 

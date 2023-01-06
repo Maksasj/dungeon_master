@@ -12,8 +12,21 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
 }
 
 void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui) {
-    _pspec->armor = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
-    _pspec->weapon = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 0);
+    _pspec->armor = spriteInit(
+        _sprites, 
+        _next_sprite_index, 
+        _entity->position.x >> POSITION_FIXED_SCALAR, 
+        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        SIZE_16_16, 
+        0, 0, 0, 0);
+    
+    _pspec->weapon = spriteInit(
+        _sprites, 
+        _next_sprite_index, 
+        _entity->position.x >> POSITION_FIXED_SCALAR, 
+        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        SIZE_16_16, 
+        0, 0, 0, 0);
 
     spritePosition(_pspec->armor, -64, -64);
     spritePosition(_pspec->weapon, -64, -64);
@@ -60,13 +73,21 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     }
 
     if(_pspec->hand_slot.count != 0) {
-        spritePosition(_pspec->weapon, (i32) _entity->position.x, (i32)_entity->position.y);
+        spritePosition(
+            _pspec->weapon, 
+            _entity->position.x >> POSITION_FIXED_SCALAR, 
+            _entity->position.y >> POSITION_FIXED_SCALAR);
+
         spriteSetOffset(_pspec->weapon, _pspec->hand_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->weapon, flip);
     }
 
     if(_pspec->armor_slot.count != 0) {
-        spritePosition(_pspec->armor, (i32) _entity->position.x, (i32)_entity->position.y);
+        spritePosition(
+            _pspec->armor, 
+            _entity->position.x >> POSITION_FIXED_SCALAR,
+            _entity->position.y >> POSITION_FIXED_SCALAR);
+
         spriteSetOffset(_pspec->armor, _pspec->armor_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->armor, flip);
     }

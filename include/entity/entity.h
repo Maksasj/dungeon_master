@@ -3,11 +3,6 @@
 
 #define HEALTH_CAP 6
 
-#define VELOCITY_CONSTANT 4
-#define VELOCITY_SLOWDOWN_CONSTANT 1
-
-#define POSITION_FIXED_SCALAR 5
-
 #include "statblock.h"
 
 #include "rotation.h"

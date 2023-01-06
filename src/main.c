@@ -114,8 +114,7 @@ int main() {
     World world;
     world.floorCount = 3;
     generateFloor(&world);
-    log(LOG_INFO, "%d", _seed);
-
+    
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
@@ -164,7 +163,6 @@ int main() {
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
-
 
         //ivec3 time = formatTime(&timer);
         ////log(LOG_INFO, "%d", *_TIMER_3_DATA_);
