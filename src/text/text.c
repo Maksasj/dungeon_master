@@ -13,7 +13,15 @@ void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, const
     for(i = 0; source[i] != '\0'; ++i) {
         i8 character = source[i];
         text->number_of_glyphs++;
-        text->glyphs[i] = spriteInit(_sprites, _next_sprite_index, 32 + (7)*i, 32, SIZE_8_8, 0, 0, 0, 1);
+        
+        text->glyphs[i] = spriteInit(
+            _sprites, 
+            _next_sprite_index, 
+            32 + (7)*i, 
+            32, 
+            SIZE_8_8, 
+            0, 0, 0, 2);
+        
         spriteSetOffset(text->glyphs[i], 766 + (character)*2); //832 - !
     }
 }

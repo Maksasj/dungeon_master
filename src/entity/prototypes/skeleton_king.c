@@ -17,51 +17,47 @@ void skeletonKingUpdate(Entity* _self, World* _world, Room* _room) {
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
 
-    _self->vel.x *= 0.6;
-    _self->vel.y *= 0.6;
+    _self->vel.x = _self->vel.x / 2;
+    _self->vel.y = _self->vel.y / 2;
 
     switch (direction)
     {
         case 'u': { //Up
-            _self->vel.y += 0.5;
+            _self->vel.y += VELOCITY_CONSTANT;
             _self->facing = DOWN;
             break;
         }
         case 'r': { //Right
-            _self->vel.x += 0.5;
+            _self->vel.x += VELOCITY_CONSTANT;
             _self->facing = RIGHT;
             break;
         }
         case 'd': { //Down
-            _self->vel.y -= 0.5;
+            _self->vel.y -= VELOCITY_CONSTANT;
             _self->facing = UP;
             break;
         }
         case 'l': { //Left
-            _self->vel.x -= 0.5;
+            _self->vel.x -= VELOCITY_CONSTANT;
             _self->facing = LEFT;
             break;
         }
         case '#': {
             switch (_self->facing) {
                 case UP: {
-                    _self->vel.y = 0;
-                    --_self->vel.y;
+                    _self->vel.y -= VELOCITY_CONSTANT;
                     break;
                 }
                 case RIGHT: {
-                    _self->vel.x = 0;
-                    ++_self->vel.x;
+                    _self->vel.x += VELOCITY_CONSTANT;
                     break;
                 }
                 case DOWN: {
-                    _self->vel.y = 0;
-                    ++_self->vel.y;
+                    _self->vel.y += VELOCITY_CONSTANT;
                     break;
                 }
                 case LEFT: {
-                    _self->vel.x = 0;
-                    --_self->vel.x;
+                    _self->vel.x -= VELOCITY_CONSTANT;
                     break;
                 }
                 default:

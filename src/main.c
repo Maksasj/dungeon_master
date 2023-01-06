@@ -3,7 +3,12 @@
 #include "../include/main.h"
 
 int main() {
-    *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
+    *_DISPLAY_CONTROL_ = 
+        _DISPLAY_CONTROL_MODE_0_ | 
+        _DISPLAY_CONTROL_BG_0_ | 
+        _DISPLAY_CONTROL_BG_1_ | 
+        _SPRITE_ENABLE_ | 
+        _SPRITE_MAP_1D_;
 
     counterInit();
     counterStart();
@@ -31,8 +36,18 @@ int main() {
     _INIT_MAIN_MENU_SPRITES_
     _INIT_MAIN_MENU_BACKGROUND_
     
-    memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, 32 * 32);
+    memcpy16DMA((u16*) screenBlock(31), (u16*) MAP, 32 * 32);
+    
+    vu16* pointer = screenBlock(13);
 
+    int x;
+    int y;
+    for(x = 0; x < 30; ++x) {
+        for(y = 0; y < 20; ++y) {
+            pointer[x + 32*y] = 0x0;
+        }
+    }
+    
     u32 _seed = 0;
     while(1) {
         ++_seed;
@@ -80,11 +95,13 @@ int main() {
 
         spriteUpdateAll(sprites);
     }
+    
+    setSeed(_seed);
 
     World world;
     world.floorCount = 3;
     generateFloor(&world);
-
+    
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
     spriteClear(sprites, &next_sprite_index);
@@ -93,7 +110,6 @@ int main() {
 
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
-    //TODO: add choice of classes
     Entity player;
     Class chosen_class = WIZARD;
 
@@ -136,14 +152,40 @@ int main() {
     initTimer(&timer);
     startTimer(&timer);
 
+    for(x = 0; x < 30; ++x)
+        for(y = 0; y < 20; ++y)
+            pointer[x + 32*y] = 0x17;
+    
+    int prevTileX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
+    int prevTileY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
+    
+    /*
+    ivec3 time = formatTime(&timer);
+    log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+    */
+
+    prevTileX /= 8;
+    prevTileY /= 8;
+
+    RENDER_LIGHT_BULB(pointer, prevTileX, prevTileY);
+
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
-        ivec3 time = formatTime(&timer);
-        //log(LOG_INFO, "%d", *_TIMER_3_DATA_);
-        //log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
-        
+        int playerX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
+        int playerY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
+
+        playerX /= 8;
+        playerY /= 8;
+
+        if((prevTileX != playerX) || (prevTileY != playerY)) {
+            SHADOW_BULB(pointer, prevTileX, prevTileY);
+            prevTileX = playerX;
+            prevTileY = playerY;
+            RENDER_DYNAMIC_LIGHT_BULB(pointer, playerX, playerY);
+        }
+
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
 
@@ -152,7 +194,7 @@ int main() {
         #ifndef EXTREME_MODE
             waitVBlank();
         #else
-            delay(200);
+            delay(50);
         #endif
     }
 }

@@ -3,6 +3,8 @@
 
 #include "types.h"
 
-u32 random(u32 _seed);
+u32 random();
+
+void setSeed(u32 _seed);
 
 #endif

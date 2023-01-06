@@ -4,12 +4,14 @@
 #include "../utils/types.h"
 #include "../collision.h"
 #include "../entity/entity.h"
+#include "../light.h"
 
 #include "../item.h"
 
 #define _MAX_ENTITY_PER_ROOM_ 5
 #define _MAX_PROJECTILE_PER_ROOM_ 1
 #define _MAX_ITEM_DROP_PER_ROOM_ 10
+#define _MAX_LIGHT_COUNT_ 5
 
 typedef enum RoomType {
     BASIC,
@@ -33,9 +35,14 @@ typedef struct Room {
 
     ItemDrop itemdrop_pool[_MAX_ITEM_DROP_PER_ROOM_];
     i32 current_itemdrop_count;
+
+    ivec2 lights[_MAX_LIGHT_COUNT_];
+    i32 current_light_count;
 } Room;
 
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index);
+
+void tryPushLightToRoom(Room *_room, ivec2 pos);
 
 void tryPushEntityToRoom(Room* _room, Entity _entity);
 
