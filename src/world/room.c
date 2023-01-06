@@ -26,6 +26,19 @@ const u16* getRandomFloorTile() {
     return FLOOR_3;
 }
 
+const u16* getRandomLavaTile() {
+    u16 value = rand() % 2;
+
+    switch (value) {
+        case 0:
+            return LAVA_TILE;
+        case 1:
+            return LAVA_BIG_TILE;
+    }
+
+    return FLOOR_3;
+}
+
 void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type) {
     _target[_pos.x + _pos.y * 32] = _tile[0];
     _target[_pos.x + _pos.y * 32 + 1] = _tile[1];
@@ -67,6 +80,7 @@ void loadBasicRoom(World* _world, u16* _target) {
     for(i = 0; i < 15; ++i) {
         for(j = 0; j < 10; ++j) {
             placeTile(_world, _world->MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
+            //placeTile(_world, _world->MAP, newIVec2(i*2, j*2), SMALL_SPIKES_TILE, NONE);
         }
     }
 
@@ -616,13 +630,30 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
     }
 
-    memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
+    memcpy16DMA((u16*) screenBlock(31), (u16*) (((World*) _world)->MAP), 32 * 32);
+}
+
+void tryPushLightToRoom(Room *_room, ivec2 _pos) {
+    _pos.x /= 8;
+    _pos.y /= 8;
+
+    if (_room->current_light_count < _MAX_LIGHT_COUNT_) {
+        _room->lights[_room->current_light_count] = _pos;
+        ++_room->current_light_count;
+    }
 }
 
 void tryPushEntityToRoom(Room* _room, Entity _entity) {
     if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         _room->entity_pool[_room->current_entity_count] = _entity;
         ++_room->current_entity_count;
+    }
+}
+
+void tryPushProjectileToRoom(Room* _room, Entity _projectile) {
+    if (_room->current_projectile_count < _MAX_PROJECTILE_PER_ROOM_) {
+        _room->projectile_pool[_room->current_projectile_count] = _projectile;
+        ++_room->current_projectile_count;
     }
 }
 
@@ -637,7 +668,7 @@ void unLockRoom(void* _world, Room* _room) {
     placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
     placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 
-    memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
+    memcpy16DMA((u16*) screenBlock(31), (u16*) (((World*) _world)->MAP), 32 * 32);
 }
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room) {
@@ -658,6 +689,23 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room) {
     --_room->current_entity_count;
 }
 
+void deleteProjectileFromRoom(Entity* _projectile, Room* _room) {
+    i32 i;
+    i32 j;
+
+    for (i = 0; i < _room->current_projectile_count; ++i) {
+        if (_projectile == &_room->projectile_pool[i]) {
+            for (j = i + 1; j < _room->current_projectile_count; ++j) {
+                _room->projectile_pool[i] = _room->projectile_pool[j];
+                ++i;
+            }
+
+            break;
+        }
+    }
+
+    --_room->current_projectile_count;
+}
 
 void deleteItemDropFromRoom(ItemDrop* _entity, Room* _room) {
     i32 i;
