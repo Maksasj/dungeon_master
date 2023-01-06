@@ -26,6 +26,19 @@ const u16* getRandomFloorTile() {
     return FLOOR_3;
 }
 
+const u16* getRandomLavaTile() {
+    u16 value = rand() % 2;
+
+    switch (value) {
+        case 0:
+            return LAVA_TILE;
+        case 1:
+            return LAVA_BIG_TILE;
+    }
+
+    return FLOOR_3;
+}
+
 void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type) {
     _target[_pos.x + _pos.y * 32] = _tile[0];
     _target[_pos.x + _pos.y * 32 + 1] = _tile[1];
@@ -67,6 +80,7 @@ void loadBasicRoom(World* _world, u16* _target) {
     for(i = 0; i < 15; ++i) {
         for(j = 0; j < 10; ++j) {
             placeTile(_world, _world->MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
+            //placeTile(_world, _world->MAP, newIVec2(i*2, j*2), SMALL_SPIKES_TILE, NONE);
         }
     }
 

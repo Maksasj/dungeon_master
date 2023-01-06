@@ -5,6 +5,7 @@
 #include "../sprite.h"
 #include "../utils/queue.h"
 #include "../utils/grid.h"
+#include "../utils/logger.h"
 #include "../sound/sound.h"
 
 #include "room.h"

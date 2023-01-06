@@ -2,7 +2,7 @@
 
 #include "../../include/entity/entity_macros.h"
 
-//#define _GOD_MODE_
+#define _GOD_MODE_
 
 static u32 WORLD_TICK = 0;
 
@@ -124,8 +124,8 @@ void generateFloor(World* _world) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        //i32 roomId = random(_seed) % 4 + 1;
-        i32 roomId = TWO_NINJA_SKELETONS_ENEMIES;
+        i32 roomId = random() % 4 + 1;
+        //i32 roomId = TWO_NINJA_SKELETONS_ENEMIES;
 
         Room room;
         
@@ -172,19 +172,6 @@ void generateFloor(World* _world) {
             default:
                 break;
         }
-
-        //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
-        //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(98.0, 32.0));
-        //tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(32.0, 98.0));
-        //tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(98.0, 98.0));
-
-        //tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(96.0, 64.0));
-        //tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(120.0, 64.0));
-        //tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(140.0, 64.0));
-
-        //tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(96.0, 32.0));
-        //tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(120.0, 32.0));
-        //tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(140.0, 32.0));
     }
     
     Room last_room;

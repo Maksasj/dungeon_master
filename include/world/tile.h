@@ -111,4 +111,33 @@ const u16 DOOR_BOTTOM_OPENED[] = {
 };
 /*=============================*/
 
+/*=========LAVA_TILES==========*/
+const u16 LAVA_TILE[] = {
+    0x0087, 0x0088,
+    0x00A7, 0x00A8,
+};
+const u16 LAVA_BIG_TILE[] = {
+    0x0089, 0x008A,
+    0x00A9, 0x00AA,
+};
+/*=============================*/
+
+/*=========TORCH_TILES=========*/
+const u16 TORCH_TILE[] = {
+    0x008B, 0x008C,
+    0x00AB, 0x00AC,
+};
+/*=============================*/
+
+/*=========SPIKE_TILEs=========*/
+const u16 BIG_SPIKES_TILE[] = {
+    0x008D, 0x008E,
+    0x00AD, 0x00AE,
+};
+const u16 SMALL_SPIKES_TILE[] = {
+    0x008F, 0x0090,
+    0x00AF, 0x00B0,
+};
+/*=============================*/
+
 #endif
