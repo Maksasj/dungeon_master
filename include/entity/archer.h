@@ -2,6 +2,7 @@
 
 #include "entity.h"
 #include "prototypes/player.h"
+#include "prototypes/projectile.h"
 
 #include "../world/room.h"
 

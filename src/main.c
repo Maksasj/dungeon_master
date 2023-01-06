@@ -95,7 +95,7 @@ int main() {
 
     //TODO: add choice of classes
     Entity player;
-    Class chosen_class = WARRIOR;
+    Class chosen_class = ARCHER;
 
     switch (chosen_class) {
         case WARRIOR: {
@@ -107,13 +107,11 @@ int main() {
         case WIZARD: {
             player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 1, 0, 0), PLAYER, 0);
             player.attack_callback = &wizardAttack;
-            player.calculate_damage_callback = &wizardCalculateDamage;
             break;
         }
         case ARCHER: {
             player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), PLAYER, 0);
             player.attack_callback = &archerAttack;
-            player.calculate_damage_callback = &archerCalculateDamage;
             break;
         }
         default:
@@ -133,14 +131,6 @@ int main() {
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
-
-    Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), ENEMY, 0);
-    projectile.update_callback = &projectileUpdate;
-    projectile.die_callback = &destroyProjectile;
-    projectile.calculate_damage_callback = &projectileCalculateDamage;
-    entityInitSprite(&projectile, sprites, &next_sprite_index);
-    projectile.facing = RIGHT;
-    tryPushProjectileToRoom(&world.rooms[world.activeRoom], projectile);
     
     Timer timer;
     initTimer(&timer);

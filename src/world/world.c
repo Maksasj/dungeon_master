@@ -93,20 +93,34 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
-        if (checkLayerCollision(_player, projectile)) {
-            notePlay(NOTE_BES, 1);
+        if (projectile->layer == ENEMY) {
+            if (checkCollision(_player, projectile)) {
+                notePlay(NOTE_BES, 1);
 
-            if (!(*_player->dodge_callback)(_player)) {
-                entityAttack(projectile, _player);
-                entityKnockback(_player, projectile->facing, 10);
+                if (!(*_player->dodge_callback)(_player)) {
+                    entityAttack(projectile, _player);
+                    entityKnockback(_player, projectile->facing, 10);
 
-                entityUnloadSprite(projectile);
-                deleteProjectileFromRoom(projectile, room);
+                    entityUnloadSprite(projectile);
+                    deleteProjectileFromRoom(projectile, room);
+                }
             }
-        }
+        } else {
+            i32 j;
+            for(j = 0; j < room->current_entity_count; ++j) { 
+                Entity *entity = &room->entity_pool[i];
 
-        if (projectile->health <= 0) {
-            deleteProjectileFromRoom(projectile, room);
+                if (checkCollision(entity, projectile)) {
+                    if (!(*entity->dodge_callback)(entity)) {
+                        entityKnockback(entity, projectile->facing, 20);
+                        entityAttack(projectile, entity);
+
+                        entityUnloadSprite(projectile);
+                        deleteProjectileFromRoom(projectile, room);
+                        break;
+                    }
+                }
+            }
         }
 
         entityUpdate(projectile);

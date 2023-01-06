@@ -103,10 +103,6 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
     return 0;
 }
 
-i32 checkLayerCollision(Entity* _first_entity, Entity* _second_entity) {
-    return _first_entity->layer != _second_entity->layer && checkCollision(_first_entity, _second_entity);
-}
-
 void killEntity(Entity* _entity) {
     (*_entity->die_callback)(_entity);
     entityUnloadSprite(_entity);
