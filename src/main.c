@@ -95,7 +95,7 @@ int main() {
 
     //TODO: add choice of classes
     Entity player;
-    Class chosen_class = ARCHER;
+    Class chosen_class = WIZARD;
 
     switch (chosen_class) {
         case WARRIOR: {
