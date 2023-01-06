@@ -134,13 +134,12 @@ int main() {
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
 
-    Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), 24);
+    Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), 0);
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
     entityInitSprite(&projectile, sprites, &next_sprite_index);
 
-    projectile.spec = malloc(sizeof(ProjectileSpec));
-    ((ProjectileSpec*)projectile.spec)->host_facing = RIGHT;
+    projectile.facing = RIGHT;
     
     Timer timer;
     initTimer(&timer);

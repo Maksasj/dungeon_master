@@ -170,6 +170,13 @@ void tryPushEntityToRoom(Room* _room, Entity _entity) {
     }
 }
 
+void tryPushProjectileToRoom(Room* _room, Entity _projectile) {
+    if (_room->current_projectile_count < _MAX_PROJECTILE_PER_ROOM_) {
+        _room->projectile_pool[_room->current_projectile_count] = _projectile;
+        ++_room->current_projectile_count;
+    }
+}
+
 void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
     if (_room->current_itemdrop_count < _MAX_ITEM_DROP_PER_ROOM_) {
         _room->itemdrop_pool[_room->current_itemdrop_count] = _itemdrop;
@@ -202,6 +209,23 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room) {
     --_room->current_entity_count;
 }
 
+void deleteProjectileFromRoom(Entity* _projectile, Room* _room) {
+    i32 i;
+    i32 j;
+
+    for (i = 0; i < _room->current_projectile_count; ++i) {
+        if (_projectile == &_room->projectile_pool[i]) {
+            for (j = i + 1; j < _room->current_projectile_count; ++j) {
+                _room->projectile_pool[i] = _room->projectile_pool[j];
+                ++i;
+            }
+
+            break;
+        }
+    }
+
+    --_room->current_projectile_count;
+}
 
 void deleteItemDropFromRoom(ItemDrop* _entity, Room* _room) {
     i32 i;

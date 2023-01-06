@@ -6,10 +6,6 @@
 
 #include "../../utils/logger.h"
 
-typedef struct ProjectileSpec {
-    Facing host_facing;
-} ProjectileSpec;
-
 void projectileUpdate(Entity* _self, World* _world, Room* _room);
 
 Entity projectileInit(fvec2 _position, u32 _sprite_offset);
