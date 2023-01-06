@@ -137,6 +137,7 @@ int main() {
     Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), 0);
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
+    projectile.calculate_damage_callback = &projectileCalculateDamage;
     entityInitSprite(&projectile, sprites, &next_sprite_index);
     projectile.facing = RIGHT;
     tryPushProjectileToRoom(&world.rooms[world.activeRoom], projectile);

@@ -3,6 +3,10 @@
 const static i32 GRID_LENGTH = 12;
 const static i32 GRID_HEIGHT = 7;
 
+Entity projectileInit(fvec2 _position, u32 _sprite_offset) {
+    return entityInit(_position, stats(1, 0, 0, 0, 0), _sprite_offset);
+}
+
 void projectileUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
 
@@ -11,19 +15,19 @@ void projectileUpdate(Entity* _self, World* _world, Room* _room) {
 
     switch (_self->facing) {
         case RIGHT: {
-            _self->vel.x += 0.5;
+            _self->vel.x += 0.25;
             break;
         }
         case DOWN: {
-            _self->vel.y += 0.5;
+            _self->vel.y += 0.25;
             break;
         }
         case LEFT: {
-            _self->vel.x -= 0.5;
+            _self->vel.x -= 0.25;
             break;
         }
         case UP: {
-            _self->vel.y -= 0.5;
+            _self->vel.y -= 0.25;
             break;
         }
     }
@@ -37,8 +41,8 @@ void projectileUpdate(Entity* _self, World* _world, Room* _room) {
     _self->position.y += _self->vel.y;
 }
 
-Entity projectileInit(fvec2 _position, u32 _sprite_offset) {
-    return entityInit(_position, stats(1, 0, 0, 0, 0), _sprite_offset);
+i32 projectileCalculateDamage(Entity* _self) {
+    return 1;
 }
 
 void destroyProjectile(Entity* _self) {
