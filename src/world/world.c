@@ -182,8 +182,7 @@ void generateFloor(World* _world) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        i32 roomId = random() % 4 + 1;
-        //i32 roomId = TWO_NINJA_SKELETONS_ENEMIES;
+        i32 roomId = random() % 15 + 1;
 
         Room room;
         
