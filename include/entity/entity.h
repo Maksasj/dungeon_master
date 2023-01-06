@@ -4,6 +4,7 @@
 #define HEALTH_CAP 6
 
 #include "statblock.h"
+#include "layer_mask.h"
 
 #include "rotation.h"
 #include "../sprite.h"
@@ -22,6 +23,7 @@ typedef struct Entity {
 
     //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
     Statblock base_stats;
+    LayerMask layer;
     
     i32 health;
     i32 mana;
@@ -58,7 +60,7 @@ typedef struct Entity {
     i32 (*dodge_callback)(void*);
 } Entity;
 
-Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset);
+Entity entityInit(fvec2 _position, Statblock _stat, LayerMask _layer, u32 _sprite_offset);
 
 Entity entityReload(Entity _self);
 
@@ -77,6 +79,8 @@ void entityKnockback(Entity* _entity, Facing _facing, float _power);
 i32 tryDodge(Entity* _entity);
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
+
+i32 checkLayerCollision(Entity* _first_entity, Entity* _second_entity);
 
 void killEntity(Entity* _entity);
 

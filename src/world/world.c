@@ -89,6 +89,29 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(entity);
     }
 
+    for(i = 0; i < room->current_projectile_count; ++i) {
+        Entity *projectile = &room->projectile_pool[i];
+        (*projectile->update_callback)(projectile, _world, room);
+
+        if (checkLayerCollision(_player, projectile)) {
+            notePlay(NOTE_BES, 1);
+
+            if (!(*_player->dodge_callback)(_player)) {
+                entityAttack(projectile, _player);
+                entityKnockback(_player, projectile->facing, 10);
+
+                entityUnloadSprite(projectile);
+                deleteProjectileFromRoom(projectile, room);
+            }
+        }
+
+        if (projectile->health <= 0) {
+            deleteProjectileFromRoom(projectile, room);
+        }
+
+        entityUpdate(projectile);
+    }
+
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
         if (checkCollision(_player, (Entity*) itemdrop)) {
