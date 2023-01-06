@@ -67,7 +67,7 @@ void entityTakeDamage(Entity* _entity, i32 _damage) {
     }
 }
 
-void entityKnockback(Entity* _entity, Facing _facing, float _power) {
+void entityKnockback(Entity* _entity, Facing _facing, i32 _power) {
     switch (_facing)
     {
         case UP: {
@@ -95,12 +95,15 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
     ivec2 first_entity_sprite_size_in_pixels = newIVec2(16, 16);
     ivec2 second_entity_sprite_size_in_pixels = newIVec2(16, 16);
 
-    if (_first_entity->position.x < _second_entity->position.x + second_entity_sprite_size_in_pixels.x &&
-        _first_entity->position.x + first_entity_sprite_size_in_pixels.x > _second_entity->position.x &&
-        _first_entity->position.y < _second_entity->position.y + second_entity_sprite_size_in_pixels.y &&
-        _first_entity->position.y + first_entity_sprite_size_in_pixels.y > _second_entity->position.y) {
+    ivec2 first_entity_fixed_position = newIVec2(_first_entity->position.x >> POSITION_FIXED_SCALAR, _first_entity->position.y >> POSITION_FIXED_SCALAR);
+    ivec2 second_entity_fixed_position = newIVec2(_second_entity->position.x >> POSITION_FIXED_SCALAR, _second_entity->position.y >> POSITION_FIXED_SCALAR);
+
+    if (first_entity_fixed_position.x < second_entity_fixed_position.x + second_entity_sprite_size_in_pixels.x &&
+        first_entity_fixed_position.x + first_entity_sprite_size_in_pixels.x > second_entity_fixed_position.x &&
+        first_entity_fixed_position.y < second_entity_fixed_position.y + second_entity_sprite_size_in_pixels.y &&
+        first_entity_fixed_position.y + first_entity_sprite_size_in_pixels.y > second_entity_fixed_position.y) {
             return 1;
-        }
+    }
     
     return 0;
 }

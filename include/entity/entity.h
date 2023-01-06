@@ -71,7 +71,7 @@ void entityAttack(Entity* _entity, Entity* _target);
 
 void entityTakeDamage(Entity* _entity, i32 _damage);
 
-void entityKnockback(Entity* _entity, Facing _facing, float _power);
+void entityKnockback(Entity* _entity, Facing _facing, i32 _power);
 
 i32 tryDodge(Entity* _entity);
 
