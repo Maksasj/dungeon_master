@@ -95,35 +95,47 @@ int main() {
 
     //TODO: add choice of classes
     Entity player;
+    Statblock base_stats;
     Class chosen_class = WARRIOR;
 
-    switch (chosen_class)
-    {
+    switch (chosen_class) {
         case WARRIOR: {
-            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 0, 1, 0), 0);
-            //TODO: Warrior attack
+            base_stats = stats(3, 1, 0, 1, 0);
             break;
         }
         case WIZARD: {
-            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 1, 0, 0), 0);
-            //TODO: Wizard attack
+            base_stats = stats(3, 1, 1, 0, 0);
             break;
         }
         case ARCHER: {
-            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
-            //TODO: Archer attack
+            base_stats = stats(3, 2, 0, 0, 0);
             break;
         }
         default:
             break;
     }
 
+    player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), base_stats, 0);
     entityInitSprite(&player, sprites, &next_sprite_index);
     player.update_callback = &playerUpdate;
-    player.attack_callback = &playerAttack;
-    player.calculate_damage_callback = &playerCalculateDamage;
     player.die_callback = &killPlayer;
     player.dodge_callback = &playerTryDodge;
+
+    switch (chosen_class) {
+        case WARRIOR: {
+            player.attack_callback = &warriorAttack;
+            player.calculate_damage_callback = &warriorCalculateDamage;
+            break;
+        }
+        case WIZARD: {
+            break;
+        }
+        case ARCHER: {
+            break;
+        }
+        default:
+            break;
+    }
 
     PlayerUI playerUI;
     initPlayerUI(&playerUI, sprites, &next_sprite_index);

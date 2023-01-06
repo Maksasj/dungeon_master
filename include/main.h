@@ -17,6 +17,7 @@
 #include "timer.h"
 
 #include "entity/entity.h"
+#include "entity/warrior.h"
 
 #include "../assets/generated/music/game_soundtrack_long.h"
 

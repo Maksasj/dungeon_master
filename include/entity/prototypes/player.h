@@ -7,8 +7,6 @@
 #include "../entity.h"
 #include "../../world/world.h"
 
-#define _ATTACK_OFFSET_ 8
-
 typedef enum Class {
     WARRIOR,
     WIZARD,
@@ -40,10 +38,6 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
 void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui, Class _class);
 
 void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity);
-
-void playerAttack(Entity* _self, Room* _active_room);
-
-i32 playerCalculateDamage(Entity* _self);
 
 i32 playerTryDodge(Entity* _self);
 
