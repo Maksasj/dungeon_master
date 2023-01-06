@@ -95,44 +95,23 @@ int main() {
 
     //TODO: add choice of classes
     Entity player;
-    Statblock base_stats;
     Class chosen_class = WARRIOR;
 
     switch (chosen_class) {
         case WARRIOR: {
-            base_stats = stats(3, 1, 0, 1, 0);
-            break;
-        }
-        case WIZARD: {
-            base_stats = stats(3, 1, 1, 0, 0);
-            break;
-        }
-        case ARCHER: {
-            base_stats = stats(3, 2, 0, 0, 0);
-            break;
-        }
-        default:
-            break;
-    }
-
-    player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), base_stats, 0);
-    entityInitSprite(&player, sprites, &next_sprite_index);
-    player.update_callback = &playerUpdate;
-    player.die_callback = &killPlayer;
-    player.dodge_callback = &playerTryDodge;
-
-    switch (chosen_class) {
-        case WARRIOR: {
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 0, 1, 0), 0);
             player.attack_callback = &warriorAttack;
             player.calculate_damage_callback = &warriorCalculateDamage;
             break;
         }
         case WIZARD: {
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 1, 0, 0), 0);
             player.attack_callback = &wizardAttack;
             player.calculate_damage_callback = &wizardCalculateDamage;
             break;
         }
         case ARCHER: {
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
             player.attack_callback = &archerAttack;
             player.calculate_damage_callback = &archerCalculateDamage;
             break;
@@ -140,6 +119,11 @@ int main() {
         default:
             break;
     }
+
+    entityInitSprite(&player, sprites, &next_sprite_index);
+    player.update_callback = &playerUpdate;
+    player.die_callback = &killPlayer;
+    player.dodge_callback = &playerTryDodge;
 
     PlayerUI playerUI;
     initPlayerUI(&playerUI, sprites, &next_sprite_index);
