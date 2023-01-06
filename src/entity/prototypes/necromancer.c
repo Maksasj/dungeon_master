@@ -17,47 +17,47 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
 
-    _self->vel.x *= 0.6;
-    _self->vel.y *= 0.6;
+    _self->vel.x = _self->vel.x / 2;
+    _self->vel.y = _self->vel.y / 2;
 
     switch (direction)
     {
         case 'u': { //Up
             if (world_position.y - 1 >= 0) {
-                _self->vel.y -= 0.5;
+                _self->vel.y -= VELOCITY_CONSTANT;
                 _self->facing = UP;
             } else if (world_position.x + 1 <= GRID_LENGTH){
-                _self->vel.x += 0.5;
+                _self->vel.x += VELOCITY_CONSTANT;
                 _self->facing = RIGHT;
             }
             break;
         }
         case 'r': { //Right
             if (world_position.x - 1 >= 0) {
-                _self->vel.x -= 0.5;
+                _self->vel.x -= VELOCITY_CONSTANT;
                 _self->facing = LEFT;
             } else if (world_position.y - 1 >= 0) {
-                _self->vel.y -= 0.5;
+                _self->vel.y -= VELOCITY_CONSTANT;
                 _self->facing = UP;
             }
             break;
         }
         case 'd': { //Down
             if (world_position.y + 1 <= GRID_HEIGHT) {
-                _self->vel.y += 0.5;
+                _self->vel.y += VELOCITY_CONSTANT;
                 _self->facing = DOWN;
             } else if (world_position.x - 1 >= 0){
-                _self->vel.x -= 0.5;
+                _self->vel.x -= VELOCITY_CONSTANT;
                 _self->facing = LEFT;
             }
             break;
         }
         case 'l': { //Left
             if (world_position.x + 1 <= GRID_LENGTH) {
-                _self->vel.x += 0.5;
+                _self->vel.x += VELOCITY_CONSTANT;
                 _self->facing = RIGHT;
             } else if (world_position.y + 1 <= GRID_HEIGHT) {
-                _self->vel.y += 0.5;   
+                _self->vel.y += VELOCITY_CONSTANT;   
                 _self->facing = DOWN;
             }
             break;
@@ -65,23 +65,19 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
         case '#': {
             switch (_self->facing) {
                 case UP: {
-                    _self->vel.y = 0;
-                    --_self->vel.y;
+                    _self->vel.y -= VELOCITY_CONSTANT;
                     break;
                 }
                 case RIGHT: {
-                    _self->vel.x = 0;
-                    ++_self->vel.x;
+                    _self->vel.x += VELOCITY_CONSTANT;
                     break;
                 }
                 case DOWN: {
-                    _self->vel.y = 0;
-                    ++_self->vel.y;
+                    _self->vel.y += VELOCITY_CONSTANT;
                     break;
                 }
                 case LEFT: {
-                    _self->vel.x = 0;
-                    --_self->vel.x;
+                    _self->vel.x -= VELOCITY_CONSTANT;
                     break;
                 }
                 default:

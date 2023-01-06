@@ -2,7 +2,7 @@
 #include "../../include/world/world.h"
 
 Entity entityReload(Entity _self) {
-    _self.vel = newFVec2(0, 0);
+    _self.vel = newIVec2(0, 0);
     _self.saw_the_target = 0;
     _self.health = _self.base_stats.stamina;
 
@@ -12,10 +12,13 @@ Entity entityReload(Entity _self) {
     return _self;
 }
 
-Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
+Entity entityInit(ivec2 _position, Statblock _stat, u32 _sprite_offset) {
     Entity _entity;
-    _entity.position = _position;
-    _entity.vel = newFVec2(0, 0);
+    
+    _entity.position.x = _position.x << POSITION_FIXED_SCALAR;
+    _entity.position.y = _position.y << POSITION_FIXED_SCALAR;
+
+    _entity.vel = newIVec2(0, 0);
 
     _entity.saw_the_target = 0;
 
@@ -32,7 +35,7 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
 }
 
 void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_index) {
-    _entity->sprite = spriteInit(_sprites, _next_sprite_index, _entity->position.x, _entity->position.y, SIZE_16_16, 0, 0, 0, 1);
+    _entity->sprite = spriteInit(_sprites, _next_sprite_index, _entity->position.x >> POSITION_FIXED_SCALAR, _entity->position.y >> POSITION_FIXED_SCALAR, SIZE_16_16, 0, 0, 0, 1);
     _entity->sprite_size_in_pixels = SIZE_16_16;
 }
 
@@ -42,7 +45,7 @@ void entityUnloadSprite(Entity *_entity) {
 }
 
 void entityUpdate(Entity* _entity) {
-    spritePosition(_entity->sprite, (i32) _entity->position.x, (i32)_entity->position.y);
+    spritePosition(_entity->sprite, (i32) _entity->position.x >> POSITION_FIXED_SCALAR, (i32)_entity->position.y >> POSITION_FIXED_SCALAR);
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {

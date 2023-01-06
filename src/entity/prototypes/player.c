@@ -168,21 +168,22 @@ void killPlayer(Entity* _self) {
 }
 
 void player_update(Entity* _self, World* _world, Room* _room) {
-    _self->vel.x *= 0.6;
-    _self->vel.y *= 0.6;
+    _self->vel.x = _self->vel.x / 2;
+    _self->vel.y = _self->vel.y / 2;
 
     PlayerSpecData* pspec = (PlayerSpecData*) _self->spec;
     updatePlayerSpec(pspec, _self);
 
     if (buttonPressed(_BUTTON_RIGHT_)) {
-        _self->vel.x += 0.5;
+        _self->vel.x += VELOCITY_CONSTANT;
+        
         _self->facing = RIGHT;
         spriteSetOffset(_self->sprite, 16);
         spriteSetHorizontalFlip(_self->sprite, 0);
     }
 
     if (buttonPressed(_BUTTON_LEFT_)) {
-        _self->vel.x -= 0.5;
+        _self->vel.x -= VELOCITY_CONSTANT;
 
         _self->facing = LEFT;
         spriteSetOffset(_self->sprite, 16);
@@ -190,14 +191,14 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if (buttonPressed(_BUTTON_DOWN_)) {
-        _self->vel.y += 0.5;
+        _self->vel.y += VELOCITY_CONSTANT;
 
         _self->facing = DOWN;
         spriteSetOffset(_self->sprite, 8);
     }
 
     if (buttonPressed(_BUTTON_UP_)) {
-        _self->vel.y -= 0.5;
+        _self->vel.y -= VELOCITY_CONSTANT;
 
         _self->facing = UP;
         spriteSetOffset(_self->sprite, 0);
@@ -210,12 +211,12 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         }
     }
 
-    CollisionType xCol = worldCollision(_world, newIVec2(_self->position.x + _self->vel.x, _self->position.y));
+    CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR) + _self->vel.x, (_self->position.y >> POSITION_FIXED_SCALAR)));
     if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE) {
         _self->position.x += _self->vel.x;
     }
 
-    CollisionType yCol = worldCollision(_world, newIVec2(_self->position.x, _self->position.y + _self->vel.y));
+    CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR), (_self->position.y >> POSITION_FIXED_SCALAR) + _self->vel.y));
     if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE) {
         _self->position.y += _self->vel.y;
     }
@@ -223,11 +224,11 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 10;
 
-        if(_self->position.y < 70) {
-            _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 128);
+        if((_self->position.y >> 3) < 70) {
+            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 128 << POSITION_FIXED_SCALAR); 
             nextRoom(_world, pspec->sprites, pspec->next_sprite_index);
         } else {
-            _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, 18);
+            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 18 << POSITION_FIXED_SCALAR);
             backRoom(_world, pspec->sprites, pspec->next_sprite_index);
         }
 

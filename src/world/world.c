@@ -137,36 +137,36 @@ void generateFloor(World* _world) {
 
         switch (roomId) {
             case TWO_NINJA_SKELETONS_ENEMIES: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 96.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32.0, 32.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 32));
                 break;
             }
             case FOUR_ANCIENT_SKELETONS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48.0, 64.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80.0, 48.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144.0, 48.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176.0, 64.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 64));
                 break;
             }
             case ONE_NINJA_THREE_ANCIENT: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112.0, 64.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 16.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192.0, 32.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208.0, 32.0));
-                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(208.0, 16.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 16));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 32));
+                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(208, 16));
                 break;
             }
             case THREE_KINGS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(48.0, 96.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112.0, 64.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(176.0, 96.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(48, 96));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(176, 96));
                 break;
             }
             case NECROMANCER_TWO_KINGS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(80.0, 64.0));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144.0, 64.0));
-                tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160.0, 112.0));
-                tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112.0, 48.0));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(80, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160, 112));
+                tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
                 break;
             }
             default:
@@ -225,11 +225,11 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
     return NONE;
 }
 
-inline ivec2 screenToGridPosition(fvec2 _screen_position) {
+inline ivec2 screenToGridPosition(ivec2 _screen_position) {
     ivec2 grid_position;
 
-    grid_position.x = (((i32)_screen_position.x - 8) >> 4);
-    grid_position.y = (((i32)_screen_position.y - 8) >> 4);
+    grid_position.x = (((_screen_position.x >> POSITION_FIXED_SCALAR) - 8) >> 4);
+    grid_position.y = (((_screen_position.y >> POSITION_FIXED_SCALAR) - 8) >> 4);
 
     return grid_position;
 }

@@ -115,7 +115,7 @@ int main() {
 
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
-    Entity player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
+    Entity player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
         entityInitSprite(&player, sprites, &next_sprite_index);
         player.update_callback = &player_update;
         player.attack_callback = &playerCalculateDamage;
@@ -135,16 +135,16 @@ int main() {
     initTimer(&timer);
     startTimer(&timer);
 
-    int x;
-    int y;
-    for(x = 0; x < 30; ++x) {
-        for(y = 0; y < 20; ++y) {
-            pointer[x + 32*y] = 0x17;
-        }
-    }
-
-    int prevTileX = ((int) player.position.x) >> 3;
-    int prevTileY = ((int) player.position.y) >> 3;
+    //int x;
+    //int y;
+    //for(x = 0; x < 30; ++x) {
+    //    for(y = 0; y < 20; ++y) {
+    //        pointer[x + 32*y] = 0x17;
+    //    }
+    //}
+//
+    //int prevTileX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
+    //int prevTileY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
 
     while (1) {
         updateWorld(&world, &player);
@@ -154,17 +154,17 @@ int main() {
         ////log(LOG_INFO, "%d", *_TIMER_3_DATA_);
         //log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
 
-        int playerX = ((int) player.position.x) >> 3;
-        int playerY = ((int) player.position.y) >> 3;
-
-        if((prevTileX != playerX) || (prevTileY != playerY)) {
-            SHADOW_BULB(pointer, prevTileX, prevTileY);
-            
-            prevTileX = playerX;
-            prevTileY = playerY;
-
-            RENDER_LIGHT_BULB(pointer, playerX, playerY);
-        }
+        //int playerX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
+        //int playerY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
+//
+        //if((prevTileX != playerX) || (prevTileY != playerY)) {
+        //    SHADOW_BULB(pointer, prevTileX, prevTileY);
+        //    
+        //    prevTileX = playerX;
+        //    prevTileY = playerY;
+//
+        //    RENDER_LIGHT_BULB(pointer, playerX, playerY);
+        //}
 
 
         

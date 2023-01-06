@@ -52,6 +52,6 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 
 CollisionType worldCollision(World* _world, ivec2 _pos);
 
-inline ivec2 screenToGridPosition(fvec2 _screen_position);
+inline ivec2 screenToGridPosition(ivec2 _screen_position);
 
 #endif
