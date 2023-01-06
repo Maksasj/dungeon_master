@@ -1,6 +1,11 @@
 #include "../include/sprite.h"
 
-Sprite* spriteInit(Sprite _sprites[], i32* _next_sprite_index, i32 _x, i32 _y, SpriteSize _size, i32 _horizontal_flip, i32 _vertical_flip, i32 _tile_index, i32 _priority) {
+Sprite* spriteInit(
+        Sprite _sprites[], 
+        i32* _next_sprite_index, 
+        i32 _x, i32 _y, 
+        SpriteSize _size, 
+        i32 _horizontal_flip, i32 _vertical_flip, i32 _tile_index, i32 _priority) {
 
     i32 index = *_next_sprite_index;
     ++(*_next_sprite_index);
@@ -38,7 +43,7 @@ Sprite* spriteInit(Sprite _sprites[], i32* _next_sprite_index, i32 _x, i32 _y, S
                             (size_bits << 14);      /* size */
 
     _sprites[index].attribute2 = _tile_index |      /* tile index */
-                            (_priority << 10) |     /* priority */
+                            (_priority << 10) |             /* priority */
                             (0 << 12);              /* palette bank (only 16 color)*/
 
     return &_sprites[index];

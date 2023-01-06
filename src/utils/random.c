@@ -1,13 +1,12 @@
 #include "../../include/utils/random.h"
 
-u32 SEED = 15485863;
+static u32 RAND_NEXT = 15485863;
 
-u32 random(u32 _seed) {
-    SEED -= _seed >> 2;
+u32 random() {
+    RAND_NEXT = RAND_NEXT * 1103515245 + 12345;
+    return (u32)(RAND_NEXT/65536) % 32768;
+}
 
-    SEED ^= _seed << 13;
-    SEED ^= _seed >> 17;
-    SEED ^= _seed << 5;
-
-    return SEED;
+void setSeed(u32 _seed) {
+    RAND_NEXT = _seed;
 }

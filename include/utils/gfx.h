@@ -11,7 +11,11 @@
 #define _SCANLINE_COUNTER_  ((vu16*) 0x4000006)
 
 #define _DISPLAY_CONTROL_MODE_0_    0x00
+
 #define _DISPLAY_CONTROL_BG_0_      0x100 
+#define _DISPLAY_CONTROL_BG_1_      0x200 
+#define _DISPLAY_CONTROL_BG_2_      0x400 
+#define _DISPLAY_CONTROL_BG_3_      0x800 
 
 #define _SPRITE_MAP_2D_ 0x0
 #define _SPRITE_MAP_1D_ 0x40

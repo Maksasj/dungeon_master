@@ -10,15 +10,12 @@
 #include "../utils/types.h"
 #include "../utils/random.h"
 
-struct Room;
-struct World;
-
 typedef struct Entity {
     Sprite* sprite;
     SpriteSize sprite_size_in_pixels;
 
-    fvec2 position;
-    fvec2 vel;
+    ivec2 position;
+    ivec2 vel;
 
     //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
     Statblock base_stats;
@@ -55,7 +52,7 @@ typedef struct Entity {
     i32 (*dodge_callback)(void*);
 } Entity;
 
-Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset);
+Entity entityInit(ivec2 _position, Statblock _stat, u32 _sprite_offset);
 
 Entity entityReload(Entity _self);
 
@@ -69,7 +66,7 @@ void entityAttack(Entity* _entity, Entity* _target);
 
 void entityTakeDamage(Entity* _entity, i32 _damage);
 
-void entityKnockback(Entity* _entity, Facing _facing, float _power);
+void entityKnockback(Entity* _entity, Facing _facing, i32 _power);
 
 i32 tryDodge(Entity* _entity);
 
