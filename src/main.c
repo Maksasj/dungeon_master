@@ -128,9 +128,13 @@ int main() {
             break;
         }
         case WIZARD: {
+            player.attack_callback = &wizardAttack;
+            player.calculate_damage_callback = &wizardCalculateDamage;
             break;
         }
         case ARCHER: {
+            player.attack_callback = &archerAttack;
+            player.calculate_damage_callback = &archerCalculateDamage;
             break;
         }
         default:
