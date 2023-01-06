@@ -160,7 +160,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
     }
 
-    memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
+    memcpy16DMA((u16*) screenBlock(31), (u16*) (((World*) _world)->MAP), 32 * 32);
 }
 
 void tryPushEntityToRoom(Room* _room, Entity _entity) {
@@ -181,7 +181,7 @@ void unLockRoom(void* _world, Room* _room) {
     placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
     placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 
-    memcpy16DMA((u16*) screenBlock(13), (u16*) (((World*) _world)->MAP), 32 * 32);
+    memcpy16DMA((u16*) screenBlock(31), (u16*) (((World*) _world)->MAP), 32 * 32);
 }
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room) {

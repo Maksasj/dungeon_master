@@ -15,6 +15,11 @@
 #define _BG0_X_SCROLL_ ((u16*) 0x4000010)
 #define _BG0_Y_SCROLL_ ((u16*) 0x4000012)
 
+#define _BG1_CONTROL_ ((vu16*) 0x400000A)
+
+#define _BG1_X_SCROLL_ ((u16*) 0x4000014)
+#define _BG1_Y_SCROLL_ ((u16*) 0x4000016)
+
 vu16* charBlock(u32 _block);
 
 vu16* screenBlock(u32 _block);

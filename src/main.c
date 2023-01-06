@@ -1,9 +1,15 @@
-#define EXTREME_MODE
+//#define EXTREME_MODE
 
 #include "../include/main.h"
+#include "../include/light.h"
 
 int main() {
-    *_DISPLAY_CONTROL_ = _DISPLAY_CONTROL_MODE_0_ | _DISPLAY_CONTROL_BG_0_ | _SPRITE_ENABLE_ | _SPRITE_MAP_1D_;
+    *_DISPLAY_CONTROL_ = 
+        _DISPLAY_CONTROL_MODE_0_ | 
+        _DISPLAY_CONTROL_BG_0_ | 
+        _DISPLAY_CONTROL_BG_1_ | 
+        _SPRITE_ENABLE_ | 
+        _SPRITE_MAP_1D_;
 
     counterInit();
     counterStart();
@@ -31,7 +37,23 @@ int main() {
     _INIT_MAIN_MENU_SPRITES_
     _INIT_MAIN_MENU_BACKGROUND_
     
-    memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, 32 * 32);
+    memcpy16DMA((u16*) screenBlock(31), (u16*) MAP, 32 * 32);
+    
+    vu16* pointer = screenBlock(13);
+    
+    
+    /*
+    0x17 - Dark
+    0x18 - Dark by lighter
+    0x19 - Grid
+    0x1A - Pluses
+    0x1B - Dots
+    0x1C - Pluses inverse
+    0x1D - A fiew dots
+    0x1E - Fiewest
+    */
+
+    //memcpy16DMA((u16*) screenBlock(13), (u16*) MAP, 32 * 32);
 
     u32 _seed = 0;
     while(1) {
@@ -113,13 +135,38 @@ int main() {
     initTimer(&timer);
     startTimer(&timer);
 
+    int x;
+    int y;
+    for(x = 0; x < 30; ++x) {
+        for(y = 0; y < 20; ++y) {
+            pointer[x + 32*y] = 0x17;
+        }
+    }
+
+    int prevTileX = ((int) player.position.x) >> 3;
+    int prevTileY = ((int) player.position.y) >> 3;
+
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
-        ivec3 time = formatTime(&timer);
-        //log(LOG_INFO, "%d", *_TIMER_3_DATA_);
-        log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+        //ivec3 time = formatTime(&timer);
+        ////log(LOG_INFO, "%d", *_TIMER_3_DATA_);
+        //log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+
+        int playerX = ((int) player.position.x) >> 3;
+        int playerY = ((int) player.position.y) >> 3;
+
+        if((prevTileX != playerX) || (prevTileY != playerY)) {
+            SHADOW_BULB(pointer, prevTileX, prevTileY);
+            
+            prevTileX = playerX;
+            prevTileY = playerY;
+
+            RENDER_LIGHT_BULB(pointer, playerX, playerY);
+        }
+
+
         
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
