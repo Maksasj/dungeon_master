@@ -226,19 +226,18 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
-        
-        _self->position = newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8);
+        _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
 
         generateFloor(_world);
 
         //Reload light
-        vu16* pointer = screenBlock(13);
-        int x;
-        int y;
-        
-        for(x = 0; x < 30; ++x)
-            for(y = 0; y < 20; ++y)
-                pointer[x + 32*y] = 0x17;
+        //vu16* pointer = screenBlock(13);
+        //int x;
+        //int y;
+        //
+        //for(x = 0; x < 30; ++x)
+        //    for(y = 0; y < 20; ++y)
+        //        pointer[x + 32*y] = 0x17;
 
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
     }
