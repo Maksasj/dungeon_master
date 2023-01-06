@@ -80,6 +80,8 @@ i32 tryDodge(Entity* _entity);
 
 i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
 
+i32 checkLayerCollision(Entity* _first_entity, Entity* _second_entity);
+
 void killEntity(Entity* _entity);
 
 #endif

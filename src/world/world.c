@@ -93,7 +93,7 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
-        if (checkCollision(_player, projectile)) {
+        if (checkLayerCollision(_player, projectile)) {
             notePlay(NOTE_BES, 1);
 
             if (!(*_player->dodge_callback)(_player)) {
