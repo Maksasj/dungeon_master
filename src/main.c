@@ -137,6 +137,11 @@ int main() {
     int prevTileX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
     int prevTileY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
     
+    /*
+    ivec3 time = formatTime(&timer);
+    log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+    */
+
     prevTileX /= 8;
     prevTileY /= 8;
 
@@ -146,13 +151,6 @@ int main() {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
-
-
-        /*
-        ivec3 time = formatTime(&timer);
-        log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
-        */
-
         int playerX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
         int playerY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
 
@@ -161,10 +159,8 @@ int main() {
 
         if((prevTileX != playerX) || (prevTileY != playerY)) {
             SHADOW_BULB(pointer, prevTileX, prevTileY);
-            
             prevTileX = playerX;
             prevTileY = playerY;
-
             RENDER_DYNAMIC_LIGHT_BULB(pointer, playerX, playerY);
         }
 

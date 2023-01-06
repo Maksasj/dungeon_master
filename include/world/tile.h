@@ -129,7 +129,7 @@ const u16 TORCH_TILE[] = {
 };
 /*=============================*/
 
-/*=========SPIKE_TILEs=========*/
+/*=========SPIKE_TILES=========*/
 const u16 BIG_SPIKES_TILE[] = {
     0x008D, 0x008E,
     0x00AD, 0x00AE,
