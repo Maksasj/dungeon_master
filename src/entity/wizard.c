@@ -7,7 +7,10 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
 
     PlayerSpecData* pspec = (PlayerSpecData*)_wizard->spec;
 
-    Entity projectile = projectileInit(_wizard->position, PLAYER, 0);
+   
+    Entity projectile = projectileInit(
+        (ivec2){.x = _wizard->position.x >> POSITION_FIXED_SCALAR, .y = _wizard->position.y >> POSITION_FIXED_SCALAR},
+         PLAYER, 0); // <- TEXTURE offset
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
     projectile.calculate_damage_callback = &wizardCalculateDamage;

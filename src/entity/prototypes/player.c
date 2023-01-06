@@ -45,8 +45,6 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
 
     _pspec->ui = _ui;
 
-    _pspec->class = _class;
-
     //spriteSetOffset(_pspec->armor, 144);
     //spriteSetOffset(_pspec->weapon, 200);
 }

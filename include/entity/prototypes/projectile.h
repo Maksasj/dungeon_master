@@ -6,7 +6,7 @@
 
 #include "../../utils/logger.h"
 
-Entity projectileInit(fvec2 _position, LayerMask _layer, u32 _sprite_offset);
+Entity projectileInit(ivec2 _position, LayerMask _layer, u32 _sprite_offset);
 
 void projectileUpdate(Entity* _self, World* _world, Room* _room);
 
