@@ -99,19 +99,19 @@ int main() {
 
     switch (chosen_class) {
         case WARRIOR: {
-            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 0, 1, 0), 0);
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 0, 1, 0), PLAYER, 0);
             player.attack_callback = &warriorAttack;
             player.calculate_damage_callback = &warriorCalculateDamage;
             break;
         }
         case WIZARD: {
-            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 1, 0, 0), 0);
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 1, 1, 0, 0), PLAYER, 0);
             player.attack_callback = &wizardAttack;
             player.calculate_damage_callback = &wizardCalculateDamage;
             break;
         }
         case ARCHER: {
-            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), 0);
+            player = entityInit(newFVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(3, 2, 0, 0, 0), PLAYER, 0);
             player.attack_callback = &archerAttack;
             player.calculate_damage_callback = &archerCalculateDamage;
             break;
@@ -134,7 +134,7 @@ int main() {
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
 
-    Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), 0);
+    Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), ENEMY, 0);
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
     projectile.calculate_damage_callback = &projectileCalculateDamage;

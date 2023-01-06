@@ -3,8 +3,8 @@
 const static i32 GRID_LENGTH = 12;
 const static i32 GRID_HEIGHT = 7;
 
-Entity projectileInit(fvec2 _position, u32 _sprite_offset) {
-    return entityInit(_position, stats(1, 0, 0, 0, 0), _sprite_offset);
+Entity projectileInit(fvec2 _position, LayerMask _layer, u32 _sprite_offset) {
+    return entityInit(_position, stats(1, 0, 0, 0, 0), _layer, _sprite_offset);
 }
 
 void projectileUpdate(Entity* _self, World* _world, Room* _room) {

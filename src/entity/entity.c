@@ -12,7 +12,7 @@ Entity entityReload(Entity _self) {
     return _self;
 }
 
-Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
+Entity entityInit(fvec2 _position, Statblock _stat, LayerMask _layer, u32 _sprite_offset) {
     Entity _entity;
     _entity.position = _position;
     _entity.vel = newFVec2(0, 0);
@@ -20,6 +20,7 @@ Entity entityInit(fvec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.saw_the_target = 0;
 
     _entity.base_stats = _stat;
+    _entity.layer = _layer;
 
     _entity.sprite_offset = _sprite_offset;
 
