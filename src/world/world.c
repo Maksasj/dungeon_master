@@ -100,8 +100,8 @@ void updateWorld(World* _world, Entity* _player) {
         } else {
             i32 j;
             for(j = 0; j < room->current_entity_count; ++j) { 
-                Entity *entity = &room->entity_pool[i];
-
+                Entity *entity = &room->entity_pool[j];
+                
                 if (checkCollision(entity, projectile)) {
                     if (!(*entity->dodge_callback)(entity)) {
                         entityKnockback(entity, projectile->facing, 20);
