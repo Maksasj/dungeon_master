@@ -12,7 +12,7 @@ Entity entityReload(Entity _self) {
     return _self;
 }
 
-Entity entityInit(ivec2 _position, Statblock _stat, u32 _sprite_offset) {
+Entity entityInit(ivec2 _position, Statblock _stat, LayerMask _layer, u32 _sprite_offset) {
     Entity _entity;
     
     _entity.position.x = _position.x << POSITION_FIXED_SCALAR;
@@ -23,6 +23,7 @@ Entity entityInit(ivec2 _position, Statblock _stat, u32 _sprite_offset) {
     _entity.saw_the_target = 0;
 
     _entity.base_stats = _stat;
+    _entity.layer = _layer;
 
     _entity.sprite_offset = _sprite_offset;
 
@@ -56,7 +57,7 @@ void entityUpdate(Entity* _entity) {
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {
-    i32 calculated_damage = (*_entity->attack_callback)(_entity);
+    i32 calculated_damage = (*_entity->calculate_damage_callback)(_entity);
     entityTakeDamage(_target, calculated_damage);
 }
 

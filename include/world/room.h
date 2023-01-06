@@ -9,6 +9,7 @@
 #include "../item.h"
 
 #define _MAX_ENTITY_PER_ROOM_ 5
+#define _MAX_PROJECTILE_PER_ROOM_ 1
 #define _MAX_ITEM_DROP_PER_ROOM_ 10
 #define _MAX_LIGHT_COUNT_ 5
 
@@ -29,6 +30,9 @@ typedef struct Room {
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];
     i32 current_entity_count;
 
+    Entity projectile_pool[_MAX_PROJECTILE_PER_ROOM_];
+    i32 current_projectile_count;
+
     ItemDrop itemdrop_pool[_MAX_ITEM_DROP_PER_ROOM_];
     i32 current_itemdrop_count;
 
@@ -42,9 +46,13 @@ void tryPushLightToRoom(Room *_room, ivec2 pos);
 
 void tryPushEntityToRoom(Room* _room, Entity _entity);
 
+void tryPushProjectileToRoom(Room* _room, Entity _projectile);
+
 void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop);
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room);
+
+void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
 
 void unLockRoom(void* _world, Room* _room);
 

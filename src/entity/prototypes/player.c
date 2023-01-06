@@ -120,55 +120,6 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     }
 }
 
-void playerAttack(Entity* _player, Room* _active_room) {
-    Entity temp = *_player;
-
-    switch (_player->facing)
-    {
-        case RIGHT:
-            temp.position.x += _ATTACK_OFFSET_;
-            break;
-        case LEFT:
-            temp.position.x -= _ATTACK_OFFSET_;
-            break;
-        case DOWN:
-            temp.position.y += _ATTACK_OFFSET_;
-            break;
-        case UP:
-            temp.position.y -= _ATTACK_OFFSET_;
-            break;
-        default:
-            break;
-    }
-
-    i32 i;
-
-    for(i = 0; i < _active_room->current_entity_count; ++i) {
-        Entity *entity = &_active_room->entity_pool[i];
-
-        if ((*entity->on_collision_enter)(entity, &temp)) {
-            if (!(*entity->dodge_callback)(entity)) {
-                entityKnockback(entity, _player->facing, 500);
-                entityAttack(_player, entity);
-            }
-        }
-    }
-}
-
-i32 playerCalculateDamage(Entity* _self) {
-    PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
-    Item *hand = &pspec->hand_slot;
-    Item *armor = &pspec->armor_slot;
-
-    i32 strenght = _self->base_stats.strength + hand->base_stats.strength + armor->base_stats.strength;
-
-    if (strenght < 0) {
-        strenght = 0;
-    }
-
-    return 1 + strenght;
-}
-
 i32 playerTryDodge(Entity* _self) {
     PlayerSpecData* pspec = (PlayerSpecData*)_self->spec;
     Item *hand = &pspec->hand_slot;
@@ -233,7 +184,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     
     if (buttonPressed(_BUTTON_A_)) {
         if (_self->attack_cooldown == 0) {
-            playerAttack(_self, _room);
+            (_self->attack_callback)(_self, _room);
             _self->attack_cooldown = 10;
         }
     }

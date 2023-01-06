@@ -14,6 +14,11 @@ void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
         entityUnloadSprite(entity);
     }
 
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_projectile_count; ++i) {
+        Entity *projectile = &_world->rooms[_world->activeRoom].projectile_pool[i];
+        entityUnloadSprite(projectile);
+    }
+
     for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
         ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
         itemDropUnloadSprite(itemDrop);
@@ -29,6 +34,11 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
+    }
+
+    for(i = 0; i < _world->rooms[_world->activeRoom].current_projectile_count; ++i) {
+        Entity *projectile = &_world->rooms[_world->activeRoom].projectile_pool[i];
+        entityUnloadSprite(projectile);
     }
 
     for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
@@ -88,6 +98,57 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(entity);
     }
 
+    for(i = 0; i < room->current_projectile_count; ++i) {
+        Entity *projectile = &room->projectile_pool[i];
+        (*projectile->update_callback)(projectile, _world, room);
+
+        if (projectile->layer == ENEMY) {
+            if (checkCollision(_player, projectile)) {
+                notePlay(NOTE_BES, 1);
+
+                if (!(*_player->dodge_callback)(_player)) {
+                    entityAttack(projectile, _player);
+                    entityKnockback(_player, projectile->facing, 10);
+
+                    entityUnloadSprite(projectile);
+                    deleteProjectileFromRoom(projectile, room);
+                }
+            }
+        } else {
+            i32 j;
+            for(j = 0; j < room->current_entity_count; ++j) { 
+                Entity *entity = &room->entity_pool[i];
+
+                if (checkCollision(entity, projectile)) {
+                    if (!(*entity->dodge_callback)(entity)) {
+                        entityKnockback(entity, projectile->facing, 20);
+                        entityAttack(projectile, entity);
+
+                        entityUnloadSprite(projectile);
+                        deleteProjectileFromRoom(projectile, room);
+                        break;
+                    }
+                }
+            }
+        }
+
+        CollisionType xCol = worldCollision(_world, newIVec2(projectile->position.x + projectile->vel.x, projectile->position.y));
+        if(xCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
+        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x, projectile->position.y + projectile->vel.y));
+        if(yCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
+        entityUpdate(projectile);
+    }
+    
     vu16* pointer = screenBlock(13);
 
     for(i = 0; i < room->current_light_count; ++i) {

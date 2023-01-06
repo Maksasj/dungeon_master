@@ -8,6 +8,8 @@
 #include "../utils/logger.h"
 #include "../sound/sound.h"
 
+#include "../utils/logger.h"
+
 #include "room.h"
 
 #define _MAX_ROOM_COUNT_ 5
