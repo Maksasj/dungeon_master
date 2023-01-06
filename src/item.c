@@ -30,7 +30,7 @@ void itemDropInitSprite(ItemDrop* _itemDrop, Sprite _sprites[], i32* _next_sprit
         _itemDrop->position.x >> POSITION_FIXED_SCALAR, 
         _itemDrop->position.y >> POSITION_FIXED_SCALAR, 
         SIZE_16_16, 
-        0, 0, 0, 1);
+        0, 0, 0, 3);
         
     _itemDrop->sprite_size_in_pixels = SIZE_16_16;
     spriteSetOffset(_itemDrop->sprite, _itemDrop->sprite_offset);

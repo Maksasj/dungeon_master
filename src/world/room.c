@@ -177,6 +177,16 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
     memcpy16DMA((u16*) screenBlock(31), (u16*) (((World*) _world)->MAP), 32 * 32);
 }
 
+void tryPushLightToRoom(Room *_room, ivec2 _pos) {
+    _pos.x /= 8;
+    _pos.y /= 8;
+
+    if (_room->current_light_count < _MAX_LIGHT_COUNT_) {
+        _room->lights[_room->current_light_count] = _pos;
+        ++_room->current_light_count;
+    }
+}
+
 void tryPushEntityToRoom(Room* _room, Entity _entity) {
     if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         _room->entity_pool[_room->current_entity_count] = _entity;

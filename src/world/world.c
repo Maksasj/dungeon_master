@@ -88,6 +88,13 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(entity);
     }
 
+    vu16* pointer = screenBlock(13);
+
+    for(i = 0; i < room->current_light_count; ++i) {
+        ivec2 light = room->lights[i];
+        RENDER_DYNAMIC_LIGHT_BULB(pointer, light.x, light.y);
+    }
+
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
         if (checkCollision(_player, (Entity*) itemdrop)) {
@@ -119,6 +126,7 @@ void generateFloor(World* _world) {
     _world->rooms[0] = first_room;
 
     tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
+    tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 64, .y = 64});
 
     _world->grid = gridInit();
 

@@ -1,7 +1,6 @@
-//#define EXTREME_MODE
+#define EXTREME_MODE
 
 #include "../include/main.h"
-#include "../include/light.h"
 
 int main() {
     *_DISPLAY_CONTROL_ = 
@@ -49,18 +48,6 @@ int main() {
         }
     }
     
-    
-    /*
-    0x17 - Dark
-    0x18 - Dark by lighter
-    0x19 - Grid
-    0x1A - Pluses
-    0x1B - Dots
-    0x1C - Pluses inverse
-    0x1D - A fiew dots
-    0x1E - Fiewest
-    */
-
     u32 _seed = 0;
     while(1) {
         ++_seed;
@@ -143,14 +130,10 @@ int main() {
     initTimer(&timer);
     startTimer(&timer);
 
-    /*
-    for(x = 0; x < 30; ++x) {
-        for(y = 0; y < 20; ++y) {
+    for(x = 0; x < 30; ++x)
+        for(y = 0; y < 20; ++y)
             pointer[x + 32*y] = 0x17;
-        }
-    }
     
-
     int prevTileX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
     int prevTileY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
     
@@ -158,17 +141,18 @@ int main() {
     prevTileY /= 8;
 
     RENDER_LIGHT_BULB(pointer, prevTileX, prevTileY);
-    */
 
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
-        //ivec3 time = formatTime(&timer);
-        ////log(LOG_INFO, "%d", *_TIMER_3_DATA_);
-        //log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+
 
         /*
+        ivec3 time = formatTime(&timer);
+        log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+        */
+
         int playerX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
         int playerY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
 
@@ -181,9 +165,8 @@ int main() {
             prevTileX = playerX;
             prevTileY = playerY;
 
-            RENDER_LIGHT_BULB(pointer, playerX, playerY);
+            RENDER_DYNAMIC_LIGHT_BULB(pointer, playerX, playerY);
         }
-        */
 
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
@@ -193,7 +176,7 @@ int main() {
         #ifndef EXTREME_MODE
             waitVBlank();
         #else
-            delay(200);
+            delay(50);
         #endif
     }
 }

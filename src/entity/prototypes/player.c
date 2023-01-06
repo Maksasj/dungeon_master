@@ -3,7 +3,13 @@
 void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index) {
     int i = 0;
     for(i = 0; i < HEALTH_CAP; ++i) {
-        _playerUI->health[i] = spriteInit(_sprites, _next_sprite_index, 4 + i*16, 3, SIZE_16_16, 0, 0, 0, 0);
+        _playerUI->health[i] = spriteInit(
+            _sprites, 
+            _next_sprite_index, 
+            4 + i*16, 
+            3, 
+            SIZE_16_16, 0, 0, 0, 2);
+        
         spriteSetOffset(_playerUI->health[i], 312 + 8);
     }
 
@@ -18,7 +24,7 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
         _entity->position.x >> POSITION_FIXED_SCALAR, 
         _entity->position.y >> POSITION_FIXED_SCALAR, 
         SIZE_16_16, 
-        0, 0, 0, 0);
+        0, 0, 0, 2);
     
     _pspec->weapon = spriteInit(
         _sprites, 
@@ -26,7 +32,7 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
         _entity->position.x >> POSITION_FIXED_SCALAR, 
         _entity->position.y >> POSITION_FIXED_SCALAR, 
         SIZE_16_16, 
-        0, 0, 0, 0);
+        0, 0, 0, 2);
 
     spritePosition(_pspec->armor, -64, -64);
     spritePosition(_pspec->weapon, -64, -64);
@@ -257,10 +263,30 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             _self->base_stats.stamina + 
             pspec->armor_slot.base_stats.stamina + 
             pspec->hand_slot.base_stats.stamina;
+    
+        //Reload light
+        vu16* pointer = screenBlock(13);
+        int x;
+        int y;
+        
+        for(x = 0; x < 30; ++x)
+            for(y = 0; y < 20; ++y)
+                pointer[x + 32*y] = 0x17;
+                
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
 
         generateFloor(_world);
+
+        //Reload light
+        vu16* pointer = screenBlock(13);
+        int x;
+        int y;
+        
+        for(x = 0; x < 30; ++x)
+            for(y = 0; y < 20; ++y)
+                pointer[x + 32*y] = 0x17;
+
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
     }
 }

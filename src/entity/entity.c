@@ -35,7 +35,14 @@ Entity entityInit(ivec2 _position, Statblock _stat, u32 _sprite_offset) {
 }
 
 void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_index) {
-    _entity->sprite = spriteInit(_sprites, _next_sprite_index, _entity->position.x >> POSITION_FIXED_SCALAR, _entity->position.y >> POSITION_FIXED_SCALAR, SIZE_16_16, 0, 0, 0, 1);
+    _entity->sprite = spriteInit(
+        _sprites, 
+        _next_sprite_index, 
+        _entity->position.x >> POSITION_FIXED_SCALAR, 
+        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        SIZE_16_16, 
+        0, 0, 0, 3);
+    
     _entity->sprite_size_in_pixels = SIZE_16_16;
 }
 
