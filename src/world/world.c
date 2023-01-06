@@ -89,21 +89,27 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(entity);
     }
 
-    // for(i = 0; i < room->current_projectile_count; ++i) {
-    //     Entity *projectile = &room->projectile_pool[i];
-    //     (*projectile->update_callback)(projectile, _world, room);
+    for(i = 0; i < room->current_projectile_count; ++i) {
+        log(LOG_INFO, "prikol");
 
-    //     if ((*projectile->on_collision_enter)(projectile, _player)) {
-    //         notePlay(NOTE_BES, 1);
+        Entity *projectile = &room->projectile_pool[i];
+        (*projectile->update_callback)(projectile, _world, room);
 
-    //         if (!(*_player->dodge_callback)(_player)) {
-    //             entityAttack(projectile, _player);
-    //             entityKnockback(_player, projectile->facing, 10);
-    //         }
-    //     }
+        // if ((*projectile->on_collision_enter)(projectile, _player)) {
+        //     notePlay(NOTE_BES, 1);
 
-    //     entityUpdate(projectile);
-    // }
+        //     if (!(*_player->dodge_callback)(_player)) {
+        //         entityAttack(projectile, _player);
+        //         entityKnockback(_player, projectile->facing, 10);
+        //     }
+        // }
+
+        if (projectile->health <= 0) {
+            deleteProjectileFromRoom(projectile, room);
+        }
+
+        entityUpdate(projectile);
+    }
 
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];

@@ -138,8 +138,8 @@ int main() {
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
     entityInitSprite(&projectile, sprites, &next_sprite_index);
-
     projectile.facing = RIGHT;
+    tryPushProjectileToRoom(&world.rooms[world.activeRoom], projectile);
     
     Timer timer;
     initTimer(&timer);
@@ -148,7 +148,6 @@ int main() {
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
-        entityUpdate(&projectile);
 
         ivec3 time = formatTime(&timer);
         //log(LOG_INFO, "%d", *_TIMER_3_DATA_);
@@ -156,8 +155,6 @@ int main() {
         
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
-
-        (projectile.update_callback)(&projectile, &world, &world.rooms[world.activeRoom]);
 
         spriteUpdateAll(sprites);
 

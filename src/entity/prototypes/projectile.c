@@ -29,7 +29,8 @@ void projectileUpdate(Entity* _self, World* _world, Room* _room) {
     }
 
     if (world_position.x < 0 || world_position.x > GRID_LENGTH || world_position.y < 0 || world_position.y > GRID_HEIGHT) {
-        killEntity(_self);
+        _self->health = 0;
+        destroyProjectile(_self);
     }
 
     _self->position.x += _self->vel.x;
@@ -37,10 +38,11 @@ void projectileUpdate(Entity* _self, World* _world, Room* _room) {
 }
 
 Entity projectileInit(fvec2 _position, u32 _sprite_offset) {
-    return entityInit(_position, stats(0, 0, 0, 0, 0), _sprite_offset);
+    return entityInit(_position, stats(1, 0, 0, 0, 0), _sprite_offset);
 }
 
 void destroyProjectile(Entity* _self) {
+    entityUnloadSprite(_self);
     //TODO: play sound
     return;
 }
