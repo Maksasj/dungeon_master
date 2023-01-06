@@ -121,7 +121,7 @@ void playerAttack(Entity* _player, Room* _active_room) {
 
         if ((*entity->on_collision_enter)(entity, &temp)) {
             if (!(*entity->dodge_callback)(entity)) {
-                entityKnockback(entity, _player->facing, 20);
+                entityKnockback(entity, _player->facing, 500);
                 entityAttack(_player, entity);
             }
         }
