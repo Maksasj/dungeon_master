@@ -133,6 +133,20 @@ void updateWorld(World* _world, Entity* _player) {
             }
         }
 
+        CollisionType xCol = worldCollision(_world, newIVec2(projectile->position.x + projectile->vel.x, projectile->position.y));
+        if(xCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
+        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x, projectile->position.y + projectile->vel.y));
+        if(yCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
         entityUpdate(projectile);
     }
 
