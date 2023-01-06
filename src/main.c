@@ -133,6 +133,14 @@ int main() {
 
     //Text text;
     //loadTextGlyphs(sprites, &next_sprite_index, &text, "Privet soskar !");
+
+    Entity projectile = projectileInit(newFVec2(_SCREEN_WIDTH_ / 4 - 8, _SCREEN_HEIGHT_ / 4 - 8), 24);
+    projectile.update_callback = &projectileUpdate;
+    projectile.die_callback = &destroyProjectile;
+    entityInitSprite(&projectile, sprites, &next_sprite_index);
+
+    projectile.spec = malloc(sizeof(ProjectileSpec));
+    ((ProjectileSpec*)projectile.spec)->host_facing = RIGHT;
     
     Timer timer;
     initTimer(&timer);
@@ -141,13 +149,16 @@ int main() {
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
+        entityUpdate(&projectile);
 
         ivec3 time = formatTime(&timer);
         //log(LOG_INFO, "%d", *_TIMER_3_DATA_);
-        log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
+        //log(LOG_INFO, "%d:%d:%d", time.x, time.y, time.z);
         
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
+
+        (projectile.update_callback)(&projectile, &world, &world.rooms[world.activeRoom]);
 
         spriteUpdateAll(sprites);
 
