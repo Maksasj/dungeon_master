@@ -173,9 +173,6 @@ void generateFloor(World* _world) {
 
     _world->rooms[0] = first_room;
 
-    //tryPushItemDropToRoom(&_world->rooms[0], _GEM_STAFF_ITEM_DROP_(112, 48));
-    //tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 64, .y = 64});
-
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
     _world->grid = gridInit();
@@ -183,8 +180,7 @@ void generateFloor(World* _world) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        //i32 roomId = random() % 15 + 1;
-        i32 roomId = ANCIENT;
+        i32 roomId = random() % 12 + 1;
 
         Room room;
         
@@ -283,6 +279,8 @@ void generateFloor(World* _world) {
                 tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(112, 48));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 48});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 48});
                 break;
             }
             case SYMMETRIC: {
@@ -293,6 +291,8 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 64});
                 break;
             }
             case CORRIDORS: {
@@ -303,6 +303,8 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(192, 64));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 48, .y = 32});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 32});
                 break;
             }
             case KING_IN_CORRIDOR: {
@@ -318,6 +320,8 @@ void generateFloor(World* _world) {
                 tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(176, 16));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 80, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 144, .y = 80});
                 break;
             }
             case PAC_MAN: {
@@ -329,6 +333,8 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(128, 80));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 48, .y = 112});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 112});
                 break;
             }
             case PYRAMID: {
@@ -340,6 +346,8 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 80});
                 break;
             }
             default:
