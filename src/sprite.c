@@ -71,12 +71,7 @@ void spriteSetVerticalFlip(Sprite* _sprite, i32 _vertical_flip) {
     }
 }
 
-void spriteMove(Sprite* _sprite, i32 _dx, i32 _dy) {
-    i32 y = _sprite->attribute0 & 0xff;
-    i32 x = _sprite->attribute1 & 0x1ff;
 
-    spritePosition(_sprite, x + _dx, y + _dy);
-}
 
 void spritePosition(Sprite* _sprite, i32 _x, i32 _y) {
     _sprite->attribute0 &= 0xff00;
