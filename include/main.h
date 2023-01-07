@@ -30,6 +30,13 @@
 #include "../assets/generated/menu.h"
 #include "../assets/generated/sprites.h"
 
+typedef enum ActiveScene {
+    MAIN_MENU_SCENE,
+    CHOOSE_SCENE,
+    GAME_SCENE,
+    SPLASH_SCENE
+} ActiveScene;
+
 /*
 96 - Necromncer
 
@@ -84,8 +91,5 @@
     Sprite* buttonAbout = spriteInit(sprites, &next_sprite_index, 148, 100, SIZE_64_32, 0, 0, 64, 0);   \
                                                                                                         \
     Sprite* selectionArrow = spriteInit(sprites, &next_sprite_index, 130, 59, SIZE_32_32, 0, 0, 480, 0);\
-
-
-#define _INIT_MAIN_MENU_BACKGROUND_ for(i = 0; i < 15; ++i) { for(j = 0; j < 10; ++j) { MAP[i*2 + j*2 * 32] = 0x0015; MAP[i*2 + j*2 * 32 + 1] = 0x0016; MAP[i*2 + j*2 * 32 + 32] = 0x0035; MAP[i*2 + j*2 * 32 + 33] = 0x0036; } }
 
 #endif

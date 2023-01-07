@@ -36,7 +36,7 @@ i32 inBounds(ivec2 _coordinates) {
 }
 
 i32 passable(SquareGrid* _grid, ivec2 _coordinates, u8 _collision_box[10][15]) {
-    if (_collision_box[_coordinates.y + 1][_coordinates.x + 1] == '#') {
+    if (_collision_box[_coordinates.y + 1][_coordinates.x + 1] == '#' || _collision_box[_coordinates.y + 1][_coordinates.x + 1] == 'X') {
         _grid->vertices[_coordinates.x][_coordinates.y] = '#';
         return 0;
     }

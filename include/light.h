@@ -14,6 +14,8 @@
 0x1E - Fiewest
 */
 
+void setLightLayer();
+
 #define SHADOW_BULB(dest, x , y)             \
     dest[(x - 1) + (32*(y - 1))] = 0x17;     \
     dest[(x + 2) + (32*(y - 1))] = 0x17;     \

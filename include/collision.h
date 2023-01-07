@@ -5,11 +5,10 @@
 
 typedef enum CollisionType {
     WALL,
+    TRAP,
     
     OPENED_DOOR,
     CLOSED_DOOR,
-    
-    CHEST,
     
     NEXT_FLOOR_ENTRANCE,
 

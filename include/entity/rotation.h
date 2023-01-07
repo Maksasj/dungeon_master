@@ -8,4 +8,6 @@ typedef enum Facing {
     LEFT
 } Facing;
 
+Facing getOppositeFacing(Facing facing);
+
 #endif

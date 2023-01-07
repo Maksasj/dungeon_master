@@ -1,36 +1,22 @@
 #include "../../include/world/world.h"
 #include "../../include/entity/entity_macros.h"
 
-#define _GOD_MODE_
-
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    clearGrid(&_world->grid);
-
-    int i;
-    for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
-        Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
-        entityUnloadSprite(entity);
-    }
-
-    for(i = 0; i < _world->rooms[_world->activeRoom].current_projectile_count; ++i) {
-        Entity *projectile = &_world->rooms[_world->activeRoom].projectile_pool[i];
-        entityUnloadSprite(projectile);
-    }
-
-    for(i = 0; i < _world->rooms[_world->activeRoom].current_itemdrop_count; ++i) {
-        ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
-        itemDropUnloadSprite(itemDrop);
-    }
-
-    ++_world->activeRoom;
-    gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
+    int new_room = _world->activeRoom + 1;
+    gotoRoom(_world, new_room, _sprites, _next_sprite_index);
 }
 
 void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    int i;
-    
+    int new_room = _world->activeRoom - 1;
+    gotoRoom(_world, new_room, _sprites, _next_sprite_index);
+}
+
+void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
+    clearGrid(&_world->grid);
+
+    int i;    
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
@@ -45,12 +31,7 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
         ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
         itemDropUnloadSprite(itemDrop);
     }
-
-    --_world->activeRoom;
-    gotoRoom(_world, _world->activeRoom, _sprites, _next_sprite_index);
-}
-
-void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
+    
     _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
@@ -102,6 +83,20 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
+        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> POSITION_FIXED_SCALAR) + projectile->vel.x, projectile->position.y >> POSITION_FIXED_SCALAR));
+        if(xCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
+        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> POSITION_FIXED_SCALAR, (projectile->position.y >> POSITION_FIXED_SCALAR) + projectile->vel.y));
+        if(yCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
         if (projectile->layer == ENEMY) {
             if (checkCollision(_player, projectile)) {
                 notePlay(NOTE_BES, 1);
@@ -117,8 +112,8 @@ void updateWorld(World* _world, Entity* _player) {
         } else {
             i32 j;
             for(j = 0; j < room->current_entity_count; ++j) { 
-                Entity *entity = &room->entity_pool[i];
-
+                Entity *entity = &room->entity_pool[j];
+                
                 if (checkCollision(entity, projectile)) {
                     if (!(*entity->dodge_callback)(entity)) {
                         entityKnockback(entity, projectile->facing, 20);
@@ -131,30 +126,17 @@ void updateWorld(World* _world, Entity* _player) {
                 }
             }
         }
-
-        CollisionType xCol = worldCollision(_world, newIVec2(projectile->position.x + projectile->vel.x, projectile->position.y));
-        if(xCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
-        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x, projectile->position.y + projectile->vel.y));
-        if(yCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
         entityUpdate(projectile);
     }
     
-    vu16* pointer = screenBlock(13);
+    #ifdef _LIGHT_ON_
+        vu16* lightLayer = screenBlock(13);
 
-    for(i = 0; i < room->current_light_count; ++i) {
-        ivec2 light = room->lights[i];
-        RENDER_DYNAMIC_LIGHT_BULB(pointer, light.x, light.y);
-    }
+        for(i = 0; i < room->current_light_count; ++i) {
+            ivec2 light = room->lights[i];
+            RENDER_DYNAMIC_LIGHT_BULB(lightLayer, light.x, light.y);
+        }
+    #endif
 
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
@@ -184,24 +166,28 @@ void generateFloor(World* _world) {
     Room first_room;
 
     first_room.type = BASIC;
+    first_room.current_entity_count = 0;
+    first_room.current_itemdrop_count = 0;
+    first_room.current_projectile_count = 0;
+    first_room.current_light_count = 0;
+
     _world->rooms[0] = first_room;
 
-    tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
-    tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 64, .y = 64});
+    tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
     _world->grid = gridInit();
 
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        i32 roomId = random() % 4 + 1;
-        //i32 roomId = TWO_NINJA_SKELETONS_ENEMIES;
-
+        i32 roomId = random() % 15 + 1;
         Room room;
         
         room.type = roomId;
         room.current_entity_count = 0;
         room.current_itemdrop_count = 0;
+        room.current_projectile_count = 0;
+        room.current_light_count = 0;
 
         _world->rooms[i] = room;
 
@@ -209,6 +195,8 @@ void generateFloor(World* _world) {
             case TWO_NINJA_SKELETONS_ENEMIES: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 32));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 break;
             }
             case FOUR_ANCIENT_SKELETONS: {
@@ -216,27 +204,171 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 48));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 64));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
                 break;
             }
-            case ONE_NINJA_THREE_ANCIENT: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 16));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 32));
-                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(208, 16));
+            case LABYRINTH1: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(96, 16));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(112, 64));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 48));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(32, 128));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(48, 128));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 32});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 112});
                 break;
             }
-            case THREE_KINGS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(48, 96));
+            case LABYRINTH2: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 16));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 96));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
+
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(176, 96));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(16, 32));
+                
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 208, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 16, .y = 64});
                 break;
             }
-            case NECROMANCER_TWO_KINGS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(80, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160, 112));
-                tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
+            case LABYRINTH3: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 64));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(48, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(160, 64));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(16, 80));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(80, 16));
+                tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(160, 16));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 16, .y = 128});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 208, .y = 112});
+                break;
+            }
+            case DARK_LABYRINTH: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 16));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 112));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                break;
+            }
+            case ANCIENT: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 64));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                break;
+            }
+            case DUMBBELL: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(96, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(128, 48));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(112, 48));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 48});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 48});
+                break;
+            }
+            case SYMMETRIC1: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 64});
+                break;
+            }
+            case SYMMETRIC2: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 32));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 48));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                break;
+            }
+            case CORRIDORS: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 64));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(192, 64));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 48, .y = 32});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 32});
+                break;
+            }
+            case KING_IN_CORRIDOR: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 48));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 16));
+
+                tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(48, 16));
+                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(176, 16));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 80, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 144, .y = 80});
+                break;
+            }
+            case PAC_MAN: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 80));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 80));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(96, 80));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 80));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(128, 80));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 48, .y = 112});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 112});
+                break;
+            }
+            case PYRAMID: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 64));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 80});
+                break;
+            }
+            case SPIKE_MADNESS: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 48));
                 break;
             }
             default:
@@ -253,6 +385,7 @@ void generateFloor(World* _world) {
     }
     
     _world->rooms[_MAX_ROOM_COUNT_ - 1] = last_room;
+    tryPushLightToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 1], (ivec2){.x = 112, .y = 64});
 
     _world->difficulty = 1;
 }
@@ -274,7 +407,7 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
         case 'E':
             return NEXT_FLOOR_ENTRANCE;
         case 'X':
-            return CHEST;
+            return TRAP;
         default:
             return NONE;
     }

@@ -17,7 +17,7 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
     //spriteSetOffset(_playerUI->manaBar, 312);
 }
 
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui) {
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui, Class chosenClass) {
     _pspec->armor = spriteInit(
         _sprites, 
         _next_sprite_index, 
@@ -40,6 +40,8 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     _pspec->sprites = _sprites;
     _pspec->next_sprite_index = _next_sprite_index;
     
+    _pspec->class = chosenClass;
+
     _pspec->hand_slot.count = 0;
     _pspec->armor_slot.count = 0;
 
@@ -152,11 +154,27 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     PlayerSpecData* pspec = (PlayerSpecData*) _self->spec;
     updatePlayerSpec(pspec, _self);
 
+    i32 base_sprite_offset = 0;
+
+    switch (pspec->class) {
+        case WARRIOR:
+            base_sprite_offset = 0;
+            break;
+        case WIZARD:
+            base_sprite_offset = 744;
+            break;
+        case ARCHER:
+            base_sprite_offset = 768;
+            break;
+        default:
+            break;
+    }
+
     if (buttonPressed(_BUTTON_RIGHT_)) {
         _self->vel.x += VELOCITY_CONSTANT;
         
         _self->facing = RIGHT;
-        spriteSetOffset(_self->sprite, 16);
+        spriteSetOffset(_self->sprite, base_sprite_offset + 16);
         spriteSetHorizontalFlip(_self->sprite, 0);
     }
 
@@ -164,7 +182,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         _self->vel.x -= VELOCITY_CONSTANT;
 
         _self->facing = LEFT;
-        spriteSetOffset(_self->sprite, 16);
+        spriteSetOffset(_self->sprite, base_sprite_offset + 16);
         spriteSetHorizontalFlip(_self->sprite, 1);
     }
 
@@ -172,14 +190,14 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         _self->vel.y += VELOCITY_CONSTANT;
 
         _self->facing = DOWN;
-        spriteSetOffset(_self->sprite, 8);
+        spriteSetOffset(_self->sprite, base_sprite_offset + 8);
     }
 
     if (buttonPressed(_BUTTON_UP_)) {
         _self->vel.y -= VELOCITY_CONSTANT;
 
         _self->facing = UP;
-        spriteSetOffset(_self->sprite, 0);
+        spriteSetOffset(_self->sprite, base_sprite_offset + 0);
     }
     
     if (buttonPressed(_BUTTON_A_)) {
@@ -190,14 +208,21 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR) + _self->vel.x, (_self->position.y >> POSITION_FIXED_SCALAR)));
-    if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE) {
+    if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE || xCol == TRAP) {
         _self->position.x += _self->vel.x;
     }
 
     CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR), (_self->position.y >> POSITION_FIXED_SCALAR) + _self->vel.y));
-    if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE) {
+    if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE || yCol == TRAP) {
         _self->position.y += _self->vel.y;
     }
+
+    #ifndef _GOD_MODE_
+    if(xCol == TRAP || yCol == TRAP) {
+        entityTakeDamage(_self, 1);
+        entityKnockback(_self, getOppositeFacing(_self->facing), 400);
+    }
+    #endif
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 10;
@@ -215,28 +240,33 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             pspec->armor_slot.base_stats.stamina + 
             pspec->hand_slot.base_stats.stamina;
     
-        //Reload light
-        vu16* pointer = screenBlock(13);
-        int x;
-        int y;
-        
-        for(x = 0; x < 30; ++x)
-            for(y = 0; y < 20; ++y)
-                pointer[x + 32*y] = 0x17;
-                
+        #ifdef _LIGHT_ON_
+            //Reload light
+            vu16* pointer = screenBlock(13);
+            int x;
+            int y;
+            
+            for(x = 0; x < 30; ++x)
+                for(y = 0; y < 20; ++y)
+                    pointer[x + 32*y] = 0x17;
+        #endif
+
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
+        _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
 
         generateFloor(_world);
 
-        //Reload light
-        vu16* pointer = screenBlock(13);
-        int x;
-        int y;
-        
-        for(x = 0; x < 30; ++x)
-            for(y = 0; y < 20; ++y)
-                pointer[x + 32*y] = 0x17;
+        #ifdef _LIGHT_ON_
+            //Reload light
+            vu16* pointer = screenBlock(13);
+            int x;
+            int y;
+            
+            for(x = 0; x < 30; ++x)
+                for(y = 0; y < 20; ++y)
+                    pointer[x + 32*y] = 0x17;
+        #endif
 
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
     }
