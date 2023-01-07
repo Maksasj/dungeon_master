@@ -58,7 +58,7 @@ void entityUpdate(Entity* _entity) {
 
 void entityAttack(Entity* _entity, Entity* _target) {
     i32 calculated_damage = (*_entity->calculate_damage_callback)(_entity);
-    //entityTakeDamage(_target, 1);
+    entityTakeDamage(_target, calculated_damage);
 }
 
 void entityTakeDamage(Entity* _entity, i32 _damage) {
@@ -71,7 +71,7 @@ void entityTakeDamage(Entity* _entity, i32 _damage) {
     _entity->health -= _damage;
 
     if (_entity->health <= 0) {
-        //killEntity(_entity);
+        killEntity(_entity);
     }
 }
 
@@ -118,6 +118,6 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
 
 void killEntity(Entity* _entity) {
     (*_entity->die_callback)(_entity);
-    //entityUnloadSprite(_entity);
+    entityUnloadSprite(_entity);
     _entity->saw_the_target = 0;
 }
