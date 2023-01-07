@@ -694,6 +694,61 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 10), TORCH_TILE, NONE);
             break;
         }
+        case SPIKE_MADNESS: {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 2), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 2), BIG_SPIKES_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 4), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 4), BIG_SPIKES_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 6), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 6), BIG_SPIKES_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 8), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 8), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 8), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 8), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 8), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 8), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 8), BIG_SPIKES_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 10), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 10), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 10), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 10), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 10), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 10), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 10), BIG_SPIKES_TILE, TRAP);
+            
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 12), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 12), BIG_SPIKES_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 14), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 14), BIG_SPIKES_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 16), BIG_SPIKES_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 16), BIG_SPIKES_TILE, TRAP);
+            break;
+        }
         case FLOOR_END: {
             placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
             placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);

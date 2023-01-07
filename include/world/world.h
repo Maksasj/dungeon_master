@@ -38,7 +38,7 @@ typedef struct World {
         'D' - Opened Door
         'C' - Closed Door
         'E' - Next Floor Entrance
-        'X' - Chest
+        'X' - Trap
         ' ' - None
     */
     u8 collision_box[10][15];

@@ -181,7 +181,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random() % 12 + 1;
-        i32 roomId = DARK_LABYRINTH;
+        i32 roomId = SPIKE_MADNESS;
         Room room;
         
         room.type = roomId;
@@ -356,6 +356,11 @@ void generateFloor(World* _world) {
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 80});
+                break;
+            }
+            case SPIKE_MADNESS: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 48));
                 break;
             }
             default:
