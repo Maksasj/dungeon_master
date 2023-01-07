@@ -145,6 +145,7 @@ void updateWorld(World* _world, Entity* _player) {
             itemDropUnloadSprite(itemdrop);
             deleteItemDropFromRoom(itemdrop, room);
         }
+        entityUpdate((Entity*) itemdrop);
     }
 
     //Lets open room if entity count == 0
@@ -161,7 +162,7 @@ void updateWorld(World* _world, Entity* _player) {
     ++WORLD_TICK;
 }
 
-void generateFloor(World* _world) {
+void generateFloor(World* _world, i32 _class) {
     u32 i;
     Room first_room;
 
@@ -218,7 +219,20 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(32, 128));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(48, 128));
+                switch (_class) {
+                    case 0: { //WARRIOR
+                        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(48, 128));
+                        break;
+                    }
+                    case 1: { //WIZARD
+                        tryPushItemDropToRoom(&_world->rooms[i], _FIRE_STAFF_ITEM_DROP_(48, 128));
+                        break;
+                    }
+                    case 2: { //ARCHER
+                        tryPushItemDropToRoom(&_world->rooms[i], _AQUA_BOW_ITEM_DROP_(48, 128));
+                        break;
+                    }
+                }
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 32});
@@ -234,7 +248,20 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 64));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(16, 32));
+                switch (_class) {
+                    case 0: { //WARRIOR
+                        tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(16, 32));
+                        break;
+                    }
+                    case 1: { //WIZARD
+                        tryPushItemDropToRoom(&_world->rooms[i], _PURPLE_MAGE_ARMOR_ITEM_DROP_(16, 32));
+                        break;
+                    }
+                    case 2: { //ARCHER
+                        tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_IRON_ARMOR_ITEM_DROP_(16, 32));
+                        break;
+                    }
+                }
                 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 80});
@@ -251,8 +278,23 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(16, 80));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(80, 16));
-                tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(160, 16));
+                switch (_class) {
+                    case 0: { //WARRIOR
+                        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(80, 16));
+                        tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(160, 16));
+                        break;
+                    }
+                    case 1: { //WIZARD
+                        tryPushItemDropToRoom(&_world->rooms[i], _FIRE_STAFF_ITEM_DROP_(80, 16));
+                        tryPushItemDropToRoom(&_world->rooms[i], _RED_MAGE_ARMOR_ITEM_DROP_(160, 16));
+                        break;
+                    }
+                    case 2: { //ARCHER
+                        tryPushItemDropToRoom(&_world->rooms[i], _AQUA_BOW_ITEM_DROP_(80, 16));
+                        tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_GOLDEN_ARMOR_ITEM_DROP_(160, 16));
+                        break;
+                    }
+                }
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 16, .y = 128});
@@ -283,7 +325,20 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(112, 48));
+                switch (_class) {
+                    case 0: { //WARRIOR
+                        tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(112, 48));
+                        break;
+                    }
+                    case 1: { //WIZARD
+                        tryPushItemDropToRoom(&_world->rooms[i], _GEM_STAFF_ITEM_DROP_(112, 48));
+                        break;
+                    }
+                    case 2: { //ARCHER
+                        tryPushItemDropToRoom(&_world->rooms[i], _WOODEN_BOW_ITEM_DROP_(112, 48));
+                        break;
+                    }
+                }
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 48});
@@ -332,8 +387,23 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 16));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(48, 16));
-                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(176, 16));
+                switch (_class) {
+                    case 0: { //WARRIOR
+                        tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(48, 16));
+                        tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(176, 16));
+                        break;
+                    }
+                    case 1: { //WIZARD
+                        tryPushItemDropToRoom(&_world->rooms[i], _GEM_STAFF_ITEM_DROP_(112, 48));
+                        tryPushItemDropToRoom(&_world->rooms[i], _PURPLE_MAGE_ARMOR_ITEM_DROP_(176, 16));
+                        break;
+                    }
+                    case 2: { //ARCHER
+                        tryPushItemDropToRoom(&_world->rooms[i], _WOODEN_BOW_ITEM_DROP_(112, 48));
+                        tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_IRON_ARMOR_ITEM_DROP_(176, 16));
+                        break;
+                    }
+                }
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 80, .y = 80});
@@ -369,6 +439,8 @@ void generateFloor(World* _world) {
             case SPIKE_MADNESS: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 32));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 48));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 break;
             }
             default:

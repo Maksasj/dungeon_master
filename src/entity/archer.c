@@ -18,21 +18,45 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     projectile.facing = _archer->facing;
 
     /*
-    592 - cobalt arrow horizontal | 736 - cobalt arrow vetical
-    584 - golden arrow horizontal | 728 - golden arrow vetical
-    576 - iron arrow   horizontal | 720 - iron arrow   vetical
+    592 - cobalt arrow horizontal | 736 - cobalt arrow vertical
+    584 - golden arrow horizontal | 728 - golden arrow vertical
+    576 - iron arrow   horizontal | 720 - iron arrow   vertical
 
-    568 - fireball horizontal     | 712 - fireball vetical
-    560 - iceball  horizontal     | 704 - iceball  vetical
-    552 - gemball  horizontal     | 696 - gemball  vetical
+    568 - fireball horizontal     | 712 - fireball vertical
+    560 - iceball  horizontal     | 704 - iceball  vertical
+    552 - gemball  horizontal     | 696 - gemball  vertical
     */
 
-    i32 sprite_offset_horizontal = 552;
-    i32 sprite_offset_vetical = 696;
+    /*
+    480 - wooden bow
+    504 - golden bow
+    528 - aqua bow
+    */
+
+    i32 sprite_offset_horizontal = 576;
+    i32 sprite_offset_vertical = 720;
+
+    switch (pspec->hand_slot.sprite_offset) {
+        case 480: {
+            sprite_offset_horizontal = 576;
+            sprite_offset_vertical = 720;
+            break;
+        }
+        case 504: {
+            sprite_offset_horizontal = 584;
+            sprite_offset_vertical = 728;
+            break;
+        }
+        case 528: {
+            sprite_offset_horizontal = 592;
+            sprite_offset_vertical = 736;
+            break;
+        }
+    }
 
     switch (_archer->facing) {
     case UP:
-        spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+        spriteSetOffset(projectile.sprite, sprite_offset_vertical);
         spriteSetVerticalFlip(projectile.sprite, 1);
         break;
     case RIGHT: 
@@ -40,7 +64,7 @@ void archerAttack(Entity* _archer, Room* _active_room) {
         spriteSetHorizontalFlip(projectile.sprite, 0);
         break;
     case DOWN:
-        spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+        spriteSetOffset(projectile.sprite, sprite_offset_vertical);
         spriteSetVerticalFlip(projectile.sprite, 0);
         break;
     case LEFT:

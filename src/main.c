@@ -145,7 +145,7 @@ void gameScene(Class *chosenClass) {
         player.spec = malloc(sizeof(PlayerSpecData));
         initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, &playerUI, *chosenClass);
     
-    generateFloor(&world);
+    generateFloor(&world, *chosenClass);
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
     #ifdef _LIGHT_ON_
