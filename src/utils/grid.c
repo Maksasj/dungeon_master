@@ -44,7 +44,7 @@ i32 passable(SquareGrid* _grid, ivec2 _coordinates, u8 _collision_box[10][15]) {
     return 1;
 }
 
-ivec2* getNeighbors(SquareGrid* _grid, ivec2* neighbors, ivec2 _coordinates, u8 _collision_box[10][15]) {
+ivec2* getNeighbors(SquareGrid* _grid, ivec2* _neighbors, ivec2 _coordinates, u8 _collision_box[10][15]) {
     ivec2 next;
 
     i32 i;
@@ -52,13 +52,13 @@ ivec2* getNeighbors(SquareGrid* _grid, ivec2* neighbors, ivec2 _coordinates, u8 
         next = newIVec2(_coordinates.x + DIRECTION_VECTORS[i][0], _coordinates.y + DIRECTION_VECTORS[i][1]);
         
         if (inBounds(next) && passable(_grid, next, _collision_box)) {
-            neighbors[i] = next;
+            _neighbors[i] = next;
         } else {
-            neighbors[i] = newIVec2(-1, -1);
+            _neighbors[i] = newIVec2(-1, -1);
         }
     }
 
-    return neighbors;
+    return _neighbors;
 }
 
 void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position, u8 _collision_box[10][15]) {

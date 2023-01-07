@@ -1,3 +1,13 @@
+/**
+ * Tile
+ *
+ * @authors
+ * Maksimas Jaroslavcevas, Oskaras Vištorskis
+ *
+ * @brief
+ * File that cotains all constant definitions for all tiles
+*/
+
 #ifndef _TILE_H_
 #define _TILE_H_
 

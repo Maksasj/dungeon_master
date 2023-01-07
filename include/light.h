@@ -1,9 +1,19 @@
+/**
+ * Light
+ *
+ * @authors
+ * Maksimas Jaroslavcevas, Oskaras Vištorskis
+ *
+ * @brief
+ * File that cotains some macros and function for purpose of rendering light in the game
+*/
+
 #ifndef _LIGHT_H_
 #define _LIGHT_H_
 
 #include "utils/types.h"
 
-/*
+/* All build in light tile indexes
 0x17 - Dark
 0x18 - Dark by lighter
 0x19 - Grid
@@ -14,8 +24,14 @@
 0x1E - Fiewest
 */
 
-void setLightLayer();
+/**
+ * Set value to all light level tiles
+ * 
+ * @param   _light  New value for all light tiles
+*/
+void setLightLayer(i32 _light);
 
+/* Macro used to render shadow circle */
 #define SHADOW_BULB(dest, x , y)             \
     dest[(x - 1) + (32*(y - 1))] = 0x17;     \
     dest[(x + 2) + (32*(y - 1))] = 0x17;     \
@@ -130,6 +146,7 @@ void setLightLayer();
     dest[(x + 5) + (32*(y - 3))] = 0x17;     \
     dest[(x + 5) + (32*(y - 2))] = 0x17;     \
 
+/* Macro used to render static light circle */
 #define RENDER_LIGHT_BULB(dest, x, y)        \
     dest[(x - 1) + (32*(y - 1))] = 0x1E;     \
     dest[(x + 2) + (32*(y - 1))] = 0x1E;     \
@@ -244,7 +261,7 @@ void setLightLayer();
     dest[(x + 5) + (32*(y - 3))] = 0x18;     \
     dest[(x + 5) + (32*(y - 2))] = 0x18;     \
 
-
+/* Macro used to render dynamic light circle */
 #define RENDER_DYNAMIC_LIGHT_BULB(dest, x, y)                                                                         \
     dest[(x - 1) + (32*(y - 1))] = ( 0x1E > dest[(x - 1) + (32*(y - 1))] ) ? 0x1E : dest[(x - 1) + (32*(y - 1))];     \
     dest[(x + 2) + (32*(y - 1))] = ( 0x1E > dest[(x + 2) + (32*(y - 1))] ) ? 0x1E : dest[(x + 2) + (32*(y - 1))];     \

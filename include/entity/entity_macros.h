@@ -1,3 +1,13 @@
+/**
+ * entity_macros
+ *
+ * @authors
+ * Maksimas Jaroslavcevas, Oskaras Vištorskis
+ *
+ * @brief
+ * useful macroses for creating entities
+*/
+
 #ifndef _ENTITY_MACROS_H_
 #define _ENTITY_MACROS_H_
 
@@ -8,6 +18,7 @@
 #include "prototypes/skeleton_ancient.h"
 #include "prototypes/necromancer.h"
 
+// Macros for creating ninja skeleton entity
 #define _SKELETON_NINJA_ENTITY_(X, Y)                           \
     entityReload((Entity){                                      \
         .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),                   \
@@ -22,6 +33,7 @@
         .dodge_callback = &skeletonNinjaTryDodge                \
     })                                                          \
 
+// Macros for creating king skeleton entity
 #define _SKELETON_KING_ENTITY_(X, Y)                            \
     entityReload((Entity){                                      \
         .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),                   \
@@ -36,6 +48,7 @@
         .dodge_callback = &skeletonKingTryDodge                 \
     })                                                          \
 
+// Macros for creating ancient skeleton entity
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                         \
     entityReload((Entity){                                      \
         .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),                   \
@@ -50,6 +63,7 @@
         .dodge_callback = &skeletonAncientTryDodge              \
     })                                                          \
 
+// Macros for creating necromancer entity
 #define _NECROMANCER_ENTITY_(X, Y)                              \
     entityReload((Entity){                                      \
         .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),                   \
