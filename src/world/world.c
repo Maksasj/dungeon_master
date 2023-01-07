@@ -85,6 +85,20 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
+        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> POSITION_FIXED_SCALAR) + projectile->vel.x, projectile->position.y >> POSITION_FIXED_SCALAR));
+        if(xCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
+        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> POSITION_FIXED_SCALAR, (projectile->position.y >> POSITION_FIXED_SCALAR) + projectile->vel.y));
+        if(yCol == WALL) {
+            entityUnloadSprite(projectile);
+            deleteProjectileFromRoom(projectile, room);
+            break;
+        }
+
         if (projectile->layer == ENEMY) {
             if (checkCollision(_player, projectile)) {
                 notePlay(NOTE_BES, 1);
@@ -114,21 +128,6 @@ void updateWorld(World* _world, Entity* _player) {
                 }
             }
         }
-
-        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> POSITION_FIXED_SCALAR) + projectile->vel.x, projectile->position.y >> POSITION_FIXED_SCALAR));
-        if(xCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
-        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> POSITION_FIXED_SCALAR, (projectile->position.y >> POSITION_FIXED_SCALAR) + projectile->vel.y));
-        if(yCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
         entityUpdate(projectile);
     }
     
