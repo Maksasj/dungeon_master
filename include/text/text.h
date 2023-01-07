@@ -1,5 +1,5 @@
 /**
- * delay
+ * Text
  *
  * @authors
  * Maksimas Jaroslavcevas, Oskaras Vištorskis
