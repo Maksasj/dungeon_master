@@ -1,11 +1,23 @@
+/**
+ * delay
+ *
+ * @authors
+ * Maksimas Jaroslavcevas, Oskaras Vištorskis
+ *
+ * @brief
+ * Allows manipulate with GBA graphics
+*/
+
 #ifndef _GFX_H_
 #define _GFX_H_
 
 #include "types.h"
 
+// Screen resolution
 #define _SCREEN_WIDTH_  240
 #define _SCREEN_HEIGHT_ 160
 
+// LCD Control
 #define _DISPLAY_CONTROL_   ((vu32*) 0x4000000)
 #define _DISPLAY_STATUS_    ((vu16*) 0x4000004)
 #define _SCANLINE_COUNTER_  ((vu16*) 0x4000006)
