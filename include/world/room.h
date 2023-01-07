@@ -99,7 +99,7 @@ void tryPushLightToRoom(Room *_room, ivec2 _pos);
  * @param   _room Pointer to room it self
  * @param   _entity New entity
 */
-void tryPushEntityToRoom(Room* _room, Entity _entity);
+int tryPushEntityToRoom(Room* _room, Entity _entity);
 
 /**
  * Tries to push projectile to the room
