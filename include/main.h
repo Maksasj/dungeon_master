@@ -92,4 +92,98 @@ typedef enum ActiveScene {
                                                                                                         \
     Sprite* selectionArrow = spriteInit(sprites, &next_sprite_index, 130, 59, SIZE_32_32, 0, 0, 480, 0);\
 
+
+#define _RENDER_CHOOSE_SQUARE_(layer, X_OFFSET, Y_OFFSET)                       \
+    {                                                                           \
+    int i;                                                                      \
+    int x;                                                                      \
+    int y;                                                                      \
+                                                                                \
+    for(i = 1; i <= 4; ++i)                                                     \
+        layer[X_OFFSET+ i + (Y_OFFSET * 32)] = 21 + 64 + 2;                     \
+                                                                                \
+    for(i = 1; i <= 4; ++i)                                                     \
+        layer[X_OFFSET + i + ((Y_OFFSET + 5)* 32)] = 21 + 64 + 7;               \
+                                                                                \
+    for(x = 1; x <= 4; ++x)                                                     \
+        for(y = 1; y <= 4; ++y)                                                 \
+            layer[X_OFFSET + x + ((Y_OFFSET + y)* 32)] = 21 + 64 + 3;           \
+                                                                                \
+    for(y = 1; y <= 4; ++y)                                                     \
+        layer[X_OFFSET + 5 + ((Y_OFFSET + y)* 32)] = 21 + 64 + 4;               \
+                                                                                \
+    for(y = 1; y <= 4; ++y)                                                     \
+        layer[X_OFFSET + ((Y_OFFSET + y)* 32)] = 21 + 64 + 5;                   \
+                                                                                \
+    layer[X_OFFSET + (Y_OFFSET * 32)] = 21 + 64;                                \
+    layer[X_OFFSET + 5 + (Y_OFFSET * 32)] = 21 + 64 + 1;                        \
+    layer[X_OFFSET + ((Y_OFFSET + 5) * 32)] = 21 + 64 + 6;                      \
+    layer[X_OFFSET + 5 + ((Y_OFFSET + 5) * 32)] = 21 + 64 + 8;                  \
+    }                                                                           \
+
+#define _RENDER_ARROW_UP_(layer, x, y)              \
+    layer[x + 1 + (y*32)] = 210;                    \
+    layer[x + 2 + (y*32)] = 211;                    \
+    layer[x + 1 + ((y + 1)*32)] = 242;              \
+    layer[x + 2 + ((y + 1)*32)] = 243;              \
+
+#define _RENDER_ARROW_DOWN_(layer, x, y)            \
+    layer[x + 1 + (y*32)] = 212;                    \
+    layer[x + 2 + (y*32)] = 213;                    \
+    layer[x + 1 + ((y + 1)*32)] = 244;              \
+    layer[x + 2 + ((y + 1)*32)] = 245;              \
+
+#define _CLEAR_TILE_(layer, x, y)                   \
+    layer[x + 1 + (y*32)] = 0;                      \
+    layer[x + 2 + (y*32)] = 0;                      \
+    layer[x + 1 + ((y + 1)*32)] = 0;                \
+    layer[x + 2 + ((y + 1)*32)] = 0;                \
+
+#define _RENDER_SIDE_SHADOW_(layer)                 \
+    {                                               \
+        int x;                                      \
+        int y;                                      \
+        for(x = 0; x < 30; ++x) {                   \
+            for(y = 0; y < 30; ++y) {               \
+                if(x == 0 || x == 29)               \
+                    layer[x + y *32] = 0x17;        \
+                                                    \
+                if(x == 1 || x == 28)               \
+                    layer[x + y *32] = 0x18;        \
+                                                    \
+                if(x == 2 || x == 27)               \
+                    layer[x + y *32] = 0x19;        \
+                                                    \
+                if(x == 3 || x == 26)               \
+                    layer[x + y *32] = 0x1A;        \
+                                                    \
+                if(x == 4 || x == 25)               \
+                    layer[x + y *32] = 0x1B;        \
+                                                    \
+                if(x == 5 || x == 24)               \
+                    layer[x + y *32] = 0x1C;        \
+                                                    \
+                if(x == 6 || x == 23)               \
+                    layer[x + y *32] = 0x1D;        \
+                                                    \
+                if(x == 7 || x == 22)               \
+                    layer[x + y *32] = 0x1E;        \
+            }                                       \
+        }                                           \
+    }                                               \
+
+#define _RENDER_CHOOSE_SCREEN_                      \
+    _RENDER_SIDE_SHADOW_(lightLayer)                \
+                                                    \
+    {   int x;                                      \
+        int y;                                      \
+        for(x = 0; x < 16; ++x) {                   \
+            lightLayer[7 + x + (2 * 32)] = 0xC1 + x;\
+            lightLayer[7 + x + (3 * 32)] = 0xE1 + x;\
+        }                                           \
+        _RENDER_CHOOSE_SQUARE_(lightLayer, 4, 8);   \
+        _RENDER_CHOOSE_SQUARE_(lightLayer, 12, 8);  \
+        _RENDER_CHOOSE_SQUARE_(lightLayer, 20, 8);  \
+    }                                               \
+
 #endif

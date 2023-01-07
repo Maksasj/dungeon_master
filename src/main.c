@@ -81,20 +81,148 @@ void mainMenuScene() {
 
         if(buttonPressed(_BUTTON_SELECT_)) {
             if(selection == 0) {
-                return;
+                break;
             } else if(selection == 1) {
                 notePlay(NOTE_GIS, 0);
             }
         }
-
+    
         spriteUpdateAll(sprites);
+
+        waitVBlank();
     }
     
     setSeed(_seed);
+
+    spriteClear(sprites, &next_sprite_index);
+    spriteUpdateAll(sprites);
 }
 
 void classChooseScene(Class *class) {
-    (*class) = WARRIOR;
+    spriteClear(sprites, &next_sprite_index);
+    loadGameSpriteImages();
+
+    int i;
+    int j;
+
+    setLightLayer(0x0);
+
+    u16 MAP[1024];
+    for(i = 0; i < 15; ++i) { 
+        for(j = 0; j < 10; ++j) {
+            MAP[i*2 + j*2 * 32] = 0x0015;
+            MAP[i*2 + j*2 * 32 + 1] = 0x0016;
+            MAP[i*2 + j*2 * 32 + 32] = 0x0035;
+            MAP[i*2 + j*2 * 32 + 33] = 0x0036;
+        }
+    }
+
+    vu16* lightLayer = screenBlock(13);
+
+    _RENDER_CHOOSE_SCREEN_;
+    
+    vu16* baseLayer = screenBlock(31);
+    memcpy16DMA((u16*) baseLayer, (u16*) MAP, 32 * 32);
+
+    i8 down_pressed = 0;
+    i8 up_pressed = 0;
+    i32 selection = 0;
+
+    i32 prev_selection = -1;
+
+    Sprite* warriorIcon = spriteInit(sprites, &next_sprite_index, 48, 80, SIZE_16_16, 0, 0, 0 + 8, 0);
+    Sprite* wizzardIcon = spriteInit(sprites, &next_sprite_index, 112, 80, SIZE_16_16, 0, 0, 744 + 8, 0);
+    Sprite* archerIcon = spriteInit(sprites, &next_sprite_index, 176, 80, SIZE_16_16, 0, 0, 768 + 8, 0);
+
+    Text classNameText; 
+    loadTextGlyphs(sprites, &next_sprite_index, &classNameText, "Warrior", (ivec2){.x = 96, .y = 144});
+
+    while(1) { 
+        if(buttonPressed(_BUTTON_RIGHT_) && down_pressed == 0) {
+            if(selection == 2)
+                selection = 0;
+            else
+                ++selection;
+
+
+            down_pressed = 1;
+            notePlay(NOTE_B, 0);
+        }
+
+        if(buttonPressed(_BUTTON_LEFT_) && up_pressed == 0) {
+            if(selection == 0)
+                selection = 2;
+            else
+                --selection;
+
+            up_pressed = 1;
+            notePlay(NOTE_B, 0);
+        }
+
+        if(selection != prev_selection) {
+            switch (selection) {
+            case 0:
+                _CLEAR_TILE_(lightLayer, 13, 14);
+                _CLEAR_TILE_(lightLayer, 13, 6);
+                _CLEAR_TILE_(lightLayer, 21, 14);
+                _CLEAR_TILE_(lightLayer, 21, 6);
+
+                _RENDER_ARROW_UP_(lightLayer, 5, 14);
+                _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
+                updateTextGlyphs(&classNameText, "Warrior", (ivec2){.x = 96, .y = 144});
+                break;
+            case 1:
+                _CLEAR_TILE_(lightLayer, 5, 14);
+                _CLEAR_TILE_(lightLayer, 5, 6);
+                _CLEAR_TILE_(lightLayer, 21, 14);
+                _CLEAR_TILE_(lightLayer, 21, 6);
+
+                _RENDER_ARROW_UP_(lightLayer, 13, 14);
+                _RENDER_ARROW_DOWN_(lightLayer, 13, 6);
+                updateTextGlyphs(&classNameText, "Wizard ", (ivec2){.x = 96, .y = 144});
+                break;
+            case 2:
+                _CLEAR_TILE_(lightLayer, 5, 14);
+                _CLEAR_TILE_(lightLayer, 5, 6);
+                _CLEAR_TILE_(lightLayer, 13, 14);
+                _CLEAR_TILE_(lightLayer, 13, 6);
+
+                _RENDER_ARROW_UP_(lightLayer, 21, 14);
+                _RENDER_ARROW_DOWN_(lightLayer, 21, 6);
+                updateTextGlyphs(&classNameText, "Archer ", (ivec2){.x = 96, .y = 144});
+                break;
+            default:
+                break;
+            }
+
+            prev_selection = selection;
+        }
+
+        if(!buttonPressed(_BUTTON_RIGHT_))
+            down_pressed = 0;
+
+        if(!buttonPressed(_BUTTON_LEFT_))
+            up_pressed = 0;
+
+        if(buttonPressed(_BUTTON_START_)) {
+            switch (selection) {
+            case 0:
+                (*class) = WARRIOR;
+                return;
+            case 1:
+                (*class) = WIZARD;
+                return;
+            case 2:
+                (*class) = ARCHER;
+                return;
+            default:
+                break;
+            }
+        }
+            
+        waitVBlank();
+        spriteUpdateAll(sprites);
+    }
 }
 
 void gameScene(Class *chosenClass) {
