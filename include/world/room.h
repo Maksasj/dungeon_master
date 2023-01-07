@@ -54,7 +54,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
 void tryPushLightToRoom(Room *_room, ivec2 pos);
 
-void tryPushEntityToRoom(Room* _room, Entity _entity);
+int tryPushEntityToRoom(Room* _room, Entity _entity);
 
 void tryPushProjectileToRoom(Room* _room, Entity _projectile);
 
@@ -65,5 +65,7 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room);
 void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
 
 void unLockRoom(void* _world, Room* _room);
+
+void loadTmpEntitySprite(Room* _room);
 
 #endif

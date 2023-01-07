@@ -205,6 +205,7 @@ void classChooseScene(Class *class) {
             up_pressed = 0;
 
         if(buttonPressed(_BUTTON_START_)) {
+            setLightLayer(0x0);
             switch (selection) {
             case 0:
                 (*class) = WARRIOR;
@@ -350,7 +351,7 @@ void gameScene(Class *chosenClass) {
         #ifndef EXTREME_MODE
             waitVBlank();
         #else
-            delay(50);
+            delay(30);
         #endif
     }
 }

@@ -3,6 +3,9 @@
 
 #include "../../include/world/tile.h"
 
+static void* _SPRITES_POINTER_;
+static void* _NEXT_SPRITE_INDEX_;
+
 const u16* getRandomFloorTile() {
     u16 value = rand() % 6;
 
@@ -99,7 +102,14 @@ void loadBasicRoom(World* _world, u16* _target) {
     placeTile(_world, _world->MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
 }
 
+void loadTmpEntitySprite(Room* _room) {
+    entityInitSprite(&_room->entity_pool[_room->current_entity_count - 1], _SPRITES_POINTER_, _NEXT_SPRITE_INDEX_);
+}
+
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
+    _SPRITES_POINTER_= _sprites;
+    _NEXT_SPRITE_INDEX_ = _next_sprite_index;
+    
     loadBasicRoom(_world, (u16*) (((World*) _world)->MAP));
 
     switch (_room->type) {
@@ -827,11 +837,14 @@ void tryPushLightToRoom(Room *_room, ivec2 _pos) {
     }
 }
 
-void tryPushEntityToRoom(Room* _room, Entity _entity) {
+int tryPushEntityToRoom(Room* _room, Entity _entity) {
     if (_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
         _room->entity_pool[_room->current_entity_count] = _entity;
         ++_room->current_entity_count;
+        return 1;
     }
+
+    return 0;
 }
 
 void tryPushProjectileToRoom(Room* _room, Entity _projectile) {

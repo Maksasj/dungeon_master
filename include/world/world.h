@@ -12,8 +12,8 @@
 
 #include "room.h"
 
-#define _GOD_MODE_
-#define _LIGHT_ON_
+//#define _GOD_MODE_
+//#define _LIGHT_ON_
 
 #define _MAX_ROOM_COUNT_ 5
 #define _BFS_TICK_RATE_ 50

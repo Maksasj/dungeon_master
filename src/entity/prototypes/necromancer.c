@@ -1,4 +1,5 @@
 #include "../../../include/entity/prototypes/necromancer.h"
+#include "../../../include/entity/entity_macros.h"
 
 void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
@@ -7,10 +8,14 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     static const i32 GRID_HEIGHT = 7;
     static const u32 FIELD_OF_VIEW_RANGE = 7;
 
+    static const i32 SUMMONING_COOLDOWN = 1000;
+
+    i32 distance = _world->grid.distance_to_player[world_position.x][world_position.y];
+
     if (!_self->saw_the_target) {
-        if (_world->grid.distance_to_player[world_position.x][world_position.y] > FIELD_OF_VIEW_RANGE) {
+        if (distance > FIELD_OF_VIEW_RANGE) {
             return;
-        } else if (_world->grid.distance_to_player[world_position.x][world_position.y] <= FIELD_OF_VIEW_RANGE && _world->grid.distance_to_player[world_position.x][world_position.y] != 0){
+        } else if (distance <= FIELD_OF_VIEW_RANGE && distance != 0){
             _self->saw_the_target = 1;
         }
     }
@@ -20,74 +25,124 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     _self->vel.x = _self->vel.x / 2;
     _self->vel.y = _self->vel.y / 2;
 
-    switch (direction)
-    {
-        case 'u': { //Up
-            if (world_position.y - 1 >= 0) {
-                _self->vel.y -= VELOCITY_CONSTANT;
-                _self->facing = UP;
-            } else if (world_position.x + 1 <= GRID_LENGTH){
-                _self->vel.x += VELOCITY_CONSTANT;
-                _self->facing = RIGHT;
+    if(distance < 3) {
+        switch (direction) {
+            case 'u': { //Up
+                if (world_position.y - 1 >= 0) {
+                    _self->vel.y -= VELOCITY_CONSTANT;
+                    _self->facing = UP;
+                } else if (world_position.x + 1 <= GRID_LENGTH){
+                    _self->vel.x += VELOCITY_CONSTANT;
+                    _self->facing = RIGHT;
+                }
+                break;
             }
-            break;
-        }
-        case 'r': { //Right
-            if (world_position.x - 1 >= 0) {
-                _self->vel.x -= VELOCITY_CONSTANT;
-                _self->facing = LEFT;
-            } else if (world_position.y - 1 >= 0) {
-                _self->vel.y -= VELOCITY_CONSTANT;
-                _self->facing = UP;
+            case 'r': { //Right
+                if (world_position.x - 1 >= 0) {
+                    _self->vel.x -= VELOCITY_CONSTANT;
+                    _self->facing = LEFT;
+                } else if (world_position.y - 1 >= 0) {
+                    _self->vel.y -= VELOCITY_CONSTANT;
+                    _self->facing = UP;
+                }
+                break;
             }
-            break;
+            case 'd': { //Down
+                if (world_position.y + 1 <= GRID_HEIGHT) {
+                    _self->vel.y += VELOCITY_CONSTANT;
+                    _self->facing = DOWN;
+                } else if (world_position.x - 1 >= 0){
+                    _self->vel.x -= VELOCITY_CONSTANT;
+                    _self->facing = LEFT;
+                }
+                break;
+            }
+            case 'l': { //Left
+                if (world_position.x + 1 <= GRID_LENGTH) {
+                    _self->vel.x += VELOCITY_CONSTANT;
+                    _self->facing = RIGHT;
+                } else if (world_position.y + 1 <= GRID_HEIGHT) {
+                    _self->vel.y += VELOCITY_CONSTANT;   
+                    _self->facing = DOWN;
+                }
+                break;
+            }
+            case '#': {
+                switch (_self->facing) {
+                    case UP: {
+                        _self->vel.y -= VELOCITY_CONSTANT;
+                        break;
+                    }
+                    case RIGHT: {
+                        _self->vel.x += VELOCITY_CONSTANT;
+                        break;
+                    }
+                    case DOWN: {
+                        _self->vel.y += VELOCITY_CONSTANT;
+                        break;
+                    }
+                    case LEFT: {
+                        _self->vel.x -= VELOCITY_CONSTANT;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                break;
+            }
+            default:
+                break;
         }
-        case 'd': { //Down
-            if (world_position.y + 1 <= GRID_HEIGHT) {
+    } else {
+        switch (direction) {
+            case 'u': { //Up
                 _self->vel.y += VELOCITY_CONSTANT;
                 _self->facing = DOWN;
-            } else if (world_position.x - 1 >= 0){
-                _self->vel.x -= VELOCITY_CONSTANT;
-                _self->facing = LEFT;
+                break;
             }
-            break;
-        }
-        case 'l': { //Left
-            if (world_position.x + 1 <= GRID_LENGTH) {
+            case 'r': { //Right
                 _self->vel.x += VELOCITY_CONSTANT;
                 _self->facing = RIGHT;
-            } else if (world_position.y + 1 <= GRID_HEIGHT) {
-                _self->vel.y += VELOCITY_CONSTANT;   
-                _self->facing = DOWN;
+                break;
             }
-            break;
-        }
-        case '#': {
-            switch (_self->facing) {
-                case UP: {
-                    _self->vel.y -= VELOCITY_CONSTANT;
-                    break;
-                }
-                case RIGHT: {
-                    _self->vel.x += VELOCITY_CONSTANT;
-                    break;
-                }
-                case DOWN: {
-                    _self->vel.y += VELOCITY_CONSTANT;
-                    break;
-                }
-                case LEFT: {
-                    _self->vel.x -= VELOCITY_CONSTANT;
-                    break;
-                }
-                default:
-                    break;
+            case 'd': { //Down
+                _self->vel.y -= VELOCITY_CONSTANT;
+                _self->facing = UP;
+                break;
             }
-            break;
+            case 'l': { //Left
+                _self->vel.x -= VELOCITY_CONSTANT;
+                _self->facing = LEFT;
+                break;
+            }
+            case '#': {
+                switch (_self->facing) {
+                    case UP: {
+                        _self->vel.y -= VELOCITY_CONSTANT;
+                        break;
+                    }
+                    case RIGHT: {
+                        _self->vel.x += VELOCITY_CONSTANT;
+                        break;
+                    }
+                    case DOWN: {
+                        _self->vel.y += VELOCITY_CONSTANT;
+                        break;
+                    }
+                    case LEFT: {
+                        _self->vel.x -= VELOCITY_CONSTANT;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                break;
+            }
+            default:
+                break;
         }
-        default:
-            break;
     }
+    
 
     if (world_position.x < 0) {
         _self->vel.x = 0;
@@ -106,13 +161,12 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     _self->position.x += _self->vel.x;
     _self->position.y += _self->vel.y;
 
-    /*
     if(_self->spec == NULL) {
         _self->spec = malloc(sizeof(NecromancerSpec));
         ((NecromancerSpec*) _self->spec)->summonCooldown = 0;
     } else {
         i32 summonCooldown = ((NecromancerSpec*) _self->spec)->summonCooldown;
-        if (summonCooldown < 400) {
+        if (summonCooldown < SUMMONING_COOLDOWN) {
             ++summonCooldown;
         } else
             summonCooldown = 0;
@@ -120,10 +174,12 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
         ((NecromancerSpec*) _self->spec)->summonCooldown = summonCooldown;
 
         if(summonCooldown == 0) {
-            tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x, _self->position.y));
+            if(_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
+                int rez = tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x >> POSITION_FIXED_SCALAR, _self->position.y >> POSITION_FIXED_SCALAR));
+                loadTmpEntitySprite(_room);
+            }
         }
     }
-    */
 }
 
 void necromancerKill(Entity* _self) {

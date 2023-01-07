@@ -245,7 +245,7 @@ void setLightLayer();
     dest[(x + 5) + (32*(y - 2))] = 0x18;     \
 
 
-#define RENDER_DYNAMIC_LIGHT_BULB(dest, x, y)        \
+#define RENDER_DYNAMIC_LIGHT_BULB(dest, x, y)                                                                         \
     dest[(x - 1) + (32*(y - 1))] = ( 0x1E > dest[(x - 1) + (32*(y - 1))] ) ? 0x1E : dest[(x - 1) + (32*(y - 1))];     \
     dest[(x + 2) + (32*(y - 1))] = ( 0x1E > dest[(x + 2) + (32*(y - 1))] ) ? 0x1E : dest[(x + 2) + (32*(y - 1))];     \
     dest[(x + 2) + (32*(y + 2))] = ( 0x1E > dest[(x + 2) + (32*(y + 2))] ) ? 0x1E : dest[(x + 2) + (32*(y + 2))];     \

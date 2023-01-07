@@ -175,6 +175,7 @@ void generateFloor(World* _world, i32 _class) {
     _world->rooms[0] = first_room;
 
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
+    tryPushEntityToRoom(&_world->rooms[0], _SKELETON_ANCIENT_ENTITY_(48, 64));
 
     _world->grid = gridInit();
 
