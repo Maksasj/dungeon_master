@@ -208,14 +208,21 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR) + _self->vel.x, (_self->position.y >> POSITION_FIXED_SCALAR)));
-    if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE) {
+    if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE || xCol == TRAP) {
         _self->position.x += _self->vel.x;
     }
 
     CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR), (_self->position.y >> POSITION_FIXED_SCALAR) + _self->vel.y));
-    if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE) {
+    if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE || yCol == TRAP) {
         _self->position.y += _self->vel.y;
     }
+
+    #ifndef _GOD_MODE_
+    if(xCol == TRAP || yCol == TRAP) {
+        entityTakeDamage(_self, 1);
+        entityKnockback(_self, getOppositeFacing(_self->facing), 400);
+    }
+    #endif
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 10;

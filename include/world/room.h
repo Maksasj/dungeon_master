@@ -20,13 +20,16 @@ typedef enum RoomType {
     LABYRINTH1,
     LABYRINTH2,
     LABYRINTH3,
+    DARK_LABYRINTH,
     ANCIENT,
     DUMBBELL,
-    SYMMETRIC,
+    SYMMETRIC1,
+    SYMMETRIC2,
     CORRIDORS,
     KING_IN_CORRIDOR,
     PAC_MAN,
     PYRAMID,
+    SPIKE_MADNESS,
     FLOOR_END,
     END_GAME
 } RoomType;
