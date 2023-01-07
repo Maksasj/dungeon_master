@@ -217,10 +217,12 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         _self->position.y += _self->vel.y;
     }
 
+    #ifndef _GOD_MODE_
     if(xCol == TRAP || yCol == TRAP) {
         entityTakeDamage(_self, 1);
         entityKnockback(_self, getOppositeFacing(_self->facing), 400);
     }
+    #endif
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 10;
