@@ -799,6 +799,23 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 16), BIG_SPIKES_TILE, TRAP);
             break;
         }
+        case BOSS: {
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 6), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 6), LAVA_BIG_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 8), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 8), LAVA_BIG_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 10), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 10), LAVA_BIG_TILE, TRAP);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 12), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 12), LAVA_BIG_TILE, TRAP);
+            break;
+        }
         case FLOOR_END: {
             placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
             placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);

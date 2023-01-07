@@ -2,6 +2,7 @@
 #include "../../include/entity/entity_macros.h"
 
 static u32 WORLD_TICK = 0;
+i32 game_completed = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int new_room = _world->activeRoom + 1;
@@ -31,7 +32,11 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
         ItemDrop *itemDrop = &_world->rooms[_world->activeRoom].itemdrop_pool[i];
         itemDropUnloadSprite(itemDrop);
     }
-    
+
+    if (_world->rooms[_roomId].type == END_GAME) {
+        game_completed = 1;
+    }
+
     _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
@@ -181,7 +186,7 @@ void generateFloor(World* _world, i32 _class) {
 
     ++_world->currentFloor;
 
-    for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
+    for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
         i32 roomId = random() % 15 + 1;
         Room room;
         
@@ -395,12 +400,12 @@ void generateFloor(World* _world, i32 _class) {
                         break;
                     }
                     case 1: { //WIZARD
-                        tryPushItemDropToRoom(&_world->rooms[i], _GEM_STAFF_ITEM_DROP_(112, 48));
+                        tryPushItemDropToRoom(&_world->rooms[i], _GEM_STAFF_ITEM_DROP_(48, 16));
                         tryPushItemDropToRoom(&_world->rooms[i], _PURPLE_MAGE_ARMOR_ITEM_DROP_(176, 16));
                         break;
                     }
                     case 2: { //ARCHER
-                        tryPushItemDropToRoom(&_world->rooms[i], _WOODEN_BOW_ITEM_DROP_(112, 48));
+                        tryPushItemDropToRoom(&_world->rooms[i], _WOODEN_BOW_ITEM_DROP_(48, 16));
                         tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_IRON_ARMOR_ITEM_DROP_(176, 16));
                         break;
                     }
@@ -448,6 +453,13 @@ void generateFloor(World* _world, i32 _class) {
                 break;
         }
     }
+
+    Room boss_room;
+    boss_room.type = BOSS;
+    _world->rooms[_MAX_ROOM_COUNT_ - 2] = boss_room;
+    tryPushEntityToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 2], _NECROMANCER_ENTITY_(112, 64));
+    tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 64});
+    tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 64});
     
     Room last_room;
 
