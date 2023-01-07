@@ -255,7 +255,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         (*pspec->next_sprite_index) = 10;
         _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
 
-        generateFloor(_world);
+        generateFloor(_world, pspec->class);
 
         #ifdef _LIGHT_ON_
             //Reload light
