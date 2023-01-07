@@ -27,8 +27,32 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     552 - gemball  horizontal     | 696 - gemball  vetical
     */
 
+    /*
+    408 - gem staff
+    432 - ice staff
+    456 - fire staff
+    */
+
     i32 sprite_offset_horizontal = 552;
     i32 sprite_offset_vetical = 696;
+
+    switch (pspec->hand_slot.sprite_offset) {
+        case 408: {
+            sprite_offset_horizontal = 552;
+            sprite_offset_vetical = 696;
+            break;
+        }
+        case 432: {
+            sprite_offset_horizontal = 560;
+            sprite_offset_vetical = 704;
+            break;
+        }
+        case 456: {
+            sprite_offset_horizontal = 568;
+            sprite_offset_vetical = 712;
+            break;
+        }
+    }
 
     switch (_wizard->facing) {
     case UP:

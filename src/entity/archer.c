@@ -33,22 +33,25 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     528 - aqua bow
     */
 
-    i32 sprite_offset_horizontal = 552;
-    i32 sprite_offset_vertical = 696;
+    i32 sprite_offset_horizontal = 576;
+    i32 sprite_offset_vertical = 720;
 
     switch (pspec->hand_slot.sprite_offset) {
-        case 480:
+        case 480: {
             sprite_offset_horizontal = 576;
             sprite_offset_vertical = 720;
             break;
-        case 504:
+        }
+        case 504: {
             sprite_offset_horizontal = 584;
             sprite_offset_vertical = 728;
             break;
-        case 528:
+        }
+        case 528: {
             sprite_offset_horizontal = 592;
             sprite_offset_vertical = 736;
             break;
+        }
     }
 
     switch (_archer->facing) {

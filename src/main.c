@@ -94,7 +94,7 @@ void mainMenuScene() {
 }
 
 void classChooseScene(Class *class) {
-    (*class) = ARCHER;
+    (*class) = WIZARD;
 }
 
 void gameScene(Class *chosenClass) {
