@@ -178,36 +178,6 @@ void generateFloor(World* _world, i32 _class) {
 
     _world->grid = gridInit();
 
-    switch (_class) {
-        case 0: { //WARRIOR
-            tryPushItemDropToRoom(&_world->rooms[i], _SHORT_SWORD_ITEM_DROP_(16, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(48, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(80, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(112, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(144, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _DIAMOND_CHESTPLATE_ITEM_DROP_(176, 32));
-            break;
-        }
-        case 1: { //WIZARD
-            tryPushItemDropToRoom(&_world->rooms[i], _GEM_STAFF_ITEM_DROP_(16, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _ICE_STAFF_ITEM_DROP_(48, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _FIRE_STAFF_ITEM_DROP_(80, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _PURPLE_MAGE_ARMOR_ITEM_DROP_(112, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _RED_MAGE_ARMOR_ITEM_DROP_(144, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _ENCHANTER_MAGE_ARMOR_ITEM_DROP_(176, 32));
-            break;
-        }
-        case 2: { //ARCHER
-            tryPushItemDropToRoom(&_world->rooms[i], _WOODEN_BOW_ITEM_DROP_(16, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_BOW_ITEM_DROP_(48, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _AQUA_BOW_ITEM_DROP_(80, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_IRON_ARMOR_ITEM_DROP_(112, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_GOLDEN_ARMOR_ITEM_DROP_(144, 32));
-            tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_DIAMOND_ARMOR_ITEM_DROP_(176, 32));
-            break;
-        }
-    }
-
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
