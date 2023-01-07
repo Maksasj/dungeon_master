@@ -43,7 +43,7 @@ Sprite* spriteInit(
                             (size_bits << 14);      /* size */
 
     _sprites[index].attribute2 = _tile_index |      /* tile index */
-                            (_priority << 10) |             /* priority */
+                            (_priority << 10) |     /* priority */
                             (0 << 12);              /* palette bank (only 16 color)*/
 
     return &_sprites[index];

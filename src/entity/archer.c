@@ -17,6 +17,40 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
     projectile.facing = _archer->facing;
 
+    /*
+    592 - cobalt arrow horizontal | 736 - cobalt arrow vetical
+    584 - golden arrow horizontal | 728 - golden arrow vetical
+    576 - iron arrow   horizontal | 720 - iron arrow   vetical
+
+    568 - fireball horizontal     | 712 - fireball vetical
+    560 - iceball  horizontal     | 704 - iceball  vetical
+    552 - gemball  horizontal     | 696 - gemball  vetical
+    */
+
+    i32 sprite_offset_horizontal = 552;
+    i32 sprite_offset_vetical = 696;
+
+    switch (_archer->facing) {
+    case UP:
+        spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+        spriteSetVerticalFlip(projectile.sprite, 1);
+        break;
+    case RIGHT: 
+        spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
+        spriteSetHorizontalFlip(projectile.sprite, 0);
+        break;
+    case DOWN:
+        spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+        spriteSetVerticalFlip(projectile.sprite, 0);
+        break;
+    case LEFT:
+        spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
+        spriteSetHorizontalFlip(projectile.sprite, 1);
+        break;
+    default:
+        break;
+    }
+
     tryPushProjectileToRoom(_active_room, projectile);
 }
 

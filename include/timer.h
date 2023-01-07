@@ -31,6 +31,8 @@ inline void counterInit();
 inline void counterStart();
 inline void counterStop();
 
+#define GET_GLOBAL_TIME *_TIMER_3_DATA_
+
 typedef struct Timer {
     i32 startTimestamp;
     i32 stopTimestamp;

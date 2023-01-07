@@ -1,8 +1,6 @@
 #include "../../include/world/world.h"
 #include "../../include/entity/entity_macros.h"
 
-#define _GOD_MODE_
-
 static u32 WORLD_TICK = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
@@ -132,12 +130,14 @@ void updateWorld(World* _world, Entity* _player) {
         entityUpdate(projectile);
     }
     
-    vu16* pointer = screenBlock(13);
+    #ifdef _LIGHT_ON_
+        vu16* lightLayer = screenBlock(13);
 
-    for(i = 0; i < room->current_light_count; ++i) {
-        ivec2 light = room->lights[i];
-        RENDER_DYNAMIC_LIGHT_BULB(pointer, light.x, light.y);
-    }
+        for(i = 0; i < room->current_light_count; ++i) {
+            ivec2 light = room->lights[i];
+            RENDER_DYNAMIC_LIGHT_BULB(lightLayer, light.x, light.y);
+        }
+    #endif
 
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
@@ -174,7 +174,7 @@ void generateFloor(World* _world) {
 
     _world->rooms[0] = first_room;
 
-    //tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
+    //tryPushItemDropToRoom(&_world->rooms[0], _GEM_STAFF_ITEM_DROP_(112, 48));
     //tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 64, .y = 64});
 
     _world->grid = gridInit();
@@ -237,7 +237,7 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(32, 128));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(48, 128));
+                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(48, 128));
                 break;
             }
             case LABYRINTH2: {
@@ -261,7 +261,7 @@ void generateFloor(World* _world) {
 
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(16, 80));
 
-                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP(80, 16));
+                tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(80, 16));
                 tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(160, 16));
                 break;
             }
