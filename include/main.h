@@ -1,3 +1,13 @@
+/**
+ * Main
+ *
+ * @authors
+ * Maksimas Jaroslavcevas, Oskaras Vištorskis
+ *
+ * @brief
+ * File that cotains some macros and includes needed for main.c file
+*/
+
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
@@ -30,6 +40,7 @@
 #include "../assets/generated/menu.h"
 #include "../assets/generated/sprites.h"
 
+/* Enum that contains all available scenes in the game */
 typedef enum ActiveScene {
     MAIN_MENU_SCENE,
     CHOOSE_SCENE,
@@ -76,6 +87,7 @@ typedef enum ActiveScene {
 312 - Mana bar
 */
 
+/* Macro used to initialize all sprites for main menu */
 #define _INIT_MAIN_MENU_SPRITES_                                                                        \
     Sprite* q1 = spriteInit(sprites, &next_sprite_index, 0, 0, SIZE_64_64, 0, 0, 128, 0);               \
     Sprite* q2 = spriteInit(sprites, &next_sprite_index, 64, 0, SIZE_64_64, 0, 0, 256, 0);              \
@@ -92,7 +104,7 @@ typedef enum ActiveScene {
                                                                                                         \
     Sprite* selectionArrow = spriteInit(sprites, &next_sprite_index, 130, 59, SIZE_32_32, 0, 0, 480, 0);\
 
-
+/* Macro used to render choose square on provided layer */
 #define _RENDER_CHOOSE_SQUARE_(layer, X_OFFSET, Y_OFFSET)                       \
     {                                                                           \
     int i;                                                                      \
@@ -121,24 +133,28 @@ typedef enum ActiveScene {
     layer[X_OFFSET + 5 + ((Y_OFFSET + 5) * 32)] = 21 + 64 + 8;                  \
     }                                                                           \
 
+/* Macro used to render choose arrow facecd up */
 #define _RENDER_ARROW_UP_(layer, x, y)              \
     layer[x + 1 + (y*32)] = 210;                    \
     layer[x + 2 + (y*32)] = 211;                    \
     layer[x + 1 + ((y + 1)*32)] = 242;              \
     layer[x + 2 + ((y + 1)*32)] = 243;              \
 
+/* Macro used to render choose arrow face down */
 #define _RENDER_ARROW_DOWN_(layer, x, y)            \
     layer[x + 1 + (y*32)] = 212;                    \
     layer[x + 2 + (y*32)] = 213;                    \
     layer[x + 1 + ((y + 1)*32)] = 244;              \
     layer[x + 2 + ((y + 1)*32)] = 245;              \
 
+/* Macro used to clear specific tile on provided layer */
 #define _CLEAR_TILE_(layer, x, y)                   \
     layer[x + 1 + (y*32)] = 0;                      \
     layer[x + 2 + (y*32)] = 0;                      \
     layer[x + 1 + ((y + 1)*32)] = 0;                \
     layer[x + 2 + ((y + 1)*32)] = 0;                \
 
+/* Macro used to render size shadows on provided layer */
 #define _RENDER_SIDE_SHADOW_(layer)                 \
     {                                               \
         int x;                                      \
@@ -172,6 +188,7 @@ typedef enum ActiveScene {
         }                                           \
     }                                               \
 
+/* Macro that hides some choose screen rendering */
 #define _RENDER_CHOOSE_SCREEN_                      \
     _RENDER_SIDE_SHADOW_(lightLayer)                \
                                                     \
