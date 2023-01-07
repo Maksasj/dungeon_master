@@ -145,6 +145,7 @@ void updateWorld(World* _world, Entity* _player) {
             itemDropUnloadSprite(itemdrop);
             deleteItemDropFromRoom(itemdrop, room);
         }
+        entityUpdate((Entity*) itemdrop);
     }
 
     //Lets open room if entity count == 0
@@ -180,8 +181,7 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        //i32 roomId = random() % 15 + 1;
-        i32 roomId = DUMBBELL;
+        i32 roomId = random() % 15 + 1;
         Room room;
         
         room.type = roomId;
