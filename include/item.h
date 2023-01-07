@@ -60,9 +60,9 @@ Item itemInit(Statblock _stat, u32 _sprite_offset, ItemType type);
 #define _RED_MAGE_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 360, ARMOR)
 #define _ENCHANTER_MAGE_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 384, ARMOR)
 
-#define _ARCHER_IRON_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 696, ARMOR)
-#define _ARCHER_GOLDEN_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 696, ARMOR)
-#define _ARCHER_DIAMOND_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 696, ARMOR)
+#define _ARCHER_IRON_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 768, ARMOR)
+#define _ARCHER_GOLDEN_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 768, ARMOR)
+#define _ARCHER_DIAMOND_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 768, ARMOR)
 
 #define _PURPLE_MAGE_ARMOR_ITEM_DROP_(X, Y) itemDropInit(newIVec2(X, Y), _PURPLE_MAGE_ARMOR_ITEM_, 648)
 #define _RED_MAGE_ARMOR_ITEM_DROP_(X, Y) itemDropInit(newIVec2(X, Y), _RED_MAGE_ARMOR_ITEM_, 656)
