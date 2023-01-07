@@ -15,6 +15,7 @@ typedef struct Text {
 
 void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, char* source, ivec2 pos);
 void updateTextGlyphs(Text* text, char* source, ivec2 pos);
+void setTextPossition(Text* text, ivec2 pos);
 
 void unloadTextGlyphs(Text* text);
 int str_length(const char* source);

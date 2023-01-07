@@ -8,12 +8,13 @@ int str_length(const char* source) {
 
 void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, char* source, ivec2 pos) {
     text->glyphs = malloc(str_length(source) * sizeof(Sprite*));
+    text->number_of_glyphs = 0;
 
     int i;
     for(i = 0; source[i] != '\0'; ++i) {
         i8 character = source[i];
         text->number_of_glyphs++;
-        
+
         text->glyphs[i] = spriteInit(
             _sprites, 
             _next_sprite_index, 
@@ -23,6 +24,14 @@ void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, char*
             0, 0, 0, 2);
         
         spriteSetOffset(text->glyphs[i], 766 + (character)*2); //832 - !
+    }
+}
+
+void setTextPossition(Text* text, ivec2 pos) {
+    int i;
+    for(i = 0; i < text->number_of_glyphs; ++i) {
+        log(LOG_INFO, "%d %d", pos.x + (7)*i, pos.y);
+        spritePosition(text->glyphs[i], pos.x + (7)*i, pos.y);
     }
 }
 
