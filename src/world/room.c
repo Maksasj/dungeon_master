@@ -130,24 +130,8 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
-            break;
-        }
-        case ONE_NINJA_THREE_ANCIENT: {
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            break;
-        }
-        case THREE_KINGS: {
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            break;
-        }
-        case NECROMANCER_TWO_KINGS: {
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 10), TORCH_TILE, NONE);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 10), TORCH_TILE, NONE);
             break;
         }
         case LABYRINTH1: {
@@ -202,7 +186,9 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 16), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(10, 16), BORDER_UP, WALL);
-
+            
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 4), TORCH_TILE, NONE);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 14), TORCH_TILE, NONE);
             break;
         }
         case LABYRINTH2: {
@@ -241,6 +227,9 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 14), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 14), BORDER_UP, WALL);
 
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 10), TORCH_TILE, NONE);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 10), TORCH_TILE, NONE);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 8), TORCH_TILE, NONE);
             break;
         }
         case LABYRINTH3: {
@@ -299,6 +288,8 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 16), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 16), BORDER_UP, WALL);
 
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 16), TORCH_TILE, NONE);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 14), TORCH_TILE, NONE);
             break;
         }
         case ANCIENT: {
@@ -324,7 +315,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 10), BORDER_UP, WALL);
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 12), BORDER_UP, WALL);
-
             break;
         }
         case DUMBBELL: {
@@ -364,7 +354,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 12), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 12), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 12), BORDER_UP, WALL);
-
             break;
         }
         case SYMMETRIC: {
@@ -406,7 +395,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 16), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 16), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 16), BORDER_UP, WALL);
-
             break;
         }
         case CORRIDORS: {
@@ -444,7 +432,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 12), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 12), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 12), BORDER_UP, WALL);
-
             break;
         }
         case KING_IN_CORRIDOR: {
