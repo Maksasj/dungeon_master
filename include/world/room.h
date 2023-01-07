@@ -141,4 +141,6 @@ void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
 */
 void unLockRoom(void* _world, Room* _room);
 
+void loadTmpEntitySprite(Room* _room);
+
 #endif

@@ -45,7 +45,9 @@ typedef enum ActiveScene {
     MAIN_MENU_SCENE,
     CHOOSE_SCENE,
     GAME_SCENE,
-    SPLASH_SCENE
+    SPLASH_SCENE,
+    GAME_COMPLETE,
+    GAME_FAILED
 } ActiveScene;
 
 /*

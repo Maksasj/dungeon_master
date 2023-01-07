@@ -4,6 +4,7 @@
 
 Sprite sprites[_NUM_SPRITES_];
 i32 next_sprite_index = 0;
+char gameTime[6] = "00:00";
 
 void loadGameSpriteImages() {
     memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
@@ -20,6 +21,8 @@ void loadMenuSpriteImages() {
 void mainMenuScene() {
     loadMenuSpriteImages();
     
+    setLightLayer(0x0);
+
     u32 _seed = 0;
     u16 MAP[1024];
     
@@ -205,6 +208,7 @@ void classChooseScene(Class *class) {
             up_pressed = 0;
 
         if(buttonPressed(_BUTTON_START_)) {
+            setLightLayer(0x0);
             switch (selection) {
             case 0:
                 (*class) = WARRIOR;
@@ -225,7 +229,59 @@ void classChooseScene(Class *class) {
     }
 }
 
-void gameScene(Class *chosenClass) {
+void gameCompleteScene() {
+    vu16* lightLayer = screenBlock(13);
+    setLightLayer(0x1E);
+    _RENDER_SIDE_SHADOW_(lightLayer);
+
+    Text gameCompletedText; 
+    Text timeText; 
+    Text anothertimeText; 
+    Text pressStartText;
+    loadTextGlyphs(sprites, &next_sprite_index, &gameCompletedText, "GAME COMPLETED", (ivec2){.x = 72, .y = 32});
+    loadTextGlyphs(sprites, &next_sprite_index, &timeText, "Time:", (ivec2){.x = 80, .y = 52});
+    loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, gameTime, (ivec2){.x = 128, .y = 52});
+
+    loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, "press start to play", (ivec2){.x = 52, .y = 132});
+
+    while (1) {
+        waitVBlank();
+        spriteUpdateAll(sprites);
+
+        if(buttonPressed(_BUTTON_START_)) {
+            game_completed = 0;
+            return;
+        }
+    }
+}
+
+void gameFailedScene() {
+    vu16* lightLayer = screenBlock(13);
+    setLightLayer(0x1E);
+    _RENDER_SIDE_SHADOW_(lightLayer);
+
+    Text gameCompletedText; 
+    Text timeText; 
+    Text anothertimeText; 
+    Text pressStartText;
+    loadTextGlyphs(sprites, &next_sprite_index, &gameCompletedText, "YOU DIED", (ivec2){.x = 72, .y = 32});
+    loadTextGlyphs(sprites, &next_sprite_index, &timeText, "Time:", (ivec2){.x = 80, .y = 52});
+    loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, gameTime, (ivec2){.x = 128, .y = 52});
+
+    loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, "press start to play", (ivec2){.x = 52, .y = 132});
+
+    while (1) {
+        waitVBlank();
+        spriteUpdateAll(sprites);
+
+        if(buttonPressed(_BUTTON_START_)) {
+            game_completed = 0;
+            return;
+        }
+    }
+}
+
+int gameScene(Class *chosenClass) {
     World world = {.floorCount = 3};
     
     loadGameSpriteImages();
@@ -342,15 +398,57 @@ void gameScene(Class *chosenClass) {
             }
         #endif
 
+        if(buttonPressed(_BUTTON_SELECT_)) {
+            game_completed = 1;
+        }
+
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
+
+        if(player.health <= 0) {
+            int i;
+            for(i = 0; i < HEALTH_CAP; ++i)
+                spriteSetOffset(playerUI.health[i], 320);
+
+            ivec3 time = formatTime(&timer);
+
+            gameTime[0] = 48 + time.y / 10;
+            gameTime[1] = 48 + time.y % 10;
+
+            gameTime[3] = 48 + time.z / 10;
+            gameTime[4] = 48 + time.z % 10;
+
+            updateTextGlyphs(&text, "     ", (ivec2){.x = 200, .y = 8});
+            spriteUpdateAll(sprites);
+
+            return 0;
+        }
+
+        if(game_completed == 1) {
+            int i;
+            for(i = 0; i < HEALTH_CAP; ++i)
+                spriteSetOffset(playerUI.health[i], 320);
+
+            ivec3 time = formatTime(&timer);
+
+            gameTime[0] = 48 + time.y / 10;
+            gameTime[1] = 48 + time.y % 10;
+
+            gameTime[3] = 48 + time.z / 10;
+            gameTime[4] = 48 + time.z % 10;
+
+            updateTextGlyphs(&text, "     ", (ivec2){.x = 200, .y = 8});
+            spriteUpdateAll(sprites);
+
+            return 1;
+        }
 
         spriteUpdateAll(sprites);
 
         #ifndef EXTREME_MODE
             waitVBlank();
         #else
-            delay(50);
+            delay(30);
         #endif
     }
 }
@@ -384,6 +482,19 @@ int main() {
         } else if(active_scene == CHOOSE_SCENE) {
             classChooseScene(&chosen_class);
             active_scene = GAME_SCENE;
+        } else if(active_scene == GAME_SCENE) {
+            int rez = gameScene(&chosen_class);
+
+            if(rez == 1)
+                active_scene = GAME_COMPLETE;
+            else
+                active_scene = GAME_FAILED;
+        } else if(active_scene == GAME_COMPLETE) {
+            gameCompleteScene();
+            active_scene = MAIN_MENU_SCENE;
+        } else if(active_scene == GAME_FAILED) {
+            gameFailedScene();
+            active_scene = MAIN_MENU_SCENE;
         } else if(active_scene == GAME_SCENE) {
             gameScene(&chosen_class);
             active_scene = MAIN_MENU_SCENE;

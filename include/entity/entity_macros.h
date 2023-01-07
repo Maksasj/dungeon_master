@@ -29,7 +29,7 @@
         .update_callback = &skeletonNinjaUpdate,                \
         .on_collision_enter = &checkCollision,                  \
         .die_callback = &skeletonNinjaKill,                     \
-        .attack_callback = &skeletonNinjaCalculateDamage,       \
+        .calculate_damage_callback = &skeletonNinjaCalculateDamage,       \
         .dodge_callback = &skeletonNinjaTryDodge                \
     })                                                          \
 
@@ -44,7 +44,7 @@
         .update_callback = &skeletonKingUpdate,                 \
         .on_collision_enter = &checkCollision,                  \
         .die_callback = &skeletonKingKill,                      \
-        .attack_callback = &skeletonKingCalculateDamage,        \
+        .calculate_damage_callback = &skeletonKingCalculateDamage,        \
         .dodge_callback = &skeletonKingTryDodge                 \
     })                                                          \
 
@@ -59,7 +59,7 @@
         .update_callback = &skeletonAncientUpdate,              \
         .on_collision_enter = &checkCollision,                  \
         .die_callback = &skeletonAncientKill,                   \
-        .attack_callback = &skeletonAncientCalculateDamage,     \
+        .calculate_damage_callback = &skeletonAncientCalculateDamage,     \
         .dodge_callback = &skeletonAncientTryDodge              \
     })                                                          \
 
@@ -74,7 +74,7 @@
         .update_callback = &necromancerUpdate,                  \
         .on_collision_enter = &checkCollision,                  \
         .die_callback = &necromancerKill,                       \
-        .attack_callback = &necromancerCalculateDamage,         \
+        .calculate_damage_callback = &necromancerCalculateDamage,         \
         .dodge_callback = &necromancerTryDodge                  \
     })                                                          \
 

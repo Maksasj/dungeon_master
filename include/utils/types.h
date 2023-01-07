@@ -16,8 +16,10 @@
 
 // acceleration constant
 #define VELOCITY_CONSTANT 4
+
 // deceleration constant
 #define VELOCITY_SLOWDOWN_CONSTANT 1
+
 // constant, which works with fixed point calculations
 #define POSITION_FIXED_SCALAR 5
 

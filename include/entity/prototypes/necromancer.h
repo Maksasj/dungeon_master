@@ -17,7 +17,6 @@
 
 // structure for storing necromancer specs
 typedef struct NecromancerSpec {
-    // summon skeletons cooldown
     i32 summonCooldown;
 } NecromancerSpec;
 

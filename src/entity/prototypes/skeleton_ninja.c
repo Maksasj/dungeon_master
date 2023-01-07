@@ -20,8 +20,7 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     _self->vel.x = _self->vel.x / 2;
     _self->vel.y = _self->vel.y / 2;
 
-    switch (direction)
-    {
+    switch (direction) {
         case 'u': { //Up
             _self->vel.y += VELOCITY_CONSTANT;
             _self->facing = DOWN;
