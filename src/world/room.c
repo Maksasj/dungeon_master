@@ -50,16 +50,16 @@ void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, Collis
             _world->collision_box[_pos.y / 2][_pos.x / 2] = '#';
             break;
         }
+        case TRAP: {
+            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'X';
+            break;
+        }
         case OPENED_DOOR: {
             _world->collision_box[_pos.y / 2][_pos.x / 2] = 'D';
             break;
         }
         case CLOSED_DOOR: {
             _world->collision_box[_pos.y / 2][_pos.x / 2] = 'C';
-            break;
-        }
-        case CHEST: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'X';
             break;
         }
         case NEXT_FLOOR_ENTRANCE: {
@@ -80,7 +80,6 @@ void loadBasicRoom(World* _world, u16* _target) {
     for(i = 0; i < 15; ++i) {
         for(j = 0; j < 10; ++j) {
             placeTile(_world, _world->MAP, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
-            //placeTile(_world, _world->MAP, newIVec2(i*2, j*2), SMALL_SPIKES_TILE, NONE);
         }
     }
 
@@ -98,18 +97,15 @@ void loadBasicRoom(World* _world, u16* _target) {
     placeTile(_world, _world->MAP, newIVec2(28, 0), CORNER_RIGHT_UP, WALL);
     placeTile(_world, _world->MAP, newIVec2(0, 18), CORNER_LEFT_BOTTOM, WALL);
     placeTile(_world, _world->MAP, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
-
-    //placeTile(_world, _world->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
 }
 
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
     loadBasicRoom(_world, (u16*) (((World*) _world)->MAP));
 
-    i32 i;
-
     switch (_room->type) {
         case BASIC: {
             placeTile(_world, ((World*) _world)->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
+            placeTile(_world, ((World*) _world)->MAP, newIVec2(6, 6), BIG_SPIKES_TILE, TRAP);
             break;
         }
         case TWO_NINJA_SKELETONS_ENEMIES: {
@@ -622,6 +618,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         }
     }
 
+    i32 i;
     for(i = 0; i < _room->current_entity_count; ++i) {
         Entity* entity = &_room->entity_pool[i];
         entityInitSprite(entity, _sprites, _next_sprite_index);

@@ -386,7 +386,7 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
         case 'E':
             return NEXT_FLOOR_ENTRANCE;
         case 'X':
-            return CHEST;
+            return TRAP;
         default:
             return NONE;
     }
