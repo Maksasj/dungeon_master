@@ -181,7 +181,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random() % 12 + 1;
-        i32 roomId = SPIKE_MADNESS;
+        i32 roomId = SYMMETRIC2;
         Room room;
         
         room.type = roomId;
@@ -291,7 +291,7 @@ void generateFloor(World* _world) {
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 48});
                 break;
             }
-            case SYMMETRIC: {
+            case SYMMETRIC1: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 32));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
 
@@ -301,6 +301,15 @@ void generateFloor(World* _world) {
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 80});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 64});
+                break;
+            }
+            case SYMMETRIC2: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 48));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 32));
+
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 48));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 break;
             }
             case CORRIDORS: {

@@ -23,7 +23,7 @@ typedef enum RoomType {
     DARK_LABYRINTH,
     ANCIENT,
     DUMBBELL,
-    SYMMETRIC,
+    SYMMETRIC1,
     SYMMETRIC2,
     CORRIDORS,
     KING_IN_CORRIDOR,
