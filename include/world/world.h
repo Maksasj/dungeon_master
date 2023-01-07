@@ -44,6 +44,8 @@ typedef struct World {
     u8 collision_box[10][15];
 } World;
 
+extern i32 game_completed;
+
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index);
 
 void generateFloor(World* _world, i32 _class);
