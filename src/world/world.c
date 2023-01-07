@@ -182,7 +182,8 @@ void generateFloor(World* _world) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
-        i32 roomId = random() % 15 + 1;
+        //i32 roomId = random() % 15 + 1;
+        i32 roomId = LABYRINTH2;
 
         Room room;
         
@@ -205,27 +206,6 @@ void generateFloor(World* _world) {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 48));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 64));
-                break;
-            }
-            case ONE_NINJA_THREE_ANCIENT: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 16));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 32));
-                tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(208, 16));
-                break;
-            }
-            case THREE_KINGS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(48, 96));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(176, 96));
-                break;
-            }
-            case NECROMANCER_TWO_KINGS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(80, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(144, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _NECROMANCER_ENTITY_(160, 112));
-                tryPushItemDropToRoom(&_world->rooms[i], _DARK_CLAYMORE_ITEM_DROP_(112, 48));
                 break;
             }
             case LABYRINTH1: {
