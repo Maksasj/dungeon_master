@@ -30,6 +30,7 @@ typedef enum RoomType {
     PAC_MAN,
     PYRAMID,
     SPIKE_MADNESS,
+    BOSS,
     FLOOR_END,
     END_GAME
 } RoomType;
