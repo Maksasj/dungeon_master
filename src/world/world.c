@@ -181,7 +181,7 @@ void generateFloor(World* _world) {
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 1; ++i) {
         //i32 roomId = random() % 12 + 1;
-        i32 roomId = FOUR_ANCIENT_SKELETONS;
+        i32 roomId = DARK_LABYRINTH;
         Room room;
         
         room.type = roomId;
@@ -258,6 +258,14 @@ void generateFloor(World* _world) {
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 16, .y = 128});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 208, .y = 112});
+                break;
+            }
+            case DARK_LABYRINTH: {
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 32));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 16));
+                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 112));
+
+                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 break;
             }
             case ANCIENT: {
