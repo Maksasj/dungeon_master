@@ -110,14 +110,11 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
     switch (_room->type) {
         case BASIC: {
             placeTile(_world, ((World*) _world)->MAP, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
             break;
         }
         case TWO_NINJA_SKELETONS_ENEMIES: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 8), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 10), BORDER_UP, WALL);
@@ -135,10 +132,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 10), TORCH_TILE, NONE);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 10), TORCH_TILE, NONE);
-
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
-            tryPushLightToRoom(_room, (ivec2){.x = 160, .y = 80});
-            tryPushLightToRoom(_room, (ivec2){.x = 64, .y = 80});
             break;
         }
         case LABYRINTH1: {
@@ -196,10 +189,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 4), TORCH_TILE, NONE);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 14), TORCH_TILE, NONE);
-
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
-            tryPushLightToRoom(_room, (ivec2){.x = 192, .y = 32});
-            tryPushLightToRoom(_room, (ivec2){.x = 32, .y = 112});
             break;
         }
         case LABYRINTH2: {
@@ -241,17 +230,11 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 10), TORCH_TILE, NONE);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 10), TORCH_TILE, NONE);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 8), TORCH_TILE, NONE);
-
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 80});
-            tryPushLightToRoom(_room, (ivec2){.x = 208, .y = 80});
-            tryPushLightToRoom(_room, (ivec2){.x = 16, .y = 64});
             break;
         }
         case LABYRINTH3: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 2), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(18, 2), BORDER_UP, WALL);
@@ -304,12 +287,14 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 16), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(24, 16), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 16), BORDER_UP, WALL);
+
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 16), TORCH_TILE, NONE);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(26, 14), TORCH_TILE, NONE);
             break;
         }
         case ANCIENT: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 6), BORDER_UP, WALL);
 
@@ -335,7 +320,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case DUMBBELL: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 6), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 6), BORDER_UP, WALL);
@@ -375,7 +359,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case SYMMETRIC: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 2), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 2), BORDER_UP, WALL);
@@ -417,7 +400,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case CORRIDORS: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 6), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(6, 6), BORDER_UP, WALL);
@@ -455,7 +437,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case KING_IN_CORRIDOR: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(12, 2), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(16, 2), BORDER_UP, WALL);
@@ -505,7 +486,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case PAC_MAN: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 2), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 2), BORDER_UP, WALL);
@@ -565,7 +545,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case PYRAMID: {
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 0});
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(2, 2), BORDER_UP, WALL);
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(4, 2), BORDER_UP, WALL);
@@ -617,7 +596,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         case FLOOR_END: {
             placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
             placeTile(_world, ((World*)_world)->MAP, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);
-            tryPushLightToRoom(_room, (ivec2){.x = 112, .y = 64});
             break;  
         }
         case END_GAME: {
