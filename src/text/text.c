@@ -30,7 +30,6 @@ void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, char*
 void setTextPossition(Text* text, ivec2 pos) {
     int i;
     for(i = 0; i < text->number_of_glyphs; ++i) {
-        log(LOG_INFO, "%d %d", pos.x + (7)*i, pos.y);
         spritePosition(text->glyphs[i], pos.x + (7)*i, pos.y);
     }
 }
