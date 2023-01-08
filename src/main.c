@@ -398,10 +398,6 @@ int gameScene(Class *chosenClass) {
             }
         #endif
 
-        if(buttonPressed(_BUTTON_SELECT_)) {
-            game_completed = 1;
-        }
-
         updatePlayerSpec(player.spec, &player);
         (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
 

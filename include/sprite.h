@@ -5,7 +5,7 @@
  * Maksimas Jaroslavcevas, Oskaras Vištorskis
  *
  * @brief
- * File that cotains all defenitions neede to work with GBA sprites
+ * File that cotains all defenitions needed to work with GBA sprites
 */
 
 #ifndef _SPRITE_H_
