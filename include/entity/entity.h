@@ -11,9 +11,6 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
-// Max health
-#define HEALTH_CAP 6
-
 #include "statblock.h"
 #include "layer_mask.h"
 

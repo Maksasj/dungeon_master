@@ -12,16 +12,8 @@
 #define _BACKGROUND_H_
 
 #include "utils/types.h"
+#include "utils/memory.h"
 #include "sprite.h"
-
-/* Constant what determines tile map thing */
-#define _TILEMAP_               0x6000000
-
-/* Size of the char memory block */
-#define _CHAR_BLOCK_SIZE_       0x4000
-
-/* Size of the screen memory block */
-#define _SCREEN_BLOCK_SIZE_     0x800
 
 /* Pointer to the main background palette */
 #define _BG_PALETTE_ ((vu16*) 0x5000000)
@@ -40,25 +32,21 @@
 #define _BG1_X_SCROLL_ ((u16*) 0x4000014)
 #define _BG1_Y_SCROLL_ ((u16*) 0x4000016)
 
-/**
- * Returns location of block as char block pointer
- * 
- * @param   _block  Index of the block
- * @return          Pointer to char block
-*/
-vu16* charBlock(u32 _block);
+/* Pointer that contains all available background 2 attributes */
+#define _BG2_CONTROL_ ((vu16*) 0x400000C)
 
-/**
- * Returns location of block as screen block pointer
- * 
- * @param   _block  Index of the block
- * @return          Pointer to screen block
-*/
-vu16* screenBlock(u32 _block);
+/* Pointers to offsets of the background 2 */
+#define _BG2_X_SCROLL_ ((u16*) 0x4000018)
+#define _BG2_Y_SCROLL_ ((u16*) 0x400001A)
 
 /**
  * Function that initializes all backgrounds
+ * 
+ * @param   _pallete  Pointer to target background palette
+ * @param   _data  Pointer to target background data
+ * @param   _width  Pointer to target background width
+ * @param   _height  Pointer to target background height
 */
-void initBackground();
+void initBackground(u16* _pallete, u16* _data, i32 _width, i32 _height);
 
 #endif

@@ -12,6 +12,7 @@
 #define _LIGHT_H_
 
 #include "utils/types.h"
+#include "utils/memory.h"
 
 /* All build in light tile indexes
 0x17 - Dark
@@ -29,7 +30,7 @@
  * 
  * @param   _light  New value for all light tiles
 */
-void setLightLayer(i32 _light);
+inline void setLightLayer(i32 _light);
 
 /* Macro used to render shadow circle */
 #define SHADOW_BULB(dest, x , y)             \

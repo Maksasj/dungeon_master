@@ -135,7 +135,7 @@ void updateWorld(World* _world, Entity* _player) {
     }
     
     #ifdef _LIGHT_ON_
-        vu16* lightLayer = screenBlock(13);
+        vu16* lightLayer = screenBlock(2);
 
         for(i = 0; i < room->current_light_count; ++i) {
             ivec2 light = room->lights[i];

@@ -17,18 +17,15 @@
 #include "../entity.h"
 #include "../../world/world.h"
 
+/* Max amount of health shown in one row */
+#define HEALTH_PER_ROW 7
+
 // Enum for storing existing classes
 typedef enum Class {
     WARRIOR,
     WIZARD,
     ARCHER
 } Class;
-
-// Structure for displaying data
-typedef struct PlayerUI {
-    Sprite* health[HEALTH_CAP];
-    Sprite* manaBar;
-} PlayerUI;
 
 // Structure for storing player specs
 typedef struct PlayerSpecData {
@@ -49,19 +46,7 @@ typedef struct PlayerSpecData {
     Item hand_slot;
     // armor
     Item armor_slot;
-
-    // UI
-    PlayerUI* ui;
 } PlayerSpecData;
-
-/**
- * Initialize UI
- * 
- * @param _playerUI             UI
- * @param _sprites              Textures
- * @param _next_sprite_index    next sprite index
-*/
-void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index);
 
 /**
  * Initialize PlayerSpec
@@ -73,7 +58,7 @@ void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index
  * @param _ui                   UI
  * @param chosenClass           class
 */
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui, Class chosenClass);
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, Class _chosenClass);
 
 /**
  * Updates PlayerSpec
