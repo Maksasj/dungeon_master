@@ -1,5 +1,4 @@
 #include "../../include/utils/queue.h"
-#include <stdlib.h>
 
 ivec2Queue* createQueue() {
     ivec2Queue* queue = malloc(sizeof(ivec2Queue));

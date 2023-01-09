@@ -11,10 +11,6 @@
 #ifndef _TEXT_H_
 #define _TEXT_H_
 
-#include <stdlib.h>
-
-#include "../utils/logger.h"
-
 #include "../utils/types.h"
 #include "../sprite.h"
 

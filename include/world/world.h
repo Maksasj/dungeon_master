@@ -15,10 +15,7 @@
 #include "../sprite.h"
 #include "../utils/queue.h"
 #include "../utils/grid.h"
-#include "../utils/logger.h"
 #include "../sound/sound.h"
-
-#include "../utils/logger.h"
 
 #include "room.h"
 

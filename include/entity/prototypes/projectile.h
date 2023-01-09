@@ -15,8 +15,6 @@
 #include "../../utils/types.h"
 #include "../../world/world.h"
 
-#include "../../utils/logger.h"
-
 /**
  * Initialize projectile
  * 
