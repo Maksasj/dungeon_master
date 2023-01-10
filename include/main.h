@@ -90,6 +90,9 @@ typedef enum ActiveScene {
 312 - Mana bar
 */
 
+/* Transition between scenes speed  */
+#define TRANSITION_SPEED 500
+
 /* Macro used to initialize all sprites for main menu */
 #define _INIT_MAIN_MENU_SPRITES_                                                                        \
     Sprite* q1 = spriteInit(sprites, &next_sprite_index, 0, 0, SIZE_64_64, 0, 0, 128, 0);               \

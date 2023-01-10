@@ -106,8 +106,29 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     uiLayer[577] = 58;
     uiLayer[545] = 59;
 
-    //i32 damage = (*_entity->calculate_damage_callback)(_entity);
-    //uiLayer[578] = 59;
+    i32 calculated_damage = (*_entity->calculate_damage_callback)(_entity);;
+
+    i32 hundredDigit = calculated_damage / 100;
+    i32 tensDigit = (calculated_damage / 10) - hundredDigit*10;
+    i32 unitsDigit = calculated_damage - hundredDigit * 100 - tensDigit * 10;
+
+    i8 charShift = 0;
+    
+    if(calculated_damage > 9)
+        charShift++;
+
+    if(calculated_damage > 99)
+        charShift++;
+
+    uiLayer[578] = 344;
+    
+    if(calculated_damage > 99)
+        uiLayer[577 + charShift] = 272 + hundredDigit;
+    
+    if(calculated_damage > 9)
+        uiLayer[578 + charShift] = 272 + tensDigit;
+    
+    uiLayer[579 + charShift] = 272 + unitsDigit;
 }
 
 i32 playerTryDodge(Entity* _self) {
@@ -117,9 +138,8 @@ i32 playerTryDodge(Entity* _self) {
     
     i32 agility = _self->base_stats.agility + hand->base_stats.agility + armor->base_stats.agility;
     
-    if (agility < 0) {
+    if (agility < 0)
         agility = 0;
-    }
     
     u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
 
@@ -208,7 +228,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     #ifndef _GOD_MODE_
     if(xCol == TRAP || yCol == TRAP) {
         entityTakeDamage(_self, 1);
-        entityKnockback(_self, getOppositeFacing(_self->facing), 400);
+        //entityKnockback(_self, getOppositeFacing(_self->facing), 400);
     }
     #endif
 

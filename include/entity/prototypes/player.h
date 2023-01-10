@@ -11,6 +11,7 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
+#include "../../text/text.h"
 #include "../../buttons.h"
 #include "../../sprite.h"
 #include "../../utils/types.h"
