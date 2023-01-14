@@ -65,7 +65,7 @@ void updateWorld(World* _world, Entity* _player) {
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(entity, _player);
-                    //entityKnockback(_player, entity->facing, 500);
+                    entityKnockback(_player, entity->facing, 500);
                 }
                 #endif
 
@@ -108,7 +108,7 @@ void updateWorld(World* _world, Entity* _player) {
 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(projectile, _player);
-                    //entityKnockback(_player, projectile->facing, 10);
+                    entityKnockback(_player, projectile->facing, 10);
 
                     entityUnloadSprite(projectile);
                     deleteProjectileFromRoom(projectile, room);
@@ -121,7 +121,7 @@ void updateWorld(World* _world, Entity* _player) {
                 
                 if (checkCollision(entity, projectile)) {
                     if (!(*entity->dodge_callback)(entity)) {
-                        //entityKnockback(entity, projectile->facing, 20);
+                        entityKnockback(entity, projectile->facing, 20);
                         entityAttack(projectile, entity);
 
                         entityUnloadSprite(projectile);
@@ -186,7 +186,8 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        i32 roomId = random() % 15 + 1;
+        //i32 roomId = random() % 15 + 1;
+        i32 roomId = PYRAMID;
         Room room;
         
         room.type = roomId;

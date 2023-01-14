@@ -92,17 +92,13 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     }
 
     if (world_position.x < 0) {
-        _self->vel.x = 0;
-        ++_self->vel.x;
+        _self->vel.x = 10;
     } else if (world_position.x > GRID_LENGTH) {
-        _self->vel.x = 0;
-        --_self->vel.x;
+        _self->vel.x = -10;
     } else if (world_position.y < 0) {
-        _self->vel.y = 0;
-        ++_self->vel.y;
+        _self->vel.y = 10;
     } else if (world_position.y > GRID_HEIGHT) {
-        _self->vel.y = 0;
-        --_self->vel.y;
+        _self->vel.y = -10;
     }
 
     _self->position.x += _self->vel.x;

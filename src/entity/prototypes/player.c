@@ -1,5 +1,8 @@
 #include "../../../include/entity/prototypes/player.h"
 
+const static i32 GRID_LENGTH = 12;
+const static i32 GRID_HEIGHT = 7;
+
 void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, Class _chosenClass) {
     _pspec->armor = spriteInit(
         _sprites, 
@@ -156,6 +159,8 @@ void killPlayer(Entity* _self) {
 }
 
 void player_update(Entity* _self, World* _world, Room* _room) {
+    ivec2 world_position = screenToGridPosition(_self->position);
+
     _self->vel.x = _self->vel.x / 2;
     _self->vel.y = _self->vel.y / 2;
 
@@ -176,6 +181,16 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             break;
         default:
             break;
+    }
+
+    if (world_position.x < 0) {
+        _self->vel.x = 10;
+    } else if (world_position.x > GRID_LENGTH) {
+        _self->vel.x = -10;
+    } else if (world_position.y < 0) {
+        _self->vel.y = 10;
+    } else if (world_position.y > GRID_HEIGHT) {
+        _self->vel.y = -10;
     }
 
     if (buttonPressed(_BUTTON_RIGHT_)) {
@@ -228,7 +243,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     #ifndef _GOD_MODE_
     if(xCol == TRAP || yCol == TRAP) {
         entityTakeDamage(_self, 1);
-        //entityKnockback(_self, getOppositeFacing(_self->facing), 400);
+        entityKnockback(_self, getOppositeFacing(_self->facing), 400);
     }
     #endif
 

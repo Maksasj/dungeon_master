@@ -27,7 +27,7 @@ void warriorAttack(Entity* _warrior, Room* _active_room) {
 
         if ((*entity->on_collision_enter)(entity, &temp)) {
             if (!(*entity->dodge_callback)(entity)) {
-                //entityKnockback(entity, _warrior->facing, 20);
+                entityKnockback(entity, _warrior->facing, 200);
                 entityAttack(_warrior, entity);
             }
         }
