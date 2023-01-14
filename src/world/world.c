@@ -48,7 +48,6 @@ void updateWorld(World* _world, Entity* _player) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToGridPosition(_player->position);
 
-            clearGrid(&_world->grid);
             breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
     }
@@ -64,7 +63,9 @@ void updateWorld(World* _world, Entity* _player) {
 
                 #ifndef _GOD_MODE_ 
                 if (!(*_player->dodge_callback)(_player)) {
+                    #ifndef _GOD_MODE_ 
                     entityAttack(entity, _player);
+                    #endif
                     entityKnockback(_player, entity->facing, 500);
                 }
                 #endif

@@ -65,6 +65,8 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position, u8 _collision_
     ivec2Queue* queue = createQueue();
     ivec2* neighbors = (ivec2*)malloc(_AMOUNT_OF_NEIGHBORS_ * sizeof(ivec2));
 
+    _grid->distance_to_player[_start_position.x][_start_position.y] = 0;
+
     push(queue, _start_position);
 
     while (!empty(queue)) {
@@ -86,6 +88,18 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position, u8 _collision_
                 _grid->visited[next.x][next.y] = 1;
                 _grid->vertices[next.x][next.y] = DIRECTION[index];
                 _grid->distance_to_player[next.x][next.y] = _grid->distance_to_player[current.x][current.y] + 1;
+            }
+        }
+    }
+
+    i32 i;
+    i32 j;
+    for (i = 0; i < _ROOM_LENGTH_; ++i) {
+        for (j = 0; j < _ROOM_WIDTH_; ++j) {
+            _grid->visited[i][j] = 0;
+            
+            if (_grid->vertices[i][j] == ' ') {
+                _grid->vertices[i][j] = '#';
             }
         }
     }

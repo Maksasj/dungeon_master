@@ -1,12 +1,12 @@
 #include "../../../include/entity/prototypes/necromancer.h"
 #include "../../../include/entity/entity_macros.h"
 
+static const i32 GRID_LENGTH = 12;
+static const i32 GRID_HEIGHT = 7;
+static const u32 FIELD_OF_VIEW_RANGE = 7;
+
 void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToGridPosition(_self->position);
-
-    static const i32 GRID_LENGTH = 12;
-    static const i32 GRID_HEIGHT = 7;
-    static const u32 FIELD_OF_VIEW_RANGE = 7;
 
     static const i32 SUMMONING_COOLDOWN = 1000;
 
@@ -68,30 +68,30 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
                 break;
             }
             case '#': {
-                switch (_self->facing) {
-                    case UP: {
-                        _self->vel.y -= VELOCITY_CONSTANT;
-                        break;
-                    }
-                    case RIGHT: {
-                        _self->vel.x += VELOCITY_CONSTANT;
-                        break;
-                    }
-                    case DOWN: {
-                        _self->vel.y += VELOCITY_CONSTANT;
-                        break;
-                    }
-                    case LEFT: {
-                        _self->vel.x -= VELOCITY_CONSTANT;
-                        break;
-                    }
-                    default:
-                        break;
+            switch (_self->facing) {
+                case UP: {
+                    _self->vel.y = -10;
+                    break;
                 }
-                break;
+                case RIGHT: {
+                    _self->vel.x = 10;
+                    break;
+                }
+                case DOWN: {
+                    _self->vel.y = 10;
+                    break;
+                }
+                case LEFT: {
+                    _self->vel.x = -10;
+                    break;
+                }
+                default:
+                    break;
             }
-            default:
-                break;
+            break;
+        }
+        default:
+            break;
         }
     } else {
         switch (direction) {
@@ -143,19 +143,14 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
         }
     }
     
-
     if (world_position.x < 0) {
-        _self->vel.x = 0;
-        ++_self->vel.x;
+        _self->vel.x = 10;
     } else if (world_position.x > GRID_LENGTH) {
-        _self->vel.x = 0;
-        --_self->vel.x;
+        _self->vel.x = -10;
     } else if (world_position.y < 0) {
-        _self->vel.y = 0;
-        ++_self->vel.y;
+        _self->vel.y = 10;
     } else if (world_position.y > GRID_HEIGHT) {
-        _self->vel.y = 0;
-        --_self->vel.y;
+        _self->vel.y = -10;
     }
 
     _self->position.x += _self->vel.x;
