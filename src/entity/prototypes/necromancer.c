@@ -6,7 +6,7 @@ static const i32 GRID_HEIGHT = 7;
 static const u32 FIELD_OF_VIEW_RANGE = 7;
 
 void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
-    ivec2 world_position = screenToGridPosition(_self->position);
+    ivec2 world_position = screenToWorldPosition(_self->position);
 
     static const i32 SUMMONING_COOLDOWN = 1000;
 
@@ -22,8 +22,8 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
 
-    _self->vel.x = _self->vel.x / 2;
-    _self->vel.y = _self->vel.y / 2;
+    _self->vel.x /= 2;
+    _self->vel.y /= 2;
 
     if(distance < 3) {
         switch (direction) {

@@ -46,7 +46,7 @@ void updateWorld(World* _world, Entity* _player) {
 
     if (WORLD_TICK % _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
-            ivec2 world_position = screenToGridPosition(_player->position);
+            ivec2 world_position = screenToWorldPosition(_player->position);
 
             breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
@@ -62,11 +62,11 @@ void updateWorld(World* _world, Entity* _player) {
                 notePlay(NOTE_BES, 1);
 
                 #ifndef _GOD_MODE_ 
-                if (!(*_player->dodge_callback)(_player)) {
-                    #ifndef _GOD_MODE_ 
-                    entityAttack(entity, _player);
-                    #endif
-                    entityKnockback(_player, entity->facing, 500);
+                if (!_player->invulnerable) {
+                    if (!(*_player->dodge_callback)(_player)) {
+                        entityAttack(entity, _player);
+                        makeInvulnerable(_player);
+                    }
                 }
                 #endif
 
@@ -109,7 +109,6 @@ void updateWorld(World* _world, Entity* _player) {
 
                 if (!(*_player->dodge_callback)(_player)) {
                     entityAttack(projectile, _player);
-                    entityKnockback(_player, projectile->facing, 10);
 
                     entityUnloadSprite(projectile);
                     deleteProjectileFromRoom(projectile, room);
@@ -187,8 +186,7 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        //i32 roomId = random() % 15 + 1;
-        i32 roomId = PYRAMID;
+        i32 roomId = random() % 15 + 1;
         Room room;
         
         room.type = roomId;
@@ -501,7 +499,7 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
     return NONE;
 }
 
-inline ivec2 screenToGridPosition(ivec2 _screen_position) {
+inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
     ivec2 grid_position;
 
     grid_position.x = (((_screen_position.x >> POSITION_FIXED_SCALAR) - 8) >> 4);

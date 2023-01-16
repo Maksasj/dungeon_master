@@ -19,6 +19,8 @@
 #include "../utils/types.h"
 #include "../utils/random.h"
 
+#define _DEFAULT_INVULNERABILITY_TIME_ 1000;
+
 // Entity structure for storing the required information
 typedef struct Entity {
     // Textures
@@ -42,6 +44,9 @@ typedef struct Entity {
     i32 health;
     // mana
     i32 mana;
+
+    i32 invulnerable;
+    i32 invulerability_time;
 
     // facing (UP, RIGHT, LEFT, DOWN)
     Facing facing;
@@ -176,5 +181,12 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity);
  * @param _entity      existing entity
 */
 void killEntity(Entity* _entity);
+
+/**
+ * Makes entity invulnerable for certain time
+ * 
+ * @param _entity      existing entity
+*/
+void makeInvulnerable(Entity* _entity);
 
 #endif

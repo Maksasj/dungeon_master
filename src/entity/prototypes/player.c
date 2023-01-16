@@ -159,10 +159,10 @@ void killPlayer(Entity* _self) {
 }
 
 void player_update(Entity* _self, World* _world, Room* _room) {
-    ivec2 world_position = screenToGridPosition(_self->position);
+    ivec2 world_position = screenToWorldPosition(_self->position);
 
-    _self->vel.x = _self->vel.x / 2;
-    _self->vel.y = _self->vel.y / 2;
+    _self->vel.x /= 2;
+    _self->vel.y /= 2;
 
     PlayerSpecData* pspec = (PlayerSpecData*) _self->spec;
     updatePlayerSpec(pspec, _self);
@@ -242,7 +242,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
     #ifndef _GOD_MODE_
     if(xCol == TRAP || yCol == TRAP) {
-        entityTakeDamage(_self, 1);
+        if (!_self->invulnerable) {
+            entityTakeDamage(_self, 1);
+            makeInvulnerable(_self);
+        }
         entityKnockback(_self, getOppositeFacing(_self->facing), 400);
     }
     #endif
@@ -292,5 +295,13 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         #endif
 
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
+    }
+
+    if (_self->invulnerable) {
+        if (_self->invulerability_time > 0) {
+            --_self->invulerability_time;
+        } else {
+            _self->invulnerable = 0;
+        }
     }
 }
