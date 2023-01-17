@@ -1,65 +1,65 @@
 #include "../../include/text/text.h"
 
-int str_length(const char* source) {
-    int count; 
-    for (count = 0; source[count] != '\0'; ++count);
+i32 getStringLength(const i8* _source) {
+    i32 count; 
+    for (count = 0; _source[count] != '\0'; ++count);
     return count; 
 }
 
-void renderText(vu16* _layer, char* _text, ivec2 _pos) {
-    int i;
+void renderText(vu16* _layer, i8* _text, ivec2 _pos) {
+    i32 i;
     for(i = 0; _text[i] != '\0'; ++i) {
-        _layer[_pos.x + _pos.y*32 + i] = 256 + ( _text[i] - 32);
+        _layer[_pos.x + _pos.y * 32 + i] = 256 + (_text[i] - 32);
     }
 }
 
-void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, char* source, ivec2 pos) {
-    text->glyphs = malloc(str_length(source) * sizeof(Sprite*));
-    text->number_of_glyphs = 0;
+void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* _text, i8* _source, ivec2 _pos) {
+    _text->glyphs = malloc(getStringLength(_source) * sizeof(Sprite*));
+    _text->number_of_glyphs = 0;
 
-    int i;
-    for(i = 0; source[i] != '\0'; ++i) {
-        i8 character = source[i];
-        text->number_of_glyphs++;
+    i32 i;
+    for(i = 0; _source[i] != '\0'; ++i) {
+        i8 character = _source[i];
+        ++_text->number_of_glyphs;
 
-        text->glyphs[i] = spriteInit(
+        _text->glyphs[i] = spriteInit(
             _sprites, 
             _next_sprite_index, 
-            pos.x + (7)*i, 
-            pos.y, 
+            _pos.x + (7) * i, 
+            _pos.y, 
             SIZE_8_8, 
             0, 0, 0, 2);
         
-        spriteSetOffset(text->glyphs[i], 766 + (character)*2); //832 - !
+        spriteSetOffset(_text->glyphs[i], 766 + (character) * 2); //832 - !
     }
 }
 
-void setTextPosition(Text* text, ivec2 pos) {
-    int i;
-    for(i = 0; i < text->number_of_glyphs; ++i) {
-        spritePosition(text->glyphs[i], pos.x + (7)*i, pos.y);
+void setTextPosition(Text* _text, ivec2 _pos) {
+    i32 i;
+    for(i = 0; i < _text->number_of_glyphs; ++i) {
+        spritePosition(_text->glyphs[i], _pos.x + (7) * i, _pos.y);
     }
 }
 
-void updateTextGlyphs(Text* text, char* source, ivec2 pos) {
-    int i;
-    for(i = 0; i < text->number_of_glyphs; ++i) {
-        i8 character = source[i];
-        spritePosition(text->glyphs[i], pos.x + (7)*i, pos.y);
-        spriteSetOffset(text->glyphs[i], 766 + (character)*2); //832 - !
+void updateTextGlyphs(Text* _text, i8* _source, ivec2 _pos) {
+    i32 i;
+    for(i = 0; i < _text->number_of_glyphs; ++i) {
+        i8 character = _source[i];
+        spritePosition(_text->glyphs[i], _pos.x + (7) * i, _pos.y);
+        spriteSetOffset(_text->glyphs[i], 766 + (character) * 2); //832 - !
     }
 }
 
-void setCharacterTextGlyph(Text* text, i32 index, char character) {
-    spriteSetOffset(text->glyphs[index], 766 + (character)*2);
+void setCharacterTextGlyph(Text* _text, i32 _index, i8 _character) {
+    spriteSetOffset(_text->glyphs[_index], 766 + (_character) * 2);
 }
 
-void unloadTextGlyphs(Text* text) {
-    int i;
-    for(i = 0; i < text->number_of_glyphs; ++i) {
-        spritePosition(text->glyphs[i], -64, -64);
-        text->glyphs[i] = NULL;
+void unloadTextGlyphs(Text* _text) {
+    i32 i;
+    for(i = 0; i < _text->number_of_glyphs; ++i) {
+        spritePosition(_text->glyphs[i], -64, -64);
+        _text->glyphs[i] = NULL;
     }
     
-    text->number_of_glyphs = 0;
+    _text->number_of_glyphs = 0;
 }

@@ -7,16 +7,16 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     _pspec->armor = spriteInit(
         _sprites, 
         _next_sprite_index, 
-        _entity->position.x >> POSITION_FIXED_SCALAR, 
-        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+        _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
         0, 0, 0, 2);
     
     _pspec->weapon = spriteInit(
         _sprites, 
         _next_sprite_index, 
-        _entity->position.x >> POSITION_FIXED_SCALAR, 
-        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+        _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
         0, 0, 0, 2);
 
@@ -64,8 +64,8 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     if(_pspec->hand_slot.count != 0) {
         spritePosition(
             _pspec->weapon, 
-            _entity->position.x >> POSITION_FIXED_SCALAR, 
-            _entity->position.y >> POSITION_FIXED_SCALAR);
+            _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+            _entity->position.y >> _POSITION_FIXED_SCALAR_);
 
         spriteSetOffset(_pspec->weapon, _pspec->hand_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->weapon, flip);
@@ -74,8 +74,8 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     if(_pspec->armor_slot.count != 0) {
         spritePosition(
             _pspec->armor, 
-            _entity->position.x >> POSITION_FIXED_SCALAR,
-            _entity->position.y >> POSITION_FIXED_SCALAR);
+            _entity->position.x >> _POSITION_FIXED_SCALAR_,
+            _entity->position.y >> _POSITION_FIXED_SCALAR_);
 
         spriteSetOffset(_pspec->armor, _pspec->armor_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->armor, flip);
@@ -88,12 +88,15 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         _pspec->armor_slot.base_stats.stamina + 
         _pspec->hand_slot.base_stats.stamina;
 
-    int h;
+    i32 h;
     for(h = 0; h < player_max_health; ++h) {
-        char healthIcon = 55;
-        if(h >= _entity->health) healthIcon = 56;
+        i8 healthIcon = 55;
 
-        uiLayer[33 + (h % HEALTH_PER_ROW) + 32*(h / HEALTH_PER_ROW)] = healthIcon;
+        if(h >= _entity->health) {
+            healthIcon = 56;
+        }
+
+        uiLayer[33 + (h % _HEALTH_PER_ROW_) + 32*(h / _HEALTH_PER_ROW_)] = healthIcon;
     }
 
     i32 player_armor = 
@@ -102,8 +105,8 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         _pspec->hand_slot.base_stats.armor;
 
     for(h = 0; h < player_armor; ++h) {
-        const char shieldIcon = 57;
-        uiLayer[60 - (h % HEALTH_PER_ROW) + 32*(h / HEALTH_PER_ROW)] = shieldIcon;
+        const i8 shieldIcon = 57;
+        uiLayer[60 - (h % _HEALTH_PER_ROW_) + 32*(h / _HEALTH_PER_ROW_)] = shieldIcon;
     }
 
     uiLayer[577] = 58;
@@ -117,19 +120,23 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
 
     i8 charShift = 0;
     
-    if(calculated_damage > 9)
-        charShift++;
+    if(calculated_damage > 9) {
+        ++charShift;
+    }
 
-    if(calculated_damage > 99)
-        charShift++;
+    if(calculated_damage > 99) {
+        ++charShift;
+    }
 
     uiLayer[578] = 344;
     
-    if(calculated_damage > 99)
+    if(calculated_damage > 99) {
         uiLayer[577 + charShift] = 272 + hundredDigit;
+    }
     
-    if(calculated_damage > 9)
+    if(calculated_damage > 9) {
         uiLayer[578 + charShift] = 272 + tensDigit;
+    }
     
     uiLayer[579 + charShift] = 272 + unitsDigit;
 }
@@ -141,8 +148,9 @@ i32 playerTryDodge(Entity* _self) {
     
     i32 agility = _self->base_stats.agility + hand->base_stats.agility + armor->base_stats.agility;
     
-    if (agility < 0)
-        agility = 0;
+    if (agility < 0) {
+        agility = 0;    
+    }
     
     u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
 
@@ -158,7 +166,7 @@ void killPlayer(Entity* _self) {
     return;
 }
 
-void player_update(Entity* _self, World* _world, Room* _room) {
+void playerUpdate(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToWorldPosition(_self->position);
 
     _self->vel.x /= 2;
@@ -184,17 +192,17 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if (world_position.x < 0) {
-        _self->vel.x = 10;
+        _self->vel.x = _REPULSIVE_FORCE_;
     } else if (world_position.x > GRID_LENGTH) {
-        _self->vel.x = -10;
+        _self->vel.x = -_REPULSIVE_FORCE_;
     } else if (world_position.y < 0) {
-        _self->vel.y = 10;
+        _self->vel.y = _REPULSIVE_FORCE_;
     } else if (world_position.y > GRID_HEIGHT) {
-        _self->vel.y = -10;
+        _self->vel.y = -_REPULSIVE_FORCE_;
     }
 
     if (buttonPressed(_BUTTON_RIGHT_)) {
-        _self->vel.x += VELOCITY_CONSTANT;
+        _self->vel.x += _VELOCITY_CONSTANT_;
         
         _self->facing = RIGHT;
         spriteSetOffset(_self->sprite, base_sprite_offset + 16);
@@ -202,7 +210,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if (buttonPressed(_BUTTON_LEFT_)) {
-        _self->vel.x -= VELOCITY_CONSTANT;
+        _self->vel.x -= _VELOCITY_CONSTANT_;
 
         _self->facing = LEFT;
         spriteSetOffset(_self->sprite, base_sprite_offset + 16);
@@ -210,14 +218,14 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if (buttonPressed(_BUTTON_DOWN_)) {
-        _self->vel.y += VELOCITY_CONSTANT;
+        _self->vel.y += _VELOCITY_CONSTANT_;
 
         _self->facing = DOWN;
         spriteSetOffset(_self->sprite, base_sprite_offset + 8);
     }
 
     if (buttonPressed(_BUTTON_UP_)) {
-        _self->vel.y -= VELOCITY_CONSTANT;
+        _self->vel.y -= _VELOCITY_CONSTANT_;
 
         _self->facing = UP;
         spriteSetOffset(_self->sprite, base_sprite_offset + 0);
@@ -226,16 +234,16 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     if (buttonPressed(_BUTTON_A_)) {
         if (_self->attack_cooldown == 0) {
             (_self->attack_callback)(_self, _room);
-            _self->attack_cooldown = 10;
+            _self->attack_cooldown = _self->max_attack_cooldown;
         }
     }
 
-    CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR) + _self->vel.x, (_self->position.y >> POSITION_FIXED_SCALAR)));
+    CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_) + _self->vel.x, (_self->position.y >> _POSITION_FIXED_SCALAR_)));
     if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE || xCol == TRAP) {
         _self->position.x += _self->vel.x;
     }
 
-    CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR), (_self->position.y >> POSITION_FIXED_SCALAR) + _self->vel.y));
+    CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_), (_self->position.y >> _POSITION_FIXED_SCALAR_) + _self->vel.y));
     if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE || yCol == TRAP) {
         _self->position.y += _self->vel.y;
     }
@@ -253,10 +261,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         (*pspec->next_sprite_index) = 10;
 
         if((_self->position.y >> 3) < 70) {
-            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 128 << POSITION_FIXED_SCALAR); 
+            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, 128 << _POSITION_FIXED_SCALAR_); 
             nextRoom(_world, pspec->sprites, pspec->next_sprite_index);
         } else {
-            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 18 << POSITION_FIXED_SCALAR);
+            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, 18 << _POSITION_FIXED_SCALAR_);
             backRoom(_world, pspec->sprites, pspec->next_sprite_index);
         }
 
@@ -266,31 +274,17 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             pspec->hand_slot.base_stats.stamina;
     
         #ifdef _LIGHT_ON_
-            //Reload light
-            vu16* pointer = screenBlock(2);
-            int x;
-            int y;
-            
-            for(x = 0; x < 30; ++x)
-                for(y = 0; y < 20; ++y)
-                    pointer[x + 32*y] = 0x17;
+            reloadLight();
         #endif
 
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
-        _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
+        _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, (_SCREEN_HEIGHT_ / 2 - 8) << _POSITION_FIXED_SCALAR_);
 
         generateFloor(_world, pspec->class);
 
         #ifdef _LIGHT_ON_
-            //Reload light
-            vu16* pointer = screenBlock(2);
-            int x;
-            int y;
-            
-            for(x = 0; x < 30; ++x)
-                for(y = 0; y < 20; ++y)
-                    pointer[x + 32*y] = 0x17;
+            reloadLight();
         #endif
 
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);

@@ -36,6 +36,6 @@ typedef enum LogLevel {
  * @param _fmt    Text format
  * @param ...     Additional arguments
 */
-inline void log(LogLevel _lvl, const char* _fmt, ...);
+inline void log(LogLevel _lvl, const i8* _fmt, ...);
 
 #endif

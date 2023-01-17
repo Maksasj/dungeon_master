@@ -139,7 +139,7 @@ void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
  * @param   _world Pointer to world structure
  * @param   _room Pointer to the room
 */
-void unLockRoom(void* _world, Room* _room);
+void unlockRoom(void* _world, Room* _room);
 
 void loadTmpEntitySprite(Room* _room);
 

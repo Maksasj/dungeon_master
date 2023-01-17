@@ -5,19 +5,19 @@ static u32 WORLD_TICK = 0;
 i32 game_completed = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    int new_room = _world->activeRoom + 1;
+    i32 new_room = _world->activeRoom + 1;
     gotoRoom(_world, new_room, _sprites, _next_sprite_index);
 }
 
 void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
-    int new_room = _world->activeRoom - 1;
+    i32 new_room = _world->activeRoom - 1;
     gotoRoom(_world, new_room, _sprites, _next_sprite_index);
 }
 
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
     clearGrid(&_world->grid);
 
-    int i;    
+    i32 i;    
     for(i = 0; i < _world->rooms[_world->activeRoom].current_entity_count; ++i) {
         Entity *entity = &_world->rooms[_world->activeRoom].entity_pool[i];
         entityUnloadSprite(entity);
@@ -89,14 +89,14 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
-        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> POSITION_FIXED_SCALAR) + projectile->vel.x, projectile->position.y >> POSITION_FIXED_SCALAR));
+        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> _POSITION_FIXED_SCALAR_) + projectile->vel.x, projectile->position.y >> _POSITION_FIXED_SCALAR_));
         if(xCol == WALL) {
             entityUnloadSprite(projectile);
             deleteProjectileFromRoom(projectile, room);
             break;
         }
 
-        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> POSITION_FIXED_SCALAR, (projectile->position.y >> POSITION_FIXED_SCALAR) + projectile->vel.y));
+        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> _POSITION_FIXED_SCALAR_, (projectile->position.y >> _POSITION_FIXED_SCALAR_) + projectile->vel.y));
         if(yCol == WALL) {
             entityUnloadSprite(projectile);
             deleteProjectileFromRoom(projectile, room);
@@ -156,7 +156,7 @@ void updateWorld(World* _world, Entity* _player) {
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
         if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
-            unLockRoom(_world, room);
+            unlockRoom(_world, room);
         }
     }
 
@@ -502,8 +502,8 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
 inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
     ivec2 grid_position;
 
-    grid_position.x = (((_screen_position.x >> POSITION_FIXED_SCALAR) - 8) >> 4);
-    grid_position.y = (((_screen_position.y >> POSITION_FIXED_SCALAR) - 8) >> 4);
+    grid_position.x = (((_screen_position.x >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
+    grid_position.y = (((_screen_position.y >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
 
     return grid_position;
 }

@@ -1,7 +1,7 @@
 #include "../../include/entity/rotation.h"
 
-Facing getOppositeFacing(Facing facing) {
-    switch (facing) {
+Facing getOppositeFacing(Facing _facing) {
+    switch (_facing) {
         case UP:
             return DOWN;
         case RIGHT:

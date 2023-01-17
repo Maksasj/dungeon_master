@@ -11,7 +11,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#define MAIN_MENU_OPTION_COUNT 2
+#define _MAIN_MENU_OPTION_COUNT_ 2
 
 #include "utils/types.h"
 #include "text/text.h"
@@ -91,7 +91,7 @@ typedef enum ActiveScene {
 */
 
 /* Transition between scenes speed  */
-#define TRANSITION_SPEED 500
+#define _TRANSITION_SPEED_ 500
 
 /* Macro used to initialize all sprites for main menu */
 #define _INIT_MAIN_MENU_SPRITES_                                                                        \
@@ -113,9 +113,9 @@ typedef enum ActiveScene {
 /* Macro used to render choose square on provided layer */
 #define _RENDER_CHOOSE_SQUARE_(layer, X_OFFSET, Y_OFFSET)                       \
     {                                                                           \
-    int i;                                                                      \
-    int x;                                                                      \
-    int y;                                                                      \
+    i32 i;                                                                      \
+    i32 x;                                                                      \
+    i32 y;                                                                      \
                                                                                 \
     for(i = 1; i <= 4; ++i)                                                     \
         layer[X_OFFSET+ i + (Y_OFFSET * 32)] = 21 + 64 + 2;                     \
@@ -163,33 +163,33 @@ typedef enum ActiveScene {
 /* Macro used to render size shadows on provided layer */
 #define _RENDER_SIDE_SHADOW_(layer)                 \
     {                                               \
-        int x;                                      \
-        int y;                                      \
+        i32 x;                                      \
+        i32 y;                                      \
         for(x = 0; x < 30; ++x) {                   \
             for(y = 0; y < 30; ++y) {               \
                 if(x == 0 || x == 29)               \
-                    layer[x + y *32] = 0x17;        \
+                    layer[x + y * 32] = 0x17;       \
                                                     \
                 if(x == 1 || x == 28)               \
-                    layer[x + y *32] = 0x18;        \
+                    layer[x + y * 32] = 0x18;       \
                                                     \
                 if(x == 2 || x == 27)               \
-                    layer[x + y *32] = 0x19;        \
+                    layer[x + y * 32] = 0x19;       \
                                                     \
                 if(x == 3 || x == 26)               \
-                    layer[x + y *32] = 0x1A;        \
+                    layer[x + y * 32] = 0x1A;       \
                                                     \
                 if(x == 4 || x == 25)               \
-                    layer[x + y *32] = 0x1B;        \
+                    layer[x + y * 32] = 0x1B;       \
                                                     \
                 if(x == 5 || x == 24)               \
-                    layer[x + y *32] = 0x1C;        \
+                    layer[x + y * 32] = 0x1C;       \
                                                     \
                 if(x == 6 || x == 23)               \
-                    layer[x + y *32] = 0x1D;        \
+                    layer[x + y * 32] = 0x1D;       \
                                                     \
                 if(x == 7 || x == 22)               \
-                    layer[x + y *32] = 0x1E;        \
+                    layer[x + y * 32] = 0x1E;       \
             }                                       \
         }                                           \
     }                                               \
@@ -198,8 +198,8 @@ typedef enum ActiveScene {
 #define _RENDER_CHOOSE_SCREEN_                      \
     _RENDER_SIDE_SHADOW_(lightLayer)                \
                                                     \
-    {   int x;                                      \
-        int y;                                      \
+    {   i32 x;                                      \
+        i32 y;                                      \
         for(x = 0; x < 16; ++x) {                   \
             lightLayer[7 + x + (2 * 32)] = 0xC1 + x;\
             lightLayer[7 + x + (3 * 32)] = 0xE1 + x;\

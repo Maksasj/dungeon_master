@@ -15,8 +15,8 @@ Entity entityReload(Entity _self) {
 Entity entityInit(ivec2 _position, Statblock _stat, LayerMask _layer, u32 _sprite_offset) {
     Entity _entity;
     
-    _entity.position.x = _position.x << POSITION_FIXED_SCALAR;
-    _entity.position.y = _position.y << POSITION_FIXED_SCALAR;
+    _entity.position.x = _position.x << _POSITION_FIXED_SCALAR_;
+    _entity.position.y = _position.y << _POSITION_FIXED_SCALAR_;
 
     _entity.vel = newIVec2(0, 0);
 
@@ -41,8 +41,8 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
     _entity->sprite = spriteInit(
         _sprites, 
         _next_sprite_index, 
-        _entity->position.x >> POSITION_FIXED_SCALAR, 
-        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+        _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
         0, 0, 0, 3);
     
@@ -55,7 +55,7 @@ void entityUnloadSprite(Entity *_entity) {
 }
 
 void entityUpdate(Entity* _entity) {
-    spritePosition(_entity->sprite, (i32) _entity->position.x >> POSITION_FIXED_SCALAR, (i32)_entity->position.y >> POSITION_FIXED_SCALAR);
+    spritePosition(_entity->sprite, (i32) _entity->position.x >> _POSITION_FIXED_SCALAR_, (i32)_entity->position.y >> _POSITION_FIXED_SCALAR_);
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {
@@ -105,8 +105,8 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
     ivec2 first_entity_sprite_size_in_pixels = newIVec2(16, 16);
     ivec2 second_entity_sprite_size_in_pixels = newIVec2(16, 16);
 
-    ivec2 first_entity_fixed_position = newIVec2(_first_entity->position.x >> POSITION_FIXED_SCALAR, _first_entity->position.y >> POSITION_FIXED_SCALAR);
-    ivec2 second_entity_fixed_position = newIVec2(_second_entity->position.x >> POSITION_FIXED_SCALAR, _second_entity->position.y >> POSITION_FIXED_SCALAR);
+    ivec2 first_entity_fixed_position = newIVec2(_first_entity->position.x >> _POSITION_FIXED_SCALAR_, _first_entity->position.y >> _POSITION_FIXED_SCALAR_);
+    ivec2 second_entity_fixed_position = newIVec2(_second_entity->position.x >> _POSITION_FIXED_SCALAR_, _second_entity->position.y >> _POSITION_FIXED_SCALAR_);
 
     if (first_entity_fixed_position.x < second_entity_fixed_position.x + second_entity_sprite_size_in_pixels.x &&
         first_entity_fixed_position.x + first_entity_sprite_size_in_pixels.x > second_entity_fixed_position.x &&

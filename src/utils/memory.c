@@ -9,10 +9,10 @@ vu16* screenBlock(u32 _block) {
 }
 
 void setScreenBlock(vu16* _block, u16 _value) {
-    int i; int j;
+    i32 i; i32 j;
     for(i = 0; i < 30; ++i) {
         for(j = 0; j < 20; ++j) {
-            _block[i + j*32] = _value;
+            _block[i + j * 32] = _value;
         }
     }
 }

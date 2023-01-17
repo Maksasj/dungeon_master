@@ -56,16 +56,6 @@ typedef struct Statblock {
  * @param _armor Armor stat
  * @return Instance of the new stat block
 */
-Statblock stats(stattype _stamina, stattype _agility, stattype _intellect, stattype _strength, stattype _armor);
-
-
-/**
- * Sums up to stat blocks
- * 
- * @param _a First stat block
- * @param _b Second stat block
- * @return Instance of the new stat block
-*/
-Statblock sumStatblock(Statblock _a, Statblock _b);
+Statblock statsInit(stattype _stamina, stattype _agility, stattype _intellect, stattype _strength, stattype _armor);
 
 #endif

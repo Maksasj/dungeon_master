@@ -18,8 +18,6 @@
 #include "../utils/logger.h"
 #include "../sound/sound.h"
 
-#include "../utils/logger.h"
-
 #include "room.h"
 
 /* Build in cheat, allows to not take damage from any source */

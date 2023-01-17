@@ -69,7 +69,6 @@ vu16* charBlock(u32 _block);
 */
 vu16* screenBlock(u32 _block);
 
-
 /**
  * Sets specific value for all VISIBLE tiles in specific screen block
  * 

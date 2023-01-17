@@ -32,6 +32,11 @@
 */
 inline void setLightLayer(i32 _light);
 
+/**
+ * Light reloading
+*/
+void reloadLight();
+
 /* Macro used to render shadow circle */
 #define SHADOW_BULB(dest, x , y)             \
     dest[(x - 1) + (32*(y - 1))] = 0x17;     \
