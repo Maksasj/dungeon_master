@@ -298,8 +298,8 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     if (_self->invulnerable) {
-        if (_self->invulerability_time > 0) {
-            --_self->invulerability_time;
+        if (_self->invulnerability_time > 0) {
+            --_self->invulnerability_time;
         } else {
             _self->invulnerable = 0;
         }

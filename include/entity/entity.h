@@ -46,7 +46,7 @@ typedef struct Entity {
     i32 mana;
 
     i32 invulnerable;
-    i32 invulerability_time;
+    i32 invulnerability_time;
 
     // facing (UP, RIGHT, LEFT, DOWN)
     Facing facing;

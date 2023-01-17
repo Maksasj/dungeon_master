@@ -30,7 +30,7 @@ Entity entityInit(ivec2 _position, Statblock _stat, LayerMask _layer, u32 _sprit
     _entity.health = _stat.stamina;
     _entity.mana = _stat.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
     _entity.invulnerable = 0;
-    _entity.invulerability_time = 0;
+    _entity.invulnerability_time = 0;
     _entity.attack_cooldown = 0;
     _entity.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _stat.agility;
 
@@ -126,5 +126,5 @@ void killEntity(Entity* _entity) {
 
 void makeInvulnerable(Entity* _entity) {
     _entity->invulnerable = 1;
-    _entity->invulerability_time = _DEFAULT_INVULNERABILITY_TIME_;
+    _entity->invulnerability_time = _DEFAULT_INVULNERABILITY_TIME_;
 }
