@@ -246,7 +246,6 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             entityTakeDamage(_self, 1);
             makeInvulnerable(_self);
         }
-        entityKnockback(_self, getOppositeFacing(_self->facing), 400);
     }
     #endif
 
