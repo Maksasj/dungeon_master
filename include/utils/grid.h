@@ -59,7 +59,7 @@ i32 inBounds(ivec2 _coordinates);
  * 
  * @return  0 - false, 1 - true
 */
-i32 checkForObstacle(SquareGrid* _grid, ivec2 _coordinates, u8 _collision_box[10][15]);
+i32 passable(SquareGrid* _grid, ivec2 _coordinates, u8 _collision_box[10][15]);
 
 /**
  * Function that gets neighbors of grid cell
