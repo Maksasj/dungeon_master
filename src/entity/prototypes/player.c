@@ -91,7 +91,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     int h;
     for(h = 0; h < player_max_health; ++h) {
         char healthIcon = 55;
-        if(h > _entity->health) healthIcon = 56;
+        if(h >= _entity->health) healthIcon = 56;
 
         uiLayer[33 + (h % HEALTH_PER_ROW) + 32*(h / HEALTH_PER_ROW)] = healthIcon;
     }
