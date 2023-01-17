@@ -476,6 +476,8 @@ int gameScene(Class *chosenClass) {
             gameTime[4] = 48 + time.z % 10;
             spriteUpdateAll(sprites);
 
+            free(player.spec);
+
             return 0;
         }
 
@@ -489,6 +491,8 @@ int gameScene(Class *chosenClass) {
             gameTime[3] = 48 + time.z / 10;
             gameTime[4] = 48 + time.z % 10;
             spriteUpdateAll(sprites);
+            
+            free(player.spec);
 
             return 1;
         }
