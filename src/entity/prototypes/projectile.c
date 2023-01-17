@@ -8,7 +8,7 @@ Entity projectileInit(ivec2 _position, LayerMask _layer, u32 _sprite_offset) {
 }
 
 void projectileUpdate(Entity* _self, World* _world, Room* _room) {
-    ivec2 world_position = screenToGridPosition(_self->position);
+    ivec2 world_position = screenToWorldPosition(_self->position);
 
     _self->vel.x /= 2;
     _self->vel.y /= 2;

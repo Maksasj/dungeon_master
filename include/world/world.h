@@ -121,11 +121,11 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index);
 /**
  * Function that returns collision of the obstacle in active room and provided positions
  * 
- * @param   _world  Pointer to main world structure;
- * @param   _pos    Possition
- * @return          Type of this collision(NONE, WALL, TRAP, DOOR, etc.)
+ * @param   _world              Pointer to main world structure;
+ * @param   _world_position     World position
+ * @return  Type of this collision(NONE, WALL, TRAP, DOOR, etc.)
 */
-CollisionType worldCollision(World* _world, ivec2 _pos);
+CollisionType worldCollision(World* _world, ivec2 _world_position);
 
 /**
  * Converts provided screen coordinates to grid coordinates 
@@ -133,6 +133,6 @@ CollisionType worldCollision(World* _world, ivec2 _pos);
  * @param   _screen_position    Cords on the screen
  * @return                      Possition on the grid
 */
-inline ivec2 screenToGridPosition(ivec2 _screen_position);
+inline ivec2 screenToWorldPosition(ivec2 _screen_position);
 
 #endif

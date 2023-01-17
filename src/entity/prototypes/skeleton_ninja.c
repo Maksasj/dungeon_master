@@ -1,11 +1,11 @@
 #include "../../../include/entity/prototypes/skeleton_ninja.h"
 
-void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
-    ivec2 world_position = screenToGridPosition(_self->position);
+const static i32 GRID_LENGTH = 12;
+const static i32 GRID_HEIGHT = 7;
+static const u32 FIELD_OF_VIEW_RANGE = 7;
 
-    const static i32 GRID_LENGTH = 12;
-    const static i32 GRID_HEIGHT = 7;
-    static const u32 FIELD_OF_VIEW_RANGE = 7;
+void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
+    ivec2 world_position = screenToWorldPosition(_self->position);
 
     if (!_self->saw_the_target) {
         if (_world->grid.distance_to_player[world_position.x][world_position.y] > FIELD_OF_VIEW_RANGE) {
@@ -16,9 +16,9 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     }
     
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
-    
-    _self->vel.x = _self->vel.x / 2;
-    _self->vel.y = _self->vel.y / 2;
+
+    _self->vel.x /= 2;
+    _self->vel.y /= 2;
 
     switch (direction) {
         case 'u': { //Up
@@ -44,19 +44,19 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
         case '#': {
             switch (_self->facing) {
                 case UP: {
-                    _self->vel.y -= VELOCITY_CONSTANT;
+                    _self->vel.y = -10;
                     break;
                 }
                 case RIGHT: {
-                    _self->vel.x += VELOCITY_CONSTANT;
+                    _self->vel.x = 10;
                     break;
                 }
                 case DOWN: {
-                    _self->vel.y += VELOCITY_CONSTANT;
+                    _self->vel.y = 10;
                     break;
                 }
                 case LEFT: {
-                    _self->vel.x -= VELOCITY_CONSTANT;
+                    _self->vel.x = -10;
                     break;
                 }
                 default:
@@ -92,17 +92,13 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     }
 
     if (world_position.x < 0) {
-        _self->vel.x = 0;
-        ++_self->vel.x;
+        _self->vel.x = 10;
     } else if (world_position.x > GRID_LENGTH) {
-        _self->vel.x = 0;
-        --_self->vel.x;
+        _self->vel.x = -10;
     } else if (world_position.y < 0) {
-        _self->vel.y = 0;
-        ++_self->vel.y;
+        _self->vel.y = 10;
     } else if (world_position.y > GRID_HEIGHT) {
-        _self->vel.y = 0;
-        --_self->vel.y;
+        _self->vel.y = -10;
     }
 
     _self->position.x += _self->vel.x;
