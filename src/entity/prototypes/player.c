@@ -1,23 +1,6 @@
 #include "../../../include/entity/prototypes/player.h"
 
-void initPlayerUI(PlayerUI* _playerUI, Sprite* _sprites, i32* _next_sprite_index) {
-    int i = 0;
-    for(i = 0; i < HEALTH_CAP; ++i) {
-        _playerUI->health[i] = spriteInit(
-            _sprites, 
-            _next_sprite_index, 
-            4 + i*16, 
-            3, 
-            SIZE_16_16, 0, 0, 0, 2);
-        
-        spriteSetOffset(_playerUI->health[i], 312 + 8);
-    }
-
-    //_playerUI->manaBar = spriteInit(_sprites, _next_sprite_index, 4, 20, SIZE_32_16, 0, 0, 0, 0);
-    //spriteSetOffset(_playerUI->manaBar, 312);
-}
-
-void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, PlayerUI* _ui, Class chosenClass) {
+void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, Class _chosenClass) {
     _pspec->armor = spriteInit(
         _sprites, 
         _next_sprite_index, 
@@ -40,15 +23,10 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     _pspec->sprites = _sprites;
     _pspec->next_sprite_index = _next_sprite_index;
     
-    _pspec->class = chosenClass;
+    _pspec->class = _chosenClass;
 
     _pspec->hand_slot.count = 0;
     _pspec->armor_slot.count = 0;
-
-    _pspec->ui = _ui;
-
-    //spriteSetOffset(_pspec->armor, 144);
-    //spriteSetOffset(_pspec->weapon, 200);
 }
 
 void putOnItem(Entity *player, Item item) {
@@ -100,26 +78,57 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         spriteSetHorizontalFlip(_pspec->armor, flip);
     }
 
+    vu16* uiLayer = screenBlock(0);
 
     i32 player_max_health =  
         _entity->base_stats.stamina + 
         _pspec->armor_slot.base_stats.stamina + 
         _pspec->hand_slot.base_stats.stamina;
 
-    player_max_health = player_max_health > 6 ? 6 : player_max_health;        
+    int h;
+    for(h = 0; h < player_max_health; ++h) {
+        char healthIcon = 55;
+        if(h > _entity->health) healthIcon = 56;
 
-    i32 i;
-    for(i = 0; i < HEALTH_CAP; ++i) {
-        if(i < player_max_health) {
-            if(i < _entity->health) {
-                spriteSetOffset(_pspec->ui->health[i], 304);
-            } else {
-                spriteSetOffset(_pspec->ui->health[i], 312 + 16);
-            } 
-        } else {
-            spriteSetOffset(_pspec->ui->health[i], 312 + 8);
-        }
+        uiLayer[33 + (h % HEALTH_PER_ROW) + 32*(h / HEALTH_PER_ROW)] = healthIcon;
     }
+
+    i32 player_armor = 
+        _entity->base_stats.armor + 
+        _pspec->armor_slot.base_stats.armor + 
+        _pspec->hand_slot.base_stats.armor;
+
+    for(h = 0; h < player_armor; ++h) {
+        const char shieldIcon = 57;
+        uiLayer[60 - (h % HEALTH_PER_ROW) + 32*(h / HEALTH_PER_ROW)] = shieldIcon;
+    }
+
+    uiLayer[577] = 58;
+    uiLayer[545] = 59;
+
+    i32 calculated_damage = (*_entity->calculate_damage_callback)(_entity);;
+
+    i32 hundredDigit = calculated_damage / 100;
+    i32 tensDigit = (calculated_damage / 10) - hundredDigit*10;
+    i32 unitsDigit = calculated_damage - hundredDigit * 100 - tensDigit * 10;
+
+    i8 charShift = 0;
+    
+    if(calculated_damage > 9)
+        charShift++;
+
+    if(calculated_damage > 99)
+        charShift++;
+
+    uiLayer[578] = 344;
+    
+    if(calculated_damage > 99)
+        uiLayer[577 + charShift] = 272 + hundredDigit;
+    
+    if(calculated_damage > 9)
+        uiLayer[578 + charShift] = 272 + tensDigit;
+    
+    uiLayer[579 + charShift] = 272 + unitsDigit;
 }
 
 i32 playerTryDodge(Entity* _self) {
@@ -129,9 +138,8 @@ i32 playerTryDodge(Entity* _self) {
     
     i32 agility = _self->base_stats.agility + hand->base_stats.agility + armor->base_stats.agility;
     
-    if (agility < 0) {
+    if (agility < 0)
         agility = 0;
-    }
     
     u32 random_number = random((u32)_self->position.x * (u32)_self->position.y) % 101;
 
@@ -220,7 +228,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     #ifndef _GOD_MODE_
     if(xCol == TRAP || yCol == TRAP) {
         entityTakeDamage(_self, 1);
-        entityKnockback(_self, getOppositeFacing(_self->facing), 400);
+        //entityKnockback(_self, getOppositeFacing(_self->facing), 400);
     }
     #endif
 
@@ -242,7 +250,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     
         #ifdef _LIGHT_ON_
             //Reload light
-            vu16* pointer = screenBlock(13);
+            vu16* pointer = screenBlock(2);
             int x;
             int y;
             
@@ -259,7 +267,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
         #ifdef _LIGHT_ON_
             //Reload light
-            vu16* pointer = screenBlock(13);
+            vu16* pointer = screenBlock(2);
             int x;
             int y;
             

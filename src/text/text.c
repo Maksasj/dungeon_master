@@ -6,6 +6,13 @@ int str_length(const char* source) {
     return count; 
 }
 
+void renderText(vu16* _layer, char* _text, ivec2 _pos) {
+    int i;
+    for(i = 0; _text[i] != '\0'; ++i) {
+        _layer[_pos.x + _pos.y*32 + i] = 256 + ( _text[i] - 32);
+    }
+}
+
 void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* text, char* source, ivec2 pos) {
     text->glyphs = malloc(str_length(source) * sizeof(Sprite*));
     text->number_of_glyphs = 0;

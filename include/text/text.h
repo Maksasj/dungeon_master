@@ -69,4 +69,13 @@ void unloadTextGlyphs(Text* _text);
 */
 int str_length(const char* _source);
 
+/**
+ * Render text to specific screen block
+ * 
+ * @param   _layer  pointer to screen block
+ * @param   _text  Text string
+ * @param   _pos    Text possition
+*/
+void renderText(vu16* _layer, char* _text, ivec2 _pos);
+
 #endif
