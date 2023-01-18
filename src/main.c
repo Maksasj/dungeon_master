@@ -289,8 +289,13 @@ void gameCompleteScene() {
     vu16* lightLayer = screenBlock(2);
     setLightLayer(0x1E);
     _RENDER_SIDE_SHADOW_(lightLayer);
-
     spriteUpdateAll(sprites);
+
+    renderText((u16*) screenBlock(0), "GAME COMPLETE", (ivec2){.x = 9, .y = 4});
+    renderText((u16*) screenBlock(0), "Time:", (ivec2){.x = 10, .y = 6});
+    renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 16, .y = 6});
+    renderText((u16*) screenBlock(0), "press start to play", (ivec2){.x = 6, .y = 16});
+
     int k;
     int o;
     for(k = 0; k < 32; ++k) {
@@ -302,15 +307,6 @@ void gameCompleteScene() {
         waitVBlank();
         delay(TRANSITION_SPEED);
     }
-    //Text gameCompletedText; 
-    //Text timeText; 
-    //Text anothertimeText; 
-    //Text pressStartText;
-    //loadTextGlyphs(sprites, &next_sprite_index, &gameCompletedText, "GAME COMPLETED", (ivec2){.x = 72, .y = 32});
-    //loadTextGlyphs(sprites, &next_sprite_index, &timeText, "Time:", (ivec2){.x = 80, .y = 52});
-    //loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, gameTime, (ivec2){.x = 128, .y = 52});
-//
-    //loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, "press start to play", (ivec2){.x = 52, .y = 132});
 
     while (1) {
         waitVBlank();
@@ -318,9 +314,12 @@ void gameCompleteScene() {
 
         if(buttonPressed(_BUTTON_START_)) {
             game_completed = 0;
-            return;
+            break;
         }
     }
+
+    setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
+    setScreenBlock(screenBlock(0), 0);
 }
 
 void gameFailedScene() {
@@ -328,15 +327,10 @@ void gameFailedScene() {
     setLightLayer(0x1E);
     _RENDER_SIDE_SHADOW_(lightLayer);
 
-    //Text gameCompletedText; 
-    //Text timeText; 
-    //Text anothertimeText; 
-    //Text pressStartText;
-    //loadTextGlyphs(sprites, &next_sprite_index, &gameCompletedText, "YOU DIED", (ivec2){.x = 72, .y = 32});
-    //loadTextGlyphs(sprites, &next_sprite_index, &timeText, "Time:", (ivec2){.x = 80, .y = 52});
-    //loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, gameTime, (ivec2){.x = 128, .y = 52});
-//
-    //loadTextGlyphs(sprites, &next_sprite_index, &anothertimeText, "press start to play", (ivec2){.x = 52, .y = 132});
+    renderText((u16*) screenBlock(0), "YOU DIED", (ivec2){.x = 12, .y = 4});
+    renderText((u16*) screenBlock(0), "Time:", (ivec2){.x = 10, .y = 6});
+    renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 16, .y = 6});
+    renderText((u16*) screenBlock(0), "press start to play", (ivec2){.x = 6, .y = 16});
 
     while (1) {
         waitVBlank();
@@ -344,9 +338,12 @@ void gameFailedScene() {
 
         if(buttonPressed(_BUTTON_START_)) {
             game_completed = 0;
-            return;
+            break;
         }
     }
+
+    setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
+    setScreenBlock(screenBlock(0), 0);
 }
 
 int gameScene(Class *chosenClass) {
@@ -454,7 +451,7 @@ int gameScene(Class *chosenClass) {
         
     while (1) {
         updateWorld(&world, &player);
-        entityUpdate(&player);
+        entitySpriteUpdate(&player);
 
         if(room_switch || floor_switch) {
             setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
@@ -492,6 +489,7 @@ int gameScene(Class *chosenClass) {
 
             room_switch = 0;
             floor_switch = 0;
+
         }
 
         if(prevSecond != GET_GLOBAL_TIME || activeRoom != world.activeRoom) {
@@ -536,11 +534,15 @@ int gameScene(Class *chosenClass) {
             gameTime[1] = 48 + time.y % 10;
             gameTime[3] = 48 + time.z / 10;
             gameTime[4] = 48 + time.z % 10;
+
+            if(game_completed) {
+                player.position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
+                entitySpriteUpdate(&player);
+            }
+
             spriteUpdateAll(sprites);
 
             free(player.spec);
-
-            setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
 
             if(game_completed == 1)
                 return 1;

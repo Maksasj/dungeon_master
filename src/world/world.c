@@ -96,7 +96,7 @@ void updateWorld(World* _world, Entity* _player) {
             deleteEntityFromRoom(entity, room);
         }
 
-        entityUpdate(entity);
+        entitySpriteUpdate(entity);
     }
 
     for(i = 0; i < room->current_projectile_count; ++i) {
@@ -145,7 +145,7 @@ void updateWorld(World* _world, Entity* _player) {
                 }
             }
         }
-        entityUpdate(projectile);
+        entitySpriteUpdate(projectile);
     }
 
     for(i = 0; i < room->current_itemdrop_count; ++i) {
@@ -155,7 +155,7 @@ void updateWorld(World* _world, Entity* _player) {
             itemDropUnloadSprite(itemdrop);
             deleteItemDropFromRoom(itemdrop, room);
         }
-        entityUpdate((Entity*) itemdrop);
+        entitySpriteUpdate((Entity*) itemdrop);
     }
 
     //Lets open room if entity count == 0
