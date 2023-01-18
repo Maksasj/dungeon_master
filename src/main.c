@@ -14,7 +14,7 @@ void loadGameSpriteImages() {
 }
 
 void loadMenuSpriteImages() {
-    memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) menu_image_palette, _PALETTE_SIZE_);
+    //memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) menu_image_palette, _PALETTE_SIZE_);
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) menu_image_data, (menu_image_width * menu_image_height) / 2);
     
     spriteClear(sprites, &next_sprite_index);
@@ -47,6 +47,21 @@ void mainMenuScene() {
     }
 
     memcpy16DMA((u16*) screenBlock(1), (u16*) MAP, 32 * 32);
+
+    spriteUpdateAll(sprites);
+    {
+        int k;
+        int o;
+        for(k = 0; k < 32; ++k) {
+            for(o = 0; o < 256; ++o) {
+                _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, menu_image_palette[o], o);
+                _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, BACKGROUND_PALETTE[o], o);
+            }
+
+            waitVBlank();
+            delay(TRANSITION_SPEED);
+        } 
+    }
 
     while(1) {
         ++_seed;
@@ -320,6 +335,20 @@ void gameCompleteScene() {
 
     setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
     setScreenBlock(screenBlock(0), 0);
+
+    {
+        int k;
+        int o;
+        for(k = 0; k < 32; ++k) {
+            for(o = 0; o < 256; ++o) {
+                _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, 0, o);
+                _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, 0, o);
+            }
+
+            waitVBlank();
+            delay(TRANSITION_SPEED);
+        }
+    }   
 }
 
 void gameFailedScene() {
@@ -344,6 +373,20 @@ void gameFailedScene() {
 
     setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
     setScreenBlock(screenBlock(0), 0);
+
+    {
+        int k;
+        int o;
+        for(k = 0; k < 32; ++k) {
+            for(o = 0; o < 256; ++o) {
+                _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, 0, o);
+                _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, 0, o);
+            }
+
+            waitVBlank();
+            delay(TRANSITION_SPEED);
+        }
+    }
 }
 
 int gameScene(Class *chosenClass) {
