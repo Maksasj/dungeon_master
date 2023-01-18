@@ -37,7 +37,7 @@ void initBackground(u16* _pallete, u16* _data, i32 _width, i32 _height) {
         (1 << 2)  |                 // the char block the image data is stored in
         (0 << 6)  |                 // the mosaic flag
         (1 << 7)  |                 // color mode, 0 is 16 colors, 1 is 256 colors
-        (0 << 8) |                  // the screen block the tile data is stored in
+        (0 << 8)  |                 // the screen block the tile data is stored in
         (1 << 13) |                 // wrapping flag
         (0 << 14);                  // bg size, 0 is 256x256
 }

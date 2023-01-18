@@ -153,9 +153,8 @@ void classChooseScene(Class *class) {
     Sprite* wizzardIcon = spriteInit(sprites, &next_sprite_index, 112, 80, SIZE_16_16, 0, 0, 744 + 8, 0);
     Sprite* archerIcon = spriteInit(sprites, &next_sprite_index, 176, 80, SIZE_16_16, 0, 0, 768 + 8, 0);
 
-    //Text classNameText; 
-    //loadTextGlyphs(sprites, &next_sprite_index, &classNameText, "Warrior", (ivec2){.x = 96, .y = 144});
-    
+    renderText((u16*) screenBlock(0), "Warrior", (ivec2){.x = 12, .y = 18});
+
     _RENDER_ARROW_UP_(lightLayer, 5, 14);
     _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
     
@@ -173,7 +172,7 @@ void classChooseScene(Class *class) {
             delay(TRANSITION_SPEED);
         } 
     }
-
+    
     i8 flag = 1;
     while(flag) { 
         if(buttonPressed(_BUTTON_RIGHT_) && down_pressed == 0) {
@@ -207,7 +206,8 @@ void classChooseScene(Class *class) {
 
                 _RENDER_ARROW_UP_(lightLayer, 5, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
-                //updateTextGlyphs(&classNameText, "Warrior", (ivec2){.x = 96, .y = 144});
+
+                renderText((u16*) screenBlock(0), "Warrior", (ivec2){.x = 12, .y = 18});
                 break;
             case 1:
                 _CLEAR_TILE_(lightLayer, 5, 14);
@@ -217,7 +217,8 @@ void classChooseScene(Class *class) {
 
                 _RENDER_ARROW_UP_(lightLayer, 13, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 13, 6);
-                //updateTextGlyphs(&classNameText, "Wizard ", (ivec2){.x = 96, .y = 144});
+
+                renderText((u16*) screenBlock(0), "Wizard ", (ivec2){.x = 12, .y = 18});
                 break;
             case 2:
                 _CLEAR_TILE_(lightLayer, 5, 14);
@@ -227,7 +228,8 @@ void classChooseScene(Class *class) {
 
                 _RENDER_ARROW_UP_(lightLayer, 21, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 21, 6);
-                //updateTextGlyphs(&classNameText, "Archer ", (ivec2){.x = 96, .y = 144});
+
+                renderText((u16*) screenBlock(0), "Archer ", (ivec2){.x = 12, .y = 18});
                 break;
             default:
                 break;
@@ -279,6 +281,8 @@ void classChooseScene(Class *class) {
             delay(TRANSITION_SPEED);
         }
     }
+
+    renderText((u16*) screenBlock(0), "       ", (ivec2){.x = 12, .y = 18});
 }
 
 void gameCompleteScene() {
@@ -346,7 +350,7 @@ void gameFailedScene() {
 }
 
 int gameScene(Class *chosenClass) {
-    World world = {.floorCount = 1};
+    World world = {.floorCount = 3};
     
     loadGameSpriteImages();
     #ifdef _LIGHT_ON_
@@ -416,8 +420,24 @@ int gameScene(Class *chosenClass) {
     i32 prevSecond = GET_GLOBAL_TIME;
     i32 activeRoom = world.activeRoom;
     
+    u16* palettes[] = {
+        RED_PINK_WALLS_GREEN_DOORS,
+        BLUE_WALLS_YELLOW_DOORS,
+        NEON_1,
+        NEON_2,
+        BLACK_AND_WHITE,
+        GREY,
+        GREEN_PINK_DOORS,
+        PINK_BLUE_DOORS,
+        DEFAULT_PALETTE
+    };
+
+    setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
+    
+    updateWorldLight(&world);
     updatePlayerSpec(player.spec, &player);
     spriteUpdateAll(sprites);
+
     {
         int k;
         int o;
@@ -432,27 +452,32 @@ int gameScene(Class *chosenClass) {
         } 
     }
         
-    u16* palettes[] = {
-        RED_PINK_WALLS_GREEN_DOORS,
-        BLUE_WALLS_YELLOW_DOORS,
-        NEON_1,
-        NEON_2,
-        BLACK_AND_WHITE,
-        GREY,
-        GREEN_PINK_DOORS,
-        PINK_BLUE_DOORS,
-        DEFAULT_PALETTE
-    };
-
-    setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
-
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
         if(room_switch || floor_switch) {
             setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
+
+            #ifdef _LIGHT_ON_
+                {
+                    int playerX = ((int) player.position.x) >> POSITION_FIXED_SCALAR;
+                    int playerY = ((int) player.position.y) >> POSITION_FIXED_SCALAR;
+
+                    playerX /= 8;
+                    playerY /= 8;
+
+                    SHADOW_BULB(screenBlock(2), prevTileX, prevTileY);
+                    updateWorldLight(&world);
+                    prevTileX = playerX;
+                    prevTileY = playerY;
+                    RENDER_DYNAMIC_LIGHT_BULB(screenBlock(2), playerX, playerY);
+                }
+            #endif
+
+            updatePlayerSpec(player.spec, &player);
             spriteUpdateAll(sprites);
+
             int k;
             int o;
             for(k = 0; k < 32; ++k) {
@@ -462,7 +487,7 @@ int gameScene(Class *chosenClass) {
                 }
 
                 waitVBlank();
-                delay(TRANSITION_SPEED);
+                delay(ROOM_TRANSITION_SPEED);
             }
 
             room_switch = 0;

@@ -23,7 +23,7 @@
 #include "room.h"
 
 /* Build in cheat, allows to not take damage from any source */
-#define _GOD_MODE_
+// #define _GOD_MODE_
 
 /* Disables all light rendering */
 #define _LIGHT_ON_

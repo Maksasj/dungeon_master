@@ -17,8 +17,11 @@
 
 #include "background.h"
 
-/* Transition between palettes speed  */
+/* Transition between palettes speed for scenes */
 #define TRANSITION_SPEED 500
+
+/* Transition between palettes for rooms  */
+#define ROOM_TRANSITION_SPEED 300
 
 void setPalette(u16* _target, u16* _palette);
 
