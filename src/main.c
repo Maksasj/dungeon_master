@@ -330,7 +330,7 @@ void gameFailedScene() {
 }
 
 int gameScene(Class *chosenClass) {
-    World world = {.floorCount = 3};
+    World world = {.floorCount = 3, .currentFloor = 0};
     
     loadGameSpriteImages();
     #ifdef _LIGHT_ON_

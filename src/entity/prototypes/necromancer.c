@@ -169,7 +169,7 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
         if(summonCooldown == 0) {
             if(_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
-                int rez = tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x >> _POSITION_FIXED_SCALAR_, _self->position.y >> _POSITION_FIXED_SCALAR_));
+                i32 rez = tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x >> _POSITION_FIXED_SCALAR_, _self->position.y >> _POSITION_FIXED_SCALAR_));
                 loadTmpEntitySprite(_room);
             }
         }
@@ -178,6 +178,7 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
 void necromancerKill(Entity* _self) {
     notePlay(NOTE_C, 1);
+    free(_self->spec);
 }
 
 i32 necromancerCalculateDamage(Entity* _self) {
