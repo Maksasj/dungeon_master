@@ -36,7 +36,9 @@
 #include "../assets/generated/music/game_soundtrack_long.h"
 
 #include "background.h"
+#include "palette.h"
 #include "../assets/generated/tile-map.h"
+#include "../assets/generated/palettes.h"
 
 #include "../assets/generated/menu.h"
 #include "../assets/generated/sprites.h"
@@ -89,9 +91,6 @@ typedef enum ActiveScene {
 304 - Heart gem icon
 312 - Mana bar
 */
-
-/* Transition between scenes speed  */
-#define TRANSITION_SPEED 500
 
 /* Macro used to initialize all sprites for main menu */
 #define _INIT_MAIN_MENU_SPRITES_                                                                        \
@@ -208,39 +207,5 @@ typedef enum ActiveScene {
         _RENDER_CHOOSE_SQUARE_(lightLayer, 12, 8);  \
         _RENDER_CHOOSE_SQUARE_(lightLayer, 20, 8);  \
     }                                               \
-
-/* Macro that used for smooth transitioning between scenes */
-#define _SMOOTH_PALETT_TRANSITION_(PALETTE, TARGET_COLOR, COLOR_INDEX)              \
-    {                                                                               \
-        u16 color = PALETTE[COLOR_INDEX];                                           \
-                                                                                    \
-        u8 blue =  (color >> 10);                                                   \
-        u8 green = (color >> 5) - (blue << 5);                                      \
-        u8 red = (color & 0x1F);                                                    \
-                                                                                    \
-        u16 colorTarget = TARGET_COLOR;                                             \
-                                                                                    \
-        u8 blueTarget =  (colorTarget >> 10);                                       \
-        u8 greenTarget = (colorTarget >> 5) - (blueTarget << 5);                    \
-        u8 redTarget = (colorTarget & 0x1F);                                        \
-                                                                                    \
-        if(blue < blueTarget)                                                       \
-            blue += 1;                                                              \
-        if(blue > blueTarget)                                                       \
-            blue -= 1;                                                              \
-                                                                                    \
-        if(green < greenTarget)                                                     \
-            green += 1;                                                             \
-        if(green > greenTarget)                                                     \
-            green -= 1;                                                             \
-                                                                                    \
-        if(red < redTarget)                                                         \
-            red += 1;                                                               \
-        if(red > redTarget)                                                         \
-            red -= 1;                                                               \
-                                                                                    \
-        u16 newColor = (red)+((green)<<5)+((blue)<<10);                             \
-        PALETTE[COLOR_INDEX] = newColor;                                            \
-    }                                                                               \
 
 #endif

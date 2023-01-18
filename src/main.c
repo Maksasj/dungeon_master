@@ -286,6 +286,18 @@ void gameCompleteScene() {
     setLightLayer(0x1E);
     _RENDER_SIDE_SHADOW_(lightLayer);
 
+    spriteUpdateAll(sprites);
+    int k;
+    int o;
+    for(k = 0; k < 32; ++k) {
+        for(o = 0; o < 256; ++o) {
+            _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, image_palette[o], o);
+            _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, BACKGROUND_PALETTE[o], o);
+        }
+
+        waitVBlank();
+        delay(TRANSITION_SPEED);
+    }
     //Text gameCompletedText; 
     //Text timeText; 
     //Text anothertimeText; 
@@ -334,7 +346,7 @@ void gameFailedScene() {
 }
 
 int gameScene(Class *chosenClass) {
-    World world = {.floorCount = 3};
+    World world = {.floorCount = 1};
     
     loadGameSpriteImages();
     #ifdef _LIGHT_ON_
@@ -372,7 +384,8 @@ int gameScene(Class *chosenClass) {
     entityInitSprite(&player, sprites, &next_sprite_index);
     spriteSetOffset(player.sprite, player.sprite_offset);
 
-    player.update_callback = &player_update;
+    /* For now we will manually update player */
+    // player.update_callback = &player_update;
     player.die_callback = &killPlayer;
     player.dodge_callback = &playerTryDodge;
 
@@ -402,7 +415,7 @@ int gameScene(Class *chosenClass) {
 
     i32 prevSecond = GET_GLOBAL_TIME;
     i32 activeRoom = world.activeRoom;
-
+    
     updatePlayerSpec(player.spec, &player);
     spriteUpdateAll(sprites);
     {
@@ -418,12 +431,45 @@ int gameScene(Class *chosenClass) {
             delay(TRANSITION_SPEED);
         } 
     }
+        
+    u16* palettes[] = {
+        RED_PINK_WALLS_GREEN_DOORS,
+        BLUE_WALLS_YELLOW_DOORS,
+        NEON_1,
+        NEON_2,
+        BLACK_AND_WHITE,
+        GREY,
+        GREEN_PINK_DOORS,
+        PINK_BLUE_DOORS,
+        DEFAULT_PALETTE
+    };
+
+    setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
 
     while (1) {
         updateWorld(&world, &player);
         entityUpdate(&player);
 
-        if(prevSecond != GET_GLOBAL_TIME) {
+        if(room_switch || floor_switch) {
+            setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
+            spriteUpdateAll(sprites);
+            int k;
+            int o;
+            for(k = 0; k < 32; ++k) {
+                for(o = 0; o < 256; ++o) {
+                    _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, image_palette[o], o);
+                    _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, BACKGROUND_PALETTE[o], o);
+                }
+
+                waitVBlank();
+                delay(TRANSITION_SPEED);
+            }
+
+            room_switch = 0;
+            floor_switch = 0;
+        }
+
+        if(prevSecond != GET_GLOBAL_TIME || activeRoom != world.activeRoom) {
             ivec3 time = formatTime(&timer);
 
             gameTime[0] = 48 + time.y / 10;
@@ -433,18 +479,6 @@ int gameScene(Class *chosenClass) {
             renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 25, .y = 18});
 
             prevSecond = GET_GLOBAL_TIME;
-        }
-
-        if(activeRoom != world.activeRoom) {
-            ivec3 time = formatTime(&timer);
-
-            gameTime[0] = 48 + time.y / 10;
-            gameTime[1] = 48 + time.y % 10;
-            gameTime[3] = 48 + time.z / 10;
-            gameTime[4] = 48 + time.z % 10;
-            renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 25, .y = 18});
-
-            activeRoom = world.activeRoom;
         }
 
         #ifdef _LIGHT_ON_
@@ -463,9 +497,10 @@ int gameScene(Class *chosenClass) {
         #endif
 
         updatePlayerSpec(player.spec, &player);
-        (player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
+        //(player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);        
+        player_update(&player, &world, &world.rooms[world.activeRoom]);
 
-        if(player.health <= 0) {
+        if(player.health <= 0 || game_completed == 1) {
             setScreenBlock(screenBlock(0), 0);
 
             ivec3 time = formatTime(&timer);
@@ -478,23 +513,12 @@ int gameScene(Class *chosenClass) {
 
             free(player.spec);
 
-            return 0;
-        }
+            setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
 
-        if(game_completed == 1) {
-            setScreenBlock(screenBlock(0), 0);
-
-            ivec3 time = formatTime(&timer);
-
-            gameTime[0] = 48 + time.y / 10;
-            gameTime[1] = 48 + time.y % 10;
-            gameTime[3] = 48 + time.z / 10;
-            gameTime[4] = 48 + time.z % 10;
-            spriteUpdateAll(sprites);
+            if(game_completed == 1)
+                return 1;
             
-            free(player.spec);
-
-            return 1;
+            return 0;
         }
 
         spriteUpdateAll(sprites);

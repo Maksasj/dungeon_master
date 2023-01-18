@@ -23,10 +23,10 @@
 #include "room.h"
 
 /* Build in cheat, allows to not take damage from any source */
-//#define _GOD_MODE_
+#define _GOD_MODE_
 
 /* Disables all light rendering */
-#define _LIGHT_ON_
+// #define _LIGHT_ON_
 
 /* Room count per one dungeon floor */
 #define _MAX_ROOM_COUNT_ 5
@@ -73,6 +73,12 @@ typedef struct World {
 
 /* Global variable that determines, if game completed or not*/
 extern i32 game_completed;
+
+/* Global variable that determines, if active floor had been switched */
+extern u8 floor_switch;
+
+/* Global variable that determines, if active room had been switched */
+extern u8 room_switch;
 
 /**
  * Changes active room, renders new room.,

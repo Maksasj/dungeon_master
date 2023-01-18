@@ -252,6 +252,8 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
         (*pspec->next_sprite_index) = 10;
 
+        _SMOOTH_PALETT_TRANSITION_TO_BLACK_;
+
         if((_self->position.y >> 3) < 70) {
             _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 128 << POSITION_FIXED_SCALAR); 
             nextRoom(_world, pspec->sprites, pspec->next_sprite_index);
@@ -276,9 +278,12 @@ void player_update(Entity* _self, World* _world, Room* _room) {
                     pointer[x + 32*y] = 0x17;
         #endif
 
+        room_switch = 1;
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = 10;
         _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
+
+        _SMOOTH_PALETT_TRANSITION_TO_BLACK_;
 
         generateFloor(_world, pspec->class);
 
@@ -292,7 +297,8 @@ void player_update(Entity* _self, World* _world, Room* _room) {
                 for(y = 0; y < 20; ++y)
                     pointer[x + 32*y] = 0x17;
         #endif
-
+        
+        floor_switch = 1;
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
     }
 

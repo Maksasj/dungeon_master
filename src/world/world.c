@@ -3,6 +3,8 @@
 
 static u32 WORLD_TICK = 0;
 i32 game_completed = 0;
+u8 floor_switch = 0;
+u8 room_switch = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int new_room = _world->activeRoom + 1;
