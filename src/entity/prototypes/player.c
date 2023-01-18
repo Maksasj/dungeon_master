@@ -30,6 +30,8 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
 
     _pspec->hand_slot.count = 0;
     _pspec->armor_slot.count = 0;
+
+    _pspec->hand_slot.sprite_offset = 0;
 }
 
 void putOnItem(Entity *player, Item item) {
