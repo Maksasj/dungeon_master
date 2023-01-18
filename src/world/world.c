@@ -43,6 +43,18 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
 
+
+void updateWorldLight(World* _world) {
+    Room *room = &_world->rooms[_world->activeRoom];
+    vu16* lightLayer = screenBlock(2);
+
+    int i;
+    for(i = 0; i < room->current_light_count; ++i) {
+        ivec2 light = room->lights[i];
+        RENDER_LIGHT_BULB(lightLayer, light.x, light.y);
+    }
+}
+
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
@@ -135,15 +147,6 @@ void updateWorld(World* _world, Entity* _player) {
         }
         entityUpdate(projectile);
     }
-    
-    #ifdef _LIGHT_ON_
-        vu16* lightLayer = screenBlock(2);
-
-        for(i = 0; i < room->current_light_count; ++i) {
-            ivec2 light = room->lights[i];
-            RENDER_DYNAMIC_LIGHT_BULB(lightLayer, light.x, light.y);
-        }
-    #endif
 
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];

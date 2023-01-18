@@ -490,10 +490,12 @@ int gameScene(Class *chosenClass) {
 
             if((prevTileX != playerX) || (prevTileY != playerY)) {
                 SHADOW_BULB(screenBlock(2), prevTileX, prevTileY);
+                updateWorldLight(&world);
                 prevTileX = playerX;
                 prevTileY = playerY;
                 RENDER_DYNAMIC_LIGHT_BULB(screenBlock(2), playerX, playerY);
             }
+
         #endif
 
         updatePlayerSpec(player.spec, &player);
@@ -536,7 +538,7 @@ int main() {
         _DISPLAY_CONTROL_MODE_0_ | 
         _DISPLAY_CONTROL_BG_0_ | 
         _DISPLAY_CONTROL_BG_1_ | 
-        _DISPLAY_CONTROL_BG_2_ | 
+        _DISPLAY_CONTROL_BG_3_ |
         _SPRITE_ENABLE_ | 
         _SPRITE_MAP_1D_;
 

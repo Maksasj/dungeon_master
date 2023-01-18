@@ -26,7 +26,7 @@
 #define _GOD_MODE_
 
 /* Disables all light rendering */
-// #define _LIGHT_ON_
+#define _LIGHT_ON_
 
 /* Room count per one dungeon floor */
 #define _MAX_ROOM_COUNT_ 5
@@ -140,5 +140,12 @@ CollisionType worldCollision(World* _world, ivec2 _world_position);
  * @return                      Possition on the grid
 */
 inline ivec2 screenToWorldPosition(ivec2 _screen_position);
+
+/**
+ * Updates light in provided floor
+ * 
+ * @param   _world              Pointer to main world structure
+*/
+void updateWorldLight(World* _world);
 
 #endif
