@@ -458,7 +458,7 @@ void generateFloor(World* _world, i32 _class) {
     _world->rooms[_MAX_ROOM_COUNT_ - 2] = boss_room;
     tryPushEntityToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 2], _NECROMANCER_ENTITY_(112, 64));
     tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 64});
-    tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 64});
+    tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 64});
     
     Room last_room;
 
