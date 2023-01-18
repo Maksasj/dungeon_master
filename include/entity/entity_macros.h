@@ -24,7 +24,7 @@ entityReload((Entity){                                                          
         .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                             \
         .layer = ENEMY,                                                                     \
-        .base_stats = statsInit(1, 3, 0, 0, 0),                                                 \
+        .base_stats = statsInit(1, 3, 0, 0, 0),                                             \
         .sprite_offset = 24,                                                                \
         .update_callback = &skeletonNinjaUpdate,                                            \
         .on_collision_enter = &checkCollision,                                              \
@@ -39,7 +39,7 @@ entityReload((Entity){                                                          
         .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                             \
         .layer = ENEMY,                                                                     \
-        .base_stats = statsInit(3, 0, 0, 1, 0),                                                 \
+        .base_stats = statsInit(3, 0, 0, 1, 0),                                             \
         .sprite_offset = 48,                                                                \
         .update_callback = &skeletonKingUpdate,                                             \
         .on_collision_enter = &checkCollision,                                              \
@@ -54,7 +54,7 @@ entityReload((Entity){                                                          
         .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                             \
         .layer = ENEMY,                                                                     \
-        .base_stats = statsInit(1, 1, 0, 0, 0),                                                 \
+        .base_stats = statsInit(1, 1, 0, 0, 0),                                             \
         .sprite_offset = 72,                                                                \
         .update_callback = &skeletonAncientUpdate,                                          \
         .on_collision_enter = &checkCollision,                                              \
@@ -69,7 +69,7 @@ entityReload((Entity){                                                          
         .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                             \
         .layer = ENEMY,                                                                     \
-        .base_stats = statsInit(2, 1, 1, 0, 0),                                                 \
+        .base_stats = statsInit(2, 1, 1, 0, 0),                                             \
         .sprite_offset = 96,                                                                \
         .update_callback = &necromancerUpdate,                                              \
         .on_collision_enter = &checkCollision,                                              \
