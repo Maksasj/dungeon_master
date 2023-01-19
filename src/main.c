@@ -1,4 +1,5 @@
 #define EXTREME_MODE
+#define INTRO_SCREEN
 
 #include "../include/main.h"
 
@@ -683,7 +684,9 @@ i32 main() {
     
     setLightLayer(0x0);
 
-    introScene();
+    #ifdef INTRO_SCREEN
+        introScene();
+    #endif
 
     Class chosen_class;
     ActiveScene active_scene = MAIN_MENU_SCENE;
@@ -702,6 +705,7 @@ i32 main() {
                 active_scene = GAME_COMPLETE;
             else
                 active_scene = GAME_FAILED;
+                
         } else if(active_scene == GAME_COMPLETE) {
             gameCompleteScene();
             active_scene = MAIN_MENU_SCENE;

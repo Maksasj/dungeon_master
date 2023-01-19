@@ -27,9 +27,9 @@
 #include "timer.h"
 
 #include "entity/entity.h"
-#include "entity/warrior.h"
-#include "entity/archer.h"
-#include "entity/wizard.h"
+#include "entity/prototypes/warrior.h"
+#include "entity/prototypes/archer.h"
+#include "entity/prototypes/wizard.h"
 
 #include "entity/prototypes/projectile.h"
 
