@@ -391,7 +391,7 @@ void gameFailedScene() {
 
 int gameScene(Class *chosenClass) {
     World world = {.floorCount = 3};
-    
+
     loadGameSpriteImages();
     #ifdef _LIGHT_ON_
         setLightLayer(0x17);
