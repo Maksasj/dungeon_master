@@ -16,7 +16,7 @@
 #include "../entity/entity.h"
 #include "../light.h"
 
-#include "../item.h"
+#include "../item/item.h"
 
 /* Constant that limits entity count per single room */
 #define _MAX_ENTITY_PER_ROOM_ 5

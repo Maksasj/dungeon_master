@@ -35,6 +35,11 @@ for %%f in (src\text\*.c) do (
     echo Successfully compiled: %%~nf.c
 )
 
+for %%f in (src\item\*.c) do (
+    gcc -c -w -O3 src\item\%%~nf.c -o dist\tmp\%%~nf.o
+    echo Successfully compiled: %%~nf.c
+)
+
 for %%f in (src\*.c) do (
     gcc -c -w -O3 src\%%~nf.c -o dist\tmp\%%~nf.o
     echo Successfully compiled: %%~nf.c
