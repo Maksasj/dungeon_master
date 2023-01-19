@@ -55,24 +55,24 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     }
 
     switch (_wizard->facing) {
-    case UP:
-        spriteSetOffset(projectile.sprite, sprite_offset_vetical);
-        spriteSetVerticalFlip(projectile.sprite, 1);
-        break;
-    case RIGHT: 
-        spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
-        spriteSetHorizontalFlip(projectile.sprite, 0);
-        break;
-    case DOWN:
-        spriteSetOffset(projectile.sprite, sprite_offset_vetical);
-        spriteSetVerticalFlip(projectile.sprite, 0);
-        break;
-    case LEFT:
-        spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
-        spriteSetHorizontalFlip(projectile.sprite, 1);
-        break;
-    default:
-        break;
+        case UP:
+            spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+            spriteSetVerticalFlip(projectile.sprite, 1);
+            break;
+        case RIGHT: 
+            spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
+            spriteSetHorizontalFlip(projectile.sprite, 0);
+            break;
+        case DOWN:
+            spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+            spriteSetVerticalFlip(projectile.sprite, 0);
+            break;
+        case LEFT:
+            spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
+            spriteSetHorizontalFlip(projectile.sprite, 1);
+            break;
+        default:
+            break;
     }
 
     tryPushProjectileToRoom(_active_room, projectile);

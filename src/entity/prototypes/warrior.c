@@ -3,8 +3,7 @@
 void warriorAttack(Entity* _warrior, Room* _active_room) {
     Entity temp = *_warrior;
 
-    switch (_warrior->facing)
-    {
+    switch (_warrior->facing) {
         case RIGHT:
             temp.position.x += _ATTACK_OFFSET_;
             break;
