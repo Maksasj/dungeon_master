@@ -41,6 +41,7 @@
 #include "../assets/generated/palettes.h"
 
 #include "../assets/generated/menu.h"
+#include "../assets/generated/intro.h"
 #include "../assets/generated/sprites.h"
 
 /* Enum that contains all available scenes in the game */

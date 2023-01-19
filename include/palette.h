@@ -25,6 +25,8 @@
 
 void setPalette(u16* _target, u16* _palette);
 
+void fillPalette(u16* _target, u16 _color);
+
 /* Macro that used for smooth transition to black screen (all colors to black) */
 #define _SMOOTH_PALETT_TRANSITION_TO_BLACK_                                         \
     {                                                                               \

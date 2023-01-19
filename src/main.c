@@ -6,22 +6,9 @@ Sprite sprites[_NUM_SPRITES_];
 i32 next_sprite_index = 0;
 char gameTime[6] = "00:00";
 
-void loadGameSpriteImages() {
-    //memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) image_palette, _PALETTE_SIZE_);
-    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
-    
-    spriteClear(sprites, &next_sprite_index);
-}
-
-void loadMenuSpriteImages() {
-    //memcpy16DMA((u16*) _SPRITE_PALETTE_, (u16*) menu_image_palette, _PALETTE_SIZE_);
-    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) menu_image_data, (menu_image_width * menu_image_height) / 2);
-    
-    spriteClear(sprites, &next_sprite_index);
-}
-
 void mainMenuScene() {
-    loadMenuSpriteImages();
+    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) menu_image_data, (menu_image_width * menu_image_height) / 2);
+    spriteClear(sprites, &next_sprite_index);;
     
     setLightLayer(0x0);
 
@@ -134,7 +121,8 @@ void mainMenuScene() {
 
 void classChooseScene(Class *class) {
     spriteClear(sprites, &next_sprite_index);
-    loadGameSpriteImages();
+        memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
+    spriteClear(sprites, &next_sprite_index);;
 
     i32 i;
     i32 j;
@@ -391,10 +379,70 @@ void gameFailedScene() {
     }
 }
 
+void introScene() {
+    fillPalette(_SPRITE_PALETTE_, 0);
+    fillPalette(_BG_PALETTE_, 0);
+
+    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) intro_image_data, (intro_image_width * intro_image_height) / 2);
+    spriteClear(sprites, &next_sprite_index);
+
+    Sprite* ufoIcon = spriteInit(
+        sprites,
+        &next_sprite_index, 
+        _SCREEN_WIDTH_ / 2 - 35, _SCREEN_HEIGHT_ / 2 - 30,
+        SIZE_64_64,
+        0, 0, 0, 0);
+    
+    Sprite* ufoIconSmolPart = spriteInit(
+        sprites,
+        &next_sprite_index,
+        _SCREEN_WIDTH_ / 2 + 29, _SCREEN_HEIGHT_ / 2 - 22,
+        SIZE_16_16,
+        0, 0, 128, 0);
+    
+    spriteUpdateAll(sprites);
+    
+    delay(10000);
+
+    {
+        i32 k;
+        i32 o;
+        for(k = 0; k < 32; ++k) {
+            for(o = 0; o < 256; ++o)
+                _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, intro_image_palette[o], o);
+
+            waitVBlank();
+            delay(1000);
+        }
+    }
+    
+    spriteUpdateAll(sprites);
+
+    delay(100000);
+
+    {
+        i32 k;
+        i32 o;
+        for(k = 0; k < 32; ++k) {
+            for(o = 0; o < 256; ++o) {
+                _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, 0, o);
+                _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, 0, o);
+            }
+
+            waitVBlank();
+            delay(1000);
+        }
+    }
+
+    spriteClear(sprites, &next_sprite_index);
+}
+
 i32 gameScene(Class *chosenClass) {
     World world = {.floorCount = 3};
 
-    loadGameSpriteImages();
+    memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
+    spriteClear(sprites, &next_sprite_index);;
+    
     #ifdef _LIGHT_ON_
         setLightLayer(0x17);
     #endif
@@ -627,13 +675,15 @@ i32 main() {
     counterInit();
     counterStart();
 
-    i32erruptionInit(onVBlank);
+    interruptionInit(onVBlank);
     soundInit(5, 3, 0, 3);
     playSound(GAME_SOUNDTRACK, _GAME_SOUNDTRACK_BYTES_, 8000, 'A');
 
     initBackground(BACKGROUND_PALETTE, BACKGROUND_DATA, _BACKGROUND_WIDTH_, _BACKGROUND_HEIGHT_);
     
     setLightLayer(0x0);
+
+    introScene();
 
     Class chosen_class;
     ActiveScene active_scene = MAIN_MENU_SCENE;

@@ -14,3 +14,10 @@ u16* getRandomPalette(u16** _palettes) {
     u8 randomIndex = random() % 8;
     return _palettes[randomIndex]; 
 }
+
+void fillPalette(u16* _target, u16 _color) {
+    i32 o;
+    for(o = 0; o < 256; ++o) {
+        _target[o] = _color;
+    }
+}
