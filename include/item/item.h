@@ -35,6 +35,10 @@ typedef struct Item {
 
     /* Count of the item in the item stack */
     i8 count;
+
+    /* Item use callback */
+    //void (*use_item_callback)(Entity* _use_target, Room* _active_room);
+    void (*use_item_callback)(void*, void*);
 } Item;
 
 /* Structure that defines Item Drop strucute, used for rendering lying down on the ground and other.. */
