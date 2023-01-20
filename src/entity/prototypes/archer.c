@@ -8,7 +8,7 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     PlayerSpecData* pspec = (PlayerSpecData*)_archer->spec;
 
     Entity projectile = projectileInit(
-        (ivec2){.x = _archer->position.x >> POSITION_FIXED_SCALAR, .y = _archer->position.y >> POSITION_FIXED_SCALAR},
+        (ivec2){.x = _archer->position.x >> _POSITION_FIXED_SCALAR_, .y = _archer->position.y >> _POSITION_FIXED_SCALAR_},
          PLAYER, 0); // <- TEXTURE offset
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;

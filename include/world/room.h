@@ -22,7 +22,7 @@
 #define _MAX_ENTITY_PER_ROOM_ 5
 
 /* Constant that limits projectile count per single room */
-#define _MAX_PROJECTILE_PER_ROOM_ 1
+#define _MAX_PROJECTILE_PER_ROOM_ 5
 
 /* Constant that limits item drop count per single room */
 #define _MAX_ITEM_DROP_PER_ROOM_ 10

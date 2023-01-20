@@ -15,6 +15,17 @@
 #include "prototypes/ice_staff.h"
 #include "prototypes/fire_staff.h"
 
+
+/*
+    592 - cobalt arrow horizontal | 736 - cobalt arrow vetical
+    584 - golden arrow horizontal | 728 - golden arrow vetical
+    576 - iron arrow   horizontal | 720 - iron arrow   vetical
+
+    568 - fireball horizontal     | 712 - fireball vetical
+    560 - iceball  horizontal     | 704 - iceball  vetical
+    552 - gemball  horizontal     | 696 - gemball  vetical
+*/
+
 #define _WOODEN_BOW_ITEM_                                               \
     itemReload((Item){                                                  \
         .base_stats = stats(0, 0, 0, 0, 1),                             \

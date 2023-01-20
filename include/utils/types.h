@@ -18,10 +18,12 @@
 #define VELOCITY_CONSTANT 4
 
 // deceleration constant
-#define VELOCITY_SLOWDOWN_CONSTANT 1
+#define _VELOCITY_SLOWDOWN_CONSTANT_ 1
 
 // constant, which works with fixed point calculations
-#define POSITION_FIXED_SCALAR 5
+#define _POSITION_FIXED_SCALAR_ 5
+
+#define _DIV2_(x) ((x) + ((x) >> 31 & 1)) >> 1
 
 // typedefs to reduce the names of existing types
 typedef unsigned char       u8;

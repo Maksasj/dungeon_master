@@ -21,7 +21,7 @@
 // Macros for creating ninja skeleton entity
 #define _SKELETON_NINJA_ENTITY_(X, Y)                                                   \
     entityReload((Entity){                                                              \
-        .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),   \
+        .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                         \
         .layer = ENEMY,                                                                 \
         .base_stats = stats(1, 3, 0, 0, 0),                                             \
@@ -36,7 +36,7 @@
 // Macros for creating king skeleton entity
 #define _SKELETON_KING_ENTITY_(X, Y)                                                    \
     entityReload((Entity){                                                              \
-        .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),   \
+        .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                         \
         .layer = ENEMY,                                                                 \
         .base_stats = stats(3, 0, 0, 1, 0),                                             \
@@ -51,7 +51,7 @@
 // Macros for creating ancient skeleton entity
 #define _SKELETON_ANCIENT_ENTITY_(X, Y)                                                 \
     entityReload((Entity){                                                              \
-        .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),   \
+        .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                         \
         .layer = ENEMY,                                                                 \
         .base_stats = stats(1, 1, 0, 0, 0),                                             \
@@ -66,7 +66,7 @@
 // Macros for creating necromancer entity
 #define _NECROMANCER_ENTITY_(X, Y)                                                      \
     entityReload((Entity){                                                              \
-        .position = newIVec2(X << POSITION_FIXED_SCALAR, Y << POSITION_FIXED_SCALAR),   \
+        .position = newIVec2(X << _POSITION_FIXED_SCALAR_, Y << _POSITION_FIXED_SCALAR_),   \
                                                                                         \
         .layer = ENEMY,                                                                 \
         .base_stats = stats(2, 1, 1, 0, 0),                                             \

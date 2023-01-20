@@ -60,12 +60,13 @@ void updateWorldLight(World* _world) {
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
-    if (WORLD_TICK % _BFS_TICK_RATE_ == 0) {
+    if(WORLD_TICK > _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToWorldPosition(_player->position);
-
             breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
+
+        WORLD_TICK = 0;
     }
 
     i32 i;
@@ -105,14 +106,28 @@ void updateWorld(World* _world, Entity* _player) {
         Entity *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
-        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> POSITION_FIXED_SCALAR) + projectile->vel.x, projectile->position.y >> POSITION_FIXED_SCALAR));
+        CollisionType xCol = 
+            worldCollision(
+                _world,
+                newIVec2(
+                    (projectile->position.x >> _POSITION_FIXED_SCALAR_) + projectile->vel.x,
+                    projectile->position.y >> _POSITION_FIXED_SCALAR_)
+            );
+
         if(xCol == WALL) {
             entityUnloadSprite(projectile);
             deleteProjectileFromRoom(projectile, room);
             break;
         }
 
-        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> POSITION_FIXED_SCALAR, (projectile->position.y >> POSITION_FIXED_SCALAR) + projectile->vel.y));
+        CollisionType yCol = 
+            worldCollision(
+                _world, 
+                newIVec2(
+                    projectile->position.x >> _POSITION_FIXED_SCALAR_,
+                    (projectile->position.y >> _POSITION_FIXED_SCALAR_) + projectile->vel.y)
+            );
+        
         if(yCol == WALL) {
             entityUnloadSprite(projectile);
             deleteProjectileFromRoom(projectile, room);
@@ -147,6 +162,7 @@ void updateWorld(World* _world, Entity* _player) {
                 }
             }
         }
+        
         entitySpriteUpdate(projectile);
     }
 
@@ -511,8 +527,8 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
 inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
     ivec2 grid_position;
 
-    grid_position.x = (((_screen_position.x >> POSITION_FIXED_SCALAR) - 8) >> 4);
-    grid_position.y = (((_screen_position.y >> POSITION_FIXED_SCALAR) - 8) >> 4);
+    grid_position.x = (((_screen_position.x >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
+    grid_position.y = (((_screen_position.y >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
 
     return grid_position;
 }

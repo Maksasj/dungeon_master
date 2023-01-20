@@ -44,4 +44,6 @@ void projectileUpdate(Entity* _self, World* _world, Room* _room);
 */
 void destroyProjectile(Entity* _self);
 
+void rotateProjectile(Entity* _projectile, Facing _direction, i32 sprite_offset_horizontal, i32 sprite_offset_vetical);
+
 #endif

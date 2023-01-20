@@ -7,16 +7,16 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
     _pspec->armor = spriteInit(
         _sprites, 
         _next_sprite_index, 
-        _entity->position.x >> POSITION_FIXED_SCALAR, 
-        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+        _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
         0, 0, 0, 2);
     
     _pspec->weapon = spriteInit(
         _sprites, 
         _next_sprite_index, 
-        _entity->position.x >> POSITION_FIXED_SCALAR, 
-        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+        _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
         0, 0, 0, 2);
 
@@ -64,8 +64,8 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     if(_pspec->hand_slot.count != 0) {
         spritePosition(
             _pspec->weapon, 
-            _entity->position.x >> POSITION_FIXED_SCALAR, 
-            _entity->position.y >> POSITION_FIXED_SCALAR);
+            _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+            _entity->position.y >> _POSITION_FIXED_SCALAR_);
 
         spriteSetOffset(_pspec->weapon, _pspec->hand_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->weapon, flip);
@@ -74,8 +74,8 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     if(_pspec->armor_slot.count != 0) {
         spritePosition(
             _pspec->armor, 
-            _entity->position.x >> POSITION_FIXED_SCALAR,
-            _entity->position.y >> POSITION_FIXED_SCALAR);
+            _entity->position.x >> _POSITION_FIXED_SCALAR_,
+            _entity->position.y >> _POSITION_FIXED_SCALAR_);
 
         spriteSetOffset(_pspec->armor, _pspec->armor_slot.sprite_offset + offset_x);
         spriteSetHorizontalFlip(_pspec->armor, flip);
@@ -161,8 +161,8 @@ void killPlayer(Entity* _self) {
 void player_update(Entity* _self, World* _world, Room* _room) {
     ivec2 world_position = screenToWorldPosition(_self->position);
 
-    _self->vel.x /= 2;
-    _self->vel.y /= 2;
+    _self->vel.x = _DIV2_(_self->vel.x);
+    _self->vel.y = _DIV2_(_self->vel.y);
 
     PlayerSpecData* pspec = (PlayerSpecData*) _self->spec;
     updatePlayerSpec(pspec, _self);
@@ -233,12 +233,12 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         //}
     }
 
-    CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR) + _self->vel.x, (_self->position.y >> POSITION_FIXED_SCALAR)));
+    CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_) + _self->vel.x, (_self->position.y >> _POSITION_FIXED_SCALAR_)));
     if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE || xCol == TRAP) {
         _self->position.x += _self->vel.x;
     }
 
-    CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> POSITION_FIXED_SCALAR), (_self->position.y >> POSITION_FIXED_SCALAR) + _self->vel.y));
+    CollisionType yCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_), (_self->position.y >> _POSITION_FIXED_SCALAR_) + _self->vel.y));
     if(yCol == NONE || yCol == OPENED_DOOR || yCol == NEXT_FLOOR_ENTRANCE || yCol == TRAP) {
         _self->position.y += _self->vel.y;
     }
@@ -258,10 +258,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         _SMOOTH_PALETT_TRANSITION_TO_BLACK_;
 
         if((_self->position.y >> 3) < 70) {
-            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 128 << POSITION_FIXED_SCALAR); 
+            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, 128 << _POSITION_FIXED_SCALAR_); 
             nextRoom(_world, pspec->sprites, pspec->next_sprite_index);
         } else {
-            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, 18 << POSITION_FIXED_SCALAR);
+            _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, 18 << _POSITION_FIXED_SCALAR_);
             backRoom(_world, pspec->sprites, pspec->next_sprite_index);
         }
 
@@ -284,7 +284,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         room_switch = 1;
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
         (*pspec->next_sprite_index) = _RESERVED_SPRITE_AMOUNT_;
-        _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << POSITION_FIXED_SCALAR, (_SCREEN_HEIGHT_ / 2 - 8) << POSITION_FIXED_SCALAR);
+        _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, (_SCREEN_HEIGHT_ / 2 - 8) << _POSITION_FIXED_SCALAR_);
 
         _SMOOTH_PALETT_TRANSITION_TO_BLACK_;
 

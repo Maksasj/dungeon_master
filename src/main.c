@@ -493,8 +493,8 @@ i32 gameScene(Class *chosenClass) {
     #ifdef _LIGHT_ON_
         vu16* lightLayer = screenBlock(2);
 
-        i32 prevTileX = ((i32) player.position.x) >> POSITION_FIXED_SCALAR;
-        i32 prevTileY = ((i32) player.position.y) >> POSITION_FIXED_SCALAR;
+        i32 prevTileX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
+        i32 prevTileY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
 
         prevTileX /= 8;
         prevTileY /= 8;
@@ -555,8 +555,8 @@ i32 gameScene(Class *chosenClass) {
 
             #ifdef _LIGHT_ON_
                 {
-                    i32 playerX = ((i32) player.position.x) >> POSITION_FIXED_SCALAR;
-                    i32 playerY = ((i32) player.position.y) >> POSITION_FIXED_SCALAR;
+                    i32 playerX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
+                    i32 playerY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
 
                     playerX /= 8;
                     playerY /= 8;
@@ -602,8 +602,8 @@ i32 gameScene(Class *chosenClass) {
         }
 
         #ifdef _LIGHT_ON_
-            i32 playerX = ((i32) player.position.x) >> POSITION_FIXED_SCALAR;
-            i32 playerY = ((i32) player.position.y) >> POSITION_FIXED_SCALAR;
+            i32 playerX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
+            i32 playerY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
 
             playerX /= 8;
             playerY /= 8;
@@ -636,7 +636,7 @@ i32 gameScene(Class *chosenClass) {
                 i32 newX = (_SCREEN_WIDTH_ / 2 - 8);
                 i32 newY = (_SCREEN_HEIGHT_ / 2 - 8);
 
-                player.position = newIVec2(newX << POSITION_FIXED_SCALAR, newY << POSITION_FIXED_SCALAR);
+                player.position = newIVec2(newX << _POSITION_FIXED_SCALAR_, newY << _POSITION_FIXED_SCALAR_);
 
                 if(((PlayerSpecData*)player.spec)->armor_slot.count != 0)
                     spritePosition(((PlayerSpecData*)player.spec)->armor, newX, newY);    

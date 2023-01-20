@@ -22,8 +22,8 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
 
-    _self->vel.x /= 2;
-    _self->vel.y /= 2;
+    _self->vel.x = _DIV2_(_self->vel.x);
+    _self->vel.y = _DIV2_(_self->vel.y);
 
     if(distance < 3) {
         switch (direction) {
@@ -170,7 +170,7 @@ void necromancerUpdate(Entity* _self, World* _world, Room* _room) {
 
         if(summonCooldown == 0) {
             if(_room->current_entity_count < _MAX_ENTITY_PER_ROOM_) {
-                int rez = tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x >> POSITION_FIXED_SCALAR, _self->position.y >> POSITION_FIXED_SCALAR));
+                int rez = tryPushEntityToRoom(_room, _SKELETON_ANCIENT_ENTITY_(_self->position.x >> _POSITION_FIXED_SCALAR_, _self->position.y >> _POSITION_FIXED_SCALAR_));
                 loadTmpEntitySprite(_room);
             }
         }

@@ -16,9 +16,9 @@ void skeletonAncientUpdate(Entity* _self, World* _world, Room* _room) {
     }
 
     i8 direction = _world->grid.vertices[world_position.x][world_position.y];
-
-    _self->vel.x /= 2;
-    _self->vel.y /= 2;
+    
+    _self->vel.x = _DIV2_(_self->vel.x);
+    _self->vel.y = _DIV2_(_self->vel.y);
 
     switch (direction)
     {
