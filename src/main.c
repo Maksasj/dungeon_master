@@ -542,6 +542,9 @@ i32 gameScene(Class *chosenClass) {
             delay(TRANSITION_SPEED);
         } 
     }
+
+    floor_switch = 0;
+    room_switch = 0;
         
     while (1) {
         updateWorld(&world, &player);
