@@ -9,6 +9,7 @@ i8 gameTime[6] = "00:00";
 
 void mainMenuScene() {
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) MENU_IMAGE_DATA, (_MENU_IMAGE_WIDTH_ * _MENU_IMAGE_HEIGHT_) / 2);
+
     spriteClear(sprites, &next_sprite_index);;
     
     setLightLayer(0x0);
@@ -142,7 +143,7 @@ void classChooseScene(Class *class) {
     spriteUpdateAll(sprites);
 
     _MAKE_TRANSITION_(IMAGE_PALETTE, BACKGROUND_PALETTE, _TRANSITION_SPEED_)
-
+    
     i8 flag = 1;
     while(flag) { 
         if(buttonPressed(_BUTTON_RIGHT_) && down_pressed == 0) {
@@ -246,7 +247,7 @@ void classChooseScene(Class *class) {
     }
 
     _SMOOTH_PALETTE_TRANSITION_TO_BLACK_
-
+    
     renderText((u16*) screenBlock(0), "       ", (ivec2){.x = 12, .y = 18});
 }
 
@@ -506,7 +507,7 @@ i32 gameScene(Class *chosenClass) {
         #endif
 
         updatePlayerSpec(player.spec, &player);
-        //(player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);        
+        //(player.update_callback)(&player, &world, &world.rooms[world.activeRoom]);
         playerUpdate(&player, &world, &world.rooms[world.activeRoom]);
 
         if(player.health <= 0 || game_completed == 1) {
