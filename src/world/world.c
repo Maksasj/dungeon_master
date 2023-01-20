@@ -188,6 +188,8 @@ void generateFloor(World* _world, i32 _class) {
 
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
+    tryPushItemDropToRoom(&_world->rooms[0], _FIRE_STAFF_ITEM_DROP_(48, 128));
+
     _world->grid = gridInit();
 
     ++_world->currentFloor;

@@ -1,7 +1,8 @@
 #ifndef _WOODEN_BOW_H_
 #define _WOODEN_BOW_H_
 
-#include "../../entity/entity.h"
+#include "../../entity/prototypes/projectile.h"
+#include "../../entity/prototypes/player.h"
 #include "../../world/world.h"
 
 #include "../../utils/logger.h"

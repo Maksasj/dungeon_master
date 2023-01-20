@@ -1,7 +1,8 @@
 #ifndef _GOLDEN_BOW_H_
 #define _GOLDEN_BOW_H_
 
-#include "../../entity/entity.h"
+#include "../../entity/prototypes/projectile.h"
+#include "../../entity/prototypes/player.h"
 #include "../../world/world.h"
 
 #include "../../utils/logger.h"
