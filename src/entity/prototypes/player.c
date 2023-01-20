@@ -192,7 +192,6 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     else if (world_position.y > GRID_HEIGHT)
        _self->vel.y = -10;
     
-
     if (buttonPressed(_BUTTON_RIGHT_)) {
         _self->vel.x += VELOCITY_CONSTANT;
         
@@ -227,11 +226,10 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         
 
         if (_self->attack_cooldown == 0) {
-            //(_self->attack_callback)(_self, _room);
-            _self->attack_cooldown = 10;
-
             if(pspec->hand_slot.count != 0)
                 (pspec->hand_slot.use_item_callback)(_self, _room);
+            
+            _self->attack_cooldown = 100;
         }
 
 

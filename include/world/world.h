@@ -53,11 +53,8 @@ typedef struct World {
     
     /* Todo */
     u8 difficulty;
-
-    /* Contains all tile, used for rendering purposes */
-    u16 MAP[1024];
-
-    /* Tile descriptions
+    /* 
+        Tile descriptions
         '#' - Wall
         'D' - Opened Door
         'C' - Closed Door

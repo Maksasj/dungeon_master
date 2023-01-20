@@ -66,8 +66,6 @@ void updateWorldLight(World* _world) {
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
-    log(LOG_INFO, "%d", sizeof(World));
-
     if(WORLD_TICK % _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToWorldPosition(_player->position);
@@ -124,7 +122,7 @@ void updateWorld(World* _world, Entity* _player) {
             if(xCol != NONE) {
                 entityUnloadSprite(projectile);
                 deleteProjectileFromRoom(projectile, room);
-                
+                log(LOG_INFO, "DELETING PROJECTILE");
                 --(*((i32*)_NEXT_SPRITE_INDEX_));
                 
                 break;
@@ -140,7 +138,7 @@ void updateWorld(World* _world, Entity* _player) {
             if(yCol != NONE) {
                 entityUnloadSprite(projectile);
                 deleteProjectileFromRoom(projectile, room);
-                
+                log(LOG_INFO, "DELETING PROJECTILE");
                 --(*((i32*)_NEXT_SPRITE_INDEX_));
                 
                 break;

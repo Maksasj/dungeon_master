@@ -17,6 +17,18 @@
 #include "../layer_mask.h"
 #include "../rotation.h"
 
+//    592 - cobalt arrow horizontal | 736 - cobalt arrow vetical
+//    584 - golden arrow horizontal | 728 - golden arrow vetical
+//    576 - iron arrow   horizontal | 720 - iron arrow   vetical
+//
+//    568 - fireball horizontal     | 712 - fireball vetical
+//    560 - iceball  horizontal     | 704 - iceball  vetical
+//    552 - gemball  horizontal     | 696 - gemball  vetical
+//
+//    408 - gem staff
+//    432 - ice staff
+//    456 - fire staff
+
 typedef struct Projectile {
     // Textures
     Sprite* sprite;
@@ -60,6 +72,6 @@ void projectileUpdate(Projectile* _self, void* _room);
 */
 void destroyProjectile(Projectile* _self);
 
-void rotateProjectile(Projectile* _projectile, Facing _direction, i32 sprite_offset_horizontal, i32 sprite_offset_vetical);
+void rotateProjectile(Projectile* _projectile, i32 sprite_offset_horizontal, i32 sprite_offset_vetical);
 
 #endif

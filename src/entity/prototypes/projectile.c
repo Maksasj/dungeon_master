@@ -4,12 +4,6 @@
 const static i32 GRID_LENGTH = 12;
 const static i32 GRID_HEIGHT = 7;
 
-/*
-Entity projectileInit(ivec2 _position, LayerMask _layer, u32 _sprite_offset) {
-    return entityInit(_position, stats(0, 0, 0, 0, 0), _layer, _sprite_offset);
-}
-*/
-
 void projectileUpdate(Projectile* _self, void* _room_tmp) {
     Room* _room = (Room*) _room_tmp; 
 
@@ -19,15 +13,15 @@ void projectileUpdate(Projectile* _self, void* _room_tmp) {
     _self->vel.y = _DIV2_(_self->vel.y);
 
     if(_self->facing == RIGHT)
-        _self->vel.x += 1;
+        _self->vel.x += 5;
     else if(_self->facing == DOWN)
-        _self->vel.y += 1;
+        _self->vel.y += 5;
     else if(_self->facing == LEFT)
-        _self->vel.x -= 1;
+        _self->vel.x -= 5;
     else if(_self->facing == UP)
-        _self->vel.y -= 1;
+        _self->vel.y -= 5;
     else
-        _self->vel.y -= 1;
+        _self->vel.y -= 5;
 
     if (world_position.x < 0 || world_position.x > GRID_LENGTH || world_position.y < 0 || world_position.y > GRID_HEIGHT) {
         deleteProjectileFromRoom(_self, _room);
@@ -38,8 +32,8 @@ void projectileUpdate(Projectile* _self, void* _room_tmp) {
     _self->position.y += _self->vel.y;
 }
 
-void rotateProjectile(Projectile* _projectile, Facing _direction, i32 sprite_offset_horizontal, i32 sprite_offset_vetical) {
-    switch (_direction) {
+void rotateProjectile(Projectile* _projectile, i32 sprite_offset_horizontal, i32 sprite_offset_vetical) {
+    switch (_projectile->facing) {
         case UP:
             spriteSetOffset(_projectile->sprite, sprite_offset_vetical);
             spriteSetVerticalFlip(_projectile->sprite, 1);
