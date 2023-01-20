@@ -1,5 +1,7 @@
 #include "../../include/world/world.h"
+
 #include "../../include/entity/entity_macros.h"
+#include "../../include/item/item_macros.h"
 
 static u32 WORLD_TICK = 0;
 i32 game_completed = 0;

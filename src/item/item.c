@@ -23,6 +23,12 @@ Item itemInit(Statblock _stat, u32 _sprite_offset, ItemType type) {
     return item;
 }
 
+Item itemReload(Item _self) {
+    _self.count = 1;
+
+    return _self;
+}
+
 void itemDropInitSprite(ItemDrop* _itemDrop, Sprite _sprites[], i32* _next_sprite_index) {
     _itemDrop->sprite = spriteInit(
         _sprites, 
