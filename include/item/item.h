@@ -11,10 +11,10 @@
 #ifndef _ITEM_H_
 #define _ITEM_H_
 
-#include "entity/statblock.h"
+#include "../entity/statblock.h"
 
-#include "sprite.h"
-#include "utils/types.h"
+#include "../sprite.h"
+#include "../utils/types.h"
 
 /* Enum that defines basic item types */
 typedef enum ItemType {

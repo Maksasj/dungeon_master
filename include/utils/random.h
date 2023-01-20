@@ -13,6 +13,9 @@
 
 #include "types.h"
 
+/* Global random next seed variable */
+extern u32 RAND_NEXT;
+
 /**
  * Function, that generates pseudo-random number
  * 

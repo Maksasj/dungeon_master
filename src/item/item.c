@@ -1,4 +1,4 @@
-#include "../include/item.h"
+#include "../../include/item/item.h"
 
 ItemDrop itemDropInit(ivec2 _position, Item item, u32 _sprite_offset) {
     ItemDrop _itemDrop;

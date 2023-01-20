@@ -11,13 +11,14 @@
 #ifndef _ARCHER_H_
 #define _ARCHER_H_
 
-#include "entity.h"
-#include "prototypes/player.h"
-#include "prototypes/projectile.h"
+#include "../entity.h"
 
-#include "../world/room.h"
+#include "player.h"
+#include "projectile.h"
 
-#include "../utils/types.h"
+#include "../../world/room.h"
+
+#include "../../utils/types.h"
 
 /**
  * Ranged attack (projectile creating)

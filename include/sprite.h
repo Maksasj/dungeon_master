@@ -17,6 +17,9 @@
 /* Constant used to determine amout of the available colors in GBA sprite palette*/
 #define _PALETTE_SIZE_ 256
 
+/* Reserved amount of sprites */
+#define _RESERVED_SPRITE_AMOUNT_ 3
+
 /* Constant used to determine max amout of the sprites */
 #define _NUM_SPRITES_ 128
 

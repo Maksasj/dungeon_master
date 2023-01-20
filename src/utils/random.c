@@ -1,6 +1,6 @@
 #include "../../include/utils/random.h"
 
-static u32 RAND_NEXT = 15485863;
+u32 RAND_NEXT = 15485863;
 
 u32 random() {
     RAND_NEXT = RAND_NEXT * 1103515245 + 12345;

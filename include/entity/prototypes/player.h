@@ -13,10 +13,13 @@
 
 #include "../../text/text.h"
 #include "../../buttons.h"
+#include "../../background.h"
 #include "../../sprite.h"
 #include "../../utils/types.h"
 #include "../entity.h"
 #include "../../world/world.h"
+
+#include "../../palette.h"
 
 /* Max amount of health shown in one row */
 #define _HEALTH_PER_ROW_ 7

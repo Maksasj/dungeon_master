@@ -1,4 +1,4 @@
-#include "../../include/entity/archer.h"
+#include "../../../include/entity/prototypes/archer.h"
 
 void archerAttack(Entity* _archer, Room* _active_room) {
     if (_active_room->current_projectile_count >= _MAX_PROJECTILE_PER_ROOM_) {

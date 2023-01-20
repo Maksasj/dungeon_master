@@ -98,7 +98,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
             healthIcon = 56;
         }
 
-        uiLayer[33 + (h % _HEALTH_PER_ROW_) + 32*(h / _HEALTH_PER_ROW_)] = healthIcon;
+        uiLayer[33 + (h % _HEALTH_PER_ROW_) + 32 * (h / _HEALTH_PER_ROW_)] = healthIcon;
     }
 
     i32 player_armor = 
@@ -108,7 +108,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
 
     for(h = 0; h < player_armor; ++h) {
         const i8 shieldIcon = 57;
-        uiLayer[60 - (h % _HEALTH_PER_ROW_) + 32*(h / _HEALTH_PER_ROW_)] = shieldIcon;
+        uiLayer[60 - (h % _HEALTH_PER_ROW_) + 32 * (h / _HEALTH_PER_ROW_)] = shieldIcon;
     }
 
     uiLayer[577] = 58;
@@ -117,7 +117,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
     i32 calculated_damage = (*_entity->calculate_damage_callback)(_entity);;
 
     i32 hundredDigit = calculated_damage / 100;
-    i32 tensDigit = (calculated_damage / 10) - hundredDigit*10;
+    i32 tensDigit = (calculated_damage / 10) - hundredDigit * 10;
     i32 unitsDigit = calculated_damage - hundredDigit * 100 - tensDigit * 10;
 
     i8 charShift = 0;
@@ -260,7 +260,9 @@ void playerUpdate(Entity* _self, World* _world, Room* _room) {
     #endif
 
     if(xCol == OPENED_DOOR || yCol == OPENED_DOOR) {
-        (*pspec->next_sprite_index) = 10;
+        (*pspec->next_sprite_index) = _RESERVED_SPRITE_AMOUNT_;
+
+        _SMOOTH_PALETTE_TRANSITION_TO_BLACK_
 
         if((_self->position.y >> 3) < 70) {
             _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, 128 << _POSITION_FIXED_SCALAR_); 
@@ -279,16 +281,20 @@ void playerUpdate(Entity* _self, World* _world, Room* _room) {
             reloadLight();
         #endif
 
+        room_switch = 1;
     } else if (xCol == NEXT_FLOOR_ENTRANCE || yCol == NEXT_FLOOR_ENTRANCE) {
-        (*pspec->next_sprite_index) = 10;
+        (*pspec->next_sprite_index) = _RESERVED_SPRITE_AMOUNT_;
         _self->position = newIVec2((_SCREEN_WIDTH_ / 2 - 8) << _POSITION_FIXED_SCALAR_, (_SCREEN_HEIGHT_ / 2 - 8) << _POSITION_FIXED_SCALAR_);
+
+        _SMOOTH_PALETTE_TRANSITION_TO_BLACK_
 
         generateFloor(_world, pspec->class);
 
         #ifdef _LIGHT_ON_
             reloadLight();
         #endif
-
+        
+        floor_switch = 1;
         gotoRoom(_world, 0, pspec->sprites, pspec->next_sprite_index);
     }
 

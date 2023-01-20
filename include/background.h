@@ -39,6 +39,13 @@
 #define _BG2_X_SCROLL_ ((u16*) 0x4000018)
 #define _BG2_Y_SCROLL_ ((u16*) 0x400001A)
 
+/* Pointer that contains all available background 3 attributes */
+#define _BG3_CONTROL_ ((vu16*) 0x400000E)
+
+/* Pointers to offsets of the background 3 */
+#define _BG3_X_SCROLL_ ((u16*) 0x400001C)
+#define _BG3_Y_SCROLL_ ((u16*) 0x400001E)
+
 /**
  * Function that initializes all backgrounds
  * 

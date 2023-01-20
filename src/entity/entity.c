@@ -54,7 +54,7 @@ void entityUnloadSprite(Entity *_entity) {
     _entity->sprite = NULL;
 }
 
-void entityUpdate(Entity* _entity) {
+void entitySpriteUpdate(Entity* _entity) {
     spritePosition(_entity->sprite, (i32) _entity->position.x >> _POSITION_FIXED_SCALAR_, (i32)_entity->position.y >> _POSITION_FIXED_SCALAR_);
 }
 
