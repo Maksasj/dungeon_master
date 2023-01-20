@@ -45,6 +45,18 @@
 #define _TIMER_INTERRUPTION 0x40
 #define _TIMER_ENABLE_      0x80
 
+/* Macro used for getting global time */
+#define _GET_GLOBAL_TIME_ *_TIMER_3_DATA_
+
+/* Structure that contains timestamps of the start and stop of the timer */
+typedef struct Timer {
+    /* Timestamp of the timer start */
+    i32 startTimestamp;
+    
+    /* Timestamp of the timer stop */
+    i32 stopTimestamp;
+} Timer;
+
 /**
  * Initializes global GBA timer
 */
@@ -59,18 +71,6 @@ inline void counterStart();
  * Stops global GBA timer
 */
 inline void counterStop();
-
-/* Macro used for getting global time */
-#define GET_GLOBAL_TIME *_TIMER_3_DATA_
-
-/* Structure that contains timestamps of the start and stop of the timer */
-typedef struct Timer {
-    /* Timestamp of the timer start */
-    i32 startTimestamp;
-    
-    /* Timestamp of the timer stop */
-    i32 stopTimestamp;
-} Timer;
 
 /**
  * Initializes Timer structure

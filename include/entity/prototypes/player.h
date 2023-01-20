@@ -22,7 +22,7 @@
 #include "../../palette.h"
 
 /* Max amount of health shown in one row */
-#define HEALTH_PER_ROW 7
+#define _HEALTH_PER_ROW_ 7
 
 // Enum for storing existing classes
 typedef enum Class {
@@ -60,7 +60,7 @@ typedef struct PlayerSpecData {
  * @param _entity               Existing player
  * @param _pspec                Allocated player specs
  * @param _ui                   UI
- * @param chosenClass           class
+ * @param _chosenClass           class
 */
 void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, PlayerSpecData* _pspec, Class _chosenClass);
 
@@ -95,6 +95,6 @@ void killPlayer(Entity* _self);
  * @param _world        existing world
  * @param _room         existing room
 */
-void player_update(Entity* _self, World* _world, Room* _room);
+void playerUpdate(Entity* _self, World* _world, Room* _room);
 
 #endif

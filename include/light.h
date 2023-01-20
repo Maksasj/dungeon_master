@@ -32,8 +32,13 @@
 */
 inline void setLightLayer(i32 _light);
 
+/**
+ * Light reloading
+*/
+void reloadLight();
+
 /* Macro used to render shadow circle */
-#define SHADOW_BULB(dest, x , y)             \
+#define _SHADOW_BULB_(dest, x , y)             \
     dest[(x - 1) + (32*(y - 1))] = 0x17;     \
     dest[(x + 2) + (32*(y - 1))] = 0x17;     \
     dest[(x + 2) + (32*(y + 2))] = 0x17;     \
@@ -148,7 +153,7 @@ inline void setLightLayer(i32 _light);
     dest[(x + 5) + (32*(y - 2))] = 0x17;     \
 
 /* Macro used to render static light circle */
-#define RENDER_LIGHT_BULB(dest, x, y)        \
+#define _RENDER_LIGHT_BULB_(dest, x, y)        \
     dest[(x - 1) + (32*(y - 1))] = 0x1E;     \
     dest[(x + 2) + (32*(y - 1))] = 0x1E;     \
     dest[(x + 2) + (32*(y + 2))] = 0x1E;     \
@@ -263,7 +268,7 @@ inline void setLightLayer(i32 _light);
     dest[(x + 5) + (32*(y - 2))] = 0x18;     \
 
 /* Macro used to render dynamic light circle */
-#define RENDER_DYNAMIC_LIGHT_BULB(dest, x, y)                                                                         \
+#define _RENDER_DYNAMIC_LIGHT_BULB_(dest, x, y)                                                                         \
     dest[(x - 1) + (32*(y - 1))] = ( 0x1E > dest[(x - 1) + (32*(y - 1))] ) ? 0x1E : dest[(x - 1) + (32*(y - 1))];     \
     dest[(x + 2) + (32*(y - 1))] = ( 0x1E > dest[(x + 2) + (32*(y - 1))] ) ? 0x1E : dest[(x + 2) + (32*(y - 1))];     \
     dest[(x + 2) + (32*(y + 2))] = ( 0x1E > dest[(x + 2) + (32*(y + 2))] ) ? 0x1E : dest[(x + 2) + (32*(y + 2))];     \

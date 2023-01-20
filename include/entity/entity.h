@@ -20,6 +20,7 @@
 #include "../utils/random.h"
 
 #define _DEFAULT_INVULNERABILITY_TIME_ 1000;
+#define _REPULSIVE_FORCE_ 10;
 
 // Entity structure for storing the required information
 typedef struct Entity {
@@ -32,8 +33,6 @@ typedef struct Entity {
     ivec2 position;
     // Vector2 velocity
     ivec2 vel;
-
-    //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
 
     // Stats
     Statblock base_stats;

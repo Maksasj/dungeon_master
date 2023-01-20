@@ -92,29 +92,29 @@ void itemDropUnloadSprite(ItemDrop *_itemDrop);
 Item itemInit(Statblock _stat, u32 _sprite_offset, ItemType _type);
 
 /* Macros for all items in the game */
-#define _IRON_CHESTPLATE_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 112, ARMOR)
-#define _GOLDEN_CHESTPLATE_ITEM_ itemInit(stats(1, 0, 0, 0, 2), 136, ARMOR)
-#define _DIAMOND_CHESTPLATE_ITEM_ itemInit(stats(2, 0, 0, 0, 3), 160, ARMOR)
+#define _IRON_CHESTPLATE_ITEM_ itemInit(statsInit(0, 0, 0, 0, 1), 112, ARMOR)
+#define _GOLDEN_CHESTPLATE_ITEM_ itemInit(statsInit(1, 0, 0, 0, 2), 136, ARMOR)
+#define _DIAMOND_CHESTPLATE_ITEM_ itemInit(statsInit(2, 0, 0, 0, 3), 160, ARMOR)
 
-#define _SHORT_SWORD_ITEM_ itemInit(stats(0, 0, 0, 1, 0), 184, WEAPON)
-#define _DARK_CLAYMORE_ITEM_ itemInit(stats(0, 0, 0, 2, 0), 208, WEAPON)
-#define _ICE_SWORD_ITEM_ itemInit(stats(0, 1, 0, 1, 0), 232, WEAPON)
+#define _SHORT_SWORD_ITEM_ itemInit(statsInit(0, 0, 0, 1, 0), 184, WEAPON)
+#define _DARK_CLAYMORE_ITEM_ itemInit(statsInit(0, 0, 0, 2, 0), 208, WEAPON)
+#define _ICE_SWORD_ITEM_ itemInit(statsInit(0, 1, 0, 1, 0), 232, WEAPON)
 
-#define _PURPLE_MAGE_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 336, ARMOR)
-#define _RED_MAGE_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 360, ARMOR)
-#define _ENCHANTER_MAGE_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 384, ARMOR)
+#define _PURPLE_MAGE_ARMOR_ITEM_ itemInit(statsInit(0, 0, 0, 0, 1), 336, ARMOR)
+#define _RED_MAGE_ARMOR_ITEM_ itemInit(statsInit(1, 0, 1, 0, 1), 360, ARMOR)
+#define _ENCHANTER_MAGE_ARMOR_ITEM_ itemInit(statsInit(2, 0, 1, 0, 2), 384, ARMOR)
 
-#define _ARCHER_IRON_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 768, ARMOR)
-#define _ARCHER_GOLDEN_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 768, ARMOR)
-#define _ARCHER_DIAMOND_ARMOR_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 768, ARMOR)
+#define _ARCHER_IRON_ARMOR_ITEM_ itemInit(statsInit(0, 0, 0, 0, 1), 768, ARMOR)
+#define _ARCHER_GOLDEN_ARMOR_ITEM_ itemInit(statsInit(1, 1, 0, 0, 1), 768, ARMOR)
+#define _ARCHER_DIAMOND_ARMOR_ITEM_ itemInit(statsInit(2, 1, 0, 0, 2), 768, ARMOR)
 
-#define _GEM_STAFF_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 408, WEAPON)
-#define _ICE_STAFF_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 432, WEAPON)
-#define _FIRE_STAFF_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 456, WEAPON)
+#define _GEM_STAFF_ITEM_ itemInit(statsInit(0, 0, 1, 0, 0), 408, WEAPON)
+#define _ICE_STAFF_ITEM_ itemInit(statsInit(0, 0, 2, 0, 0), 432, WEAPON)
+#define _FIRE_STAFF_ITEM_ itemInit(statsInit(0, 0, 3, 0, 0), 456, WEAPON)
 
-#define _WOODEN_BOW_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 480, WEAPON)
-#define _GOLDEN_BOW_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 504, WEAPON)
-#define _AQUA_BOW_ITEM_ itemInit(stats(0, 0, 0, 0, 1), 528, WEAPON)
+#define _WOODEN_BOW_ITEM_ itemInit(statsInit(0, 1, 0, 0, 0), 480, WEAPON)
+#define _GOLDEN_BOW_ITEM_ itemInit(statsInit(0, 2, 0, 0, 0), 504, WEAPON)
+#define _AQUA_BOW_ITEM_ itemInit(statsInit(0, 3, 0, 0, 0), 528, WEAPON)
 
 /* Macros for all item drops in the game */
 #define _IRON_CHESTPLATE_ITEM_DROP_(X, Y) itemDropInit(newIVec2(X, Y), _IRON_CHESTPLATE_ITEM_, 280)

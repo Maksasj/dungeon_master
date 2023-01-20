@@ -96,15 +96,6 @@ typedef enum {
 void soundInit(u32 _output_vol, u32 _sound1_vol, u32 _decay, u32 _max_step_time);
 
 /**
- * Function, that gets sound rate of the given note
- * 
- * @param   _note         note from ESoundNoteId
- * @param   _octave       octave
- * @return Sound rate
-*/
-u32 getSoundRate(u32 _note, u32 _octave);
-
-/**
  * Function, that plays notes
  * 
  * @param   _note         note from ESoundNoteId

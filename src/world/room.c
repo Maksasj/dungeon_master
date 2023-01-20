@@ -804,16 +804,16 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 6), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 6), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 6), LAVA_BIG_TILE, TRAP);
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 8), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 8), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 8), LAVA_BIG_TILE, TRAP);
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 10), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 10), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 10), LAVA_BIG_TILE, TRAP);
 
             placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(8, 12), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(22, 12), LAVA_BIG_TILE, TRAP);
+            placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(20, 12), LAVA_BIG_TILE, TRAP);
             break;
         }
         case FLOOR_END: {
@@ -878,7 +878,7 @@ void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
     }
 }
 
-void unLockRoom(void* _world, Room* _room) {
+void unlockRoom(void* _world, Room* _room) {
     placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
     placeTile(_world, (u16*) (((World*) _world)->MAP), newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 

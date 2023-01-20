@@ -8,7 +8,7 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     PlayerSpecData* pspec = (PlayerSpecData*)_wizard->spec;
    
     Entity projectile = projectileInit(
-        (ivec2){.x = _wizard->position.x >> POSITION_FIXED_SCALAR, .y = _wizard->position.y >> POSITION_FIXED_SCALAR},
+        (ivec2){.x = _wizard->position.x >> _POSITION_FIXED_SCALAR_, .y = _wizard->position.y >> _POSITION_FIXED_SCALAR_},
          PLAYER, 0); // <- TEXTURE offset
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
@@ -55,24 +55,31 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     }
 
     switch (_wizard->facing) {
-        case UP:
+        case UP: {
             spriteSetOffset(projectile.sprite, sprite_offset_vetical);
             spriteSetVerticalFlip(projectile.sprite, 1);
             break;
-        case RIGHT: 
+        }
+        case RIGHT: {
             spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
             spriteSetHorizontalFlip(projectile.sprite, 0);
             break;
-        case DOWN:
+        }
+        case DOWN: {
             spriteSetOffset(projectile.sprite, sprite_offset_vetical);
             spriteSetVerticalFlip(projectile.sprite, 0);
             break;
-        case LEFT:
+        }
+        case LEFT: {
             spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
             spriteSetHorizontalFlip(projectile.sprite, 1);
             break;
-        default:
+        }
+        default: {
+            spriteSetOffset(projectile.sprite, sprite_offset_vetical);
+            spriteSetVerticalFlip(projectile.sprite, 1);
             break;
+        }
     }
 
     tryPushProjectileToRoom(_active_room, projectile);

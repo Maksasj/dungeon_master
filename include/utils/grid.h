@@ -42,38 +42,6 @@ typedef struct SquareGrid {
 SquareGrid gridInit();
 
 /**
- * Check if coordinates are in room bounds
- * 
- * @param _coordinates coordinates (x, y)
- * 
- * @return  0 - false, 1 - true
-*/
-i32 inBounds(ivec2 _coordinates);
-
-/**
- * Check for obstacles
- * 
- * @param _grid             existing grid
- * @param _coordinates      coordinates (x, y)
- * @param _collision_box    existing collision box for obstacle detection 
- * 
- * @return  0 - false, 1 - true
-*/
-i32 passable(SquareGrid* _grid, ivec2 _coordinates, u8 _collision_box[10][15]);
-
-/**
- * Function that gets neighbors of grid cell
- * 
- * @param _grid             existing grid
- * @param _neighbors        array to store neighbors coordinates
- * @param _coordinates      coordinates (x, y)
- * @param _collision_box    existing collision box for obstacle detection 
- * 
- * @return  Neighbors coordinates
-*/
-ivec2* getNeighbors(SquareGrid* _grid, ivec2* _neighbors, ivec2 _coordinates, u8 _collision_box[10][15]);
-
-/**
  * BFS algorithm for setting vertices and distance to player
  * 
  * @param _grid             existing grid

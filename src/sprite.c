@@ -88,7 +88,7 @@ void spriteClear(Sprite* _sprites, i32* _next_sprite_index) {
     (*_next_sprite_index) = 0;
 
     i32 i;
-    for(i = 0; i < _NUM_SPRITES_; i++) {
+    for(i = 0; i < _NUM_SPRITES_; ++i) {
         _sprites[i].attribute0 = _SCREEN_HEIGHT_;
         _sprites[i].attribute1 = _SCREEN_WIDTH_;
     }

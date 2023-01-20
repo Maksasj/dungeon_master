@@ -35,7 +35,7 @@ typedef struct Text {
  * @param   _source   Text string
  * @param   _pos   Possition where to place loaded text
 */
-void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* _text, char* _source, ivec2 _pos);
+void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* _text, i8* _source, ivec2 _pos);
 
 /**
  * Updates text field
@@ -44,7 +44,7 @@ void loadTextGlyphs(Sprite* _sprites, i32* _next_sprite_index, Text* _text, char
  * @param   _source String that will be used to update already existing one 
  * @param   _pos New position for text
 */
-void updateTextGlyphs(Text* _text, char* _source, ivec2 _pos);
+void updateTextGlyphs(Text* _text, i8* _source, ivec2 _pos);
 
 /**
  * Updates text position
@@ -67,7 +67,7 @@ void unloadTextGlyphs(Text* _text);
  * @param   _source  String
  * @return length of the string
 */
-int str_length(const char* _source);
+i32 getStringLength(const i8* _source);
 
 /**
  * Render text to specific screen block
@@ -76,6 +76,6 @@ int str_length(const char* _source);
  * @param   _text  Text string
  * @param   _pos    Text possition
 */
-void renderText(vu16* _layer, char* _text, ivec2 _pos);
+void renderText(vu16* _layer, i8* _text, ivec2 _pos);
 
 #endif

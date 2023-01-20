@@ -18,32 +18,46 @@
 #include "background.h"
 
 /* Transition between palettes speed for scenes */
-#define TRANSITION_SPEED 500
+#define _TRANSITION_SPEED_ 500
 
 /* Transition between palettes for rooms  */
-#define ROOM_TRANSITION_SPEED 300
+#define _ROOM_TRANSITION_SPEED_ 300
 
 void setPalette(u16* _target, u16* _palette);
 
 void fillPalette(u16* _target, u16 _color);
 
 /* Macro that used for smooth transition to black screen (all colors to black) */
-#define _SMOOTH_PALETT_TRANSITION_TO_BLACK_                                         \
+#define _SMOOTH_PALETTE_TRANSITION_TO_BLACK_                                        \
     {                                                                               \
-        int k;                                                                      \
-        int o;                                                                      \
+        i32 k;                                                                      \
+        i32 o;                                                                      \
         for(k = 0; k < 32; ++k) {                                                   \
             for(o = 0; o < 256; ++o) {                                              \
-                _SMOOTH_PALETT_TRANSITION_(_SPRITE_PALETTE_, 0, o);                 \
-                _SMOOTH_PALETT_TRANSITION_(_BG_PALETTE_, 0, o);                     \
+                _SMOOTH_PALETTE_TRANSITION_(_SPRITE_PALETTE_, 0, o);                \
+                _SMOOTH_PALETTE_TRANSITION_(_BG_PALETTE_, 0, o);                    \
             }                                                                       \
             waitVBlank();                                                           \
-            delay(TRANSITION_SPEED);                                                \
+            delay(_TRANSITION_SPEED_);                                              \
         }                                                                           \
     }                                                                               \
 
+#define _MAKE_TRANSITION_(sprite_palette, background_palette, transition_speed)         \
+    {                                                                                   \
+        i32 k;                                                                          \
+        i32 o;                                                                          \
+        for(k = 0; k < 32; ++k) {                                                       \
+            for(o = 0; o < 256; ++o) {                                                  \
+                _SMOOTH_PALETTE_TRANSITION_(_SPRITE_PALETTE_, sprite_palette[o], o);    \
+                _SMOOTH_PALETTE_TRANSITION_(_BG_PALETTE_, background_palette[o], o);    \
+            }                                                                           \
+            waitVBlank();                                                               \
+            delay(transition_speed);                                                    \
+        }                                                                               \
+    }                                                                                   \
+
 /* Macro that used for smooth transitioning between scenes */
-#define _SMOOTH_PALETT_TRANSITION_(PALETTE, TARGET_COLOR, COLOR_INDEX)              \
+#define _SMOOTH_PALETTE_TRANSITION_(PALETTE, TARGET_COLOR, COLOR_INDEX)             \
     {                                                                               \
         u16 color = PALETTE[COLOR_INDEX];                                           \
                                                                                     \

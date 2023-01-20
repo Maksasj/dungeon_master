@@ -4,7 +4,7 @@ const static i32 GRID_LENGTH = 12;
 const static i32 GRID_HEIGHT = 7;
 
 Entity projectileInit(ivec2 _position, LayerMask _layer, u32 _sprite_offset) {
-    return entityInit(_position, stats(0, 0, 0, 0, 0), _layer, _sprite_offset);
+    return entityInit(_position, statsInit(0, 0, 0, 0, 0), _layer, _sprite_offset);
 }
 
 void projectileUpdate(Entity* _self, World* _world, Room* _room) {
@@ -15,22 +15,22 @@ void projectileUpdate(Entity* _self, World* _world, Room* _room) {
 
     switch (_self->facing) {
         case RIGHT: {
-            _self->vel.x += 6;
+            _self->vel.x += _PROJECTILE_SPEED_;
             break;
         }
         case DOWN: {
-            _self->vel.y += 6;
+            _self->vel.y += _PROJECTILE_SPEED_;
             break;
         }
         case LEFT: {
-            _self->vel.x -= 6;
+            _self->vel.x -= _PROJECTILE_SPEED_;
             break;
         }
         case UP: {
-            _self->vel.y -= 6;
+            _self->vel.y -= _PROJECTILE_SPEED_;
             break;
         } default: {
-            _self->vel.y -= 6;
+            _self->vel.y -= _PROJECTILE_SPEED_;
             break;
         }
     }

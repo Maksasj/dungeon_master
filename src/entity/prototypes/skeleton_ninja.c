@@ -22,41 +22,41 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
 
     switch (direction) {
         case 'u': { //Up
-            _self->vel.y += VELOCITY_CONSTANT;
+            _self->vel.y += _VELOCITY_CONSTANT_;
             _self->facing = DOWN;
             break;
         }
         case 'r': { //Right
-            _self->vel.x += VELOCITY_CONSTANT;
+            _self->vel.x += _VELOCITY_CONSTANT_;
             _self->facing = RIGHT;
             break;
         }
         case 'd': { //Down
-            _self->vel.y -= VELOCITY_CONSTANT;
+            _self->vel.y -= _VELOCITY_CONSTANT_;
             _self->facing = UP;
             break;
         }
         case 'l': { //Left
-            _self->vel.x -= VELOCITY_CONSTANT;
+            _self->vel.x -= _VELOCITY_CONSTANT_;
             _self->facing = LEFT;
             break;
         }
         case '#': {
             switch (_self->facing) {
                 case UP: {
-                    _self->vel.y = -10;
+                    _self->vel.y = -_REPULSIVE_FORCE_;
                     break;
                 }
                 case RIGHT: {
-                    _self->vel.x = 10;
+                    _self->vel.x = _REPULSIVE_FORCE_;
                     break;
                 }
                 case DOWN: {
-                    _self->vel.y = 10;
+                    _self->vel.y = _REPULSIVE_FORCE_;
                     break;
                 }
                 case LEFT: {
-                    _self->vel.x = -10;
+                    _self->vel.x = -_REPULSIVE_FORCE_;
                     break;
                 }
                 default:
@@ -92,13 +92,13 @@ void skeletonNinjaUpdate(Entity* _self, World* _world, Room* _room) {
     }
 
     if (world_position.x < 0) {
-        _self->vel.x = 10;
+        _self->vel.x = _REPULSIVE_FORCE_;
     } else if (world_position.x > GRID_LENGTH) {
-        _self->vel.x = -10;
+        _self->vel.x = -_REPULSIVE_FORCE_;
     } else if (world_position.y < 0) {
-        _self->vel.y = 10;
+        _self->vel.y = _REPULSIVE_FORCE_;
     } else if (world_position.y > GRID_HEIGHT) {
-        _self->vel.y = -10;
+        _self->vel.y = -_REPULSIVE_FORCE_;
     }
 
     _self->position.x += _self->vel.x;

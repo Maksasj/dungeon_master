@@ -15,7 +15,7 @@
 #include "../../utils/types.h"
 #include "../../world/world.h"
 
-#include "../../utils/logger.h"
+#define _PROJECTILE_SPEED_ 6
 
 /**
  * Initialize projectile

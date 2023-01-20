@@ -25,6 +25,6 @@ typedef enum Facing {
  * @param facing Facing side
  * @return Opposite facing side
 */
-Facing getOppositeFacing(Facing facing);
+Facing getOppositeFacing(Facing _facing);
 
 #endif
