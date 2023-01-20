@@ -11,14 +11,14 @@
 #ifndef _WIZARD_H_
 #define _WIZARD_H_
 
-#include "entity.h"
+#include "../entity.h"
 
-#include "prototypes/player.h"
-#include "prototypes/projectile.h"
+#include "player.h"
+#include "projectile.h"
 
-#include "../world/room.h"
+#include "../../world/room.h"
 
-#include "../utils/types.h"
+#include "../../utils/types.h"
 
 /**
  * Ranged attack (projectile creating)

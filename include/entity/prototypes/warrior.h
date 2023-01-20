@@ -11,12 +11,13 @@
 #ifndef _WARRIOR_H_
 #define _WARRIOR_H_
 
-#include "entity.h"
-#include "prototypes/player.h"
+#include "../entity.h"
 
-#include "../world/room.h"
+#include "player.h"
 
-#include "../utils/types.h"
+#include "../../world/room.h"
+
+#include "../../utils/types.h"
 
 // Mellee attack range
 #define _ATTACK_OFFSET_ 8

@@ -3,6 +3,8 @@
 
 static u32 WORLD_TICK = 0;
 i32 game_completed = 0;
+u8 floor_switch = 0;
+u8 room_switch = 0;
 
 void nextRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
     int new_room = _world->activeRoom + 1;
@@ -39,6 +41,18 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 
     _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
+}
+
+
+void updateWorldLight(World* _world) {
+    Room *room = &_world->rooms[_world->activeRoom];
+    vu16* lightLayer = screenBlock(2);
+
+    int i;
+    for(i = 0; i < room->current_light_count; ++i) {
+        ivec2 light = room->lights[i];
+        RENDER_LIGHT_BULB(lightLayer, light.x, light.y);
+    }
 }
 
 void updateWorld(World* _world, Entity* _player) {
@@ -82,7 +96,7 @@ void updateWorld(World* _world, Entity* _player) {
             deleteEntityFromRoom(entity, room);
         }
 
-        entityUpdate(entity);
+        entitySpriteUpdate(entity);
     }
 
     for(i = 0; i < room->current_projectile_count; ++i) {
@@ -131,17 +145,8 @@ void updateWorld(World* _world, Entity* _player) {
                 }
             }
         }
-        entityUpdate(projectile);
+        entitySpriteUpdate(projectile);
     }
-    
-    #ifdef _LIGHT_ON_
-        vu16* lightLayer = screenBlock(2);
-
-        for(i = 0; i < room->current_light_count; ++i) {
-            ivec2 light = room->lights[i];
-            RENDER_DYNAMIC_LIGHT_BULB(lightLayer, light.x, light.y);
-        }
-    #endif
 
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
@@ -150,7 +155,7 @@ void updateWorld(World* _world, Entity* _player) {
             itemDropUnloadSprite(itemdrop);
             deleteItemDropFromRoom(itemdrop, room);
         }
-        entityUpdate((Entity*) itemdrop);
+        entitySpriteUpdate((Entity*) itemdrop);
     }
 
     //Lets open room if entity count == 0

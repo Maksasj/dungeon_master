@@ -1,4 +1,4 @@
-#include "../../include/entity/archer.h"
+#include "../../../include/entity/prototypes/archer.h"
 
 void archerAttack(Entity* _archer, Room* _active_room) {
     if (_active_room->current_projectile_count >= _MAX_PROJECTILE_PER_ROOM_) {
@@ -55,24 +55,24 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     }
 
     switch (_archer->facing) {
-    case UP:
-        spriteSetOffset(projectile.sprite, sprite_offset_vertical);
-        spriteSetVerticalFlip(projectile.sprite, 1);
-        break;
-    case RIGHT: 
-        spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
-        spriteSetHorizontalFlip(projectile.sprite, 0);
-        break;
-    case DOWN:
-        spriteSetOffset(projectile.sprite, sprite_offset_vertical);
-        spriteSetVerticalFlip(projectile.sprite, 0);
-        break;
-    case LEFT:
-        spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
-        spriteSetHorizontalFlip(projectile.sprite, 1);
-        break;
-    default:
-        break;
+        case UP:
+            spriteSetOffset(projectile.sprite, sprite_offset_vertical);
+            spriteSetVerticalFlip(projectile.sprite, 1);
+            break;
+        case RIGHT: 
+            spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
+            spriteSetHorizontalFlip(projectile.sprite, 0);
+            break;
+        case DOWN:
+            spriteSetOffset(projectile.sprite, sprite_offset_vertical);
+            spriteSetVerticalFlip(projectile.sprite, 0);
+            break;
+        case LEFT:
+            spriteSetOffset(projectile.sprite, sprite_offset_horizontal);
+            spriteSetHorizontalFlip(projectile.sprite, 1);
+            break;
+        default:
+            break;
     }
 
     tryPushProjectileToRoom(_active_room, projectile);

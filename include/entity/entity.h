@@ -128,7 +128,7 @@ void entityUnloadSprite(Entity *_entity);
  * 
  * @param _entity         existing entity
 */
-void entityUpdate(Entity* _entity);
+void entitySpriteUpdate(Entity* _entity);
 
 /**
  * Handles attack
