@@ -48,8 +48,6 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
         _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
         0, 0, 0, 3);
-    
-    _entity->sprite_size_in_pixels = SIZE_16_16;
 }
 
 void entityUnloadSprite(Entity *_entity) {

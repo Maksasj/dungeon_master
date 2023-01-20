@@ -5,15 +5,20 @@ void woodenBowUseCallback(Entity* _use_target, Room* _active_room) {
 
     PlayerSpecData* pspec = (PlayerSpecData*) _use_target->spec;
    
-    Entity projectile = entityReload((Entity){
-        .position = (ivec2){ .x = _use_target->position.x, .y = _use_target->position.y },
+    Projectile projectile = (Projectile) {
+        .position.x =  _use_target->position.x,
+        .position.y =  _use_target->position.y,
+
+        .vel.x = 0,
+        .vel.y = 0,
 
         .layer = PLAYER,
+
+        .facing = _use_target->facing,
         .update_callback = &projectileUpdate,
         .die_callback = &destroyProjectile,
-        .facing = _use_target->facing,
         .calculate_damage_callback = _use_target->calculate_damage_callback
-    });
+    };
 
     entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
 

@@ -183,15 +183,15 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             break;
     }
 
-    if (world_position.x < 0) {
+    if (world_position.x < 0)
         _self->vel.x = 10;
-    } else if (world_position.x > GRID_LENGTH) {
+    else if (world_position.x > GRID_LENGTH)
         _self->vel.x = -10;
-    } else if (world_position.y < 0) {
+    else if (world_position.y < 0)
         _self->vel.y = 10;
-    } else if (world_position.y > GRID_HEIGHT) {
-        _self->vel.y = -10;
-    }
+    else if (world_position.y > GRID_HEIGHT)
+       _self->vel.y = -10;
+    
 
     if (buttonPressed(_BUTTON_RIGHT_)) {
         _self->vel.x += VELOCITY_CONSTANT;
@@ -224,13 +224,17 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
     
     if (buttonPressed(_BUTTON_A_)) {
-        if(pspec->hand_slot.count != 0)
-            (pspec->hand_slot.use_item_callback)(_self, _room);
+        
 
-        //if (_self->attack_cooldown == 0) {
-        //    (_self->attack_callback)(_self, _room);
-        //    _self->attack_cooldown = 10;
-        //}
+        if (_self->attack_cooldown == 0) {
+            //(_self->attack_callback)(_self, _room);
+            _self->attack_cooldown = 10;
+
+            if(pspec->hand_slot.count != 0)
+                (pspec->hand_slot.use_item_callback)(_self, _room);
+        }
+
+
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_) + _self->vel.x, (_self->position.y >> _POSITION_FIXED_SCALAR_)));

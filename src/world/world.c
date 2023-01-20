@@ -3,7 +3,11 @@
 #include "../../include/entity/entity_macros.h"
 #include "../../include/item/item_macros.h"
 
+static void* _SPRITES_POINTER_;
+static void* _NEXT_SPRITE_INDEX_;
+
 static u32 WORLD_TICK = 0;
+
 i32 game_completed = 0;
 u8 floor_switch = 0;
 u8 room_switch = 0;
@@ -19,6 +23,9 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
 }
 
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
+    _SPRITES_POINTER_= _sprites;
+    _NEXT_SPRITE_INDEX_ = _next_sprite_index;
+
     clearGrid(&_world->grid);
 
     int i;    
@@ -45,7 +52,6 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
 
-
 void updateWorldLight(World* _world) {
     Room *room = &_world->rooms[_world->activeRoom];
     vu16* lightLayer = screenBlock(2);
@@ -60,13 +66,13 @@ void updateWorldLight(World* _world) {
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
-    if(WORLD_TICK > _BFS_TICK_RATE_ == 0) {
+    log(LOG_INFO, "%d", sizeof(World));
+
+    if(WORLD_TICK % _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToWorldPosition(_player->position);
             breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
-
-        WORLD_TICK = 0;
     }
 
     i32 i;
@@ -101,39 +107,47 @@ void updateWorld(World* _world, Entity* _player) {
 
         entitySpriteUpdate(entity);
     }
-
+    
     for(i = 0; i < room->current_projectile_count; ++i) {
-        Entity *projectile = &room->projectile_pool[i];
+        Projectile *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
-        CollisionType xCol = 
-            worldCollision(
-                _world,
-                newIVec2(
-                    (projectile->position.x >> _POSITION_FIXED_SCALAR_) + projectile->vel.x,
-                    projectile->position.y >> _POSITION_FIXED_SCALAR_)
-            );
-
-        if(xCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
+        if (projectile->facing == LEFT || projectile->facing == RIGHT) {
+            CollisionType xCol = 
+                worldCollision(
+                    _world,
+                    newIVec2(
+                        (projectile->position.x >> _POSITION_FIXED_SCALAR_) + projectile->vel.x,
+                        projectile->position.y >> _POSITION_FIXED_SCALAR_)
+                );
+            
+            if(xCol != NONE) {
+                entityUnloadSprite(projectile);
+                deleteProjectileFromRoom(projectile, room);
+                
+                --(*((i32*)_NEXT_SPRITE_INDEX_));
+                
+                break;
+            }
+        } else {
+            CollisionType yCol = 
+                worldCollision(
+                    _world, 
+                    newIVec2(
+                        projectile->position.x >> _POSITION_FIXED_SCALAR_,
+                        (projectile->position.y >> _POSITION_FIXED_SCALAR_) + projectile->vel.y)
+                );
+            if(yCol != NONE) {
+                entityUnloadSprite(projectile);
+                deleteProjectileFromRoom(projectile, room);
+                
+                --(*((i32*)_NEXT_SPRITE_INDEX_));
+                
+                break;
+            }
         }
-
-        CollisionType yCol = 
-            worldCollision(
-                _world, 
-                newIVec2(
-                    projectile->position.x >> _POSITION_FIXED_SCALAR_,
-                    (projectile->position.y >> _POSITION_FIXED_SCALAR_) + projectile->vel.y)
-            );
         
-        if(yCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
+        /*
         if (projectile->layer == ENEMY) {
             if (checkCollision(_player, projectile)) {
                 notePlay(NOTE_BES, 1);
@@ -161,8 +175,10 @@ void updateWorld(World* _world, Entity* _player) {
                     }
                 }
             }
-        }
         
+        }
+        */
+
         entitySpriteUpdate(projectile);
     }
 

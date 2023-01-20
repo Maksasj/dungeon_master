@@ -34,7 +34,6 @@
 /* Constant that defines how often should be runned path finding */
 #define _BFS_TICK_RATE_ 50
 
-
 /* Structure that contains all needed information to discribe world */
 typedef struct World {
     /* Array of all rooms in single floor */

@@ -1,6 +1,7 @@
 #include "../../../include/entity/prototypes/archer.h"
 
 void archerAttack(Entity* _archer, Room* _active_room) {
+    /*
     if (_active_room->current_projectile_count >= _MAX_PROJECTILE_PER_ROOM_) {
         return;
     }
@@ -17,7 +18,6 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
     projectile.facing = _archer->facing;
 
-    /*
     592 - cobalt arrow horizontal | 736 - cobalt arrow vertical
     584 - golden arrow horizontal | 728 - golden arrow vertical
     576 - iron arrow   horizontal | 720 - iron arrow   vertical
@@ -25,13 +25,10 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     568 - fireball horizontal     | 712 - fireball vertical
     560 - iceball  horizontal     | 704 - iceball  vertical
     552 - gemball  horizontal     | 696 - gemball  vertical
-    */
 
-    /*
     480 - wooden bow
     504 - golden bow
     528 - aqua bow
-    */
 
     i32 sprite_offset_horizontal = 576;
     i32 sprite_offset_vertical = 720;
@@ -76,6 +73,7 @@ void archerAttack(Entity* _archer, Room* _active_room) {
     }
 
     tryPushProjectileToRoom(_active_room, projectile);
+    */
 }
 
 i32 archerCalculateDamage(Entity* _archer) {

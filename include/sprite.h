@@ -114,12 +114,4 @@ void spriteUpdateAll(Sprite* _sprites);
 */
 void spriteClear(Sprite* _sprites, i32* _next_sprite_index);
 
-/**
- * Converts sprite size into scalar form
- *  
- * @param   _sprite_size_in_pixels  Size of the sprite
- * @return  Sprite size
-*/
-ivec2 getSpriteWidthAndLength(SpriteSize _sprite_size_in_pixels);
-
 #endif

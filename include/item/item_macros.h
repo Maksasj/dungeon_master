@@ -15,7 +15,6 @@
 #include "prototypes/ice_staff.h"
 #include "prototypes/fire_staff.h"
 
-
 /*
     592 - cobalt arrow horizontal | 736 - cobalt arrow vetical
     584 - golden arrow horizontal | 728 - golden arrow vetical

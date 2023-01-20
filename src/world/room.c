@@ -864,7 +864,7 @@ int tryPushEntityToRoom(Room* _room, Entity _entity) {
     return 0;
 }
 
-void tryPushProjectileToRoom(Room* _room, Entity _projectile) {
+void tryPushProjectileToRoom(Room* _room, Projectile _projectile) {
     if (_room->current_projectile_count < _MAX_PROJECTILE_PER_ROOM_) {
         _room->projectile_pool[_room->current_projectile_count] = _projectile;
         ++_room->current_projectile_count;

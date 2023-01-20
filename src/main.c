@@ -14,7 +14,6 @@ void mainMenuScene() {
     setLightLayer(0x0);
 
     u32 _seed = 0;
-    u16 MAP[1024];
     
     i8 down_pressed = 0;
     i8 up_pressed = 0;
@@ -25,6 +24,7 @@ void mainMenuScene() {
     i32 i;
     i32 j;
 
+    u16* MAP = screenBlock(1);
     for(i = 0; i < 15; ++i) { 
         for(j = 0; j < 10; ++j) {
             MAP[i*2 + j*2 * 32] = 0x0015;
@@ -33,8 +33,6 @@ void mainMenuScene() {
             MAP[i*2 + j*2 * 32 + 33] = 0x0036;
         }
     }
-
-    memcpy16DMA((u16*) screenBlock(1), (u16*) MAP, 32 * 32);
 
     spriteUpdateAll(sprites);
     {
@@ -130,7 +128,7 @@ void classChooseScene(Class *class) {
 
     setLightLayer(0x0);
 
-    u16 MAP[1024];
+    u16* MAP = screenBlock(1);
     for(i = 0; i < 15; ++i) { 
         for(j = 0; j < 10; ++j) {
             MAP[i*2 + j*2 * 32] = 0x0015;
@@ -143,9 +141,6 @@ void classChooseScene(Class *class) {
     vu16* lightLayer = screenBlock(2);
 
     _RENDER_CHOOSE_SCREEN_;
-    
-    vu16* baseLayer = screenBlock(1);
-    memcpy16DMA((u16*) baseLayer, (u16*) MAP, 32 * 32);
 
     i8 down_pressed = 0;
     i8 up_pressed = 0;
