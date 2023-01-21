@@ -122,7 +122,6 @@ void updateWorld(World* _world, Entity* _player) {
             if(xCol != NONE) {
                 entityUnloadSprite(projectile);
                 deleteProjectileFromRoom(projectile, room);
-                log(LOG_INFO, "DELETING PROJECTILE");
                 --(*((i32*)_NEXT_SPRITE_INDEX_));
                 
                 break;
@@ -138,44 +137,29 @@ void updateWorld(World* _world, Entity* _player) {
             if(yCol != NONE) {
                 entityUnloadSprite(projectile);
                 deleteProjectileFromRoom(projectile, room);
-                log(LOG_INFO, "DELETING PROJECTILE");
                 --(*((i32*)_NEXT_SPRITE_INDEX_));
                 
                 break;
             }
         }
         
-        /*
-        if (projectile->layer == ENEMY) {
-            if (checkCollision(_player, projectile)) {
-                notePlay(NOTE_BES, 1);
+        if(projectile->layer == PLAYER) {
 
-                if (!(*_player->dodge_callback)(_player)) {
-                    entityAttack(projectile, _player);
-
-                    entityUnloadSprite(projectile);
-                    deleteProjectileFromRoom(projectile, room);
-                }
-            }
-        } else {
             i32 j;
             for(j = 0; j < room->current_entity_count; ++j) { 
                 Entity *entity = &room->entity_pool[j];
                 
                 if (checkCollision(entity, projectile)) {
-                    if (!(*entity->dodge_callback)(entity)) {
-                        entityKnockback(entity, projectile->facing, 20);
-                        entityAttack(projectile, entity);
+                    i32 calculated_damage = (*projectile->calculate_damage_callback)(entity);
+                    entityTakeDamage(entity, calculated_damage);
 
-                        entityUnloadSprite(projectile);
-                        deleteProjectileFromRoom(projectile, room);
-                        break;
-                    }
+                    entityUnloadSprite(projectile);
+                    deleteProjectileFromRoom(projectile, room);
+                    --(*((i32*)_NEXT_SPRITE_INDEX_));
                 }
             }
-        
+
         }
-        */
 
         entitySpriteUpdate(projectile);
     }
