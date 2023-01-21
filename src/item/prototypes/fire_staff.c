@@ -10,7 +10,7 @@ void fireStaffUseCallback(Entity* _use_target, Room* _active_room) {
 
         .layer = PLAYER,
 
-        .facing = UP,
+        .facing = _use_target->facing,
         .update_callback = &projectileUpdate,
         .die_callback = &destroyProjectile,
         .calculate_damage_callback = _use_target->calculate_damage_callback
