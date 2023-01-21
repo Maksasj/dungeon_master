@@ -7,9 +7,9 @@
 #include "prototypes/golden_bow.h"
 #include "prototypes/aqua_bow.h"
 
-//#include "prototypes/short_sword.h"
-//#include "prototypes/dark_claymore.h"
-//#include "prototypes/ice_sword.h"
+#include "prototypes/short_sword.h"
+#include "prototypes/dark_claymore.h"
+#include "prototypes/ice_sword.h"
 
 #include "prototypes/gem_staff.h"
 #include "prototypes/ice_staff.h"
@@ -57,6 +57,8 @@
         .base_stats = stats(0, 0, 0, 0, 1),                             \
         .sprite_offset = 184,                                           \
         .type = WEAPON,                                                 \
+                                                                        \
+        .use_item_callback = &shortSwordUseCallback                     \
     })                                                                  \
 
 #define _DARK_CLAYMORE_ITEM_                                            \
@@ -64,6 +66,8 @@
         .base_stats = stats(0, 0, 0, 0, 1),                             \
         .sprite_offset = 208,                                           \
         .type = WEAPON,                                                 \
+                                                                        \
+        .use_item_callback = &darkClaymoreUseCallback                   \
     })                                                                  \
 
 #define _ICE_SWORD_ITEM_                                                \
@@ -71,6 +75,8 @@
         .base_stats = stats(0, 0, 0, 0, 1),                             \
         .sprite_offset = 232,                                           \
         .type = WEAPON,                                                 \
+                                                                        \
+        .use_item_callback = &iceSwordUseCallback                       \
     })                                                                  \
 
 /* Macros for all items in the game */
