@@ -5,75 +5,19 @@ void fireStaffUseCallback(Entity* _use_target, Room* _active_room) {
     
     PlayerSpecData* pspec = (PlayerSpecData*) _use_target->spec;
     
-    {
-        Projectile projectile = (Projectile) {
-            .position = newIVec2(_use_target->position.x, _use_target->position.y),
+    Projectile projectile = (Projectile) {
+        .position = newIVec2(_use_target->position.x, _use_target->position.y),
 
-            .layer = PLAYER,
+        .layer = PLAYER,
 
-            .facing = UP,
-            .update_callback = &projectileUpdate,
-            .die_callback = &destroyProjectile,
-            .calculate_damage_callback = _use_target->calculate_damage_callback
-        };
+        .facing = UP,
+        .update_callback = &projectileUpdate,
+        .die_callback = &destroyProjectile,
+        .calculate_damage_callback = _use_target->calculate_damage_callback
+    };
 
-        entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
-        rotateProjectile(&projectile, 568, 712);
-        
-        tryPushProjectileToRoom(_active_room, projectile);
-    }
-
-    {
-        Projectile projectile = (Projectile) {
-            .position = newIVec2(_use_target->position.x, _use_target->position.y),
-
-            .layer = PLAYER,
-
-            .facing = DOWN,
-            .update_callback = &projectileUpdate,
-            .die_callback = &destroyProjectile,
-            .calculate_damage_callback = _use_target->calculate_damage_callback
-        };
-
-        entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
-        rotateProjectile(&projectile, 568, 712);
-        
-        tryPushProjectileToRoom(_active_room, projectile);
-    }
-
-    {
-        Projectile projectile = (Projectile) {
-            .position = newIVec2(_use_target->position.x, _use_target->position.y),
-
-            .layer = PLAYER,
-
-            .facing = LEFT,
-            .update_callback = &projectileUpdate,
-            .die_callback = &destroyProjectile,
-            .calculate_damage_callback = _use_target->calculate_damage_callback
-        };
-
-        entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
-        rotateProjectile(&projectile, 568, 712);
-        
-        tryPushProjectileToRoom(_active_room, projectile);
-    }
-
-    {
-        Projectile projectile = (Projectile) {
-            .position = newIVec2(_use_target->position.x, _use_target->position.y),
-
-            .layer = PLAYER,
-
-            .facing = RIGHT,
-            .update_callback = &projectileUpdate,
-            .die_callback = &destroyProjectile,
-            .calculate_damage_callback = _use_target->calculate_damage_callback
-        };
-
-        entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
-        rotateProjectile(&projectile, 568, 712);
-        
-        tryPushProjectileToRoom(_active_room, projectile);
-    }
+    entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
+    rotateProjectile(&projectile, 568, 712);
+    
+    tryPushProjectileToRoom(_active_room, projectile);
 }
