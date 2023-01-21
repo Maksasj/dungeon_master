@@ -499,6 +499,9 @@ i32 gameScene(Class *chosenClass) {
 
     renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 25, .y = 18});
     
+    _ITEM_STAT_UI_RENDER_(screenBlock(3), 26, 5);
+    (*_BG2_X_SCROLL_) = -28;
+
     Timer timer;
     initTimer(&timer);
     startTimer(&timer);
@@ -540,60 +543,8 @@ i32 gameScene(Class *chosenClass) {
 
     floor_switch = 0;
     room_switch = 0;
-        
+    
     while (1) {
-        u16* block = screenBlock(3);
-
-        block[0 + 0*32] = 352;
-        block[1 + 0*32] = 353;
-        block[2 + 0*32] = 354;
-        block[3 + 0*32] = 355;
-        block[0 + 1*32] = 356;
-        block[1 + 1*32] = 357;
-        block[2 + 1*32] = 357;
-        block[3 + 1*32] = 357;
-        block[0 + 2*32] = 356;
-        block[1 + 2*32] = 359;
-        block[2 + 2*32] = 357;
-        block[3 + 2*32] = 360;
-        block[0 + 3*32] = 356;
-        block[1 + 3*32] = 366;
-        block[2 + 3*32] = 357;
-        block[3 + 3*32] = 357;
-        block[0 + 4*32] = 356;
-        block[1 + 4*32] = 367;
-        block[2 + 4*32] = 357;
-        block[3 + 4*32] = 357;
-        block[0 + 5*32] = 356;
-        block[1 + 5*32] = 368;
-        block[2 + 5*32] = 357;
-        block[3 + 5*32] = 357;
-        block[0 + 6*32] = 356;
-        block[1 + 6*32] = 369;
-        block[2 + 6*32] = 357;
-        block[3 + 6*32] = 357;
-        block[0 + 7*32] = 361;
-        block[1 + 7*32] = 370;
-        block[2 + 7*32] = 357;
-        block[3 + 7*32] = 357;
-        block[1 + 8*32] = 363;
-        block[2 + 8*32] = 364;
-        block[3 + 8*32] = 365;
-
-        /* Directions */
-        block[2 + 3*32] = 371;
-        block[2 + 4*32] = 372;
-        block[2 + 5*32] = 373;
-        block[2 + 6*32] = 373;
-        block[2 + 7*32] = 373;
-
-        /* Numbers */
-        block[3 + 3*32] = 374;
-        block[3 + 4*32] = 374;
-        block[3 + 5*32] = 374;
-        block[3 + 6*32] = 374;
-        block[3 + 7*32] = 374;
-
         updateWorld(&world, &player);
         entitySpriteUpdate(&player);
 

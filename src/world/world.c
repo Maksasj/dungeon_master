@@ -164,16 +164,41 @@ void updateWorld(World* _world, Entity* _player) {
         entitySpriteUpdate(projectile);
     }
 
+    static i32 item_ui_offset = -28;
+    i8 is_collision_with_any_item = 0;
+
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
         if (checkCollision(_player, (Entity*) itemdrop)) {
-            putOnItem(_player, itemdrop->item);
-            itemDropUnloadSprite(itemdrop);
-            deleteItemDropFromRoom(itemdrop, room);
+            
+            is_collision_with_any_item = 1;
+
+            if(buttonPressed(_BUTTON_B_)) {
+                putOnItem(_player, itemdrop->item);
+                itemDropUnloadSprite(itemdrop);
+                deleteItemDropFromRoom(itemdrop, room);
+            } else {
+
+                if(WORLD_TICK % 5 == 0) {
+                    if(item_ui_offset + 1 <= 0)
+                        ++item_ui_offset;
+                }
+
+                (*_BG2_X_SCROLL_) = item_ui_offset;
+            }
         }
         entitySpriteUpdate((Entity*) itemdrop);
     }
 
+    if(is_collision_with_any_item == 0) {
+        if(WORLD_TICK % 5 == 0) {
+            if(item_ui_offset - 1 >= -28)
+                --item_ui_offset;
+        }
+
+        (*_BG2_X_SCROLL_) = item_ui_offset;
+    }
+    
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
         if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {

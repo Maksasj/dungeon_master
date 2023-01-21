@@ -209,4 +209,53 @@ typedef enum ActiveScene {
         _RENDER_CHOOSE_SQUARE_(lightLayer, 20, 8);  \
     }                                               \
 
+#define _ITEM_STAT_UI_RENDER_(layer, x, y)                      \
+        layer[0 + x + (y + 0)*32] = 352;                        \
+        layer[1 + x + (y + 0)*32] = 353;                        \
+        layer[2 + x + (y + 0)*32] = 354;                        \
+        layer[3 + x + (y + 0)*32] = 355;                        \
+        layer[0 + x + (y + 1)*32] = 356;                        \
+        layer[1 + x + (y + 1)*32] = 357;                        \
+        layer[2 + x + (y + 1)*32] = 357;                        \
+        layer[3 + x + (y + 1)*32] = 357;                        \
+        layer[0 + x + (y + 2)*32] = 356;                        \
+        layer[1 + x + (y + 2)*32] = 359;                        \
+        layer[2 + x + (y + 2)*32] = 357;                        \
+        layer[3 + x + (y + 2)*32] = 360;                        \
+        layer[0 + x + (y + 3)*32] = 356;                        \
+        layer[1 + x + (y + 3)*32] = 366;                        \
+        layer[2 + x + (y + 3)*32] = 357;                        \
+        layer[3 + x + (y + 3)*32] = 357;                        \
+        layer[0 + x + (y + 4)*32] = 356;                        \
+        layer[1 + x + (y + 4)*32] = 367;                        \
+        layer[2 + x + (y + 4)*32] = 357;                        \
+        layer[3 + x + (y + 4)*32] = 357;                        \
+        layer[0 + x + (y + 5)*32] = 356;                        \
+        layer[1 + x + (y + 5)*32] = 368;                        \
+        layer[2 + x + (y + 5)*32] = 357;                        \
+        layer[3 + x + (y + 5)*32] = 357;                        \
+        layer[0 + x + (y + 6)*32] = 356;                        \
+        layer[1 + x + (y + 6)*32] = 369;                        \
+        layer[2 + x + (y + 6)*32] = 357;                        \
+        layer[3 + x + (y + 6)*32] = 357;                        \
+        layer[0 + x + (y + 7)*32] = 361;                        \
+        layer[1 + x + (y + 7)*32] = 370;                        \
+        layer[2 + x + (y + 7)*32] = 357;                        \
+        layer[3 + x + (y + 7)*32] = 357;                        \
+        layer[1 + x + (y + 8)*32] = 363;                        \
+        layer[2 + x + (y + 8)*32] = 364;                        \
+        layer[3 + x + (y + 8)*32] = 365;                        \
+                                                                \
+        layer[2 + x + (y + 3)*32] = 371;                        \
+        layer[2 + x + (y + 4)*32] = 372;                        \
+        layer[2 + x + (y + 5)*32] = 373;                        \
+        layer[2 + x + (y + 6)*32] = 373;                        \
+        layer[2 + x + (y + 7)*32] = 373;                        \
+                                                                \
+        layer[3 + x + (y + 3)*32] = 374;                        \
+        layer[3 + x + (y + 4)*32] = 374;                        \
+        layer[3 + x + (y + 5)*32] = 374;                        \
+        layer[3 + x + (y + 6)*32] = 374;                        \
+        layer[3 + x + (y + 7)*32] = 374;                        \
+
 #endif
