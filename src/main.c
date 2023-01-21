@@ -171,7 +171,7 @@ void classChooseScene(Class *class) {
             delay(TRANSITION_SPEED);
         } 
     }
-    
+
     i8 flag = 1;
     while(flag) { 
         if(buttonPressed(_BUTTON_RIGHT_) && down_pressed == 0) {
@@ -437,7 +437,7 @@ i32 gameScene(Class *chosenClass) {
     World world = {.floorCount = 3};
 
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
-    spriteClear(sprites, &next_sprite_index);;
+    spriteClear(sprites, &next_sprite_index);
     
     #ifdef _LIGHT_ON_
         setLightLayer(0x17);
