@@ -1,7 +1,6 @@
 #include "../../../include/entity/prototypes/warrior.h"
 
 void warriorAttack(Entity* _warrior, Room* _active_room) {
-    /*
     Entity temp = *_warrior;
 
     switch (_warrior->facing) {
@@ -32,7 +31,6 @@ void warriorAttack(Entity* _warrior, Room* _active_room) {
             }
         }
     }
-    */
 }
 
 i32 warriorCalculateDamage(Entity* _warrior) {
