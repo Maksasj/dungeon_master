@@ -40,6 +40,8 @@ typedef struct PlayerSpecData {
     Sprite* armor;
     // Weapon visual
     Sprite* weapon;
+    // Item icon in item ui
+    Sprite* itemUIIcon;
     
     // Game textures
     Sprite* sprites;

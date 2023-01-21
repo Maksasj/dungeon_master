@@ -29,7 +29,7 @@
 /* Bows */
 #define _WOODEN_BOW_ITEM_                                               \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 1, 0, 1, 0),                             \
         .sprite_offset = 480,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -38,7 +38,7 @@
 
 #define _GOLDEN_BOW_ITEM_                                               \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 2, 0, 1, 0),                             \
         .sprite_offset = 504,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -47,7 +47,7 @@
 
 #define _AQUA_BOW_ITEM_                                                 \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 3, 0, 3, 0),                             \
         .sprite_offset = 528,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -57,7 +57,7 @@
 /* Swords */
 #define _SHORT_SWORD_ITEM_                                              \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 0, 0, 1, 0),                             \
         .sprite_offset = 184,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -66,7 +66,7 @@
 
 #define _DARK_CLAYMORE_ITEM_                                            \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 2, 0, 3, 0),                             \
         .sprite_offset = 208,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -75,7 +75,7 @@
 
 #define _ICE_SWORD_ITEM_                                                \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 1, 0, 2, 0),                             \
         .sprite_offset = 232,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -85,7 +85,7 @@
 /* Staff */
 #define _GEM_STAFF_ITEM_                                                \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 1, 1, 0, 0),                             \
         .sprite_offset = 408,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -94,7 +94,7 @@
 
 #define _ICE_STAFF_ITEM_                                                \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 0, 2, 0, 0),                             \
         .sprite_offset = 432,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -103,7 +103,7 @@
 
 #define _FIRE_STAFF_ITEM_                                               \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(0, 1, 3, 0, 0),                             \
         .sprite_offset = 456,                                           \
         .type = WEAPON,                                                 \
                                                                         \
@@ -113,21 +113,21 @@
 /* Warrior armors */
 #define _IRON_CHESTPLATE_ITEM_                                          \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(1, 0, 0, 1, 2),                             \
         .sprite_offset = 112,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
 
 #define _GOLDEN_CHESTPLATE_ITEM_                                        \
     itemReload((Item){                                                  \
-        .base_stats = stats(1, 0, 0, 0, 2),                             \
+        .base_stats = stats(3, 0, 0, 2, 3),                             \
         .sprite_offset = 136,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
 
 #define _DIAMOND_CHESTPLATE_ITEM_                                       \
     itemReload((Item){                                                  \
-        .base_stats = stats(2, 0, 0, 0, 3),                             \
+        .base_stats = stats(4, 1, 0, 2, 6),                             \
         .sprite_offset = 160,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
@@ -135,21 +135,21 @@
 /* Mage armors */
 #define _PURPLE_MAGE_ARMOR_ITEM_                                        \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(1, 0, 1, 0, 1),                             \
         .sprite_offset = 336,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
 
 #define _RED_MAGE_ARMOR_ITEM_                                           \
     itemReload((Item){                                                  \
-        .base_stats = stats(1, 0, 0, 0, 2),                             \
+        .base_stats = stats(1, 0, 3, 0, 2),                             \
         .sprite_offset = 360,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
 
 #define _ENCHANTER_MAGE_ARMOR_ITEM_                                     \
     itemReload((Item){                                                  \
-        .base_stats = stats(2, 0, 0, 0, 3),                             \
+        .base_stats = stats(2, 0, 4, 0, 3),                             \
         .sprite_offset = 384,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
@@ -157,21 +157,21 @@
 /* Archer armors */
 #define _ARCHER_IRON_ARMOR_ITEM_                                        \
     itemReload((Item){                                                  \
-        .base_stats = stats(0, 0, 0, 0, 1),                             \
+        .base_stats = stats(1, 1, 0, 0, 1),                             \
         .sprite_offset = 768,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
 
 #define _ARCHER_GOLDEN_ARMOR_ITEM_                                      \
     itemReload((Item){                                                  \
-        .base_stats = stats(1, 0, 0, 0, 2),                             \
+        .base_stats = stats(1, 2, 0, 0, 2),                             \
         .sprite_offset = 768,                                           \
         .type = ARMOR                                                   \
     })                                                                  \
 
 #define _ARCHER_DIAMOND_ARMOR_ITEM_                                     \
     itemReload((Item){                                                  \
-        .base_stats = stats(2, 0, 0, 0, 3),                             \
+        .base_stats = stats(2, 3, 0, 0, 3),                             \
         .sprite_offset = 768,                                           \
         .type = ARMOR                                                   \
     })                                                                  \

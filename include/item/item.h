@@ -30,6 +30,8 @@ typedef struct Item {
     /* Sprite offset in the global spritesheet*/
     u32 sprite_offset;
 
+    u32 drop_sprite_offset;
+
     /* Type of the item */
     ItemType type;
 

@@ -483,6 +483,10 @@ i32 gameScene(Class *chosenClass) {
     initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, *chosenClass);
     
     generateFloor(&world, *chosenClass);
+
+    _ITEM_STAT_UI_RENDER_(screenBlock(3), 26, 5);
+    (*_BG2_X_SCROLL_) = -28;
+
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
     #ifdef _LIGHT_ON_
@@ -499,9 +503,6 @@ i32 gameScene(Class *chosenClass) {
 
     renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 25, .y = 18});
     
-    _ITEM_STAT_UI_RENDER_(screenBlock(3), 26, 5);
-    (*_BG2_X_SCROLL_) = -28;
-
     Timer timer;
     initTimer(&timer);
     startTimer(&timer);

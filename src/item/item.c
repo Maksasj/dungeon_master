@@ -7,6 +7,8 @@ ItemDrop itemDropInit(ivec2 _position, Item item, u32 _sprite_offset) {
     _itemDrop.position.y = _position.y << _POSITION_FIXED_SCALAR_;
 
     _itemDrop.item = item;
+    _itemDrop.item.drop_sprite_offset = _sprite_offset;
+
     _itemDrop.sprite_offset = _sprite_offset;
 
     return _itemDrop;

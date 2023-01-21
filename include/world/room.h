@@ -145,4 +145,6 @@ void unLockRoom(void* _world, Room* _room);
 
 void loadTmpEntitySprite(Room* _room);
 
+void loadTmpItemDropSprite(Room* _room);
+
 #endif

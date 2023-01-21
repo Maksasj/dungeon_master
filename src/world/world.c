@@ -166,23 +166,143 @@ void updateWorld(World* _world, Entity* _player) {
 
     static i32 item_ui_offset = -28;
     i8 is_collision_with_any_item = 0;
+    static i32 item_pickup_cooldown = 0;
+    PlayerSpecData* pspec = (PlayerSpecData*)_player->spec;
 
+    ++item_pickup_cooldown;
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
+
         if (checkCollision(_player, (Entity*) itemdrop)) {
             
             is_collision_with_any_item = 1;
 
             if(buttonPressed(_BUTTON_B_)) {
+                if(item_pickup_cooldown < 200) continue; 
+                
+                item_pickup_cooldown = 0;
+                
+                if(itemdrop->item.type == WEAPON) {
+                    if(pspec->hand_slot.count != 0) {
+                        Item item = pspec->hand_slot;
+                        tryPushItemDropToRoom(room, 
+                            itemDropInit( 
+                                newIVec2(   _player->position.x >> _POSITION_FIXED_SCALAR_, 
+                                            _player->position.y >> _POSITION_FIXED_SCALAR_), 
+                                item, 
+                                item.drop_sprite_offset));
+                        loadTmpItemDropSprite(room);
+                    }
+                } else {
+                    if(pspec->armor_slot.count != 0) {
+                        Item item = pspec->armor_slot;
+                        tryPushItemDropToRoom(room, 
+                            itemDropInit( 
+                                newIVec2(   _player->position.x >> _POSITION_FIXED_SCALAR_, 
+                                            _player->position.y >> _POSITION_FIXED_SCALAR_), 
+                                item, 
+                                item.drop_sprite_offset));
+                        loadTmpItemDropSprite(room);
+                    }
+                }
+
                 putOnItem(_player, itemdrop->item);
                 itemDropUnloadSprite(itemdrop);
                 deleteItemDropFromRoom(itemdrop, room);
+                updatePlayerSpec(pspec, _player);
+                break;
             } else {
-
                 if(WORLD_TICK % 5 == 0) {
                     if(item_ui_offset + 1 <= 0)
                         ++item_ui_offset;
                 }
+                
+                Statblock itemStats = itemdrop->item.base_stats;
+                Statblock compareStats;
+
+                if(itemdrop->item.type == WEAPON) {
+                    if(pspec->hand_slot.count != 0) {
+                        compareStats = pspec->hand_slot.base_stats;
+                    } else {
+                        compareStats = stats(0, 0, 0, 0, 0);
+                    }
+                } else {
+                    if(pspec->armor_slot.count != 0) {
+                        compareStats = pspec->armor_slot.base_stats;
+                    } else {
+                        compareStats = stats(0, 0, 0, 0, 0);
+                    }
+                }
+
+                u16* layer = screenBlock(3);
+
+                {
+                    i32 statDifference = compareStats.stamina - itemStats.stamina;
+                    layer[3 + 26 + (5 + 3)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 3)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 3)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 3)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.agility - itemStats.agility;
+                    layer[3 + 26 + (5 + 4)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 4)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 4)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 4)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.intellect - itemStats.intellect;
+                    layer[3 + 26 + (5 + 5)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 5)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 5)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 5)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.strength - itemStats.strength;
+                    layer[3 + 26 + (5 + 6)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 6)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 6)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 6)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.armor - itemStats.armor;
+                    layer[3 + 26 + (5 + 7)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 7)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 7)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 7)*32] = 372;
+                    }
+                }
+
+                spriteSetOffset(pspec->itemUIIcon, itemdrop->sprite_offset);
+                spritePosition(pspec->itemUIIcon, 220 - item_ui_offset, 45);
 
                 (*_BG2_X_SCROLL_) = item_ui_offset;
             }
@@ -196,6 +316,7 @@ void updateWorld(World* _world, Entity* _player) {
                 --item_ui_offset;
         }
 
+        spritePosition(pspec->itemUIIcon, 220 - item_ui_offset, 45);
         (*_BG2_X_SCROLL_) = item_ui_offset;
     }
     
@@ -228,6 +349,14 @@ void generateFloor(World* _world, i32 _class) {
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
     tryPushItemDropToRoom(&_world->rooms[0], _FIRE_STAFF_ITEM_DROP_(48, 128));
+
+    tryPushItemDropToRoom(&_world->rooms[0], _ICE_STAFF_ITEM_DROP_(80, 128));
+    
+    tryPushItemDropToRoom(&_world->rooms[0], _AQUA_BOW_ITEM_DROP_(120, 128));
+    
+    tryPushItemDropToRoom(&_world->rooms[0], _ENCHANTER_MAGE_ARMOR_ITEM_DROP_(160, 128));
+
+    tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(200, 128));
 
     _world->grid = gridInit();
 

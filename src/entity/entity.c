@@ -47,7 +47,7 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
         _entity->position.x >> _POSITION_FIXED_SCALAR_, 
         _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
-        0, 0, 0, 3);
+        0, 0, _entity->sprite_offset, 3);
 }
 
 void entityUnloadSprite(Entity *_entity) {

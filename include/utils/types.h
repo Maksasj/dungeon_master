@@ -25,6 +25,8 @@
 
 #define _DIV2_(x) ((x) + ((x) >> 31 & 1)) >> 1
 
+#define _ABS_(x) ((x) < 1 ? -(x) : (x))
+
 // typedefs to reduce the names of existing types
 typedef unsigned char       u8;
 typedef unsigned short      u16;

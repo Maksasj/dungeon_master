@@ -20,6 +20,13 @@ void initPlayerSpec(Sprite* _sprites, i32* _next_sprite_index, Entity* _entity, 
         SIZE_16_16, 
         0, 0, 0, 2);
 
+    _pspec->itemUIIcon = spriteInit(
+        _sprites, 
+        _next_sprite_index, 
+        220 + 28, 45,
+        SIZE_16_16, 
+        0, 0, 0, 0);
+
     spritePosition(_pspec->armor, -64, -64);
     spritePosition(_pspec->weapon, -64, -64);
 

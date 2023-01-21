@@ -18,7 +18,7 @@
 #define _PALETTE_SIZE_ 256
 
 /* Reserved amount of sprites */
-#define _RESERVED_SPRITE_AMOUNT_ 3
+#define _RESERVED_SPRITE_AMOUNT_ 4
 
 /* Constant used to determine max amout of the sprites */
 #define _NUM_SPRITES_ 128

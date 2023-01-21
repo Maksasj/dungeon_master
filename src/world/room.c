@@ -106,6 +106,10 @@ void loadTmpEntitySprite(Room* _room) {
     entityInitSprite(&_room->entity_pool[_room->current_entity_count - 1], _SPRITES_POINTER_, _NEXT_SPRITE_INDEX_);
 }
 
+void loadTmpItemDropSprite(Room* _room) {
+    itemDropInitSprite(&_room->itemdrop_pool[_room->current_itemdrop_count - 1], _SPRITES_POINTER_, _NEXT_SPRITE_INDEX_);
+}
+
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
     _SPRITES_POINTER_= _sprites;
     _NEXT_SPRITE_INDEX_ = _next_sprite_index;
