@@ -7,7 +7,7 @@ Entity entityReload(Entity _self) {
     _self.health = _self.base_stats.stamina;
 
     _self.mana = _self.base_stats.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
-    _self.attack_cooldown = 0;
+    _self.item_use_cooldown = 0;
     _self.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _self.base_stats.agility;
     return _self;
 }
@@ -34,7 +34,7 @@ Entity entityInit(ivec2 _position, Statblock _stat, LayerMask _layer, u32 _sprit
     _entity.invulnerable = 0;
     _entity.invulnerability_time = 0;
 
-    _entity.attack_cooldown = 0;
+    _entity.item_use_cooldown = 0;
     _entity.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _stat.agility;
 
     return _entity;

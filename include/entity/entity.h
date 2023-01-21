@@ -55,7 +55,7 @@ typedef struct Entity {
     u32 sprite_offset;
 
     // cooldowns
-    i32 attack_cooldown;
+    i32 item_use_cooldown;
     i32 max_attack_cooldown;
 
     // player_detection

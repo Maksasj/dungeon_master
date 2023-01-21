@@ -223,16 +223,12 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
     
     if (buttonPressed(_BUTTON_A_)) {
-        
-
-        if (_self->attack_cooldown == 0) {
+        if (_self->item_use_cooldown == 0) {
             if(pspec->hand_slot.count != 0)
                 (pspec->hand_slot.use_item_callback)(_self, _room);
             
-            _self->attack_cooldown = 100;
+            _self->item_use_cooldown = 100;
         }
-
-
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_) + _self->vel.x, (_self->position.y >> _POSITION_FIXED_SCALAR_)));

@@ -79,7 +79,7 @@ void updateWorld(World* _world, Entity* _player) {
         (*entity->update_callback)(entity, _world, room);
 
         if ((*entity->on_collision_enter)(entity, _player)) {
-            if (entity->attack_cooldown == 0) {
+            if (entity->item_use_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
 
                 #ifndef _GOD_MODE_ 
@@ -91,12 +91,12 @@ void updateWorld(World* _world, Entity* _player) {
                 }
                 #endif
 
-                entity->attack_cooldown = entity->max_attack_cooldown;
+                entity->item_use_cooldown = entity->max_attack_cooldown;
             }
         }
 
-        if (entity->attack_cooldown > 0) {
-            --entity->attack_cooldown;
+        if (entity->item_use_cooldown > 0) {
+            --entity->item_use_cooldown;
         }
 
         if (entity->health <= 0) {
@@ -197,8 +197,8 @@ void updateWorld(World* _world, Entity* _player) {
         }
     }
 
-    if (_player->attack_cooldown > 0) {
-        --_player->attack_cooldown;
+    if (_player->item_use_cooldown > 0) {
+        --_player->item_use_cooldown;
     }
     
     ++WORLD_TICK;
@@ -218,7 +218,7 @@ void generateFloor(World* _world, i32 _class) {
 
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
-    //tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(48, 128));
+    tryPushItemDropToRoom(&_world->rooms[0], _FIRE_STAFF_ITEM_DROP_(48, 128));
 
     _world->grid = gridInit();
 
