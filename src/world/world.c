@@ -363,8 +363,8 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        //i32 roomId = random() % 15 + 1;
-        i32 roomId = 1;
+        i32 roomId = random() % 15 + 1;
+        //i32 roomId = 1;
         Room room;
         
         room.type = roomId;

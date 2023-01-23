@@ -449,21 +449,18 @@ i32 gameScene(Class *chosenClass) {
     switch (*chosenClass) {
         case WARRIOR: {
             player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(5, 1, 0, 1, 0), PLAYER, 0);
-            player.attack_callback = &warriorAttack;
             player.calculate_damage_callback = &warriorCalculateDamage;
             player.sprite_offset = 0;
             break;
         }
         case WIZARD: {
             player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(5, 1, 1, 0, 0), PLAYER, 0);
-            player.attack_callback = &wizardAttack;
             player.calculate_damage_callback = &wizardCalculateDamage;
             player.sprite_offset = 744;
             break;
         }
         case ARCHER: {
             player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(5, 2, 0, 0, 0), PLAYER, 0);
-            player.attack_callback = &archerAttack;
             player.calculate_damage_callback = &archerCalculateDamage;
             player.sprite_offset = 768;
             break;

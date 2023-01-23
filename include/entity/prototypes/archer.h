@@ -21,14 +21,6 @@
 #include "../../utils/types.h"
 
 /**
- * Ranged attack (projectile creating)
- * 
- * @param _archer           existing archer
- * @param _active_room      active room
-*/
-void archerAttack(Entity* _archer, Room* _active_room);
-
-/**
  * Calculates damage by looking at characteristics 
  * 
  * @param _archer      existing archer
