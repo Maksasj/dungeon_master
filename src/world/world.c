@@ -54,7 +54,7 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 
 void updateWorldLight(World* _world) {
     Room *room = &_world->rooms[_world->activeRoom];
-    vu16* lightLayer = screenBlock(2);
+    vu16* lightLayer = screenBlock(27);
 
     int i;
     for(i = 0; i < room->current_light_count; ++i) {
@@ -234,7 +234,7 @@ void updateWorld(World* _world, Entity* _player) {
                     }
                 }
 
-                u16* layer = screenBlock(3);
+                u16* layer = screenBlock(29);
 
                 {
                     i32 statDifference = compareStats.stamina - itemStats.stamina;
@@ -345,7 +345,7 @@ void generateFloor(World* _world, i32 _class) {
     first_room.current_light_count = 0;
 
     _world->rooms[0] = first_room;
-
+    
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
     tryPushItemDropToRoom(&_world->rooms[0], _FIRE_STAFF_ITEM_DROP_(48, 128));
@@ -363,7 +363,8 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        i32 roomId = random() % 15 + 1;
+        //i32 roomId = random() % 15 + 1;
+        i32 roomId = 1;
         Room room;
         
         room.type = roomId;
