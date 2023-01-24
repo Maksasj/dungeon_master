@@ -23,13 +23,14 @@ void projectileUpdate(Projectile* _self, void* _room_tmp) {
     else
         _self->vel.y -= 5;
 
+    
+    _self->position.x += _self->vel.x;
+    _self->position.y += _self->vel.y;
+
     if (world_position.x < 0 || world_position.x > GRID_LENGTH || world_position.y < 0 || world_position.y > GRID_HEIGHT) {
         deleteProjectileFromRoom(_self, _room);
         entityUnloadSprite(_self);
     }
-
-    _self->position.x += _self->vel.x;
-    _self->position.y += _self->vel.y;
 }
 
 void rotateProjectile(Projectile* _projectile, i32 sprite_offset_horizontal, i32 sprite_offset_vetical) {

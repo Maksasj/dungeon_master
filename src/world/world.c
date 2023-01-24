@@ -363,8 +363,8 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        i32 roomId = random() % 15 + 1;
-        //i32 roomId = 1;
+        u32 roomId = random() % 15 + 1;
+
         Room room;
         
         room.type = roomId;
@@ -375,6 +375,10 @@ void generateFloor(World* _world, i32 _class) {
 
         _world->rooms[i] = room;
 
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
+        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 32));
+        tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
+        /*
         switch (roomId) {
             case TWO_NINJA_SKELETONS_ENEMIES: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
@@ -629,6 +633,7 @@ void generateFloor(World* _world, i32 _class) {
             default:
                 break;
         }
+        */
     }
 
     Room boss_room;

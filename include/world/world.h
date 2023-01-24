@@ -11,8 +11,9 @@
 #ifndef _WORLD_H_
 #define _WORLD_H_
 
-#include "../utils/types.h"
 #include "../sprite.h"
+#include "../utils/random.h"
+#include "../utils/types.h"
 #include "../utils/queue.h"
 #include "../utils/grid.h"
 #include "../utils/logger.h"
