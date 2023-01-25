@@ -350,16 +350,6 @@ void generateFloor(World* _world, i32 _class) {
     
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
-    tryPushItemDropToRoom(&_world->rooms[0], _FIRE_STAFF_ITEM_DROP_(48, 128));
-
-    tryPushItemDropToRoom(&_world->rooms[0], _ICE_STAFF_ITEM_DROP_(80, 128));
-    
-    tryPushItemDropToRoom(&_world->rooms[0], _AQUA_BOW_ITEM_DROP_(120, 128));
-    
-    tryPushItemDropToRoom(&_world->rooms[0], _ENCHANTER_MAGE_ARMOR_ITEM_DROP_(160, 128));
-
-    tryPushItemDropToRoom(&_world->rooms[0], _DARK_CLAYMORE_ITEM_DROP_(200, 128));
-
     _world->grid = gridInit();
 
     ++_world->currentFloor;
@@ -377,10 +367,6 @@ void generateFloor(World* _world, i32 _class) {
 
         _world->rooms[i] = room;
 
-        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
-        tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 32));
-        tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-        /*
         switch (roomId) {
             case TWO_NINJA_SKELETONS_ENEMIES: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
@@ -613,12 +599,7 @@ void generateFloor(World* _world, i32 _class) {
                 break;
             }
             case PYRAMID: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 64));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 64));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
@@ -635,7 +616,6 @@ void generateFloor(World* _world, i32 _class) {
             default:
                 break;
         }
-        */
     }
 
     Room boss_room;
