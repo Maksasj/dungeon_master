@@ -156,6 +156,8 @@ void updateWorld(World* _world, Entity* _player) {
                     entityUnloadSprite(projectile);
                     deleteProjectileFromRoom(projectile, room);
                     --(*((i32*)_NEXT_SPRITE_INDEX_));
+
+                    break;
                 }
             }
 
