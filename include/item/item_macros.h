@@ -3,6 +3,10 @@
 
 #include "item.h"
 
+#include "prototypes/default_staff.h"
+#include "prototypes/default_bow.h"
+#include "prototypes/default_sword.h"
+
 #include "prototypes/wooden_bow.h"
 #include "prototypes/golden_bow.h"
 #include "prototypes/aqua_bow.h"
@@ -24,6 +28,37 @@
     560 - iceball  horizontal     | 704 - iceball  vetical
     552 - gemball  horizontal     | 696 - gemball  vetical
 */
+
+/* Start items */
+#define _DEFAULT_STAFF_ITEM_                                            \
+    itemReload((Item){                                                  \
+        .base_stats = stats(0, 1, 1, 0, 0),                             \
+        .sprite_offset = 408,                                           \
+        .type = WEAPON,                                                 \
+                                                                        \
+        .drop_sprite_offset = 600,                                      \
+        .use_item_callback = &defaultStaffUseCallback                   \
+    })                                                                  \
+
+#define _DEFAULT_SWORD_ITEM_                                            \
+    itemReload((Item){                                                  \
+        .base_stats = stats(0, 0, 0, 1, 0),                             \
+        .sprite_offset = 184,                                           \
+        .type = WEAPON,                                                 \
+                                                                        \
+        .drop_sprite_offset = 256,                                      \
+        .use_item_callback = &defaultSwordUseCallback                   \
+    })                                                                  \
+
+#define _DEFAULT_BOW_ITEM_                                              \
+    itemReload((Item){                                                  \
+        .base_stats = stats(0, 1, 0, 1, 0),                             \
+        .sprite_offset = 480,                                           \
+        .type = WEAPON,                                                 \
+                                                                        \
+        .drop_sprite_offset = 624,                                      \
+        .use_item_callback = &defaultBowUseCallback                     \
+    })                                                                  \
 
 /* Macros for all items in the game */
 /* Bows */

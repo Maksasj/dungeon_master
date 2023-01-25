@@ -99,4 +99,6 @@ void killPlayer(Entity* _self);
 */
 void player_update(Entity* _self, World* _world, Room* _room);
 
+void putOnItem(Entity *player, Item item);
+
 #endif

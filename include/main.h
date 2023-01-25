@@ -44,6 +44,8 @@
 #include "../assets/generated/intro.h"
 #include "../assets/generated/sprites.h"
 
+#include "item/item_macros.h"    
+
 /* Enum that contains all available scenes in the game */
 typedef enum ActiveScene {
     MAIN_MENU_SCENE,
