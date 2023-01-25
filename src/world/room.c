@@ -29,6 +29,15 @@ const u16* getRandomFloorTile() {
     return FLOOR_3;
 }
 
+void initRoom(Room* _room) {
+    _room->type = BASIC;
+
+    _room->current_entity_count = 0;
+    _room->current_itemdrop_count = 0;
+    _room->current_light_count = 0;
+    _room->current_projectile_count = 0;
+}
+
 const u16* getRandomLavaTile() {
     u16 value = rand() % 2;
 
@@ -844,8 +853,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
         spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
     }
-
-    //memcpy16DMA((u16*) screenBlock(25), screenBlock(25), 32 * 32);
 }
 
 void tryPushLightToRoom(Room *_room, ivec2 _pos) {

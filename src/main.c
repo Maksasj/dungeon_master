@@ -531,6 +531,7 @@ i32 gameScene(Class *chosenClass) {
         DEFAULT_PALETTE
     };
 
+    /* If palette swap do not work, check if BACKGROUND_PALETTE is not constant */
     setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
     updateWorldLight(&world);
     updatePlayerSpec(player.spec, &player);
