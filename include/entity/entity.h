@@ -25,7 +25,7 @@
 typedef struct Entity {
     // Textures
     Sprite* sprite;
-    // Texture size
+
     SpriteSize sprite_size_in_pixels;
 
     // Vector2 position
@@ -34,11 +34,14 @@ typedef struct Entity {
     ivec2 vel;
 
     //TODO create function to calc max hp and max mana, cause as i assume similar function will be used for all entities
+    // Layer
+    LayerMask layer;
+    
+    // facing (UP, RIGHT, LEFT, DOWN)
+    Facing facing;
 
     // Stats
     Statblock base_stats;
-    // Layer
-    LayerMask layer;
     
     // health
     i32 health;
@@ -48,14 +51,11 @@ typedef struct Entity {
     i32 invulnerable;
     i32 invulnerability_time;
 
-    // facing (UP, RIGHT, LEFT, DOWN)
-    Facing facing;
-    
     // offset
     u32 sprite_offset;
 
     // cooldowns
-    i32 attack_cooldown;
+    i32 item_use_cooldown;
     i32 max_attack_cooldown;
 
     // player_detection

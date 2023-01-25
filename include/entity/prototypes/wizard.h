@@ -21,14 +21,6 @@
 #include "../../utils/types.h"
 
 /**
- * Ranged attack (projectile creating)
- * 
- * @param _wizard           existing wizard
- * @param _active_room      active room
-*/
-void wizardAttack(Entity* _wizard, Room* _active_room);
-
-/**
  * Calculates damage by looking at characteristics 
  * 
  * @param _wizard      existing wizard

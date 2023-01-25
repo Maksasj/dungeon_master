@@ -19,16 +19,8 @@
 
 #include "../../utils/types.h"
 
-// Mellee attack range
+/* Mellee attack range */
 #define _ATTACK_OFFSET_ 8
-
-/**
- * Mellee attack
- * 
- * @param _warrior          existing warrior
- * @param _active_room      active room
-*/
-void warriorAttack(Entity* _warrior, Room* _active_room);
 
 /**
  * Calculates damage by looking at characteristics 

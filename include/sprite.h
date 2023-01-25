@@ -18,7 +18,7 @@
 #define _PALETTE_SIZE_ 256
 
 /* Reserved amount of sprites */
-#define _RESERVED_SPRITE_AMOUNT_ 3
+#define _RESERVED_SPRITE_AMOUNT_ 4
 
 /* Constant used to determine max amout of the sprites */
 #define _NUM_SPRITES_ 128
@@ -113,13 +113,5 @@ void spriteUpdateAll(Sprite* _sprites);
  * @param   _next_sprite_index Pointer to variable that stores last loaded sprite index
 */
 void spriteClear(Sprite* _sprites, i32* _next_sprite_index);
-
-/**
- * Converts sprite size into scalar form
- *  
- * @param   _sprite_size_in_pixels  Size of the sprite
- * @return  Sprite size
-*/
-ivec2 getSpriteWidthAndLength(SpriteSize _sprite_size_in_pixels);
 
 #endif

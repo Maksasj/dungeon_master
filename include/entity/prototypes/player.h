@@ -40,6 +40,8 @@ typedef struct PlayerSpecData {
     Sprite* armor;
     // Weapon visual
     Sprite* weapon;
+    // Item icon in item ui
+    Sprite* itemUIIcon;
     
     // Game textures
     Sprite* sprites;
@@ -96,5 +98,7 @@ void killPlayer(Entity* _self);
  * @param _room         existing room
 */
 void player_update(Entity* _self, World* _world, Room* _room);
+
+void putOnItem(Entity *player, Item item);
 
 #endif

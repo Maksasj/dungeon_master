@@ -1,6 +1,7 @@
 #include "../../../include/entity/prototypes/wizard.h"
 
 void wizardAttack(Entity* _wizard, Room* _active_room) {
+    /*
     if (_active_room->current_projectile_count >= _MAX_PROJECTILE_PER_ROOM_) {
         return;
     }
@@ -8,7 +9,7 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     PlayerSpecData* pspec = (PlayerSpecData*)_wizard->spec;
    
     Entity projectile = projectileInit(
-        (ivec2){.x = _wizard->position.x >> POSITION_FIXED_SCALAR, .y = _wizard->position.y >> POSITION_FIXED_SCALAR},
+        (ivec2){.x = _wizard->position.x >> _POSITION_FIXED_SCALAR_, .y = _wizard->position.y >> _POSITION_FIXED_SCALAR_},
          PLAYER, 0); // <- TEXTURE offset
     projectile.update_callback = &projectileUpdate;
     projectile.die_callback = &destroyProjectile;
@@ -17,7 +18,6 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     entityInitSprite(&projectile, pspec->sprites, pspec->next_sprite_index);
     projectile.facing = _wizard->facing;
 
-    /*
     592 - cobalt arrow horizontal | 736 - cobalt arrow vetical
     584 - golden arrow horizontal | 728 - golden arrow vetical
     576 - iron arrow   horizontal | 720 - iron arrow   vetical
@@ -25,13 +25,10 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     568 - fireball horizontal     | 712 - fireball vetical
     560 - iceball  horizontal     | 704 - iceball  vetical
     552 - gemball  horizontal     | 696 - gemball  vetical
-    */
 
-    /*
     408 - gem staff
     432 - ice staff
     456 - fire staff
-    */
 
     i32 sprite_offset_horizontal = 552;
     i32 sprite_offset_vetical = 696;
@@ -76,6 +73,7 @@ void wizardAttack(Entity* _wizard, Room* _active_room) {
     }
 
     tryPushProjectileToRoom(_active_room, projectile);
+    */
 }
 
 i32 wizardCalculateDamage(Entity* _wizard) {

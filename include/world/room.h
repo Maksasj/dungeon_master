@@ -14,6 +14,7 @@
 #include "../utils/types.h"
 #include "../collision.h"
 #include "../entity/entity.h"
+#include "../entity/prototypes/projectile.h"
 #include "../light.h"
 
 #include "../item/item.h"
@@ -22,7 +23,7 @@
 #define _MAX_ENTITY_PER_ROOM_ 5
 
 /* Constant that limits projectile count per single room */
-#define _MAX_PROJECTILE_PER_ROOM_ 1
+#define _MAX_PROJECTILE_PER_ROOM_ 20
 
 /* Constant that limits item drop count per single room */
 #define _MAX_ITEM_DROP_PER_ROOM_ 10
@@ -62,10 +63,6 @@ typedef struct Room {
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];
     i32 current_entity_count;
 
-    /* Projectile pool, basically array that contains all projectiles */
-    Entity projectile_pool[_MAX_PROJECTILE_PER_ROOM_];
-    i32 current_projectile_count;
-
     /* ItemDrop pool, basically array that contains all item drops */
     ItemDrop itemdrop_pool[_MAX_ITEM_DROP_PER_ROOM_];
     i32 current_itemdrop_count;
@@ -73,6 +70,11 @@ typedef struct Room {
     /* Light pool, basically array that contains all lights */
     ivec2 lights[_MAX_LIGHT_COUNT_];
     i32 current_light_count;
+
+    /* Projectile pool, basically array that contains all projectiles */
+    Projectile projectile_pool[_MAX_PROJECTILE_PER_ROOM_];                          
+    i32 current_projectile_count;                           
+    //Entity projectile_pool1[_MAX_PROJECTILE_PER_ROOM_];                         
 } Room;
 
 /**
@@ -107,7 +109,7 @@ int tryPushEntityToRoom(Room* _room, Entity _entity);
  * @param   _room Pointer to room it self
  * @param   _projectile New projectile
 */
-void tryPushProjectileToRoom(Room* _room, Entity _projectile);
+void tryPushProjectileToRoom(Room* _room, Projectile _projectile);
 
 /**
  * Tries to push item drop to the room
@@ -142,5 +144,7 @@ void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
 void unLockRoom(void* _world, Room* _room);
 
 void loadTmpEntitySprite(Room* _room);
+
+void loadTmpItemDropSprite(Room* _room);
 
 #endif

@@ -14,7 +14,6 @@ void mainMenuScene() {
     setLightLayer(0x0);
 
     u32 _seed = 0;
-    u16 MAP[1024];
     
     i8 down_pressed = 0;
     i8 up_pressed = 0;
@@ -25,6 +24,7 @@ void mainMenuScene() {
     i32 i;
     i32 j;
 
+    u16* MAP = screenBlock(25);
     for(i = 0; i < 15; ++i) { 
         for(j = 0; j < 10; ++j) {
             MAP[i*2 + j*2 * 32] = 0x0015;
@@ -33,8 +33,6 @@ void mainMenuScene() {
             MAP[i*2 + j*2 * 32 + 33] = 0x0036;
         }
     }
-
-    memcpy16DMA((u16*) screenBlock(1), (u16*) MAP, 32 * 32);
 
     spriteUpdateAll(sprites);
     {
@@ -130,7 +128,7 @@ void classChooseScene(Class *class) {
 
     setLightLayer(0x0);
 
-    u16 MAP[1024];
+    u16* MAP = screenBlock(25);
     for(i = 0; i < 15; ++i) { 
         for(j = 0; j < 10; ++j) {
             MAP[i*2 + j*2 * 32] = 0x0015;
@@ -140,12 +138,9 @@ void classChooseScene(Class *class) {
         }
     }
 
-    vu16* lightLayer = screenBlock(2);
+    vu16* lightLayer = screenBlock(27);
 
     _RENDER_CHOOSE_SCREEN_;
-    
-    vu16* baseLayer = screenBlock(1);
-    memcpy16DMA((u16*) baseLayer, (u16*) MAP, 32 * 32);
 
     i8 down_pressed = 0;
     i8 up_pressed = 0;
@@ -157,7 +152,7 @@ void classChooseScene(Class *class) {
     Sprite* wizzardIcon = spriteInit(sprites, &next_sprite_index, 112, 80, SIZE_16_16, 0, 0, 744 + 8, 0);
     Sprite* archerIcon = spriteInit(sprites, &next_sprite_index, 176, 80, SIZE_16_16, 0, 0, 768 + 8, 0);
 
-    renderText((u16*) screenBlock(0), "Warrior", (ivec2){.x = 12, .y = 18});
+    renderText((u16*) screenBlock(31), "Warrior", (ivec2){.x = 12, .y = 18});
 
     _RENDER_ARROW_UP_(lightLayer, 5, 14);
     _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
@@ -176,7 +171,7 @@ void classChooseScene(Class *class) {
             delay(TRANSITION_SPEED);
         } 
     }
-    
+
     i8 flag = 1;
     while(flag) { 
         if(buttonPressed(_BUTTON_RIGHT_) && down_pressed == 0) {
@@ -211,7 +206,7 @@ void classChooseScene(Class *class) {
                 _RENDER_ARROW_UP_(lightLayer, 5, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
 
-                renderText((u16*) screenBlock(0), "Warrior", (ivec2){.x = 12, .y = 18});
+                renderText((u16*) screenBlock(31), "Warrior", (ivec2){.x = 12, .y = 18});
                 break;
             case 1:
                 _CLEAR_TILE_(lightLayer, 5, 14);
@@ -222,7 +217,7 @@ void classChooseScene(Class *class) {
                 _RENDER_ARROW_UP_(lightLayer, 13, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 13, 6);
 
-                renderText((u16*) screenBlock(0), "Wizard ", (ivec2){.x = 12, .y = 18});
+                renderText((u16*) screenBlock(31), "Wizard ", (ivec2){.x = 12, .y = 18});
                 break;
             case 2:
                 _CLEAR_TILE_(lightLayer, 5, 14);
@@ -233,7 +228,7 @@ void classChooseScene(Class *class) {
                 _RENDER_ARROW_UP_(lightLayer, 21, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 21, 6);
 
-                renderText((u16*) screenBlock(0), "Archer ", (ivec2){.x = 12, .y = 18});
+                renderText((u16*) screenBlock(31), "Archer ", (ivec2){.x = 12, .y = 18});
                 break;
             default:
                 break;
@@ -286,19 +281,19 @@ void classChooseScene(Class *class) {
         }
     }
 
-    renderText((u16*) screenBlock(0), "       ", (ivec2){.x = 12, .y = 18});
+    renderText((u16*) screenBlock(31), "       ", (ivec2){.x = 12, .y = 18});
 }
 
 void gameCompleteScene() {
-    vu16* lightLayer = screenBlock(2);
+    vu16* lightLayer = screenBlock(27);
     setLightLayer(0);
     _RENDER_SIDE_SHADOW_(lightLayer);
     spriteUpdateAll(sprites);
 
-    renderText((u16*) screenBlock(0), "GAME COMPLETE",          (ivec2){.x = 9, .y = 4});
-    renderText((u16*) screenBlock(0), "Time:",                  (ivec2){.x = 10, .y = 6});
-    renderText((u16*) screenBlock(0), gameTime,                 (ivec2){.x = 16, .y = 6});
-    renderText((u16*) screenBlock(0), "press start to play",    (ivec2){.x = 6, .y = 16});
+    renderText((u16*) screenBlock(31), "GAME COMPLETE",          (ivec2){.x = 9, .y = 4});
+    renderText((u16*) screenBlock(31), "Time:",                  (ivec2){.x = 10, .y = 6});
+    renderText((u16*) screenBlock(31), gameTime,                 (ivec2){.x = 16, .y = 6});
+    renderText((u16*) screenBlock(31), "press start to play",    (ivec2){.x = 6, .y = 16});
 
     {
         i32 k;
@@ -325,7 +320,7 @@ void gameCompleteScene() {
     }
 
     setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
-    setScreenBlock(screenBlock(0), 0);
+    setScreenBlock(screenBlock(31), 0);
 
     {
         i32 k;
@@ -343,14 +338,14 @@ void gameCompleteScene() {
 }
 
 void gameFailedScene() {
-    vu16* lightLayer = screenBlock(2);
+    vu16* lightLayer = screenBlock(27);
     setLightLayer(0x1E);
     _RENDER_SIDE_SHADOW_(lightLayer);
 
-    renderText((u16*) screenBlock(0), "YOU DIED",               (ivec2){.x = 12, .y = 4});
-    renderText((u16*) screenBlock(0), "Time:",                  (ivec2){.x = 10, .y = 6});
-    renderText((u16*) screenBlock(0), gameTime,                 (ivec2){.x = 16, .y = 6});
-    renderText((u16*) screenBlock(0), "press start to play",    (ivec2){.x = 6, .y = 16});
+    renderText((u16*) screenBlock(31), "YOU DIED",               (ivec2){.x = 12, .y = 4});
+    renderText((u16*) screenBlock(31), "Time:",                  (ivec2){.x = 10, .y = 6});
+    renderText((u16*) screenBlock(31), gameTime,                 (ivec2){.x = 16, .y = 6});
+    renderText((u16*) screenBlock(31), "press start to play",    (ivec2){.x = 6, .y = 16});
 
     while (1) {
         waitVBlank();
@@ -363,7 +358,7 @@ void gameFailedScene() {
     }
 
     setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
-    setScreenBlock(screenBlock(0), 0);
+    setScreenBlock(screenBlock(31), 0);
 
     {
         i32 k;
@@ -442,8 +437,9 @@ i32 gameScene(Class *chosenClass) {
     World world = {.floorCount = 3};
 
     memcpy16DMA((u16*) _SPRITE_IMAGE_MEMORY_, (u16*) image_data, (image_width * image_height) / 2);
-    spriteClear(sprites, &next_sprite_index);;
-    
+    spriteClear(sprites, &next_sprite_index);
+    spriteUpdateAll(sprites);
+
     #ifdef _LIGHT_ON_
         setLightLayer(0x17);
     #endif
@@ -453,22 +449,22 @@ i32 gameScene(Class *chosenClass) {
     switch (*chosenClass) {
         case WARRIOR: {
             player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(5, 1, 0, 1, 0), PLAYER, 0);
-            player.attack_callback = &warriorAttack;
             player.calculate_damage_callback = &warriorCalculateDamage;
+            putOnItem(&player, _DEFAULT_SWORD_ITEM_);
             player.sprite_offset = 0;
             break;
         }
         case WIZARD: {
             player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(5, 1, 1, 0, 0), PLAYER, 0);
-            player.attack_callback = &wizardAttack;
             player.calculate_damage_callback = &wizardCalculateDamage;
+            putOnItem(&player, _DEFAULT_STAFF_ITEM_);
             player.sprite_offset = 744;
             break;
         }
         case ARCHER: {
             player = entityInit(newIVec2(_SCREEN_WIDTH_ / 2 - 8, _SCREEN_HEIGHT_ / 2 - 8), stats(5, 2, 0, 0, 0), PLAYER, 0);
-            player.attack_callback = &archerAttack;
             player.calculate_damage_callback = &archerCalculateDamage;
+            putOnItem(&player, _DEFAULT_BOW_ITEM_);
             player.sprite_offset = 768;
             break;
         }
@@ -479,7 +475,7 @@ i32 gameScene(Class *chosenClass) {
     entityInitSprite(&player, sprites, &next_sprite_index);
     spriteSetOffset(player.sprite, player.sprite_offset);
 
-    /* For now we will manually update player */
+    // For now we will manually update player
     // player.update_callback = &player_update;
     player.die_callback = &killPlayer;
     player.dodge_callback = &playerTryDodge;
@@ -487,22 +483,34 @@ i32 gameScene(Class *chosenClass) {
     player.spec = malloc(sizeof(PlayerSpecData));
     initPlayerSpec(sprites, &next_sprite_index, &player, player.spec, *chosenClass);
     
+    if(*chosenClass == WARRIOR) {
+        putOnItem(&player, _DEFAULT_SWORD_ITEM_);
+    } else if(*chosenClass == WIZARD) {
+        putOnItem(&player, _DEFAULT_STAFF_ITEM_);
+    } else if(*chosenClass == ARCHER) {
+        putOnItem(&player, _DEFAULT_BOW_ITEM_);
+    }
+    
     generateFloor(&world, *chosenClass);
+
+    _ITEM_STAT_UI_RENDER_(screenBlock(29), 26, 5);
+    (*_BG2_X_SCROLL_) = -28;
+
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
     #ifdef _LIGHT_ON_
-        vu16* lightLayer = screenBlock(2);
+        vu16* lightLayer = screenBlock(27);
 
-        i32 prevTileX = ((i32) player.position.x) >> POSITION_FIXED_SCALAR;
-        i32 prevTileY = ((i32) player.position.y) >> POSITION_FIXED_SCALAR;
+        i32 prevTileX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
+        i32 prevTileY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
 
         prevTileX /= 8;
         prevTileY /= 8;
 
-        RENDER_LIGHT_BULB(screenBlock(2), prevTileX, prevTileY);
+        RENDER_LIGHT_BULB(screenBlock(27), prevTileX, prevTileY);
     #endif
 
-    renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 25, .y = 18});
+    renderText((u16*) screenBlock(31), gameTime, (ivec2){.x = 25, .y = 18});
     
     Timer timer;
     initTimer(&timer);
@@ -524,7 +532,6 @@ i32 gameScene(Class *chosenClass) {
     };
 
     setPalette(BACKGROUND_PALETTE, getRandomPalette(palettes));
-    
     updateWorldLight(&world);
     updatePlayerSpec(player.spec, &player);
     spriteUpdateAll(sprites);
@@ -545,7 +552,7 @@ i32 gameScene(Class *chosenClass) {
 
     floor_switch = 0;
     room_switch = 0;
-        
+    
     while (1) {
         updateWorld(&world, &player);
         entitySpriteUpdate(&player);
@@ -555,17 +562,17 @@ i32 gameScene(Class *chosenClass) {
 
             #ifdef _LIGHT_ON_
                 {
-                    i32 playerX = ((i32) player.position.x) >> POSITION_FIXED_SCALAR;
-                    i32 playerY = ((i32) player.position.y) >> POSITION_FIXED_SCALAR;
+                    i32 playerX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
+                    i32 playerY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
 
                     playerX /= 8;
                     playerY /= 8;
 
-                    SHADOW_BULB(screenBlock(2), prevTileX, prevTileY);
+                    SHADOW_BULB(screenBlock(27), prevTileX, prevTileY);
                     updateWorldLight(&world);
                     prevTileX = playerX;
                     prevTileY = playerY;
-                    RENDER_DYNAMIC_LIGHT_BULB(screenBlock(2), playerX, playerY);
+                    RENDER_DYNAMIC_LIGHT_BULB(screenBlock(27), playerX, playerY);
                 }
             #endif
 
@@ -596,24 +603,24 @@ i32 gameScene(Class *chosenClass) {
             gameTime[1] = 48 + time.y % 10;
             gameTime[3] = 48 + time.z / 10;
             gameTime[4] = 48 + time.z % 10;
-            renderText((u16*) screenBlock(0), gameTime, (ivec2){.x = 25, .y = 18});
+            renderText((u16*) screenBlock(31), gameTime, (ivec2){.x = 25, .y = 18});
 
             prevSecond = GET_GLOBAL_TIME;
         }
 
         #ifdef _LIGHT_ON_
-            i32 playerX = ((i32) player.position.x) >> POSITION_FIXED_SCALAR;
-            i32 playerY = ((i32) player.position.y) >> POSITION_FIXED_SCALAR;
+            i32 playerX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
+            i32 playerY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
 
             playerX /= 8;
             playerY /= 8;
 
             if((prevTileX != playerX) || (prevTileY != playerY)) {
-                SHADOW_BULB(screenBlock(2), prevTileX, prevTileY);
+                SHADOW_BULB(screenBlock(27), prevTileX, prevTileY);
                 updateWorldLight(&world);
                 prevTileX = playerX;
                 prevTileY = playerY;
-                RENDER_DYNAMIC_LIGHT_BULB(screenBlock(2), playerX, playerY);
+                RENDER_DYNAMIC_LIGHT_BULB(screenBlock(27), playerX, playerY);
             }
 
         #endif
@@ -623,7 +630,7 @@ i32 gameScene(Class *chosenClass) {
         player_update(&player, &world, &world.rooms[world.activeRoom]);
 
         if(player.health <= 0 || game_completed == 1) {
-            setScreenBlock(screenBlock(0), 0);
+            setScreenBlock(screenBlock(31), 0);
 
             ivec3 time = formatTime(&timer);
 
@@ -636,7 +643,7 @@ i32 gameScene(Class *chosenClass) {
                 i32 newX = (_SCREEN_WIDTH_ / 2 - 8);
                 i32 newY = (_SCREEN_HEIGHT_ / 2 - 8);
 
-                player.position = newIVec2(newX << POSITION_FIXED_SCALAR, newY << POSITION_FIXED_SCALAR);
+                player.position = newIVec2(newX << _POSITION_FIXED_SCALAR_, newY << _POSITION_FIXED_SCALAR_);
 
                 if(((PlayerSpecData*)player.spec)->armor_slot.count != 0)
                     spritePosition(((PlayerSpecData*)player.spec)->armor, newX, newY);    
@@ -672,6 +679,7 @@ i32 main() {
         _DISPLAY_CONTROL_MODE_0_ | 
         _DISPLAY_CONTROL_BG_0_ | 
         _DISPLAY_CONTROL_BG_1_ | 
+        _DISPLAY_CONTROL_BG_2_ | 
         _DISPLAY_CONTROL_BG_3_ |
         _SPRITE_ENABLE_ | 
         _SPRITE_MAP_1D_;

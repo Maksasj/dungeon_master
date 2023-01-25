@@ -1,7 +1,13 @@
 #include "../../include/world/world.h"
+
 #include "../../include/entity/entity_macros.h"
+#include "../../include/item/item_macros.h"
+
+static void* _SPRITES_POINTER_;
+static void* _NEXT_SPRITE_INDEX_;
 
 static u32 WORLD_TICK = 0;
+
 i32 game_completed = 0;
 u8 floor_switch = 0;
 u8 room_switch = 0;
@@ -17,6 +23,9 @@ void backRoom(World* _world, Sprite* _sprites, i32* _next_sprite_index) {
 }
 
 void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_index) {
+    _SPRITES_POINTER_= _sprites;
+    _NEXT_SPRITE_INDEX_ = _next_sprite_index;
+
     clearGrid(&_world->grid);
 
     int i;    
@@ -43,10 +52,9 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
 }
 
-
 void updateWorldLight(World* _world) {
     Room *room = &_world->rooms[_world->activeRoom];
-    vu16* lightLayer = screenBlock(2);
+    vu16* lightLayer = screenBlock(27);
 
     int i;
     for(i = 0; i < room->current_light_count; ++i) {
@@ -58,10 +66,9 @@ void updateWorldLight(World* _world) {
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
-    if (WORLD_TICK % _BFS_TICK_RATE_ == 0) {
+    if(WORLD_TICK % _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToWorldPosition(_player->position);
-
             breadthFirstSearch(&_world->grid, world_position, _world->collision_box);
         }
     }
@@ -72,7 +79,7 @@ void updateWorld(World* _world, Entity* _player) {
         (*entity->update_callback)(entity, _world, room);
 
         if ((*entity->on_collision_enter)(entity, _player)) {
-            if (entity->attack_cooldown == 0) {
+            if (entity->item_use_cooldown == 0) {
                 notePlay(NOTE_BES, 1);
 
                 #ifndef _GOD_MODE_ 
@@ -84,12 +91,12 @@ void updateWorld(World* _world, Entity* _player) {
                 }
                 #endif
 
-                entity->attack_cooldown = entity->max_attack_cooldown;
+                entity->item_use_cooldown = entity->max_attack_cooldown;
             }
         }
 
-        if (entity->attack_cooldown > 0) {
-            --entity->attack_cooldown;
+        if (entity->item_use_cooldown > 0) {
+            --entity->item_use_cooldown;
         }
 
         if (entity->health <= 0) {
@@ -98,66 +105,223 @@ void updateWorld(World* _world, Entity* _player) {
 
         entitySpriteUpdate(entity);
     }
-
+    
     for(i = 0; i < room->current_projectile_count; ++i) {
-        Entity *projectile = &room->projectile_pool[i];
+        Projectile *projectile = &room->projectile_pool[i];
         (*projectile->update_callback)(projectile, _world, room);
 
-        CollisionType xCol = worldCollision(_world, newIVec2((projectile->position.x >> POSITION_FIXED_SCALAR) + projectile->vel.x, projectile->position.y >> POSITION_FIXED_SCALAR));
-        if(xCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
-        CollisionType yCol = worldCollision(_world, newIVec2(projectile->position.x >> POSITION_FIXED_SCALAR, (projectile->position.y >> POSITION_FIXED_SCALAR) + projectile->vel.y));
-        if(yCol == WALL) {
-            entityUnloadSprite(projectile);
-            deleteProjectileFromRoom(projectile, room);
-            break;
-        }
-
-        if (projectile->layer == ENEMY) {
-            if (checkCollision(_player, projectile)) {
-                notePlay(NOTE_BES, 1);
-
-                if (!(*_player->dodge_callback)(_player)) {
-                    entityAttack(projectile, _player);
-
-                    entityUnloadSprite(projectile);
-                    deleteProjectileFromRoom(projectile, room);
-                }
+        if (projectile->facing == LEFT || projectile->facing == RIGHT) {
+            CollisionType xCol = 
+                worldCollision(
+                    _world,
+                    newIVec2(
+                        (projectile->position.x >> _POSITION_FIXED_SCALAR_) + projectile->vel.x,
+                        projectile->position.y >> _POSITION_FIXED_SCALAR_)
+                );
+            
+            if(xCol != NONE) {
+                entityUnloadSprite(projectile);
+                deleteProjectileFromRoom(projectile, room);
+                --(*((i32*)_NEXT_SPRITE_INDEX_));
+                
+                break;
             }
         } else {
+            CollisionType yCol = 
+                worldCollision(
+                    _world, 
+                    newIVec2(
+                        projectile->position.x >> _POSITION_FIXED_SCALAR_,
+                        (projectile->position.y >> _POSITION_FIXED_SCALAR_) + projectile->vel.y)
+                );
+            if(yCol != NONE) {
+                entityUnloadSprite(projectile);
+                deleteProjectileFromRoom(projectile, room);
+                --(*((i32*)_NEXT_SPRITE_INDEX_));
+                
+                break;
+            }
+        }
+        
+        if(projectile->layer == PLAYER) {
+
             i32 j;
             for(j = 0; j < room->current_entity_count; ++j) { 
                 Entity *entity = &room->entity_pool[j];
                 
                 if (checkCollision(entity, projectile)) {
-                    if (!(*entity->dodge_callback)(entity)) {
-                        entityKnockback(entity, projectile->facing, 20);
-                        entityAttack(projectile, entity);
+                    i32 calculated_damage = (*projectile->calculate_damage_callback)(entity);
+                    entityTakeDamage(entity, calculated_damage);
 
-                        entityUnloadSprite(projectile);
-                        deleteProjectileFromRoom(projectile, room);
-                        break;
-                    }
+                    entityUnloadSprite(projectile);
+                    deleteProjectileFromRoom(projectile, room);
+                    --(*((i32*)_NEXT_SPRITE_INDEX_));
+
+                    break;
                 }
             }
+
         }
+
         entitySpriteUpdate(projectile);
     }
 
+    static i32 item_ui_offset = -28;
+    i8 is_collision_with_any_item = 0;
+    static i32 item_pickup_cooldown = 0;
+    PlayerSpecData* pspec = (PlayerSpecData*)_player->spec;
+
+    ++item_pickup_cooldown;
     for(i = 0; i < room->current_itemdrop_count; ++i) {
         ItemDrop *itemdrop = &room->itemdrop_pool[i];
+
         if (checkCollision(_player, (Entity*) itemdrop)) {
-            putOnItem(_player, itemdrop->item);
-            itemDropUnloadSprite(itemdrop);
-            deleteItemDropFromRoom(itemdrop, room);
+            
+            is_collision_with_any_item = 1;
+
+            if(buttonPressed(_BUTTON_B_)) {
+                if(item_pickup_cooldown < 200) continue; 
+                
+                item_pickup_cooldown = 0;
+                
+                if(itemdrop->item.type == WEAPON) {
+                    if(pspec->hand_slot.count != 0) {
+                        Item item = pspec->hand_slot;
+                        tryPushItemDropToRoom(room, 
+                            itemDropInit( 
+                                newIVec2(   _player->position.x >> _POSITION_FIXED_SCALAR_, 
+                                            _player->position.y >> _POSITION_FIXED_SCALAR_), 
+                                item, 
+                                item.drop_sprite_offset));
+                        loadTmpItemDropSprite(room);
+                    }
+                } else {
+                    if(pspec->armor_slot.count != 0) {
+                        Item item = pspec->armor_slot;
+                        tryPushItemDropToRoom(room, 
+                            itemDropInit( 
+                                newIVec2(   _player->position.x >> _POSITION_FIXED_SCALAR_, 
+                                            _player->position.y >> _POSITION_FIXED_SCALAR_), 
+                                item, 
+                                item.drop_sprite_offset));
+                        loadTmpItemDropSprite(room);
+                    }
+                }
+
+                putOnItem(_player, itemdrop->item);
+                itemDropUnloadSprite(itemdrop);
+                deleteItemDropFromRoom(itemdrop, room);
+                updatePlayerSpec(pspec, _player);
+                break;
+            } else {
+                if(WORLD_TICK % 5 == 0) {
+                    if(item_ui_offset + 1 <= 0)
+                        ++item_ui_offset;
+                }
+                
+                Statblock itemStats = itemdrop->item.base_stats;
+                Statblock compareStats;
+
+                if(itemdrop->item.type == WEAPON) {
+                    if(pspec->hand_slot.count != 0) {
+                        compareStats = pspec->hand_slot.base_stats;
+                    } else {
+                        compareStats = stats(0, 0, 0, 0, 0);
+                    }
+                } else {
+                    if(pspec->armor_slot.count != 0) {
+                        compareStats = pspec->armor_slot.base_stats;
+                    } else {
+                        compareStats = stats(0, 0, 0, 0, 0);
+                    }
+                }
+
+                u16* layer = screenBlock(29);
+
+                {
+                    i32 statDifference = compareStats.stamina - itemStats.stamina;
+                    layer[3 + 26 + (5 + 3)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 3)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 3)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 3)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.agility - itemStats.agility;
+                    layer[3 + 26 + (5 + 4)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 4)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 4)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 4)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.intellect - itemStats.intellect;
+                    layer[3 + 26 + (5 + 5)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 5)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 5)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 5)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.strength - itemStats.strength;
+                    layer[3 + 26 + (5 + 6)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 6)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 6)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 6)*32] = 372;
+                    }
+                }
+
+                {
+                    i32 statDifference = compareStats.armor - itemStats.armor;
+                    layer[3 + 26 + (5 + 7)*32] = 374 + _ABS_(statDifference);
+                    
+                    if(statDifference > 0) {
+                        layer[2 + 26 + (5 + 7)*32] = 373;
+                    } else if(statDifference < 0) {
+                        layer[2 + 26 + (5 + 7)*32] = 371;
+                    } else {
+                        layer[2 + 26 + (5 + 7)*32] = 372;
+                    }
+                }
+
+                spriteSetOffset(pspec->itemUIIcon, itemdrop->sprite_offset);
+                spritePosition(pspec->itemUIIcon, 220 - item_ui_offset, 45);
+
+                (*_BG2_X_SCROLL_) = item_ui_offset;
+            }
         }
         entitySpriteUpdate((Entity*) itemdrop);
     }
 
+    if(is_collision_with_any_item == 0) {
+        if(WORLD_TICK % 5 == 0) {
+            if(item_ui_offset - 1 >= -28)
+                --item_ui_offset;
+        }
+
+        spritePosition(pspec->itemUIIcon, 220 - item_ui_offset, 45);
+        (*_BG2_X_SCROLL_) = item_ui_offset;
+    }
+    
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
         if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
@@ -165,8 +329,8 @@ void updateWorld(World* _world, Entity* _player) {
         }
     }
 
-    if (_player->attack_cooldown > 0) {
-        --_player->attack_cooldown;
+    if (_player->item_use_cooldown > 0) {
+        --_player->item_use_cooldown;
     }
     
     ++WORLD_TICK;
@@ -183,7 +347,7 @@ void generateFloor(World* _world, i32 _class) {
     first_room.current_light_count = 0;
 
     _world->rooms[0] = first_room;
-
+    
     tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
 
     _world->grid = gridInit();
@@ -191,7 +355,8 @@ void generateFloor(World* _world, i32 _class) {
     ++_world->currentFloor;
 
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        i32 roomId = random() % 15 + 1;
+        u32 roomId = random() % 15 + 1;
+
         Room room;
         
         room.type = roomId;
@@ -434,12 +599,7 @@ void generateFloor(World* _world, i32 _class) {
                 break;
             }
             case PYRAMID: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(64, 64));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 64));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 64));
 
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
                 tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
@@ -507,8 +667,8 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
 inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
     ivec2 grid_position;
 
-    grid_position.x = (((_screen_position.x >> POSITION_FIXED_SCALAR) - 8) >> 4);
-    grid_position.y = (((_screen_position.y >> POSITION_FIXED_SCALAR) - 8) >> 4);
+    grid_position.x = (((_screen_position.x >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
+    grid_position.y = (((_screen_position.y >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
 
     return grid_position;
 }

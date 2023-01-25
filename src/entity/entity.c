@@ -7,7 +7,7 @@ Entity entityReload(Entity _self) {
     _self.health = _self.base_stats.stamina;
 
     _self.mana = _self.base_stats.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
-    _self.attack_cooldown = 0;
+    _self.item_use_cooldown = 0;
     _self.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _self.base_stats.agility;
     return _self;
 }
@@ -15,8 +15,8 @@ Entity entityReload(Entity _self) {
 Entity entityInit(ivec2 _position, Statblock _stat, LayerMask _layer, u32 _sprite_offset) {
     Entity _entity;
     
-    _entity.position.x = _position.x << POSITION_FIXED_SCALAR;
-    _entity.position.y = _position.y << POSITION_FIXED_SCALAR;
+    _entity.position.x = _position.x << _POSITION_FIXED_SCALAR_;
+    _entity.position.y = _position.y << _POSITION_FIXED_SCALAR_;
 
     _entity.vel = newIVec2(0, 0);
 
@@ -28,10 +28,13 @@ Entity entityInit(ivec2 _position, Statblock _stat, LayerMask _layer, u32 _sprit
     _entity.sprite_offset = _sprite_offset;
 
     _entity.health = _stat.stamina;
+    
     _entity.mana = _stat.intellect * _MANA_MODIFIER_FROM_INTELLECT_;
+    
     _entity.invulnerable = 0;
     _entity.invulnerability_time = 0;
-    _entity.attack_cooldown = 0;
+
+    _entity.item_use_cooldown = 0;
     _entity.max_attack_cooldown = _DEFAULT_ATTACK_COOLDOWN_ - _ATTACK_COOLDOWN_MODIFIER_FROM_AGILITY_ * _stat.agility;
 
     return _entity;
@@ -41,12 +44,10 @@ void entityInitSprite(Entity* _entity, Sprite _sprites[], i32* _next_sprite_inde
     _entity->sprite = spriteInit(
         _sprites, 
         _next_sprite_index, 
-        _entity->position.x >> POSITION_FIXED_SCALAR, 
-        _entity->position.y >> POSITION_FIXED_SCALAR, 
+        _entity->position.x >> _POSITION_FIXED_SCALAR_, 
+        _entity->position.y >> _POSITION_FIXED_SCALAR_, 
         SIZE_16_16, 
-        0, 0, 0, 3);
-    
-    _entity->sprite_size_in_pixels = SIZE_16_16;
+        0, 0, _entity->sprite_offset, 3);
 }
 
 void entityUnloadSprite(Entity *_entity) {
@@ -55,7 +56,7 @@ void entityUnloadSprite(Entity *_entity) {
 }
 
 void entitySpriteUpdate(Entity* _entity) {
-    spritePosition(_entity->sprite, (i32) _entity->position.x >> POSITION_FIXED_SCALAR, (i32)_entity->position.y >> POSITION_FIXED_SCALAR);
+    spritePosition(_entity->sprite, (i32) _entity->position.x >> _POSITION_FIXED_SCALAR_, (i32)_entity->position.y >> _POSITION_FIXED_SCALAR_);
 }
 
 void entityAttack(Entity* _entity, Entity* _target) {
@@ -105,8 +106,8 @@ i32 checkCollision(Entity* _first_entity, Entity* _second_entity) {
     ivec2 first_entity_sprite_size_in_pixels = newIVec2(16, 16);
     ivec2 second_entity_sprite_size_in_pixels = newIVec2(16, 16);
 
-    ivec2 first_entity_fixed_position = newIVec2(_first_entity->position.x >> POSITION_FIXED_SCALAR, _first_entity->position.y >> POSITION_FIXED_SCALAR);
-    ivec2 second_entity_fixed_position = newIVec2(_second_entity->position.x >> POSITION_FIXED_SCALAR, _second_entity->position.y >> POSITION_FIXED_SCALAR);
+    ivec2 first_entity_fixed_position = newIVec2(_first_entity->position.x >> _POSITION_FIXED_SCALAR_, _first_entity->position.y >> _POSITION_FIXED_SCALAR_);
+    ivec2 second_entity_fixed_position = newIVec2(_second_entity->position.x >> _POSITION_FIXED_SCALAR_, _second_entity->position.y >> _POSITION_FIXED_SCALAR_);
 
     if (first_entity_fixed_position.x < second_entity_fixed_position.x + second_entity_sprite_size_in_pixels.x &&
         first_entity_fixed_position.x + first_entity_sprite_size_in_pixels.x > second_entity_fixed_position.x &&

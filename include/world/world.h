@@ -11,8 +11,9 @@
 #ifndef _WORLD_H_
 #define _WORLD_H_
 
-#include "../utils/types.h"
 #include "../sprite.h"
+#include "../utils/random.h"
+#include "../utils/types.h"
 #include "../utils/queue.h"
 #include "../utils/grid.h"
 #include "../utils/logger.h"
@@ -23,7 +24,7 @@
 #include "room.h"
 
 /* Build in cheat, allows to not take damage from any source */
-// #define _GOD_MODE_
+#define _GOD_MODE_
 
 /* Disables all light rendering */
 #define _LIGHT_ON_
@@ -33,7 +34,6 @@
 
 /* Constant that defines how often should be runned path finding */
 #define _BFS_TICK_RATE_ 50
-
 
 /* Structure that contains all needed information to discribe world */
 typedef struct World {
@@ -54,11 +54,8 @@ typedef struct World {
     
     /* Todo */
     u8 difficulty;
-
-    /* Contains all tile, used for rendering purposes */
-    u16 MAP[1024];
-
-    /* Tile descriptions
+    /* 
+        Tile descriptions
         '#' - Wall
         'D' - Opened Door
         'C' - Closed Door
