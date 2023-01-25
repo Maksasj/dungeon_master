@@ -202,7 +202,7 @@ typedef enum ActiveScene {
                                                     \
     {   int x;                                      \
         int y;                                      \
-        for(x = 0; x < 16; ++x) {                   \
+        for(x = 0; x < 17; ++x) {                   \
             lightLayer[7 + x + (2 * 32)] = 0xC1 + x;\
             lightLayer[7 + x + (3 * 32)] = 0xE1 + x;\
         }                                           \
