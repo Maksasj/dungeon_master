@@ -72,37 +72,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
     /*
     switch (_room->type) {
-        case BASIC: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
-            break;
-        }
-        case TWO_NINJA_SKELETONS_ENEMIES: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 10), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 10), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 10), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(4, 8), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(6, 8), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 8), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(4, 10), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(6, 10), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 10), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 8), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 8), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(24, 8), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 10), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 10), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(24, 10), BIG_SPIKES_TILE, TRAP);
-            break;
-        }
         case FOUR_ANCIENT_SKELETONS: {
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);

@@ -3,20 +3,24 @@
 
 #include "prototypes/floor_beginning_room.h"
 #include "prototypes/two_ninja_skeleton_room.h"
+#include "prototypes/four_ancient_skeleton_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*) = {
     &floorBeginningRoomInit,
-    &twoNinjaSkeletonRoomInit
+    &twoNinjaSkeletonRoomInit,
+    &fourAncientSkeletonRoomInit,
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &floorBeginningRoomRender,
-    &twoNinjaSkeletonRoomRender
+    &twoNinjaSkeletonRoomRender,
+    &fourAncientSkeletonRoomRender,
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
     &floorBeginningRoomUpdateCallback,
-    &twoNinjaSkeletonRoomUpdateCallback
+    &twoNinjaSkeletonRoomUpdateCallback,
+    &fourAncientSkeletonRoomUpdateCallback,
 };
 
 #endif

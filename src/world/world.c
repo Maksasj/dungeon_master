@@ -347,10 +347,10 @@ void updateWorld(World* _world, Entity* _player) {
 void generateFloor(World* _world, i32 _class) {
 
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM]    (&_world->rooms[0]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[1]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[2]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[3]); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[4]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[1]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[2]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[3]); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[4]);
 
     _world->grid = gridInit();
 
@@ -371,13 +371,6 @@ void generateFloor(World* _world, i32 _class) {
         _world->rooms[i] = room;
 
         switch (roomId) {
-            case TWO_NINJA_SKELETONS_ENEMIES: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 96));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(32, 32));
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                break;
-            }
             case FOUR_ANCIENT_SKELETONS: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 64));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 48));
