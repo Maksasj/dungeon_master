@@ -62,6 +62,10 @@ void twoNinjaSkeletonRoomRender(Room* _self, void* _world) {
     placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 5), BIG_SPIKES_TILE, TRAP);
 }
 
-void twoNinjaSkeletonRoomUpdateCallback(Room* _self, Entity* _player) {
-    /* gag */
+void twoNinjaSkeletonRoomUpdateCallback(void* _world, Room* _self, Entity* _player) {
+    //Lets open room if entity count == 0
+    if(_self->current_entity_count == 0) {
+        placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(7, 0), DOOR_UP_OPENED, OPENED_DOOR);
+        placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(7, 9), DOOR_BOTTOM_OPENED, OPENED_DOOR);
+    }
 }

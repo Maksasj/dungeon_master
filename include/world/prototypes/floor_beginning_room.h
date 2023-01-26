@@ -8,6 +8,6 @@ void floorBeginningRoomInit(Room* _self);
 
 void floorBeginningRoomRender(Room* _self, void* _world);
 
-void floorBeginningRoomUpdateCallback(Room* _self, Entity* _player);
+void floorBeginningRoomUpdateCallback(void* _world, Room* _self, Entity* _player);
 
 #endif

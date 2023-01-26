@@ -69,6 +69,8 @@ void updateWorldLight(World* _world) {
 void updateWorld(World* _world, Entity* _player) {
     Room *room = &_world->rooms[_world->activeRoom];
 
+    ROOM_PROTOTYPES_UPDATE_CALLBACKS[room->type](_world, room, _player);
+
     if(WORLD_TICK % _BFS_TICK_RATE_ == 0) {
         if (room->current_entity_count > 0) {
             ivec2 world_position = screenToWorldPosition(_player->position);

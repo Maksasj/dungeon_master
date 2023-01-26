@@ -8,6 +8,6 @@ void twoNinjaSkeletonRoomInit(Room* _self);
 
 void twoNinjaSkeletonRoomRender(Room* _self, void* _world);
 
-void twoNinjaSkeletonRoomUpdateCallback(Room* _self, Entity* _player);
+void twoNinjaSkeletonRoomUpdateCallback(void* _world, Room* _self, Entity* _player);
 
 #endif

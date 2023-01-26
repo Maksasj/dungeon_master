@@ -38,6 +38,6 @@ void floorBeginningRoomRender(Room* _self, void* _world) {
     //placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(7, 9), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 }
 
-void floorBeginningRoomUpdateCallback(Room* _self, Entity* _player) {
+void floorBeginningRoomUpdateCallback(void* _world, Room* _self, Entity* _player) {
     /* gag */
 }

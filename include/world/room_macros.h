@@ -14,7 +14,7 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &twoNinjaSkeletonRoomRender
 };
 
-static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(Room*, Entity*) = {
+static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
     &floorBeginningRoomUpdateCallback,
     &twoNinjaSkeletonRoomUpdateCallback
 };
