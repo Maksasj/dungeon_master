@@ -6,6 +6,7 @@
 #include "prototypes/four_ancient_skeleton_room.h"
 #include "prototypes/labyrinth_1_room.h"
 #include "prototypes/labyrinth_2_room.h"
+#include "prototypes/labyrinth_3_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &floorBeginningRoomInit,
@@ -13,6 +14,7 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &fourAncientSkeletonRoomInit,
     &labyrinth1RoomInit,
     &labyrinth2RoomInit,
+    &labyrinth3RoomInit,
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
@@ -21,6 +23,7 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &fourAncientSkeletonRoomRender,
     &labyrinth1RoomRender,
     &labyrinth2RoomRender,
+    &labyrinth3RoomRender,
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
@@ -29,6 +32,7 @@ static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) 
     &fourAncientSkeletonRoomUpdateCallback,
     &labyrinth1RoomUpdateCallback,
     &labyrinth2RoomUpdateCallback,
+    &labyrinth3RoomUpdateCallback,
 };
 
 #endif

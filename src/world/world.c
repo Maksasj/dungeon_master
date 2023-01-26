@@ -347,10 +347,10 @@ void updateWorld(World* _world, Entity* _player) {
 void generateFloor(World* _world, Entity* _player) {
 
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[1], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[2], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[3], _player); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[4], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_3_ROOM]    (&_world->rooms[1], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_3_ROOM]    (&_world->rooms[2], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_3_ROOM]    (&_world->rooms[3], _player); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_3_ROOM]    (&_world->rooms[4], _player);
 
     _world->grid = gridInit();
 
@@ -371,68 +371,6 @@ void generateFloor(World* _world, Entity* _player) {
         _world->rooms[i] = room;
 
         switch (roomId) {
-            case LABYRINTH2: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 16));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 96));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(16, 64));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(112, 64));
-
-                switch (_class) {
-                    case 0: { //WARRIOR
-                        tryPushItemDropToRoom(&_world->rooms[i], _IRON_CHESTPLATE_ITEM_DROP_(16, 32));
-                        break;
-                    }
-                    case 1: { //WIZARD
-                        tryPushItemDropToRoom(&_world->rooms[i], _PURPLE_MAGE_ARMOR_ITEM_DROP_(16, 32));
-                        break;
-                    }
-                    case 2: { //ARCHER
-                        tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_IRON_ARMOR_ITEM_DROP_(16, 32));
-                        break;
-                    }
-                }
-                
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 80});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 208, .y = 80});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 16, .y = 64});
-                break;
-            }
-            case LABYRINTH3: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(192, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 64));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(48, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(160, 64));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(16, 80));
-
-                switch (_class) {
-                    case 0: { //WARRIOR
-                        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(80, 16));
-                        tryPushItemDropToRoom(&_world->rooms[i], _GOLDEN_CHESTPLATE_ITEM_DROP_(160, 16));
-                        break;
-                    }
-                    case 1: { //WIZARD
-                        tryPushItemDropToRoom(&_world->rooms[i], _FIRE_STAFF_ITEM_DROP_(80, 16));
-                        tryPushItemDropToRoom(&_world->rooms[i], _RED_MAGE_ARMOR_ITEM_DROP_(160, 16));
-                        break;
-                    }
-                    case 2: { //ARCHER
-                        tryPushItemDropToRoom(&_world->rooms[i], _AQUA_BOW_ITEM_DROP_(80, 16));
-                        tryPushItemDropToRoom(&_world->rooms[i], _ARCHER_GOLDEN_ARMOR_ITEM_DROP_(160, 16));
-                        break;
-                    }
-                }
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 16, .y = 128});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 208, .y = 112});
-                break;
-            }
             case DARK_LABYRINTH: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 32));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 16));
