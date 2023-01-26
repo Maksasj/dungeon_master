@@ -1,7 +1,7 @@
 #include "../../../include/world/prototypes/dark_labyrinth_room.h"
 
 void darkLabyrinthRoomInit(Room* _self, Entity* _player) {
-    _self->type = DARK_LABYRINTH;
+    _self->type = DARK_LABYRINTH_ROOM;
 
     _self->current_entity_count = 0;
     _self->current_itemdrop_count = 0;
