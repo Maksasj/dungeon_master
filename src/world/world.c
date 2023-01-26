@@ -346,11 +346,11 @@ void updateWorld(World* _world, Entity* _player) {
 
 void generateFloor(World* _world, Entity* _player) {
 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM]        (&_world->rooms[0], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[1], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[2], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[3], _player); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[4], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[1], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[2], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[3], _player); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_2_ROOM]    (&_world->rooms[4], _player);
 
     _world->grid = gridInit();
 
@@ -371,10 +371,6 @@ void generateFloor(World* _world, Entity* _player) {
         _world->rooms[i] = room;
 
         switch (roomId) {
-            case LABYRINTH1: {
-                
-                break;
-            }
             case LABYRINTH2: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 16));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 96));

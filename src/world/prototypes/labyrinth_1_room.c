@@ -10,10 +10,11 @@ void labyrinth1RoomInit(Room* _self, Entity* _player) {
     
     Class class = ((PlayerSpecData*) _player->spec)->class;
 
-    tryPushEntityToRoom(_self, _SKELETON_ANCIENT_ENTITY_(96, 16));
-    tryPushEntityToRoom(_self, _SKELETON_ANCIENT_ENTITY_(112, 64));
-    tryPushEntityToRoom(_self, _SKELETON_NINJA_ENTITY_(208, 48));
-    tryPushEntityToRoom(_self, _SKELETON_KING_ENTITY_(32, 128));
+    tryPushEntityToRoom(_self, _SKELETON_ANCIENT_ENTITY_(80, 16));
+    tryPushEntityToRoom(_self, _SKELETON_ANCIENT_ENTITY_(208, 96));
+    tryPushEntityToRoom(_self, _SKELETON_NINJA_ENTITY_(208, 32));
+    tryPushEntityToRoom(_self, _SKELETON_NINJA_ENTITY_(16, 64));
+    tryPushEntityToRoom(_self, _SKELETON_KING_ENTITY_(112, 64));
 
     if(class == WARRIOR)
         tryPushItemDropToRoom(_self, _ICE_SWORD_ITEM_DROP_(48, 128));
