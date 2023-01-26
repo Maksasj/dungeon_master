@@ -93,7 +93,7 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
  * @param   _world  Pointer to main world structure;
  * @param   _class Player combat class, used to spawn class specified items
 */
-void generateFloor(World* _world, i32 _class);
+void generateFloor(World* _world, Entity* _player);
 
 /**
  * Main function to update active room,

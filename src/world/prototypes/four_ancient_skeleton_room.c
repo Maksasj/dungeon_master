@@ -1,6 +1,6 @@
 #include "../../../include/world/prototypes/four_ancient_skeleton_room.h"
 
-void fourAncientSkeletonRoomInit(Room* _self) {
+void fourAncientSkeletonRoomInit(Room* _self, Entity* _player) {
     _self->type = FOUR_ANCIENT_SKELETON_ROOM;
 
     _self->current_entity_count = 0;

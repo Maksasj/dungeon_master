@@ -4,7 +4,7 @@
 #include "../../entity/entity_macros.h"
 #include "../tile.h"
 
-void fourAncientSkeletonRoomInit(Room* _self);
+void fourAncientSkeletonRoomInit(Room* _self, Entity* _player);
 
 void fourAncientSkeletonRoomRender(Room* _self, void* _world);
 

@@ -491,7 +491,7 @@ i32 gameScene(Class *chosenClass) {
         putOnItem(&player, _DEFAULT_BOW_ITEM_);
     }
     
-    generateFloor(&world, *chosenClass);
+    generateFloor(&world, &player);
 
     _ITEM_STAT_UI_RENDER_(DYNAMIC_UI_BACKGROUND_SCREEN_BLOCK, 26, 5);
     (*_BG2_X_SCROLL_) = -28;

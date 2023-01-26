@@ -72,24 +72,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
     /*
     switch (_room->type) {
-        case FOUR_ANCIENT_SKELETONS: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(2, 2), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(10, 2), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(26, 2), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 6), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(26, 6), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 10), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(2, 14), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 14), BIG_SPIKES_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 16), BIG_SPIKES_TILE, TRAP);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 10), TORCH_TILE, NONE);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 10), TORCH_TILE, NONE);
-            break;
-        }
         case LABYRINTH1: {
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);

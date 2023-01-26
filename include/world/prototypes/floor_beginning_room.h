@@ -4,7 +4,7 @@
 #include "../room.h"
 #include "../tile.h"
 
-void floorBeginningRoomInit(Room* _self);
+void floorBeginningRoomInit(Room* _self, Entity* _player);
 
 void floorBeginningRoomRender(Room* _self, void* _world);
 

@@ -39,7 +39,9 @@
 typedef enum RoomType {
     FLOOR_BEGINNING_ROOM,
     TWO_NINJA_SKELETON_ROOM,
-    FOUR_ANCIENT_SKELETON_ROOM
+    FOUR_ANCIENT_SKELETON_ROOM,
+    LABYRINTH_1_ROOM,
+    LABYRINTH_2_ROOM
 } RoomType;
 
 typedef struct Room {

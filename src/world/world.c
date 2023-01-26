@@ -344,13 +344,13 @@ void updateWorld(World* _world, Entity* _player) {
     ++WORLD_TICK;
 }
 
-void generateFloor(World* _world, i32 _class) {
+void generateFloor(World* _world, Entity* _player) {
 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM]    (&_world->rooms[0]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[1]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[2]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[3]); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FOUR_ANCIENT_SKELETON_ROOM] (&_world->rooms[4]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM]        (&_world->rooms[0], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[1], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[2], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[3], _player); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[LABYRINTH_1_ROOM]  (&_world->rooms[4], _player);
 
     _world->grid = gridInit();
 
@@ -371,43 +371,8 @@ void generateFloor(World* _world, i32 _class) {
         _world->rooms[i] = room;
 
         switch (roomId) {
-            case FOUR_ANCIENT_SKELETONS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 64));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(80, 48));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(144, 48));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 64));
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 80});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
-                break;
-            }
             case LABYRINTH1: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(96, 16));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(112, 64));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(208, 48));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_KING_ENTITY_(32, 128));
-
-                switch (_class) {
-                    case 0: { //WARRIOR
-                        tryPushItemDropToRoom(&_world->rooms[i], _ICE_SWORD_ITEM_DROP_(48, 128));
-                        break;
-                    }
-                    case 1: { //WIZARD
-                        tryPushItemDropToRoom(&_world->rooms[i], _FIRE_STAFF_ITEM_DROP_(48, 128));
-                        break;
-                    }
-                    case 2: { //ARCHER
-                        tryPushItemDropToRoom(&_world->rooms[i], _AQUA_BOW_ITEM_DROP_(48, 128));
-                        break;
-                    }
-                }
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 192, .y = 32});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 32, .y = 112});
+                
                 break;
             }
             case LABYRINTH2: {

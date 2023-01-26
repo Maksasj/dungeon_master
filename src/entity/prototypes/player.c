@@ -296,7 +296,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
         _SMOOTH_PALETT_TRANSITION_TO_BLACK_;
 
-        generateFloor(_world, pspec->class);
+        generateFloor(_world, _self);
 
         #ifdef _LIGHT_ON_
             //Reload light

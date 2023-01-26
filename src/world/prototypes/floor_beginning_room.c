@@ -1,6 +1,6 @@
 #include "../../../include/world/prototypes/floor_beginning_room.h"
 
-void floorBeginningRoomInit(Room* _self) {
+void floorBeginningRoomInit(Room* _self, Entity* _player) {
     _self->type = FLOOR_BEGINNING_ROOM;
 
     _self->current_entity_count = 0;
