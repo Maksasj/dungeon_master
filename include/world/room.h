@@ -31,33 +31,16 @@
 /* Constant that limits light count per single room */
 #define _MAX_LIGHT_COUNT_ 5
 
+/* Structure that contains all needed information to discribe room */
+
 /* Enum that contains all currently available rooms in game */
 typedef enum RoomType {
-    BASIC,
-    TWO_NINJA_SKELETONS_ENEMIES,
-    FOUR_ANCIENT_SKELETONS,
-    LABYRINTH1,
-    LABYRINTH2,
-    LABYRINTH3,
-    DARK_LABYRINTH,
-    ANCIENT,
-    DUMBBELL,
-    SYMMETRIC1,
-    SYMMETRIC2,
-    CORRIDORS,
-    KING_IN_CORRIDOR,
-    PAC_MAN,
-    PYRAMID,
-    SPIKE_MADNESS,
-    BOSS,
-    FLOOR_END,
-    END_GAME
+    FLOOR_BEGINNING_ROOM,
 } RoomType;
 
-/* Structure that contains all needed information to discribe room */
 typedef struct Room {
     /* Type of the room */
-    RoomType type;
+    u32 type;
 
     /* Entity pool, basically array that contains all entities */
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];

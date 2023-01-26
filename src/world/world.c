@@ -1,6 +1,7 @@
 #include "../../include/world/world.h"
 
 #include "../../include/entity/entity_macros.h"
+#include "../../include/world/room_macros.h"
 #include "../../include/item/item_macros.h"
 
 static void* _SPRITES_POINTER_;
@@ -44,9 +45,11 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
         itemDropUnloadSprite(itemDrop);
     }
 
+    /*
     if (_world->rooms[_roomId].type == END_GAME) {
         game_completed = 1;
     }
+    */
 
     _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
@@ -54,7 +57,7 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
 
 void updateWorldLight(World* _world) {
     Room *room = &_world->rooms[_world->activeRoom];
-    vu16* lightLayer = screenBlock(27);
+    vu16* lightLayer = LIGHT_BACKGROUND_SCREEN_BLOCK;
 
     int i;
     for(i = 0; i < room->current_light_count; ++i) {
@@ -236,7 +239,7 @@ void updateWorld(World* _world, Entity* _player) {
                     }
                 }
 
-                u16* layer = screenBlock(29);
+                u16* layer = DYNAMIC_UI_BACKGROUND_SCREEN_BLOCK;
 
                 {
                     i32 statDifference = compareStats.stamina - itemStats.stamina;
@@ -322,12 +325,14 @@ void updateWorld(World* _world, Entity* _player) {
         (*_BG2_X_SCROLL_) = item_ui_offset;
     }
     
+    /*
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
         if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
             unLockRoom(_world, room);
         }
     }
+    */
 
     if (_player->item_use_cooldown > 0) {
         --_player->item_use_cooldown;
@@ -337,23 +342,13 @@ void updateWorld(World* _world, Entity* _player) {
 }
 
 void generateFloor(World* _world, i32 _class) {
-    u32 i;
-    Room first_room;
-
-    first_room.type = BASIC;
-    first_room.current_entity_count = 0;
-    first_room.current_itemdrop_count = 0;
-    first_room.current_projectile_count = 0;
-    first_room.current_light_count = 0;
-
-    _world->rooms[0] = first_room;
-    
-    tryPushLightToRoom(&_world->rooms[0], (ivec2){.x = 112, .y = 0});
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0]);
 
     _world->grid = gridInit();
 
-    ++_world->currentFloor;
+    //++_world->currentFloor;
 
+    /*
     for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
         u32 roomId = random() % 15 + 1;
 
@@ -640,6 +635,8 @@ void generateFloor(World* _world, i32 _class) {
     tryPushLightToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 1], (ivec2){.x = 112, .y = 64});
 
     _world->difficulty = 1;
+
+    */
 }
 
 CollisionType worldCollision(World* _world, ivec2 _pos) {

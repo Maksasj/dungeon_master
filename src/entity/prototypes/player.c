@@ -88,7 +88,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         spriteSetHorizontalFlip(_pspec->armor, flip);
     }
 
-    vu16* uiLayer = screenBlock(31);
+    vu16* uiLayer = GAME_UI_BACKGROUND_SCREEN_BLOCK;
 
     i32 player_max_health =  
         _entity->base_stats.stamina + 
@@ -277,7 +277,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     
         #ifdef _LIGHT_ON_
             //Reload light
-            vu16* pointer = screenBlock(27);
+            vu16* pointer = LIGHT_BACKGROUND_SCREEN_BLOCK;
             int x;
             int y;
             
@@ -297,7 +297,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
         #ifdef _LIGHT_ON_
             //Reload light
-            vu16* pointer = screenBlock(27);
+            vu16* pointer = LIGHT_BACKGROUND_SCREEN_BLOCK;
             int x;
             int y;
             

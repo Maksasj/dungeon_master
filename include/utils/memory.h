@@ -87,4 +87,12 @@ void setScreenBlock(vu16* _block, u16 _value);
 */
 void memcpy16DMA(u16* _dest, u16* _source, i32 _amount);
 
+#define TILE_BACKGROUND_SCREEN_BLOCK screenBlock(25)
+
+#define LIGHT_BACKGROUND_SCREEN_BLOCK screenBlock(27)
+
+#define DYNAMIC_UI_BACKGROUND_SCREEN_BLOCK screenBlock(29)
+
+#define GAME_UI_BACKGROUND_SCREEN_BLOCK screenBlock(31)
+
 #endif
