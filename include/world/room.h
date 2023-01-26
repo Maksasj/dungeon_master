@@ -120,14 +120,6 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room);
 */
 void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
 
-/**
- * Unlocks room, basically changes a fiew tiles
- * 
- * @param   _world Pointer to world structure
- * @param   _room Pointer to the room
-*/
-void unLockRoom(void* _world, Room* _room);
-
 void loadTmpEntitySprite(Room* _room);
 
 void loadTmpItemDropSprite(Room* _room);

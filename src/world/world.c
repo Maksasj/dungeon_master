@@ -328,8 +328,9 @@ void updateWorld(World* _world, Entity* _player) {
     /*
     //Lets open room if entity count == 0
     if(room->current_entity_count == 0) {
-        if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
-            unLockRoom(_world, room);
+        //if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
+        if (room->type != FLOOR_BEGINNING_ROOM) {
+            //unLockRoom(_world, room);
         }
     }
     */
@@ -342,7 +343,12 @@ void updateWorld(World* _world, Entity* _player) {
 }
 
 void generateFloor(World* _world, i32 _class) {
+
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[1]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[2]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[3]); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[4]);
 
     _world->grid = gridInit();
 

@@ -147,4 +147,12 @@ void updateWorldLight(World* _world);
 
 void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type);
 
+/**
+ * Unlocks room, basically changes a fiew tiles
+ * 
+ * @param   _world Pointer to world structure
+ * @param   _room Pointer to the room
+*/
+void unLockRoom(World* _world, Room* _room);
+
 #endif

@@ -66,7 +66,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
     _SPRITES_POINTER_= _sprites;
     _NEXT_SPRITE_INDEX_ = _next_sprite_index;
 
-    ROOM_PROTOTYPES_RENDER_CALLBACKS[FLOOR_BEGINNING_ROOM](_room, _world);
+    ROOM_PROTOTYPES_RENDER_CALLBACKS[_room->type](_room, _world);
     
 
     //loadBasicRoom(_world, TILE_BACKGROUND_SCREEN_BLOCK);
@@ -836,15 +836,6 @@ void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
         ++_room->current_itemdrop_count;
     }
 }
-
-/*
-void unLockRoom(void* _world, Room* _room) {
-    placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
-    placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
-
-    memcpy16DMA((u16*) TILE_BACKGROUND_SCREEN_BLOCK, TILE_BACKGROUND_SCREEN_BLOCK, 32 * 32);
-}
-*/
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room) {
     i32 i;
