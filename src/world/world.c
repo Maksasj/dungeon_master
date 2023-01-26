@@ -119,7 +119,7 @@ void updateWorld(World* _world, Entity* _player) {
                     _world,
                     newIVec2(
                         (projectile->position.x >> _POSITION_FIXED_SCALAR_) + projectile->vel.x,
-                        projectile->position.y >> _POSITION_FIXED_SCALAR_)
+                         projectile->position.y >> _POSITION_FIXED_SCALAR_)
                 );
             
             if(xCol != NONE) {
@@ -643,25 +643,10 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
     //Dividing cords by 16
     i32 x = (_pos.x + 8) >> 4;
     i32 y = (_pos.y + 8) >> 4;
-
-    char tile = _world->collision_box[y][x];
-
-    switch (tile) {
-        case '#':
-            return WALL;
-        case 'D':
-            return OPENED_DOOR;
-        case 'C':
-            return CLOSED_DOOR;
-        case 'E':
-            return NEXT_FLOOR_ENTRANCE;
-        case 'X':
-            return TRAP;
-        default:
-            return NONE;
-    }
     
-    return NONE;
+    //log(LOG_INFO, "%d <- %d, %d", _world->collision_box[y][x], y, x);
+    
+    return _world->collision_box[y][x];
 }
 
 inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
@@ -671,4 +656,13 @@ inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
     grid_position.y = (((_screen_position.y >> _POSITION_FIXED_SCALAR_) - 8) >> 4);
 
     return grid_position;
+}
+
+void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type) {
+    _target[_pos.x * 2 + _pos.y * 2 * 32] = _tile[0];
+    _target[_pos.x * 2 + _pos.y * 2 * 32 + 1] = _tile[1];
+    _target[_pos.x * 2 + _pos.y * 2 * 32 + 32] = _tile[2];
+    _target[_pos.x * 2 + _pos.y * 2 * 32 + 33] = _tile[3];
+
+    _world->collision_box[_pos.y][_pos.x] = _collision_type;
 }

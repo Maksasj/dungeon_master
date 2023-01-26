@@ -7,7 +7,7 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*) = {
     &FloorBeginningRoomInit
 };
 
-static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*) = {
+static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &FloorBeginningRoomRender
 };
 

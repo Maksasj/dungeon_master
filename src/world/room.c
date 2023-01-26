@@ -1,11 +1,11 @@
 #include "../../include/world/room.h"
-#include "../../include/world/world.h"
 
-#include "../../include/world/tile.h"
+#include "../../include/world/room_macros.h"
 
 static void* _SPRITES_POINTER_;
 static void* _NEXT_SPRITE_INDEX_;
 
+/*
 const u16* getRandomFloorTile() {
     u16 value = rand() % 6;
 
@@ -28,6 +28,7 @@ const u16* getRandomFloorTile() {
 
     return FLOOR_3;
 }
+*/
 
 void initRoom(Room* _room) {
     _room->type = FLOOR_BEGINNING_ROOM;
@@ -38,6 +39,7 @@ void initRoom(Room* _room) {
     _room->current_projectile_count = 0;
 }
 
+/*
 const u16* getRandomLavaTile() {
     u16 value = rand() % 2;
 
@@ -50,66 +52,7 @@ const u16* getRandomLavaTile() {
 
     return FLOOR_3;
 }
-
-void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type) {
-    _target[_pos.x + _pos.y * 32] = _tile[0];
-    _target[_pos.x + _pos.y * 32 + 1] = _tile[1];
-    _target[_pos.x + _pos.y * 32 + 32] = _tile[2];
-    _target[_pos.x + _pos.y * 32 + 33] = _tile[3];
-
-    switch(_collision_type) {
-        case WALL: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = '#';
-            break;
-        }
-        case TRAP: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'X';
-            break;
-        }
-        case OPENED_DOOR: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'D';
-            break;
-        }
-        case CLOSED_DOOR: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'C';
-            break;
-        }
-        case NEXT_FLOOR_ENTRANCE: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = 'E';
-            break;
-        }
-        default: {
-            _world->collision_box[_pos.y / 2][_pos.x / 2] = ' ';
-            break;
-        }
-    }
-}
-
-void loadBasicRoom(World* _world, u16* _target) {
-    i32 i;
-    i32 j;
-
-    for(i = 0; i < 15; ++i) {
-        for(j = 0; j < 10; ++j) {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(i*2, j*2), getRandomFloorTile(), NONE);
-        }
-    }
-
-    for(i = 0; i < 15; ++i) {
-        placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(i*2, 18), BORDER_BOTTOM, WALL);
-        placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(i*2, 0), BORDER_UP, WALL);
-    }
-
-    for(i = 0; i < 9; ++i) {
-        placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(28, i*2), BORDER_RIGHT, WALL);
-        placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(0, i*2), BORDER_LEFT, WALL);
-    }
-   
-    placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(0, 0), CORNER_LEFT_UP, WALL);
-    placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(28, 0), CORNER_RIGHT_UP, WALL);
-    placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(0, 18), CORNER_LEFT_BOTTOM, WALL);
-    placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(28, 18), CORNER_RIGHT_BOTTOM, WALL);
-}
+*/
 
 void loadTmpEntitySprite(Room* _room) {
     entityInitSprite(&_room->entity_pool[_room->current_entity_count - 1], _SPRITES_POINTER_, _NEXT_SPRITE_INDEX_);
@@ -122,8 +65,11 @@ void loadTmpItemDropSprite(Room* _room) {
 void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_index) {
     _SPRITES_POINTER_= _sprites;
     _NEXT_SPRITE_INDEX_ = _next_sprite_index;
+
+    ROOM_PROTOTYPES_RENDER_CALLBACKS[FLOOR_BEGINNING_ROOM](_room, _world);
     
-    loadBasicRoom(_world, TILE_BACKGROUND_SCREEN_BLOCK);
+
+    //loadBasicRoom(_world, TILE_BACKGROUND_SCREEN_BLOCK);
 
     /*
     switch (_room->type) {
@@ -891,12 +837,14 @@ void tryPushItemDropToRoom(Room* _room, ItemDrop _itemdrop) {
     }
 }
 
+/*
 void unLockRoom(void* _world, Room* _room) {
     placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_OPENED, OPENED_DOOR);
     placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 
     memcpy16DMA((u16*) TILE_BACKGROUND_SCREEN_BLOCK, TILE_BACKGROUND_SCREEN_BLOCK, 32 * 32);
 }
+*/
 
 void deleteEntityFromRoom(Entity* _entity, Room* _room) {
     i32 i;

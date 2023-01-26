@@ -5,7 +5,7 @@
 
 void FloorBeginningRoomInit(Room* _self);
 
-void FloorBeginningRoomRender(Room* _self);
+void FloorBeginningRoomRender(Room* _self, void* _world);
 
 void FloorBeginningRoomUpdateCallback(Room* _self, Entity* _player);
 
