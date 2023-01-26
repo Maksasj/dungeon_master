@@ -77,6 +77,8 @@ typedef struct Room {
     //Entity projectile_pool1[_MAX_PROJECTILE_PER_ROOM_];                         
 } Room;
 
+void initRoom(Room* _room);
+
 /**
  * Renders room to the screen
  * 
