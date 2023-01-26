@@ -17,6 +17,8 @@
 #include "../entity/prototypes/projectile.h"
 #include "../light.h"
 
+#include "tile.h"
+
 #include "../item/item.h"
 
 /* Constant that limits entity count per single room */
@@ -36,6 +38,7 @@
 /* Enum that contains all currently available rooms in game */
 typedef enum RoomType {
     FLOOR_BEGINNING_ROOM,
+    TWO_NINJA_SKELETON_ROOM
 } RoomType;
 
 typedef struct Room {

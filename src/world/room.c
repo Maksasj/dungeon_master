@@ -1,5 +1,4 @@
 #include "../../include/world/room.h"
-
 #include "../../include/world/room_macros.h"
 
 static void* _SPRITES_POINTER_;
@@ -786,6 +785,7 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
             break;
         }
     }
+    */
 
     i32 i;
     for(i = 0; i < _room->current_entity_count; ++i) {
@@ -800,7 +800,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
         itemDropInitSprite(_itemdrop, _sprites, _next_sprite_index);
         spriteSetOffset(_itemdrop->sprite, _itemdrop->sprite_offset);
     }
-    */
 }
 
 void tryPushLightToRoom(Room *_room, ivec2 _pos) {

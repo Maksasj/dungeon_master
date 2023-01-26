@@ -1,7 +1,7 @@
 #include "../../include/world/world.h"
 
-#include "../../include/entity/entity_macros.h"
 #include "../../include/world/room_macros.h"
+#include "../../include/entity/entity_macros.h"
 #include "../../include/item/item_macros.h"
 
 static void* _SPRITES_POINTER_;
@@ -344,11 +344,11 @@ void updateWorld(World* _world, Entity* _player) {
 
 void generateFloor(World* _world, i32 _class) {
 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[1]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[2]);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[3]); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[4]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM]    (&_world->rooms[0]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[1]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[2]);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[3]); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[TWO_NINJA_SKELETON_ROOM] (&_world->rooms[4]);
 
     _world->grid = gridInit();
 
@@ -664,11 +664,11 @@ inline ivec2 screenToWorldPosition(ivec2 _screen_position) {
     return grid_position;
 }
 
-void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type) {
-    _target[_pos.x * 2 + _pos.y * 2 * 32] = _tile[0];
-    _target[_pos.x * 2 + _pos.y * 2 * 32 + 1] = _tile[1];
-    _target[_pos.x * 2 + _pos.y * 2 * 32 + 32] = _tile[2];
-    _target[_pos.x * 2 + _pos.y * 2 * 32 + 33] = _tile[3];
+void placeTile(World* _world, u16* _target, ivec2 _pos, Tile _tile, CollisionType _collision_type) {
+    _target[_pos.x * 2 + _pos.y * 2 * 32] = _tile.x[0];
+    _target[_pos.x * 2 + _pos.y * 2 * 32 + 1] = _tile.x[1];
+    _target[_pos.x * 2 + _pos.y * 2 * 32 + 32] = _tile.x[2];
+    _target[_pos.x * 2 + _pos.y * 2 * 32 + 33] = _tile.x[3];
 
     _world->collision_box[_pos.y][_pos.x] = _collision_type;
 }

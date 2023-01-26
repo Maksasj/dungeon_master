@@ -145,7 +145,7 @@ inline ivec2 screenToWorldPosition(ivec2 _screen_position);
 */
 void updateWorldLight(World* _world);
 
-void placeTile(World* _world, u16* _target, ivec2 _pos, const u16* _tile, CollisionType _collision_type);
+void placeTile(World* _world, u16* _target, ivec2 _pos, Tile _tile, CollisionType _collision_type);
 
 /**
  * Unlocks room, basically changes a fiew tiles

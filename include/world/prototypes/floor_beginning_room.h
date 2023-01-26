@@ -2,11 +2,12 @@
 #define _FLOOR_BEGINNING_ROOM_H_
 
 #include "../room.h"
+#include "../tile.h"
 
-void FloorBeginningRoomInit(Room* _self);
+void floorBeginningRoomInit(Room* _self);
 
-void FloorBeginningRoomRender(Room* _self, void* _world);
+void floorBeginningRoomRender(Room* _self, void* _world);
 
-void FloorBeginningRoomUpdateCallback(Room* _self, Entity* _player);
+void floorBeginningRoomUpdateCallback(Room* _self, Entity* _player);
 
 #endif

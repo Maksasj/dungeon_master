@@ -1,9 +1,6 @@
 #include "../../../include/world/prototypes/floor_beginning_room.h"
 
-#include "../../../include/world/tile.h"
-#include "../../../include/world/world.h"
-
-void FloorBeginningRoomInit(Room* _self) {
+void floorBeginningRoomInit(Room* _self) {
     _self->type = FLOOR_BEGINNING_ROOM;
 
     _self->current_entity_count = 0;
@@ -14,7 +11,7 @@ void FloorBeginningRoomInit(Room* _self) {
     tryPushLightToRoom(_self, (ivec2){.x = 112, .y = 0});
 }
 
-void FloorBeginningRoomRender(Room* _self, void* _world) {
+void floorBeginningRoomRender(Room* _self, void* _world) {
     i32 i; i32 j;
 
     for(i = 0; i < 15; ++i)
@@ -41,6 +38,6 @@ void FloorBeginningRoomRender(Room* _self, void* _world) {
     //placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(7, 9), DOOR_BOTTOM_OPENED, OPENED_DOOR);
 }
 
-void FloorBeginningRoomUpdateCallback(Room* _self, Entity* _player) {
+void floorBeginningRoomUpdateCallback(Room* _self, Entity* _player) {
     /* gag */
 }

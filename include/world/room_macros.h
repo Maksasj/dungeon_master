@@ -2,17 +2,21 @@
 #define _ROOM_MACROS_H_
 
 #include "prototypes/floor_beginning_room.h"
+#include "prototypes/two_ninja_skeleton_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*) = {
-    &FloorBeginningRoomInit
+    &floorBeginningRoomInit,
+    &twoNinjaSkeletonRoomInit
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
-    &FloorBeginningRoomRender
+    &floorBeginningRoomRender,
+    &twoNinjaSkeletonRoomRender
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(Room*, Entity*) = {
-    &FloorBeginningRoomUpdateCallback
+    &floorBeginningRoomUpdateCallback,
+    &twoNinjaSkeletonRoomUpdateCallback
 };
 
 #endif
