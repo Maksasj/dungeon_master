@@ -71,23 +71,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
     /*
     switch (_room->type) {
-        case BOSS: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 6), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 6), LAVA_BIG_TILE, TRAP);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 8), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 8), LAVA_BIG_TILE, TRAP);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 10), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 10), LAVA_BIG_TILE, TRAP);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 12), LAVA_BIG_TILE, TRAP);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 12), LAVA_BIG_TILE, TRAP);
-            break;
-        }
         case FLOOR_END: {
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);
