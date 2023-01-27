@@ -13,6 +13,7 @@
 #include "prototypes/symmetric_1_room.h"
 #include "prototypes/symmetric_2_room.h"
 #include "prototypes/corridors_room.h"
+#include "prototypes/king_in_corridor_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &floorBeginningRoomInit,
@@ -27,6 +28,7 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &symmetric1RoomInit,
     &symmetric2RoomInit,
     &corridorsRoomInit,
+    &kingInCorridorRoomInit,
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
@@ -42,6 +44,7 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &symmetric1RoomRender,
     &symmetric2RoomRender,
     &corridorsRoomRender,
+    &kingInCorridorRoomRender,
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
@@ -57,6 +60,7 @@ static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) 
     &symmetric1RoomUpdateCallback,
     &symmetric2RoomUpdateCallback,
     &corridorsRoomUpdateCallback,
+    &kingInCorridorRoomUpdateCallback,
 };
 
 #endif
