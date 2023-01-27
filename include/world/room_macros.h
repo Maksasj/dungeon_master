@@ -22,6 +22,7 @@
 #include "prototypes/necromancer_boss_room.h"
 
 #include "prototypes/floor_end_room.h"
+#include "prototypes/end_game_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &floorBeginningRoomInit,
@@ -45,6 +46,7 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &necromancerBossRoomInit,
 
     &floorEndRoomInit,
+    &endGameRoomInit
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
@@ -69,6 +71,7 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &necromancerBossRoomRender,
 
     &floorEndRoomRender,
+    &endGameRoomRender
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
@@ -93,6 +96,9 @@ static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) 
     &necromancerBossRoomUpdateCallback,
 
     &floorEndRoomUpdateCallback,
+    &endGameRoomUpdateCallback
 };
+
+#define _GET_RANDOM_ROOM_WITH_ENEMY_ getRandomInRange(1, 15)
 
 #endif

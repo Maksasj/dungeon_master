@@ -67,15 +67,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
     ROOM_PROTOTYPES_RENDER_CALLBACKS[_room->type](_room, _world);
 
-    /*
-    switch (_room->type) {
-        case END_GAME: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
-            break;
-        }
-    }
-    */
-
     i32 i;
     for(i = 0; i < _room->current_entity_count; ++i) {
         Entity* entity = &_room->entity_pool[i];

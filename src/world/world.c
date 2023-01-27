@@ -45,11 +45,9 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
         itemDropUnloadSprite(itemDrop);
     }
 
-    /*
-    if (_world->rooms[_roomId].type == END_GAME) {
+    if (_world->rooms[_roomId].type == END_GAME_ROOM) {
         game_completed = 1;
     }
-    */
 
     _world->activeRoom = _roomId;
     renderRoom(_world, &_world->rooms[_roomId], _sprites, _next_sprite_index);
@@ -326,16 +324,6 @@ void updateWorld(World* _world, Entity* _player) {
         spritePosition(pspec->itemUIIcon, 220 - item_ui_offset, 45);
         (*_BG2_X_SCROLL_) = item_ui_offset;
     }
-    
-    /*
-    //Lets open room if entity count == 0
-    if(room->current_entity_count == 0) {
-        //if (room->type != BASIC && room->type != FLOOR_END && room->type != END_GAME) {
-        if (room->type != FLOOR_BEGINNING_ROOM) {
-            //unLockRoom(_world, room);
-        }
-    }
-    */
 
     if (_player->item_use_cooldown > 0) {
         --_player->item_use_cooldown;
@@ -346,10 +334,16 @@ void updateWorld(World* _world, Entity* _player) {
 
 void generateFloor(World* _world, Entity* _player) {
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[1], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_END_ROOM]    (&_world->rooms[2], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[3], _player); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[4], _player);
+
+    i32 i = 1;
+    for(; i < _MAX_ROOM_COUNT_ - 1; ++i) {
+        ROOM_PROTOTYPES_INIT_CALLBACKS[_GET_RANDOM_ROOM_WITH_ENEMY_](&_world->rooms[i], _player);
+    }
+
+    if(_world->currentFloor == _world->floorCount)
+        ROOM_PROTOTYPES_INIT_CALLBACKS[END_GAME_ROOM](&_world->rooms[_MAX_ROOM_COUNT_ - 1], _player);
+    else
+        ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_END_ROOM](&_world->rooms[_MAX_ROOM_COUNT_ - 1], _player);
 
     _world->grid = gridInit();
 

@@ -27,6 +27,11 @@
 
 #define _ABS_(x) ((x) < 1 ? -(x) : (x))
 
+#define _CLAMP_(value, min, max) (min < max           \
+  ? (value < min ? min : value > max ? max : value) \
+  : (value < max ? max : value > min ? min : value) \
+)
+
 // typedefs to reduce the names of existing types
 typedef unsigned char       u8;
 typedef unsigned short      u16;
