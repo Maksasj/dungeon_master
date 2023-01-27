@@ -12,6 +12,7 @@
 #define _GRID_H_
 
 #include "types.h"
+#include "../collision.h"
 #include "queue.h"
 #include <stdlib.h>
 

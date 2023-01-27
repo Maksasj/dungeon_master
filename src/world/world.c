@@ -355,8 +355,6 @@ CollisionType worldCollision(World* _world, ivec2 _pos) {
     i32 x = (_pos.x + 8) >> 4;
     i32 y = (_pos.y + 8) >> 4;
     
-    //log(LOG_INFO, "%d <- %d, %d", _world->collision_box[y][x], y, x);
-    
     return _world->collision_box[y][x];
 }
 

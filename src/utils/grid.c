@@ -23,7 +23,7 @@ SquareGrid gridInit() {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             grid.visited[i][j] = 0;
             grid.distance_to_player[i][j] = 0;
-            grid.vertices[i][j] = ' ';
+            grid.vertices[i][j] = NONE;
         }
     }
 
@@ -36,8 +36,12 @@ i32 inBounds(ivec2 _coordinates) {
 }
 
 i32 passable(SquareGrid* _grid, ivec2 _coordinates, u8 _collision_box[10][15]) {
-    if (_collision_box[_coordinates.y + 1][_coordinates.x + 1] == '#' || _collision_box[_coordinates.y + 1][_coordinates.x + 1] == 'X') {
-        _grid->vertices[_coordinates.x][_coordinates.y] = '#';
+    if (
+        _collision_box[_coordinates.y + 1][_coordinates.x + 1] == WALL ||
+        _collision_box[_coordinates.y + 1][_coordinates.x + 1] == TRAP) {
+        
+        _grid->vertices[_coordinates.x][_coordinates.y] = WALL;
+        
         return 0;
     }
 
@@ -100,8 +104,8 @@ void breadthFirstSearch(SquareGrid* _grid, ivec2 _start_position, u8 _collision_
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             _grid->visited[i][j] = 0;
             
-            if (_grid->vertices[i][j] == ' ') {
-                _grid->vertices[i][j] = '#';
+            if (_grid->vertices[i][j] == NONE) {
+                _grid->vertices[i][j] = WALL;
             }
         }
     }
@@ -117,7 +121,7 @@ void clearGrid(SquareGrid* _grid) {
         for (j = 0; j < _ROOM_WIDTH_; ++j) {
             _grid->visited[i][j] = 0;
             _grid->distance_to_player[i][j] = 0;
-            _grid->vertices[i][j] = ' ';
+            _grid->vertices[i][j] = NONE;
         }
     }
 }
