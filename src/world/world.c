@@ -347,10 +347,10 @@ void updateWorld(World* _world, Entity* _player) {
 void generateFloor(World* _world, Entity* _player) {
 
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[SYMMETRIC_2_ROOM]    (&_world->rooms[1], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[SYMMETRIC_2_ROOM]    (&_world->rooms[2], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[SYMMETRIC_2_ROOM]    (&_world->rooms[3], _player); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[SYMMETRIC_2_ROOM]    (&_world->rooms[4], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[CORRIDORS_ROOM]    (&_world->rooms[1], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[CORRIDORS_ROOM]    (&_world->rooms[2], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[CORRIDORS_ROOM]    (&_world->rooms[3], _player); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[CORRIDORS_ROOM]    (&_world->rooms[4], _player);
 
     _world->grid = gridInit();
 
