@@ -71,58 +71,6 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
 
     /*
     switch (_room->type) {
-        case KING_IN_CORRIDOR: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 2), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 2), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(4, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(6, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 4), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(24, 4), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(4, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(6, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 6), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(24, 6), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(4, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(6, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 8), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(24, 8), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 10), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 10), BORDER_UP, WALL);
-
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(4, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(6, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(8, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(10, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(12, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(16, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(18, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(20, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(22, 12), BORDER_UP, WALL);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(24, 12), BORDER_UP, WALL);
-            
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(10, 10), TORCH_TILE, NONE);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(18, 10), TORCH_TILE, NONE);
-            break;
-        }
         case PAC_MAN: {
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 0), DOOR_UP_CLOSED, CLOSED_DOOR);
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_CLOSED, CLOSED_DOOR);

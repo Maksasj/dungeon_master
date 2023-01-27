@@ -50,8 +50,8 @@ typedef enum RoomType {
     SYMMETRIC_2_ROOM,
     CORRIDORS_ROOM,
     KING_IN_CORRIDOR_ROOM,
-    
     PAC_MAN_ROOM,
+    
     PYRAMID_ROOM,
     SPIKE_MADNESS
 } RoomType;
