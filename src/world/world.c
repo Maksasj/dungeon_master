@@ -347,10 +347,10 @@ void updateWorld(World* _world, Entity* _player) {
 void generateFloor(World* _world, Entity* _player) {
 
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[PAC_MAN_ROOM]    (&_world->rooms[1], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[PAC_MAN_ROOM]    (&_world->rooms[2], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[PAC_MAN_ROOM]    (&_world->rooms[3], _player); 
-    ROOM_PROTOTYPES_INIT_CALLBACKS[PAC_MAN_ROOM]    (&_world->rooms[4], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[PYRAMID_ROOM]    (&_world->rooms[1], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[PYRAMID_ROOM]    (&_world->rooms[2], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[PYRAMID_ROOM]    (&_world->rooms[3], _player); 
+    ROOM_PROTOTYPES_INIT_CALLBACKS[PYRAMID_ROOM]    (&_world->rooms[4], _player);
 
     _world->grid = gridInit();
 
@@ -371,27 +371,6 @@ void generateFloor(World* _world, Entity* _player) {
         _world->rooms[i] = room;
 
         switch (roomId) {
-            case PAC_MAN: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(16, 80));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(208, 80));
-
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(96, 80));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(112, 80));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_NINJA_ENTITY_(128, 80));
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 48, .y = 112});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 176, .y = 112});
-                break;
-            }
-            case PYRAMID: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(160, 64));
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 64, .y = 80});
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 160, .y = 80});
-                break;
-            }
             case SPIKE_MADNESS: {
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 32));
                 tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 48));
