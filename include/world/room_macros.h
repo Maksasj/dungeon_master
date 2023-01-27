@@ -10,6 +10,7 @@
 #include "prototypes/dark_labyrinth_room.h"
 #include "prototypes/ancient_room.h"
 #include "prototypes/dumbbell_room.h"
+#include "prototypes/symmetric_1_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &floorBeginningRoomInit,
@@ -21,6 +22,7 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &darkLabyrinthRoomInit,
     &ancientRoomInit,
     &dumbbellRoomInit,
+    &symmetric1RoomInit,
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
@@ -32,7 +34,8 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &labyrinth3RoomRender,
     &darkLabyrinthRoomRender,
     &ancientRoomRender,
-    &dumbbellRoomRender
+    &dumbbellRoomRender,
+    &symmetric1RoomRender,
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
@@ -44,7 +47,8 @@ static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) 
     &labyrinth3RoomUpdateCallback,
     &darkLabyrinthRoomUpdateCallback,
     &ancientRoomUpdateCallback,
-    &dumbbellRoomUpdateCallback
+    &dumbbellRoomUpdateCallback,
+    &symmetric1RoomUpdateCallback
 };
 
 #endif
