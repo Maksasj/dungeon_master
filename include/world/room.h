@@ -38,7 +38,7 @@
 /* Enum that contains all currently available rooms in game */
 typedef enum RoomType {
     FLOOR_BEGINNING_ROOM,
-    
+
     TWO_NINJA_SKELETON_ROOM,
     FOUR_ANCIENT_SKELETON_ROOM,
     LABYRINTH_1_ROOM,
@@ -56,6 +56,9 @@ typedef enum RoomType {
     SPIKE_MADNESS_ROOM,
 
     NECROMANCER_BOSS_ROOM,
+
+    FLOOR_END_ROOM,
+    END_GAME_ROOM,
 } RoomType;
 
 typedef struct Room {

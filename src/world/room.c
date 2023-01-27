@@ -66,16 +66,9 @@ void renderRoom(void* _world, Room* _room, Sprite* _sprites, i32* _next_sprite_i
     _NEXT_SPRITE_INDEX_ = _next_sprite_index;
 
     ROOM_PROTOTYPES_RENDER_CALLBACKS[_room->type](_room, _world);
-    
-    //loadBasicRoom(_world, TILE_BACKGROUND_SCREEN_BLOCK);
 
     /*
     switch (_room->type) {
-        case FLOOR_END: {
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
-            placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 8), DOOR_UP_OPENED, NEXT_FLOOR_ENTRANCE);
-            break;  
-        }
         case END_GAME: {
             placeTile(_world, TILE_BACKGROUND_SCREEN_BLOCK, newIVec2(14, 18), DOOR_BOTTOM_OPENED, OPENED_DOOR);
             break;

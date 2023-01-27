@@ -2,6 +2,7 @@
 #define _ROOM_MACROS_H_
 
 #include "prototypes/floor_beginning_room.h"
+
 #include "prototypes/two_ninja_skeleton_room.h"
 #include "prototypes/four_ancient_skeleton_room.h"
 #include "prototypes/labyrinth_1_room.h"
@@ -17,11 +18,14 @@
 #include "prototypes/pac_man_room.h"
 #include "prototypes/pyramid_room.h"
 #include "prototypes/spike_madness_room.h"
+
 #include "prototypes/necromancer_boss_room.h"
+
+#include "prototypes/floor_end_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &floorBeginningRoomInit,
-    
+
     &twoNinjaSkeletonRoomInit,
     &fourAncientSkeletonRoomInit,
     &labyrinth1RoomInit,
@@ -39,6 +43,8 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &spikeMadnessRoomInit,
 
     &necromancerBossRoomInit,
+
+    &floorEndRoomInit,
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
@@ -61,6 +67,8 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &spikeMadnessRoomRender,
 
     &necromancerBossRoomRender,
+
+    &floorEndRoomRender,
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
@@ -83,6 +91,8 @@ static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) 
     &spikeMadnessRoomUpdateCallback,
 
     &necromancerBossRoomUpdateCallback,
+
+    &floorEndRoomUpdateCallback,
 };
 
 #endif

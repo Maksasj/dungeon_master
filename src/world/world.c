@@ -345,68 +345,15 @@ void updateWorld(World* _world, Entity* _player) {
 }
 
 void generateFloor(World* _world, Entity* _player) {
-
     ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_BEGINNING_ROOM](&_world->rooms[0], _player);
     ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[1], _player);
-    ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[2], _player);
+    ROOM_PROTOTYPES_INIT_CALLBACKS[FLOOR_END_ROOM]    (&_world->rooms[2], _player);
     ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[3], _player); 
     ROOM_PROTOTYPES_INIT_CALLBACKS[NECROMANCER_BOSS_ROOM]    (&_world->rooms[4], _player);
 
     _world->grid = gridInit();
 
-    //++_world->currentFloor;
-
-    /*
-    for(i = 1; i < _MAX_ROOM_COUNT_ - 2; ++i) {
-        u32 roomId = random() % 15 + 1;
-
-        Room room;
-        
-        room.type = roomId;
-        room.current_entity_count = 0;
-        room.current_itemdrop_count = 0;
-        room.current_projectile_count = 0;
-        room.current_light_count = 0;
-
-        _world->rooms[i] = room;
-
-        switch (roomId) {
-            case SPIKE_MADNESS: {
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(48, 32));
-                tryPushEntityToRoom(&_world->rooms[i], _SKELETON_ANCIENT_ENTITY_(176, 48));
-
-                tryPushLightToRoom(&_world->rooms[i], (ivec2){.x = 112, .y = 0});
-                break;
-            }
-            default:
-                break;
-        }
-    }
-
-    Room boss_room;
-    initRoom(&boss_room);
-
-    boss_room.type = BOSS;
-    _world->rooms[_MAX_ROOM_COUNT_ - 2] = boss_room;
-    tryPushEntityToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 2], _NECROMANCER_ENTITY_(112, 64));
-    tryPushLightToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 2], (ivec2){.x = 64, .y = 64});
-    tryPushLightToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 2], (ivec2){.x = 176, .y = 64});
-    
-    Room last_room;
-    initRoom(&last_room);
-
-    if (_world->currentFloor != _world->floorCount) {
-        last_room.type = FLOOR_END;
-    } else {
-        last_room.type = END_GAME;
-    }
-    
-    _world->rooms[_MAX_ROOM_COUNT_ - 1] = last_room;
-    tryPushLightToRoom(&_world->rooms[_MAX_ROOM_COUNT_ - 1], (ivec2){.x = 112, .y = 64});
-
-    _world->difficulty = 1;
-
-    */
+    ++_world->currentFloor;
 }
 
 CollisionType worldCollision(World* _world, ivec2 _pos) {
