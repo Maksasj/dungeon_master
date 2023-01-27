@@ -16,6 +16,7 @@
 #include "prototypes/king_in_corridor_room.h"
 #include "prototypes/pac_man_room.h"
 #include "prototypes/pyramid_room.h"
+#include "prototypes/spike_madness_room.h"
     
 static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &floorBeginningRoomInit,
@@ -33,6 +34,7 @@ static void (*ROOM_PROTOTYPES_INIT_CALLBACKS[])(Room*, Entity*) = {
     &kingInCorridorRoomInit,
     &pacmanRoomInit,
     &pyramidRoomInit,
+    &spikeMadnessRoomInit,
 };
 
 static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
@@ -50,7 +52,8 @@ static void (*ROOM_PROTOTYPES_RENDER_CALLBACKS[])(Room*, void*) = {
     &corridorsRoomRender,
     &kingInCorridorRoomRender,
     &pacmanRoomRender,
-    &pyramidRoomRender
+    &pyramidRoomRender,
+    &spikeMadnessRoomRender,
 };
 
 static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) = {
@@ -69,6 +72,7 @@ static void (*ROOM_PROTOTYPES_UPDATE_CALLBACKS[])(void* _world, Room*, Entity*) 
     &kingInCorridorRoomUpdateCallback,
     &pacmanRoomUpdateCallback,
     &pyramidRoomUpdateCallback,
+    &spikeMadnessRoomUpdateCallback,
 };
 
 #endif

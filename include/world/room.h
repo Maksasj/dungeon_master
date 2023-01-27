@@ -52,8 +52,7 @@ typedef enum RoomType {
     KING_IN_CORRIDOR_ROOM,
     PAC_MAN_ROOM,
     PYRAMID_ROOM,
-    
-    SPIKE_MADNESS
+    SPIKE_MADNESS_ROOM
 } RoomType;
 
 typedef struct Room {
