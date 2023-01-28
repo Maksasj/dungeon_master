@@ -1,6 +1,9 @@
 
 @ECHO OFF
 
+if not exist dist mkdir dist
+if not exist dist\tmp mkdir dist\tmp
+
 del dist\tmp\*.o
 del dist\main.gba
 del dist\main.sav
@@ -42,6 +45,11 @@ for %%f in (src\item\*.c) do (
 
 for %%f in (src\item\prototypes\*.c) do (
     gcc -c -w -O3 src\item\prototypes\%%~nf.c -o dist\tmp\%%~nf.o
+    echo Successfully compiled: %%~nf.c
+)
+
+for %%f in (src\world\prototypes\*.c) do (
+    gcc -c -w -O3 src\world\prototypes\%%~nf.c -o dist\tmp\%%~nf.o
     echo Successfully compiled: %%~nf.c
 )
 

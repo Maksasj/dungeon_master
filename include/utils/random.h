@@ -30,4 +30,6 @@ u32 random();
 */
 void setSeed(u32 _seed);
 
+inline u32 getRandomInRange(u32 min, u32 max);
+
 #endif

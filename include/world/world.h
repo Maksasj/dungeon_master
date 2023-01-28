@@ -24,10 +24,10 @@
 #include "room.h"
 
 /* Build in cheat, allows to not take damage from any source */
-// #define _GOD_MODE_
+#define _GOD_MODE_
 
 /* Disables all light rendering */
-#define _LIGHT_ON_
+// #define _LIGHT_ON_
 
 /* Room count per one dungeon floor */
 #define _MAX_ROOM_COUNT_ 5
@@ -37,6 +37,9 @@
 
 /* Structure that contains all needed information to discribe world */
 typedef struct World {
+    /* Used for storing all collision boxes */
+    u8 collision_box[10][15];
+
     /* Array of all rooms in single floor */
     Room rooms[_MAX_ROOM_COUNT_];
 
@@ -63,9 +66,6 @@ typedef struct World {
         'X' - Trap
         ' ' - None
     */
-
-    /* Used for storing all collision boxes */
-    u8 collision_box[10][15];
 } World;
 
 /* Global variable that determines, if game completed or not*/
@@ -93,7 +93,7 @@ void gotoRoom(World* _world, u8 _roomId, Sprite* _sprites, i32* _next_sprite_ind
  * @param   _world  Pointer to main world structure;
  * @param   _class Player combat class, used to spawn class specified items
 */
-void generateFloor(World* _world, i32 _class);
+void generateFloor(World* _world, Entity* _player);
 
 /**
  * Main function to update active room,
@@ -144,5 +144,15 @@ inline ivec2 screenToWorldPosition(ivec2 _screen_position);
  * @param   _world              Pointer to main world structure
 */
 void updateWorldLight(World* _world);
+
+void placeTile(World* _world, u16* _target, ivec2 _pos, Tile _tile, CollisionType _collision_type);
+
+/**
+ * Unlocks room, basically changes a fiew tiles
+ * 
+ * @param   _world Pointer to world structure
+ * @param   _room Pointer to the room
+*/
+void unLockRoom(World* _world, Room* _room);
 
 #endif

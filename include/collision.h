@@ -15,15 +15,15 @@
 
 /* Enum that contains all definet collision types */
 typedef enum CollisionType {
+    NONE,
+    
     WALL,
     TRAP,
     
     OPENED_DOOR,
     CLOSED_DOOR,
     
-    NEXT_FLOOR_ENTRANCE,
-
-    NONE
+    NEXT_FLOOR_ENTRANCE
 } CollisionType;
 
 #endif

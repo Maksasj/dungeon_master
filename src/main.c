@@ -24,7 +24,7 @@ void mainMenuScene() {
     i32 i;
     i32 j;
 
-    u16* MAP = screenBlock(25);
+    u16* MAP = TILE_BACKGROUND_SCREEN_BLOCK;
     for(i = 0; i < 15; ++i) { 
         for(j = 0; j < 10; ++j) {
             MAP[i*2 + j*2 * 32] = 0x0015;
@@ -128,7 +128,7 @@ void classChooseScene(Class *class) {
 
     setLightLayer(0x0);
 
-    u16* MAP = screenBlock(25);
+    u16* MAP = TILE_BACKGROUND_SCREEN_BLOCK;
     for(i = 0; i < 15; ++i) { 
         for(j = 0; j < 10; ++j) {
             MAP[i*2 + j*2 * 32] = 0x0015;
@@ -138,7 +138,7 @@ void classChooseScene(Class *class) {
         }
     }
 
-    vu16* lightLayer = screenBlock(27);
+    vu16* lightLayer = LIGHT_BACKGROUND_SCREEN_BLOCK;
 
     _RENDER_CHOOSE_SCREEN_;
 
@@ -152,7 +152,7 @@ void classChooseScene(Class *class) {
     Sprite* wizzardIcon = spriteInit(sprites, &next_sprite_index, 112, 80, SIZE_16_16, 0, 0, 744 + 8, 0);
     Sprite* archerIcon = spriteInit(sprites, &next_sprite_index, 176, 80, SIZE_16_16, 0, 0, 768 + 8, 0);
 
-    renderText((u16*) screenBlock(31), "Warrior", (ivec2){.x = 12, .y = 18});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "Warrior", (ivec2){.x = 12, .y = 18});
 
     _RENDER_ARROW_UP_(lightLayer, 5, 14);
     _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
@@ -206,7 +206,7 @@ void classChooseScene(Class *class) {
                 _RENDER_ARROW_UP_(lightLayer, 5, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 5,  6);
 
-                renderText((u16*) screenBlock(31), "Warrior", (ivec2){.x = 12, .y = 18});
+                renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "Warrior", (ivec2){.x = 12, .y = 18});
                 break;
             case 1:
                 _CLEAR_TILE_(lightLayer, 5, 14);
@@ -217,7 +217,7 @@ void classChooseScene(Class *class) {
                 _RENDER_ARROW_UP_(lightLayer, 13, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 13, 6);
 
-                renderText((u16*) screenBlock(31), "Wizard ", (ivec2){.x = 12, .y = 18});
+                renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "Wizard ", (ivec2){.x = 12, .y = 18});
                 break;
             case 2:
                 _CLEAR_TILE_(lightLayer, 5, 14);
@@ -228,7 +228,7 @@ void classChooseScene(Class *class) {
                 _RENDER_ARROW_UP_(lightLayer, 21, 14);
                 _RENDER_ARROW_DOWN_(lightLayer, 21, 6);
 
-                renderText((u16*) screenBlock(31), "Archer ", (ivec2){.x = 12, .y = 18});
+                renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "Archer ", (ivec2){.x = 12, .y = 18});
                 break;
             default:
                 break;
@@ -281,19 +281,19 @@ void classChooseScene(Class *class) {
         }
     }
 
-    renderText((u16*) screenBlock(31), "       ", (ivec2){.x = 12, .y = 18});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "       ", (ivec2){.x = 12, .y = 18});
 }
 
 void gameCompleteScene() {
-    vu16* lightLayer = screenBlock(27);
+    vu16* lightLayer = LIGHT_BACKGROUND_SCREEN_BLOCK;
     setLightLayer(0);
     _RENDER_SIDE_SHADOW_(lightLayer);
     spriteUpdateAll(sprites);
 
-    renderText((u16*) screenBlock(31), "GAME COMPLETE",          (ivec2){.x = 9, .y = 4});
-    renderText((u16*) screenBlock(31), "Time:",                  (ivec2){.x = 10, .y = 6});
-    renderText((u16*) screenBlock(31), gameTime,                 (ivec2){.x = 16, .y = 6});
-    renderText((u16*) screenBlock(31), "press start to play",    (ivec2){.x = 6, .y = 16});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "GAME COMPLETE",          (ivec2){.x = 9, .y = 4});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "Time:",                  (ivec2){.x = 10, .y = 6});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, gameTime,                 (ivec2){.x = 16, .y = 6});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "press start to play",    (ivec2){.x = 6, .y = 16});
 
     {
         i32 k;
@@ -320,7 +320,7 @@ void gameCompleteScene() {
     }
 
     setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
-    setScreenBlock(screenBlock(31), 0);
+    setScreenBlock(GAME_UI_BACKGROUND_SCREEN_BLOCK, 0);
 
     {
         i32 k;
@@ -338,14 +338,14 @@ void gameCompleteScene() {
 }
 
 void gameFailedScene() {
-    vu16* lightLayer = screenBlock(27);
+    vu16* lightLayer = LIGHT_BACKGROUND_SCREEN_BLOCK;
     setLightLayer(0x1E);
     _RENDER_SIDE_SHADOW_(lightLayer);
 
-    renderText((u16*) screenBlock(31), "YOU DIED",               (ivec2){.x = 12, .y = 4});
-    renderText((u16*) screenBlock(31), "Time:",                  (ivec2){.x = 10, .y = 6});
-    renderText((u16*) screenBlock(31), gameTime,                 (ivec2){.x = 16, .y = 6});
-    renderText((u16*) screenBlock(31), "press start to play",    (ivec2){.x = 6, .y = 16});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "YOU DIED",               (ivec2){.x = 12, .y = 4});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "Time:",                  (ivec2){.x = 10, .y = 6});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, gameTime,                 (ivec2){.x = 16, .y = 6});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, "press start to play",    (ivec2){.x = 6, .y = 16});
 
     while (1) {
         waitVBlank();
@@ -358,7 +358,7 @@ void gameFailedScene() {
     }
 
     setPalette(BACKGROUND_PALETTE, DEFAULT_PALETTE);
-    setScreenBlock(screenBlock(31), 0);
+    setScreenBlock(GAME_UI_BACKGROUND_SCREEN_BLOCK, 0);
 
     {
         i32 k;
@@ -491,15 +491,15 @@ i32 gameScene(Class *chosenClass) {
         putOnItem(&player, _DEFAULT_BOW_ITEM_);
     }
     
-    generateFloor(&world, *chosenClass);
+    generateFloor(&world, &player);
 
-    _ITEM_STAT_UI_RENDER_(screenBlock(29), 26, 5);
+    _ITEM_STAT_UI_RENDER_(DYNAMIC_UI_BACKGROUND_SCREEN_BLOCK, 26, 5);
     (*_BG2_X_SCROLL_) = -28;
 
     gotoRoom(&world, 0, sprites, &next_sprite_index);
 
     #ifdef _LIGHT_ON_
-        vu16* lightLayer = screenBlock(27);
+        vu16* lightLayer = LIGHT_BACKGROUND_SCREEN_BLOCK;
 
         i32 prevTileX = ((i32) player.position.x) >> _POSITION_FIXED_SCALAR_;
         i32 prevTileY = ((i32) player.position.y) >> _POSITION_FIXED_SCALAR_;
@@ -507,10 +507,10 @@ i32 gameScene(Class *chosenClass) {
         prevTileX /= 8;
         prevTileY /= 8;
 
-        RENDER_LIGHT_BULB(screenBlock(27), prevTileX, prevTileY);
+        RENDER_LIGHT_BULB(LIGHT_BACKGROUND_SCREEN_BLOCK, prevTileX, prevTileY);
     #endif
 
-    renderText((u16*) screenBlock(31), gameTime, (ivec2){.x = 25, .y = 18});
+    renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, gameTime, (ivec2){.x = 25, .y = 18});
     
     Timer timer;
     initTimer(&timer);
@@ -569,11 +569,11 @@ i32 gameScene(Class *chosenClass) {
                     playerX /= 8;
                     playerY /= 8;
 
-                    SHADOW_BULB(screenBlock(27), prevTileX, prevTileY);
+                    SHADOW_BULB(LIGHT_BACKGROUND_SCREEN_BLOCK, prevTileX, prevTileY);
                     updateWorldLight(&world);
                     prevTileX = playerX;
                     prevTileY = playerY;
-                    RENDER_DYNAMIC_LIGHT_BULB(screenBlock(27), playerX, playerY);
+                    RENDER_DYNAMIC_LIGHT_BULB(LIGHT_BACKGROUND_SCREEN_BLOCK, playerX, playerY);
                 }
             #endif
 
@@ -604,7 +604,7 @@ i32 gameScene(Class *chosenClass) {
             gameTime[1] = 48 + time.y % 10;
             gameTime[3] = 48 + time.z / 10;
             gameTime[4] = 48 + time.z % 10;
-            renderText((u16*) screenBlock(31), gameTime, (ivec2){.x = 25, .y = 18});
+            renderText((u16*) GAME_UI_BACKGROUND_SCREEN_BLOCK, gameTime, (ivec2){.x = 25, .y = 18});
 
             prevSecond = GET_GLOBAL_TIME;
         }
@@ -617,11 +617,11 @@ i32 gameScene(Class *chosenClass) {
             playerY /= 8;
 
             if((prevTileX != playerX) || (prevTileY != playerY)) {
-                SHADOW_BULB(screenBlock(27), prevTileX, prevTileY);
+                SHADOW_BULB(LIGHT_BACKGROUND_SCREEN_BLOCK, prevTileX, prevTileY);
                 updateWorldLight(&world);
                 prevTileX = playerX;
                 prevTileY = playerY;
-                RENDER_DYNAMIC_LIGHT_BULB(screenBlock(27), playerX, playerY);
+                RENDER_DYNAMIC_LIGHT_BULB(LIGHT_BACKGROUND_SCREEN_BLOCK, playerX, playerY);
             }
 
         #endif
@@ -631,7 +631,7 @@ i32 gameScene(Class *chosenClass) {
         player_update(&player, &world, &world.rooms[world.activeRoom]);
 
         if(player.health <= 0 || game_completed == 1) {
-            setScreenBlock(screenBlock(31), 0);
+            setScreenBlock(GAME_UI_BACKGROUND_SCREEN_BLOCK, 0);
 
             ivec3 time = formatTime(&timer);
 

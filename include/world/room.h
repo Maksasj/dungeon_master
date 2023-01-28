@@ -17,6 +17,8 @@
 #include "../entity/prototypes/projectile.h"
 #include "../light.h"
 
+#include "tile.h"
+
 #include "../item/item.h"
 
 /* Constant that limits entity count per single room */
@@ -31,33 +33,37 @@
 /* Constant that limits light count per single room */
 #define _MAX_LIGHT_COUNT_ 5
 
+/* Structure that contains all needed information to discribe room */
+
 /* Enum that contains all currently available rooms in game */
 typedef enum RoomType {
-    BASIC,
-    TWO_NINJA_SKELETONS_ENEMIES,
-    FOUR_ANCIENT_SKELETONS,
-    LABYRINTH1,
-    LABYRINTH2,
-    LABYRINTH3,
-    DARK_LABYRINTH,
-    ANCIENT,
-    DUMBBELL,
-    SYMMETRIC1,
-    SYMMETRIC2,
-    CORRIDORS,
-    KING_IN_CORRIDOR,
-    PAC_MAN,
-    PYRAMID,
-    SPIKE_MADNESS,
-    BOSS,
-    FLOOR_END,
-    END_GAME
+    FLOOR_BEGINNING_ROOM,
+
+    TWO_NINJA_SKELETON_ROOM,
+    FOUR_ANCIENT_SKELETON_ROOM,
+    LABYRINTH_1_ROOM,
+    LABYRINTH_2_ROOM,
+    LABYRINTH_3_ROOM,
+    DARK_LABYRINTH_ROOM,
+    ANCIENT_ROOM,
+    DUMBBELL_ROOM,
+    SYMMETRIC_1_ROOM,
+    SYMMETRIC_2_ROOM,
+    CORRIDORS_ROOM,
+    KING_IN_CORRIDOR_ROOM,
+    PAC_MAN_ROOM,
+    PYRAMID_ROOM,
+    SPIKE_MADNESS_ROOM,
+
+    NECROMANCER_BOSS_ROOM,
+
+    FLOOR_END_ROOM,
+    END_GAME_ROOM,
 } RoomType;
 
-/* Structure that contains all needed information to discribe room */
 typedef struct Room {
     /* Type of the room */
-    RoomType type;
+    u32 type;
 
     /* Entity pool, basically array that contains all entities */
     Entity entity_pool[_MAX_ENTITY_PER_ROOM_];
@@ -136,14 +142,6 @@ void deleteEntityFromRoom(Entity* _entity, Room* _room);
  * @param   _room Pointer to the room wich cotains listed projectile
 */
 void deleteProjectileFromRoom(Entity* _projectile, Room* _room);
-
-/**
- * Unlocks room, basically changes a fiew tiles
- * 
- * @param   _world Pointer to world structure
- * @param   _room Pointer to the room
-*/
-void unLockRoom(void* _world, Room* _room);
 
 void loadTmpEntitySprite(Room* _room);
 

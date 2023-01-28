@@ -88,7 +88,7 @@ void updatePlayerSpec(PlayerSpecData* _pspec, Entity *_entity) {
         spriteSetHorizontalFlip(_pspec->armor, flip);
     }
 
-    vu16* uiLayer = screenBlock(31);
+    vu16* uiLayer = GAME_UI_BACKGROUND_SCREEN_BLOCK;
 
     i32 player_max_health =  
         _entity->base_stats.stamina + 
@@ -190,6 +190,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
             break;
     }
 
+    /*
     if (world_position.x < 0)
         _self->vel.x = 10;
     else if (world_position.x > GRID_LENGTH)
@@ -198,7 +199,8 @@ void player_update(Entity* _self, World* _world, Room* _room) {
         _self->vel.y = 10;
     else if (world_position.y > GRID_HEIGHT)
        _self->vel.y = -10;
-    
+    */
+
     if (buttonPressed(_BUTTON_RIGHT_)) {
         _self->vel.x += VELOCITY_CONSTANT;
         
@@ -239,6 +241,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     }
 
     CollisionType xCol = worldCollision(_world, newIVec2((_self->position.x >> _POSITION_FIXED_SCALAR_) + _self->vel.x, (_self->position.y >> _POSITION_FIXED_SCALAR_)));
+    
     if(xCol == NONE || xCol == OPENED_DOOR || xCol == NEXT_FLOOR_ENTRANCE || xCol == TRAP) {
         _self->position.x += _self->vel.x;
     }
@@ -277,7 +280,7 @@ void player_update(Entity* _self, World* _world, Room* _room) {
     
         #ifdef _LIGHT_ON_
             //Reload light
-            vu16* pointer = screenBlock(27);
+            vu16* pointer = LIGHT_BACKGROUND_SCREEN_BLOCK;
             int x;
             int y;
             
@@ -293,11 +296,11 @@ void player_update(Entity* _self, World* _world, Room* _room) {
 
         _SMOOTH_PALETT_TRANSITION_TO_BLACK_;
 
-        generateFloor(_world, pspec->class);
+        generateFloor(_world, _self);
 
         #ifdef _LIGHT_ON_
             //Reload light
-            vu16* pointer = screenBlock(27);
+            vu16* pointer = LIGHT_BACKGROUND_SCREEN_BLOCK;
             int x;
             int y;
             

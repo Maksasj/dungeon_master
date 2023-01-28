@@ -1,5 +1,4 @@
 #include "../../include/entity/entity.h"
-#include "../../include/world/world.h"
 
 Entity entityReload(Entity _self) {
     _self.vel = newIVec2(0, 0);

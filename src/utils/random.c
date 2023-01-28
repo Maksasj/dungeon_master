@@ -10,3 +10,7 @@ u32 random() {
 void setSeed(u32 _seed) {
     RAND_NEXT = _seed;
 }
+
+inline u32 getRandomInRange(u32 min, u32 max) {
+    return (random() % (max - min + 1)) + min;
+}
